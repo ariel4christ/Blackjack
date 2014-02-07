@@ -1,0 +1,35 @@
+
+===Reunion préliminaire 06/02/2014===
+
+Décision du projet à implémenter : jeu de blackjack réseau (multi-joueurs)
+
+Idées générales de répartition du jeu: 
+
+  -Client: 
+  
+    reçoit et envoie des informations du serveur
+    lorqu'il les reçoit, il les affiche en local
+    lorsqu'il effectue une action il l'envoi tout d'abord au serveur qui le valide ensuite et lui renvoie l'information traitée
+    sert d'interface Homme-machine
+    
+  -Serveur:
+    
+    joue le role de la banque du blackjack
+    valide les coups envoyés par les differents clients
+    effectue des calculs pour la partie en cours --> arbitre
+    
+Estimation du travail à effectuer dans les 2 grandes parties du Jeu:
+
+  - Binôme client: (Al,T)
+    
+    Interface Graphique: affiche en fonction des informations du serveur
+    
+  - Binôme Serveur: (C,Ar)
+  
+    Gerer les calculs
+    l'aspet réseau
+    l'arbitre
+  
+  Remarque: ceci n'est valable que sous validation du projet par les encadrants
+  et ne constitue qu'une estimation des tâches qui pourront bien évidemment changer  
+/************************************************************************************************************/
