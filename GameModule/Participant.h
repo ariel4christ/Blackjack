@@ -1,8 +1,19 @@
-abstract class Participant
+#ifndef _PARTICIPANT_H
+#define _PARTICIPANT_H
+
+class Participant
 {
-private:
+protected:
 	int id;
+	long balance;
+
+public:
+	void decreaseBalance(int i);
+	void increaseBalance(int i);
 
 protected:
-	long balance;
+	Participant();
+
 };
+
+#endif
