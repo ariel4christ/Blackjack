@@ -5,21 +5,20 @@ using namespace std;
 
 Hand::Hand()
 {
-
 }
 
 Hand::Hand(Card& c)
 {
 	Hand();
-	this->hand.push_back(&c);
+	this->cards.push_back(&c);
 }
 
 Hand::Hand(Hand& h)
 {
-	this->hand.clear();
-	for (unsigned int i = 0; i < h.hand.size(); i++)
+	this->cards.clear();
+	for (unsigned int i = 0; i < h.cards.size(); i++)
 	{
-		this->hand.push_back(h.hand[i]);
+		this->cards.push_back(h.cards[i]);
 	}
 }
 
@@ -30,12 +29,12 @@ Hand::~Hand()
 
 int Hand::numberOfCards()
 {
-	return this->hand.size();
+	return this->cards.size();
 }
 
 vector<Card*> Hand::getCards()
 {
-	return this->hand;
+	return this->cards;
 }
 
 void Hand::addCard(Card& c)
@@ -43,18 +42,16 @@ void Hand::addCard(Card& c)
 	if (numberOfCards() > 22)
 		throw (new exception("Main pleine"));
 
-	this->hand.push_back(&c);
+	this->cards.push_back(&c);
 }
 
 bool Hand::isMultiValued()
 {
-	for (unsigned int i = 0; i < this->hand.size(); i++)
+	for (unsigned int i = 0; i < this->cards.size(); i++)
 	{
 		// Si la valeur de la main est > 11, alors la deuxième valeur de la main est > 21
-		if (this->hand[i]->getType() == AS && this->getValue1() <= 11)
-		{
+		if (this->cards[i]->getType() == AS && this->getValue1() <= 11)
 			return true;
-		}
 	}
 
 	return false;
@@ -63,8 +60,8 @@ bool Hand::isMultiValued()
 int Hand::getValue1()
 {
 	int sum = 0;
-	for (unsigned int i = 0; i < this->hand.size(); i++)
-		sum += this->hand[i]->getValue();
+	for (unsigned int i = 0; i < this->cards.size(); i++)
+		sum += this->cards[i]->getValue();
 
 	return sum;
 }
@@ -87,18 +84,34 @@ bool Hand::isBlackjack()
 
 bool Hand::hasAs()
 {
-	for (unsigned int i = 0; i < this->hand.size(); i++)
+	for (unsigned int i = 0; i < this->cards.size(); i++)
 	{
-		if (this->hand[i]->getType() == AS) 
+		if (this->cards[i]->getType() == AS)
 			return true;
 	}
 
 	return false;
 }
 
-/* Je ne vois plus très bien à quoi sert cette fonction*/
 void Hand::deleteHand()
 {
-	this->hand.clear();
+	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
+	{
+		delete *it;  // Est-ce que ça marche ici ???
+	}
+	this->cards.clear();
 	this->~Hand();
+}
+
+void Hand::setHand(Hand& h)
+{
+	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
+	{
+		delete *it;  // Est-ce que ça marche ici ???
+	}
+	this->cards.clear();
+	for (unsigned int i = 0; i < h.cards.size(); i++)
+	{
+		this->cards.push_back(h.cards[i]);
+	}
 }

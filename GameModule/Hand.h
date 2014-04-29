@@ -6,7 +6,7 @@
 class Hand 
 {
 protected:
-	std::vector<Card*> hand;
+	std::vector<Card*> cards;
 
 public:
 	Hand();
@@ -15,15 +15,16 @@ public:
 	~Hand();
 
 	int numberOfCards();
-	void addCard(Card& c);
-	void deleteHand();
-	std::vector<Card*> getCards();
 	int getValue1();
 	int getValue2();
-	bool hasAs();
 	bool isMultiValued();
-	virtual bool isBlackjack();
-	
+	bool hasAs();
+	virtual bool isBlackjack();  // à redéfinir dans PlayerHand ?
+
+	std::vector<Card*> getCards();
+	void addCard(Card& c);
+	void deleteHand();
+	void setHand(Hand& h);
 
 };
 

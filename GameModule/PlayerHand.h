@@ -8,7 +8,9 @@ protected:
 	int bet;
 
 public:
-	virtual bool isBlackjack();
+	PlayerHand(int i);
+	~PlayerHand();
+
 };
 
 #endif

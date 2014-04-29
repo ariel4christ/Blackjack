@@ -1,4 +1,5 @@
 #include "BankGame.h"
+#include <algorithm>  // std::random_shuffle()
 
 using namespace std;
 
@@ -44,9 +45,13 @@ BankGame::BankGame(int bankBalance):
 	this->newDeck();
 }
 
-void BankGame::burnCards()
+BankGame::~BankGame()
 {
-
+	for (vector<Card*>::iterator it = this->deck.begin(); it != this->deck.end(); it++)
+	{
+		delete *it;  // Est-ce que ça marche ici ???
+	}
+	this->deck.clear();
 }
 
 void BankGame::newDeck()
@@ -61,5 +66,23 @@ void BankGame::newDeck()
 
 void BankGame::shuffleDeck()
 {
+	/*
+	!!! A METTRE AU DEBUT DU MAIN DE L'EXECUTABLE BANQUE !!!
+	#include <cstdlib>  // std::rand
+	#include <ctime>  // std::time
+	srand((unsigned) time(0));
+	*/
 	random_shuffle(this->deck.begin(), this->deck.end());
 }
+
+void BankGame::burnCards()
+{
+	if (this->deck.size() < 5)
+		throw new exception("impossible de bruler 5 cartes");
+	else for (int i = 1; i <= 5; i++)
+	{
+			delete this->deck[deck.size() - 1];
+			this->deck.pop_back();
+	}
+}
+

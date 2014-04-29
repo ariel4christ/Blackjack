@@ -2,20 +2,26 @@
 #define _BANKGAME_H
 
 #include <vector>
-#include <algorithm>
 #include "../GameModule/Card.h"
 #include "../GameModule/Bank.h"
 #include "../GameModule/Player.h"
+#include "../CommunicationModule/BankCommunication.h"
+#include "../InterfaceModule/BankInterface.h"
 
 class BankGame
 {
 private:
-	std::vector<Card*> deck;
 	static int betMin;
 	static int betMax;
 	static int balancePlayerInit;
+
+	std::vector<Card*> deck;
 	Bank bank;
 	std::vector<Player*> player;
+
+	BankCommunication com;
+	BankInterface interface;
+
 
 public:
 	static int getBetMin();
@@ -26,6 +32,7 @@ public:
 	static void setBalancePlayerInit(int i);
 
 	BankGame(int bankBalance);
+	~BankGame();
 	void runGame();
 	
 
