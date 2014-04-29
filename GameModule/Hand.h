@@ -1,12 +1,12 @@
 #ifndef _HAND_H
 #define _HAND_H
 #include "Card.h"
+#include <vector>
 
 class Hand 
 {
 protected:
-	Card* hand[22];
-	int index;
+	std::vector<Card*> hand;
 
 public:
 	Hand();
@@ -14,11 +14,10 @@ public:
 	Hand(Hand& h);
 	~Hand();
 
-	/*Une main doit-elle créer de nouvelles cartes ou bien juste stocker les adresses vers ls cartes ?*/
 	int numberOfCards();
 	void addCard(Card& c);
 	void deleteHand();
-	Card** getCards();
+	std::vector<Card*> getCards();
 	int getValue1();
 	int getValue2();
 	bool hasAs();

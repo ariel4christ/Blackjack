@@ -6,7 +6,9 @@ class PlayerHand : public Player
 {
 protected:
 	int bet;
-	
+
+public:
+	virtual bool isBlackjack();
 };
 
 #endif
