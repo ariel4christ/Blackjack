@@ -1,7 +1,7 @@
 #include "Card.h"
 
+// Initialisation par défaut de la variable statique sID
 int Card::sId = 0;
-
 
 
 Card::Card(EType t)
@@ -10,6 +10,7 @@ Card::Card(EType t)
 	this->id = this->sId;
 	this->type = t;
 }
+
 
 Card::~Card()
 {

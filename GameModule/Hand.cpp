@@ -92,6 +92,8 @@ bool Hand::hasAs()
 		if (this->hand[i]->getType() == AS) 
 			return true;
 	}
+
+	return false;
 }
 
 /* Je ne vois plus très bien à quoi sert cette fonction*/

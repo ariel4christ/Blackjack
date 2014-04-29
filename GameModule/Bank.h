@@ -6,7 +6,14 @@
 class Bank : public Participant
 {
 private:
-	Hand hand;
+	Hand *hand;
+
+public:
+	Bank(int bankBalance);
+	~Bank();
+
+	virtual void newHand();
+	void deleteHand();
 };
 
 #endif

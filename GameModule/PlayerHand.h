@@ -1,8 +1,8 @@
 #ifndef _PLAYERHAND_H
 #define _PLAYERHAND_H
-#include "Player.h"
+#include "Hand.h"
 
-class PlayerHand : public Player
+class PlayerHand : public Hand
 {
 protected:
 	int bet;

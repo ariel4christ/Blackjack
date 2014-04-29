@@ -10,9 +10,10 @@ protected:
 public:
 	void decreaseBalance(int i);
 	void increaseBalance(int i);
+	virtual void newHand()=0;
 
 protected:
-	Participant();
+	Participant(int i, int b);
 
 };
 
