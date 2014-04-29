@@ -1,11 +1,10 @@
 #ifndef _CARD_H
 #define _CARD_H
 
-class Card 
-{
+enum EType { AS = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
 
-	enum EType {AS=1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK=10, QUEEN=10, KING=10};
-	
+class Card 
+{	
 private:
 	int id;
 	static int sId;
@@ -18,6 +17,7 @@ public:
 	Card& operator=(Card& c);
 
 	int getValue();
+	EType getType();
 };
 
 #endif
