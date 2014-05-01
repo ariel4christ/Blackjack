@@ -47,6 +47,20 @@ BankGame::BankGame(int bankBalance):
 
 BankGame::~BankGame()
 {
+	// Désallocation des cartes restantes dans deck
+	this->clearDeck();
+
+	// Désallocation des joueurs
+	for (vector<Player*>::iterator it = this->player.begin(); it != this->player.end(); it++)
+	{
+		(*it)->~Player();  // Est-ce que ça marche ici ???
+		delete *it;
+	}
+}
+
+void BankGame::clearDeck()
+{
+	// Désallocation des cartes
 	for (vector<Card*>::iterator it = this->deck.begin(); it != this->deck.end(); it++)
 	{
 		delete *it;  // Est-ce que ça marche ici ???
@@ -56,10 +70,13 @@ BankGame::~BankGame()
 
 void BankGame::newDeck()
 {
-	this->deck.clear();
-	for (int i = 1; i <= 13; i++)
+	this->clearDeck();
+	
+	// 24 = 6 paquets * 4 fois la cartes dans un paquet
+	// 24*13 = 312
+	for (int j = 0; j < 24; j++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int i = 1; i <= 13; i++)
 			this->deck.push_back(new Card((EType)i));
 	}
 }
@@ -81,8 +98,7 @@ void BankGame::burnCards()
 		throw new exception("impossible de bruler 5 cartes");
 	else for (int i = 1; i <= 5; i++)
 	{
-			delete this->deck[deck.size() - 1];
-			this->deck.pop_back();
+			delete *(this->deck.end());  // Désallocation ???
+			this->deck.pop_back();  // Supression du pointeur de la liste
 	}
 }
-

@@ -31,7 +31,7 @@ public:
 	Player(int i, int pBalance);
 
 	/**
-	 * Destructeur.
+	 * Destructeur. Destruction des mains et des cartes.
 	 * @see Hand::deleteHand()
 	 * @see Hand::~Hand()
 	 */

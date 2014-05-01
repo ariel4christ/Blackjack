@@ -10,7 +10,7 @@
 class Bank : public Participant
 {
 private:
-	Hand *hand;  /**< Pointeur vers Hand Main de la banque. */
+	Hand *hand;  /**< Pointeur vers Hand. Main de la banque. */
 
 public:
 

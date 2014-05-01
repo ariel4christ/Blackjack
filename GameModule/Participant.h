@@ -9,7 +9,7 @@ class Participant
 {
 protected:
 	int id;  /**< Entier. Identifiant du participant. */
-	long balance;  /**< Entier long. Solde du participant */
+	long balance;  /**< Entier long. Solde du participant. */
 
 public:
 
