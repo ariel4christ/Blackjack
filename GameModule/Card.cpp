@@ -16,7 +16,7 @@ Card::~Card()
 {
 }
 
-Card::Card(Card& c)
+Card::Card(const Card& c)
 {
 	this->sId++;
 	this->id = this->sId;

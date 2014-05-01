@@ -9,6 +9,8 @@ Bank::Bank(int bankBalance) :
 
 Bank::~Bank()
 {
+	this->hand->deleteHand();
+	delete hand;
 }
 
 void Bank::newHand()

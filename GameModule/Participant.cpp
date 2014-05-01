@@ -15,3 +15,7 @@ id(i),
 balance(b)
 {
 }
+
+Participant::~Participant()
+{
+}

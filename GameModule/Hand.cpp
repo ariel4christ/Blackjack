@@ -13,7 +13,7 @@ Hand::Hand(Card& c)
 	this->cards.push_back(&c);
 }
 
-Hand::Hand(Hand& h)
+Hand::Hand(const Hand& h)
 {
 	this->cards.clear();
 	for (unsigned int i = 0; i < h.cards.size(); i++)
@@ -32,17 +32,17 @@ int Hand::numberOfCards()
 	return this->cards.size();
 }
 
-vector<Card*> Hand::getCards()
+vector<Card*>& Hand::getCards()
 {
 	return this->cards;
 }
 
-void Hand::addCard(Card& c)
+void Hand::addCard(Card *c)
 {
-	if (numberOfCards() > 22)
+	if (this->numberOfCards() > 22)
 		throw (new exception("Main pleine"));
 
-	this->cards.push_back(&c);
+	this->cards.push_back(c);
 }
 
 bool Hand::isMultiValued()
@@ -103,7 +103,7 @@ void Hand::deleteHand()
 	this->~Hand();
 }
 
-void Hand::setHand(Hand& h)
+void Hand::setHand(const Hand& h)
 {
 	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
 	{

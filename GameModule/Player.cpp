@@ -17,3 +17,11 @@ void Player::deleteHand(Hand *h)
 	h->deleteHand();
 	h = NULL;
 }
+
+Player::~Player()
+{
+	this->hand->deleteHand();
+	this->hand2->deleteHand();
+	delete hand;
+	delete hand2;
+}
