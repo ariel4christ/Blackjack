@@ -67,7 +67,7 @@ bool Hand::isMultiValued()
 {
 	for (unsigned int i = 0; i < this->cards.size(); i++)
 	{
-		// Si la valeur de la main est > 11, alors la deuxième valeur de la main est > 21
+		// Si la valeur de la main est > 11, alors la deuxiÃ§me valeur de la main est > 21
 		if (this->cards[i]->getType() == AS && this->getValue1() <= 11)
 			return true;
 	}
@@ -103,7 +103,7 @@ void Hand::deleteHand()
 {
 	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
 	{
-		delete *it;  // Est-ce que ça marche ici ???
+		delete *it;  // Est-ce que Ã§a marche ici ???
 	}
 	this->cards.clear();
 	this->~Hand();
@@ -113,7 +113,7 @@ void Hand::setHand(const Hand& h)
 {
 	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
 	{
-		delete *it;  // Est-ce que ça marche ici ???
+		delete *it;  // Est-ce que Ã§a marche ici ???
 	}
 	this->cards.clear();
 	for (unsigned int i = 0; i < h.cards.size(); i++)
@@ -127,6 +127,6 @@ void Hand::trandferSecondCard(Hand *h)
 	if (this->numberOfCards() != 2)
 		throw new exception("Impossible : Nombre de cartes incorrecte");
 
-	h->addCard(this->addCard[1]);
+	h->addCard(this->cards[1]);
 	this->cards.pop_back();
 }
