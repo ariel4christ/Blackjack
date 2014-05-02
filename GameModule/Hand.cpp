@@ -32,31 +32,6 @@ int Hand::numberOfCards()
 	return this->cards.size();
 }
 
-vector<Card*>& Hand::getCards()
-{
-	return this->cards;
-}
-
-void Hand::addCard(Card *c)
-{
-	if (this->numberOfCards() > 22)
-		throw (new exception("Main pleine"));
-
-	this->cards.push_back(c);
-}
-
-bool Hand::isMultiValued()
-{
-	for (unsigned int i = 0; i < this->cards.size(); i++)
-	{
-		// Si la valeur de la main est > 11, alors la deuxième valeur de la main est > 21
-		if (this->cards[i]->getType() == AS && this->getValue1() <= 11)
-			return true;
-	}
-
-	return false;
-}
-
 int Hand::getValue1()
 {
 	int sum = 0;
@@ -74,10 +49,28 @@ int Hand::getValue2()
 	else return this->getValue1() + 10;
 }
 
-bool Hand::isBlackjack()
+vector<Card*>& Hand::getCards()
 {
-	if (this->numberOfCards() == 2 && this->getValue1() == 21)
-		return true;
+	return this->cards;
+}
+
+void Hand::addCard(Card *c)
+{
+	if (this->numberOfCards() > 22)
+		throw (new exception("Main pleine"));
+
+	this->cards.push_back(c);
+}
+
+
+bool Hand::isMultiValued()
+{
+	for (unsigned int i = 0; i < this->cards.size(); i++)
+	{
+		// Si la valeur de la main est > 11, alors la deuxième valeur de la main est > 21
+		if (this->cards[i]->getType() == AS && this->getValue1() <= 11)
+			return true;
+	}
 
 	return false;
 }
@@ -91,6 +84,19 @@ bool Hand::hasAs()
 	}
 
 	return false;
+}
+
+bool Hand::isBlackjack()
+{
+	if (this->numberOfCards() == 2 && this->getValue1() == 21)
+		return true;
+
+	return false;
+}
+
+bool Hand::isPair()
+{
+	return this->cards[0]->getType() == this->cards[1]->getType();
 }
 
 void Hand::deleteHand()
@@ -114,4 +120,12 @@ void Hand::setHand(const Hand& h)
 	{
 		this->cards.push_back(h.cards[i]);
 	}
+}
+
+void Hand::trandferSecondCard(Hand &h)
+{
+	if (this->numberOfCards() != 2)
+		throw new exception("Impossible : Nombre de cartes incorrecte");
+	h.addCard(this->addCard[1]);
+	this->cards.pop_back();
 }

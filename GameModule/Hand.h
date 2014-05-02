@@ -60,6 +60,21 @@ public:
 	int getValue2();
 
 	/**
+	* Méthode qui retourne le vecteur de pointeurs de cartes de la main
+	* @return vector<Card*>& Cartes de la main.
+	*/
+	std::vector<Card*>& getCards();
+
+
+	/**
+	* Méthode qui ajoute la carte en paramètre à la liste des ca
+	* Lance une exception si la main contient déjà 22 cartes.
+	* @see Hand::numberOfCards()
+	* @param c Pointeur vers la carte à ajouter à la main.
+	*/
+	void addCard(Card *c);
+
+	/**
 	 * Méthode retournant VRAI si la main a deux valeurs <= 21, et FAUX sinon.
    	 * (i.e. VRAI si la main a un As qui peut avoir pour valeur 11 sans que la valeur totale de la main ne dépasse 21).
 	 * @see Card::getType()
@@ -82,18 +97,12 @@ public:
 	virtual bool isBlackjack();  // à redéfinir dans PlayerHand ?
 
 	/**
-	 * Méthode qui retourne le vecteur de pointeurs de cartes de la main
-	 * @return vector<Card*>& Cartes de la main.
+	 * Méthode retournant VRAI si les deux premières cartes de la main ont le même EType. Retourne FAUX sinon.
+	 * @see Card::getType()
+	 * @return Booléen.
 	 */
-	std::vector<Card*>& getCards();
+	bool isPair();
 
-	/**
-	 * Méthode qui ajoute la carte en paramètre à la liste des ca
-	 * Lance une exception si la main contient déjà 22 cartes.
-	 * @see Hand::numberOfCards()
-	 * @param c Pointeur vers la carte à ajouter à la main.
-	 */
-	void addCard(Card *c);
 
 	/**
 	 * Méthode qui supprime la main ET les cartes qu'elle contient.
@@ -107,6 +116,14 @@ public:
 	 * @param h Hand.
 	 */
 	void setHand(const Hand& h);
+
+	/**
+	 * Méthode qui transfère le 2eme carte de la main courante vers la main en paramètre.
+	 * Ne fonctionne que s'il n'y a que 2 cartes dans la main. Lance une exception sinon.
+	 * @see addCard()
+	 * @param h Hand (main) où on ajoute le pointeur de la 2eme carte.
+	 */
+	void trandferSecondCard(Hand &h);
 
 };
 

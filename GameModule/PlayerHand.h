@@ -41,6 +41,16 @@ public:
 	 */
 	~PlayerHand();
 
+	/**
+	 * Setteur de l'attribut bet.
+	 * @param bet Nouvelle mise
+	 */
+	void setBet(int bet);
+
+	/**
+	 * Méthode doublant la valeur de l'attribut bet (mise).
+	 */
+	void doubleBet();
 };
 
 #endif

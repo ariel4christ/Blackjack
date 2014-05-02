@@ -21,3 +21,13 @@ bet(i)
 PlayerHand::~PlayerHand()
 {
 }
+
+void PlayerHand::setBet(int bet)
+{
+	this->bet = bet;
+}
+
+void PlayerHand::doubleBet()
+{
+	this->bet *= 2;
+}
