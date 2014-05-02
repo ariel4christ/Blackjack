@@ -1,6 +1,13 @@
 #ifndef _BANKCOMMUNICATION_H
 #define _BANKCOMMUNICATION_H
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <stdexcept>
+#include <string>
+
 class PlayerCommunication
 {
 
@@ -15,7 +22,7 @@ public:
     PlayerCommunication& operator=(const PlayerCommunication &b);
     ~PlayerCommunication();
 
-    void AskToHIt();
+    void AskToHIt(int secondHand);
     void Bet(int bet);
     int CheckFiles();
     void CreateFiles(int id);
@@ -23,7 +30,7 @@ public:
     void EnterGame();
     void LeaveGame();
     void QuitMessage();
-    char* ReadFile();
+    std::string ReadFile();
     void RespondInsurance(int val);
     void Split();
     void Stand();
