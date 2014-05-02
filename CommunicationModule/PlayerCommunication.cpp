@@ -57,24 +57,36 @@ void PlayerCommunication::CreateFiles(int id)
                 throw std::Exception("Erreur de création du fichier in");
             if ((mkfifo("joueur0.out",S_IRWXU)) != 0)
                 throw std::Exception("Erreur de création du fichier out");
+            this.id = id;
+            this.fifoNameIn = "joueur0.in";
+            this.fifoNameOut = "joueur0.out";
             break;
         case 1:
             if ((mkfifo("joueur1.in",S_IRWXU)) != 0)
                 throw std::Exception("Erreur de création du fichier in");
             if ((mkfifo("joueur1.out",S_IRWXU)) != 0)
                 throw std::Exception("Erreur de création du fichier out");
+            this.id = id;
+            this.fifoNameIn = "joueur1.in";
+            this.fifoNameOut = "joueur1.out";
             break;
         case 2:
             if ((mkfifo("joueur2.in",S_IRWXU)) != 0)
                 throw std::Exception("Erreur de création du fichier in");
             if ((mkfifo("joueur2.out",S_IRWXU)) != 0)
                 throw std::Exception("Erreur de création du fichier out");
+            this.id = id;
+            this.fifoNameIn = "joueur2.in";
+            this.fifoNameOut = "joueur2.out";
             break;
         case 3:
             if ((mkfifo("joueur3.in",S_IRWXU)) != 0)
                 throw std::Exception("Erreur de création du fichier in");
             if ((mkfifo("joueur3.out",S_IRWXU)) != 0)
                 throw std::Exception("Erreur de création du fichier out");
+            this.id = id;
+            this.fifoNameIn = "joueur3.in";
+            this.fifoNameOut = "joueur3.out";
             break;
         default:
             break;
@@ -83,6 +95,7 @@ void PlayerCommunication::CreateFiles(int id)
 
 void PlayerCommunication::Double()
 {
+
 
 }
 
@@ -101,8 +114,16 @@ void PlayerCommunication::QuitMessage()
 
 }
 
-void PlayerCommunication::ReadFile()
+char* PlayerCommunication::ReadFile()
 {
+    FILE *file = fopen(fifoNameIn,"r");
+    if (file == (FILE *) NULL)
+        throw std::Exception("Erreur d'ouverture du fichier in");
+
+    char str[32];
+
+    fread(str,sizeof(char),32,file);
+    return str;
 
 }
 

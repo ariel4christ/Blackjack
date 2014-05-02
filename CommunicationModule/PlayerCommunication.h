@@ -6,6 +6,8 @@ class PlayerCommunication
 
 private:
     int id;
+    char fifoNameIn[11];
+    char fifoNameOut[12];
 
 public:
     PlayerCommunication();
@@ -21,7 +23,7 @@ public:
     void EnterGame();
     void LeaveGame();
     void QuitMessage();
-    void ReadFile();
+    char* ReadFile();
     void RespondInsurance();
     void Split();
     void Stand();
