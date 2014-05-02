@@ -39,6 +39,8 @@ public:
 	 * @see Hand::deleteHand()
 	 */
 	void deleteHand();
+
+	inline Hand* getHand() { return hand; }
 };
 
 #endif

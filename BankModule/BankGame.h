@@ -95,6 +95,17 @@ private:
 	void clearDeck();
 
 	/**
+	 * Méthode distribuant les deux premières cartes à tous les joueurs et à la banque.
+	 */
+	void dealCards();
+
+	/**
+	 * Tire une carte du deck et renvoie son pointeur.
+	 * @return Pointeur vers la carte tirée du deck.
+	 */
+	Card* hitCard();
+
+	/**
 	 * Méthode créant un nouveau deck (sabot) neuf. Il contient 312 cartes (24 de chaque EType) non mélangées.
 	 * @see Card::Card()
 	 */
@@ -105,6 +116,7 @@ private:
 	 * @see std::random_suffle()
 	 */
 	void shuffleDeck();
+
 };
 
 #endif

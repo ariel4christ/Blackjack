@@ -12,6 +12,7 @@ Player::~Player()
 	delete hand;
 	delete hand2;
 }
+
 void Player::newHand()
 {
 	if (this->hand == NULL)

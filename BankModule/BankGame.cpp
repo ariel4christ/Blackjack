@@ -58,6 +58,18 @@ BankGame::~BankGame()
 	}
 }
 
+
+void BankGame::burnCards()
+{
+	if (this->deck.size() < 5)
+		throw new exception("impossible de bruler 5 cartes");
+	else for (int i = 1; i <= 5; i++)
+	{
+		delete *(this->deck.end());  // Désallocation ???
+		this->deck.pop_back();  // Supression du pointeur de la liste
+	}
+}
+
 void BankGame::clearDeck()
 {
 	// Désallocation des cartes
@@ -66,6 +78,40 @@ void BankGame::clearDeck()
 		delete *it;  // Est-ce que ça marche ici ???
 	}
 	this->deck.clear();
+}
+
+void BankGame::dealCards()
+{
+	for (unsigned int i = 0; i < this->player.size(); i++)
+	{
+		Card* c;
+		// Tirage de la 1ere carte
+		c = this->hitCard();
+		this->player[i]->getHand()->addCard(c);
+		//this->com.SendCard(/* id joueur, main, carte */);
+
+		// Tirage de la 2nd carte
+		c = NULL;
+		c = this->hitCard();
+		this->player[i]->getHand()->addCard(c);
+		//this->com.SendCard(/* id joueur, main, carte */);
+	}
+
+	// Tirage de la 1ere carte de la banque
+	this->bank.getHand()->addCard(this->hitCard());
+
+	// Tirage de la 2nd carte de la banque
+	this->bank.getHand()->addCard(this->hitCard());
+
+}
+
+Card* BankGame::hitCard()
+{
+	Card *c;
+	c = this->deck.back();
+	this->deck.pop_back();
+
+	return c;
 }
 
 void BankGame::newDeck()
@@ -90,15 +136,4 @@ void BankGame::shuffleDeck()
 	srand((unsigned) time(0));
 	*/
 	random_shuffle(this->deck.begin(), this->deck.end());
-}
-
-void BankGame::burnCards()
-{
-	if (this->deck.size() < 5)
-		throw new exception("impossible de bruler 5 cartes");
-	else for (int i = 1; i <= 5; i++)
-	{
-			delete *(this->deck.end());  // Désallocation ???
-			this->deck.pop_back();  // Supression du pointeur de la liste
-	}
 }
