@@ -16,15 +16,15 @@ public:
     ~PlayerCommunication();
 
     void AskToHIt();
-    void Bet();
+    void Bet(int bet);
     int CheckFiles();
-    void CreateFiles();
+    void CreateFiles(int id);
     void Double();
     void EnterGame();
     void LeaveGame();
     void QuitMessage();
     char* ReadFile();
-    void RespondInsurance();
+    void RespondInsurance(int val);
     void Split();
     void Stand();
     void Surrender();
