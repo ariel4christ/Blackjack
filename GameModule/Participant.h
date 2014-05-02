@@ -35,6 +35,12 @@ public:
 	 */
 	~Participant();
 
+	/**
+	* Getteur de hand.
+	* @return Entier.
+	*/
+	inline int getId() { return id; }
+
 protected:
 
 	/**

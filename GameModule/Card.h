@@ -41,6 +41,12 @@ public:
 	Card& operator=(Card& c);
 
 	/**
+	* Getteur de hand.
+	* @return Entier.
+	*/
+	inline int getId() { return id; }
+
+	/**
 	 * Méthode retournant la valeur de la carte.
 	 * @return Entier Valeur de la carte.
 	 */

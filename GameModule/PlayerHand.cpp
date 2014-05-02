@@ -22,6 +22,11 @@ PlayerHand::~PlayerHand()
 {
 }
 
+int PlayerHand::getBet()
+{
+	return this->bet;
+}
+
 void PlayerHand::setBet(int bet)
 {
 	this->bet = bet;
@@ -30,4 +35,14 @@ void PlayerHand::setBet(int bet)
 void PlayerHand::doubleBet()
 {
 	this->bet *= 2;
+}
+
+bool PlayerHand::getStand()
+{
+	return this->stand;
+}
+
+void PlayerHand::setStand(bool b)
+{
+	this->stand = b;
 }

@@ -10,6 +10,7 @@ class PlayerHand : public Hand
 {
 protected:
 	int bet;  /**< Entier Mise du joueur. */
+	bool stand = false;  /**< Booléen. Vrai si le joueur ne veut plus de carte pour cette main, faux sinon. */
 
 public:
 
@@ -42,6 +43,12 @@ public:
 	~PlayerHand();
 
 	/**
+	 * Getteur de l'attribut bet. Retourne bet.
+	 * @return Entier Mise de la main.
+	 */
+	int getBet();
+
+	/**
 	 * Setteur de l'attribut bet.
 	 * @param bet Nouvelle mise
 	 */
@@ -51,6 +58,18 @@ public:
 	 * Méthode doublant la valeur de l'attribut bet (mise).
 	 */
 	void doubleBet();
+
+	/**
+	 * Getteur de stand.
+	 * @return Booléen.
+	 */
+	bool getStand();
+
+	/**
+	 * Setteur de stand.
+	 * @param b Nouvelle valeur de stand.
+	 */
+	void setStand(bool b);
 };
 
 #endif

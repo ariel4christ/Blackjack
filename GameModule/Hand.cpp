@@ -122,10 +122,11 @@ void Hand::setHand(const Hand& h)
 	}
 }
 
-void Hand::trandferSecondCard(Hand &h)
+void Hand::trandferSecondCard(Hand *h)
 {
 	if (this->numberOfCards() != 2)
 		throw new exception("Impossible : Nombre de cartes incorrecte");
-	h.addCard(this->addCard[1]);
+
+	h->addCard(this->addCard[1]);
 	this->cards.pop_back();
 }

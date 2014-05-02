@@ -111,7 +111,7 @@ public:
 	void deleteHand();
 
 	/**
-	 * Méthode qui désalloue les cartes de la main et copie les pointeurs de cartes de la main h vers la main courante.
+	 * Méthode qui désalloue les cartes de la main courante et copie les pointeurs de cartes de la main h vers la main courante.
 	 * La main h en paramètre n'est pas modifiée.
 	 * @param h Hand.
 	 */
@@ -123,7 +123,7 @@ public:
 	 * @see addCard()
 	 * @param h Hand (main) où on ajoute le pointeur de la 2eme carte.
 	 */
-	void trandferSecondCard(Hand &h);
+	void trandferSecondCard(Hand *h);
 
 };
 
