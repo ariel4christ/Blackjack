@@ -27,7 +27,6 @@ void UserGame::runGame()
 			this->runRound();
 		}
 	}
-
 }
 
 void UserGame::initRound()

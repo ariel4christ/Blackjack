@@ -2,26 +2,6 @@
 
 using namespace std;
 
-PlayerCommunication::PlayerCommunication()
-{
-
-}
-
-PlayerCommunication::PlayerCommunication(const PlayerCommunication &b)
-{
-
-}
-
-PlayerCommunication& PlayerCommunication::operator=(const PlayerCommunication &b)
-{
-
-}
-
-PlayerCommunication::~PlayerCommunication()
-{
-
-}
-
 /**
  * Le joueur demande une carte
  * @param secondHand Entier qui vaut 1 si le joueur à "split" et demande une carte pour sa deuxième main

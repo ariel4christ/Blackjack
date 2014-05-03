@@ -17,11 +17,6 @@ private:
     char fifoNameOut[12];
 
 public:
-    PlayerCommunication();
-    PlayerCommunication(const PlayerCommunication &b);
-    PlayerCommunication& operator=(const PlayerCommunication &b);
-    ~PlayerCommunication();
-
     void AskToHIt(int secondHand);
     void Bet(int bet);
     int CheckFiles();
