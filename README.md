@@ -12,6 +12,19 @@ Un dossier par module. On aura plus qu'à faire les makefile pour compiler chaqu
 
 ## Messages du module Communication
 
+Pour lire tous les messages on pourra utiliser sscanf() pour récupérer les infos de la même façon qu'elles sont envoyées :
+```cpp
+char* str; // Stocke le message reçu
+char* reste; // Stocke le reste du message (ce qu'on a pas encore lu)
+
+On regarde le premier entier du message pour savoir quel type de message c'est
+sscanf(str, "%d %s", id_message, reste)
+
+// Dans un switch en fonction de id_message, on sait ce qu'on doit recevoir en paramètres, donc on peut refaire un sscanf sur 'reste'
+sscanf(reste, "...", ...);
+```
+
+
 ### Joueur vers Banque
 - RespondInsurance (**val** = 0 ou 1) : ***val***
 - Split : **1**
@@ -38,6 +51,7 @@ Un dossier par module. On aura plus qu'à faire les makefile pour compiler chaqu
 - PlayerEntered : **10 *id_joueur***
 - CreditPlayer : **11 *id_joueur* *argent***
 - DebitPlayer : **12 *id_joueur* *argent***
+- SetHand : **13 *id_joueur* *carte1* carte2* ...**
 
 ## Suivi du nombre de joueurs :
 
