@@ -27,7 +27,7 @@ void BankCommunication::AskInsurance()
  */
 int BankCommunication::CheckFiles()
 {
-    int result;
+    int result = 0;
 
     if (access("joueur0.in", R_OK) == 0 && access("joueur0.out", R_OK) == 0)
         result |= (1 << 0);
