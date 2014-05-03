@@ -69,6 +69,7 @@ int PlayerCommunication::CheckFiles()
         return 2;
     if (access("joueur3.in", R_OK) == 0)
         return 3;
+    return -1;
 }
 
 /**

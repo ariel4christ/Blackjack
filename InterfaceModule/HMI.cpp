@@ -30,6 +30,14 @@ int HMI::getBet()
 	return bet;
 }
 
+/**
+ * Affiche l'état du jeu en fonction du jeu et des actions possibles pour le joueur
+ * @param p       le joueur
+ * @param hit     le joueur peut hit ?
+ * @param split   le joueur peut split ?
+ * @param doubler le joueur peut doubler ?
+ * @param stay    le joueur peut stay ?
+ */
 void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay)
 {
 	cout << "#########################" << endl << endl;
@@ -64,4 +72,32 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
     if (stay) cout << "Rester ? (R)" << endl;
     cout << "Abandonner la main" << endl;
     cout << "Abandonner la main ET quitter le jeu" << endl;
+}
+
+/**
+ * Récupère l'action que le joueur souhaite faire
+ * @param  hit     le joueur peut hit ?
+ * @param  split   le joueur peut split ?
+ * @param  doubler le joueur peut doubler ?
+ * @param  stay    le joueur peut stay ?
+ * @return         le caractère correspondant à l'action voulue par le joueur
+ */
+char askAction(bool hit, bool split, bool doubler, bool stay);
+{
+    char response;
+
+    char possibleChoices[4];
+
+    if (hit) possibleChoices[0] = 'C' else possibleChoices[0] = ' ';
+    if (split) possibleChoices[1] = 'P' else possibleChoices[1] = ' ';
+    if (doubler) possibleChoices[2] = 'S' else possibleChoices[2] = ' ';
+    if (stay) possibleChoices[3] = 'R' else possibleChoices[3] = ' ';
+
+    do
+    {
+        cin >> response;
+        if (cin.fail()) cout << "Erreur, veuillez recommencez" << endl;
+    } while (cin.fail() || response == ' ' || (response != possibleChoices[0] && response != possibleChoices[1] && response != possibleChoices[2] && response != possibleChoices[3]))
+
+    return response;
 }
