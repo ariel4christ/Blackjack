@@ -3,7 +3,7 @@
 using namespace std;
 
 Bank::Bank(int bankBalance) :
-	Participant(0, bankBalance)
+	Participant(bankBalance)
 {
 }
 

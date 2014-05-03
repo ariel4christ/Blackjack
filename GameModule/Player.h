@@ -14,6 +14,7 @@ class Player : public Participant
 {
 
 private:
+	int id;  /**< Entier. Identifiant du joueur. */
 	bool blackjack ;  /**< Booléen. Vrai si le joueur fait blackjack, faux sinon. */
 	bool surrender ;  /**< Booléen. Vrai di le joueur a abandonné ses deux main, faux sinon. */
 
@@ -36,6 +37,12 @@ public:
 	 * @see Hand::~Hand()
 	 */
 	~Player();
+
+	/**
+	* Getteur de hand.
+	* @return Entier. Id du joueur.
+	*/
+	inline int getId() { return id; }
 
 	/**
 	 * Méthode créant une nouvelle main. Méthode virtuelle héritée de Participant.

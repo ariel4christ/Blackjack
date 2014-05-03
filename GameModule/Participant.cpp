@@ -10,8 +10,7 @@ void Participant::increaseBalance(int i)
 	this->balance -= i;
 }
 
-Participant::Participant(int i, int b) :
-id(i),
+Participant::Participant(int b) :
 balance(b)
 {
 }

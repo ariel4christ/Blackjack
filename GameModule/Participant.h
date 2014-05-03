@@ -8,7 +8,6 @@
 class Participant
 {
 protected:
-	int id;  /**< Entier. Identifiant du participant. */
 	long balance;  /**< Entier long. Solde du participant. */
 
 public:
@@ -35,20 +34,15 @@ public:
 	 */
 	~Participant();
 
-	/**
-	* Getteur de hand.
-	* @return Entier.
-	*/
-	inline int getId() { return id; }
+	
 
 protected:
 
 	/**
 	 * Constructeur.
-	 * @param i identifiant du participant.
 	 * @param b solde (balance) initial du joueur.
 	 */
-	Participant(int i, int b);
+	Participant(int b);
 
 };
 

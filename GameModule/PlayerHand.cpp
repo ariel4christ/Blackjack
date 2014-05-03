@@ -1,10 +1,6 @@
 #include "PlayerHand.h"
 
 
-Hand::Hand()
-{
-}
-
 PlayerHand::PlayerHand(int i) :
 Hand(),
 bet(i),

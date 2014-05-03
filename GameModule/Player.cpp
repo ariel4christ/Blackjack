@@ -2,7 +2,11 @@
 
 using namespace std;
 
-Player::Player(int i, int pBalance) : blackjack(false),surrender(false), Participant(i, pBalance)
+Player::Player(int i, int pBalance) : 
+blackjack(false),
+surrender(false),
+id(i),
+Participant(pBalance)
 {
 }
 
