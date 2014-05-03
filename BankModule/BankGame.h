@@ -123,7 +123,7 @@ private:
 
 	void quitePlayer(Player *p);
 
-	void runRound();
+	int runRound();
 
 	/**
 	 * Méthode de battage (tri aléatoire) des cartes du deck.

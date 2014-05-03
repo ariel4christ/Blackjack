@@ -142,13 +142,15 @@ void BankGame::initRound()
 		this->newDeck();  // Nouveau deck
 
 	this->com.RoundStart();
-	this->interface.printMessage(/* "Nouveau Tour : attente des mises"*/);
+	cout << endl << "** Nouveau Tour : attente des mises... **" << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
 		int id = this->player[i]->getId();
+
 		string str = this->com.ReadFile(id);
-		int bet = stoi(str);  // std::stoi(str) = string to int
+		int id_message, bet;
+		sscanf(str.c_str, "%d %d", &id_message, bet);
 
 		this->player[i]->newHand(bet);  // Nouvelle main
 		this->player[i]->decreaseBalance(bet);  // Diminution solde
@@ -196,7 +198,7 @@ void BankGame::quitePlayer(Player *p)
 		this->~BankGame();
 }
 
-void BankGame::runRound()
+int BankGame::runRound()
 {
 	// Détermination des blackjack pour chaque joueur
 	for (unsigned int i = 0; i < this->player.size(); i++)
@@ -216,26 +218,49 @@ void BankGame::runRound()
 
 		for (unsigned int i = 0; i < this->player.size(); i++)
 		{
-			int id = player[i]->getId();
 			if (!player[i]->getBlackjack())  // Le joueur ne fait pas blackjack
 			{
+				int id = this->player[i]->getId();
 				this->com.AskInsurance(id);
 				string str = com.ReadFile(id);
 				int response = stoi(str);
+
 				switch (response)
 				{
 				case 0:
 					break;
 				case 4:
-					this->quitePlayer(player[i]);
+					quitePlayer(player[i]);
 					break;
 				case 1:
-					this->player[i]->decreaseBalance(player[i]->getHand()->getBet() / 2);
-					this->bank.increaseBalance(player[i]->getHand()->getBet() / 2);
+					player[i]->decreaseBalance(player[i]->getHand()->getBet() / 2);
+					bank.increaseBalance(player[i]->getHand()->getBet() / 2);
 					com.setBalance(id, player[i]->getBalance());
 					break;
+				default:
+					throw runtime_error("Message incorrect !");
+					break;
 				}
+			}
+		}
 
+		interface.printGameState();
+
+		if (bank.isBankBlackjack())  // La banque fait blackjack
+		{
+			for (unsigned int i = 0; i < this->player.size(); i++)
+			{
+				if (player[i]->hasInsurance())
+				{
+					bank.decreaseBalance(player[i]->getHand()->getBet() / 2);
+					player[i]->increaseBalance(player[i]->getHand()->getBet()*1.5);
+					com.setBalance(player[i]->getId(), player[i]->getBalance());
+					player[i]->deleteHand();
+				}
+				else
+				{
+					player[i]->increaseBalance(player[i]->getHand()->getBet());
+				}
 			}
 		}
 	}

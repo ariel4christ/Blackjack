@@ -5,6 +5,7 @@ using namespace std;
 Player::Player(int i, int pBalance) : 
 blackjack(false),
 surrender(false),
+insurance(false),
 id(i),
 Participant(pBalance)
 {
