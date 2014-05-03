@@ -13,15 +13,21 @@ protected:
 public:
 
 	/**
-	* Méthode diminuant le solde de la valeur donnée en paramètre.
-	* @param i valeur à soustraire du solde.
-	*/
+	 * Méthode diminuant le solde de la valeur donnée en paramètre.
+	 * @param i valeur à soustraire du solde.
+	 */
 	void decreaseBalance(int i);
 
 	/**
-	* Méthode augmentant le solde de la valeur donnée en paramètre.
-	* @param i valeur à ajouter du solde.
-	*/
+	 * Getteur de l'attribut balance. Solde du participant.
+	 * @return Entier long solde.
+	 */
+	long getBalance() { return this->balance; }
+
+	/**
+	 * Méthode augmentant le solde de la valeur donnée en paramètre.
+	 * @param i valeur à ajouter du solde.
+	 */
 	void increaseBalance(int i);
 
 	/**
@@ -34,7 +40,11 @@ public:
 	 */
 	~Participant();
 
-	
+	/**
+	 * Setteur de l'attribut balance.
+	 * @param b Nouveau solde du participant
+	 */
+	void setBalance(long b) { this->balance = b; }
 
 protected:
 
