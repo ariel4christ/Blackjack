@@ -12,8 +12,6 @@
 class HMI : public Interface {
 
 public:
-	HMI();
-	virtual ~HMI();
 	char askAction(bool hit, bool split, bool doubler, bool stay);
 	int getBet();
 	void insurrance();
