@@ -79,16 +79,16 @@ char askAction(bool hit, bool split, bool doubler, bool stay)
 
     char possibleChoices[4];
 
-    if (hit) possibleChoices[0] = 'C' else possibleChoices[0] = ' ';
-    if (split) possibleChoices[1] = 'P' else possibleChoices[1] = ' ';
-    if (doubler) possibleChoices[2] = 'S' else possibleChoices[2] = ' ';
-    if (stay) possibleChoices[3] = 'R' else possibleChoices[3] = ' ';
+    if (hit) possibleChoices[0] = 'C'; else possibleChoices[0] = ' ';
+    if (split) possibleChoices[1] = 'P'; else possibleChoices[1] = ' ';
+    if (doubler) possibleChoices[2] = 'S'; else possibleChoices[2] = ' ';
+    if (stay) possibleChoices[3] = 'R'; else possibleChoices[3] = ' ';
 
     do
     {
         cin >> response;
         if (cin.fail()) cout << "Erreur, veuillez recommencez" << endl;
-    } while (cin.fail() || response == ' ' || (response != possibleChoices[0] && response != possibleChoices[1] && response != possibleChoices[2] && response != possibleChoices[3]))
+    } while (cin.fail() || response == ' ' || (response != possibleChoices[0] && response != possibleChoices[1] && response != possibleChoices[2] && response != possibleChoices[3]));
 
     return response;
 }
