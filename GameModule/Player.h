@@ -1,5 +1,5 @@
 /**
- * Classe Player. Hérite de la classe Participant.
+ * Classe Player. Hï¿½rite de la classe Participant.
  * Classe qui va instancier un joueur humain ou un joueur IA.
  */
 
@@ -13,12 +13,12 @@ class Player : public Participant
 {
 
 private:
-	bool blackjack = false;  /**< Booléen. Vrai si le joueur fait blackjack, faux sinon. */
-	bool surrender = false;  /**< Booléen. Vrai di le joueur a abandonné ses deux main, faux sinon. */
-	
+	bool blackjack ;  /**< Boolï¿½en. Vrai si le joueur fait blackjack, faux sinon. */
+	bool surrender ;  /**< Boolï¿½en. Vrai di le joueur a abandonnï¿½ ses deux main, faux sinon. */
+
 protected:
 	Hand *hand;  /**< Pointeur vers Hand. Main principale du joueur. */
-	Hand *hand2;  /**< Pointeur vers Hand. Seconde main si le joueur sépare sa main principale. */
+	Hand *hand2;  /**< Pointeur vers Hand. Seconde main si le joueur sï¿½pare sa main principale. */
 
 public:
 
@@ -37,40 +37,40 @@ public:
 	~Player();
 
 	/**
-	 * Méthode créant une nouvelle main. Méthode virtuelle héritée de Participant.
+	 * Mï¿½thode crï¿½ant une nouvelle main. Mï¿½thode virtuelle hï¿½ritï¿½e de Participant.
 	 * @see Hand::Hand()
 	 */
 	virtual void newHand();
 
 	/**
-	 * Méthode supprimant une main du joueur donnée en paramètre.
+	 * Mï¿½thode supprimant une main du joueur donnï¿½e en paramï¿½tre.
 	 * @param h Pointeur vers une main du joueur.
 	 * @see Hand::deleteHand()
 	 */
 	void deleteHand(Hand *h);
 
 	/**
-	 * Méthode qui appelle PlayerHand::setStand() sur la main en paramètre.
-	 * Lance une exception si la main en paramètre n'est pas une du joueur.
+	 * Mï¿½thode qui appelle PlayerHand::setStand() sur la main en paramï¿½tre.
+	 * Lance une exception si la main en paramï¿½tre n'est pas une du joueur.
 	 * @see PlayerHand::setStand()
 	 * @param h Pointeur vers la main "servie".
 	 */
 	void Stand(PlayerHand *h);
 
 	/**
-	 * Méthode qui effectue l'action d'abandonner la main donnée en paramètre. Le solde du joueur est augmentée de la moitié de la mise.
-	 * La main en paramètre est désallouée. Lance une exception si la main en paramètre n'est pas une du joueur.
+	 * Mï¿½thode qui effectue l'action d'abandonner la main donnï¿½e en paramï¿½tre. Le solde du joueur est augmentï¿½e de la moitiï¿½ de la mise.
+	 * La main en paramï¿½tre est dï¿½sallouï¿½e. Lance une exception si la main en paramï¿½tre n'est pas une du joueur.
 	 * Surrender est FAUX tant que le joueur a une main en jeu.
 	 * @see increaseBalance()
 	 * @see Hand::deleteHand()
 	 * @see setSurrender()
-	 * @param h Pointeur vers la main abandonnée.
+	 * @param h Pointeur vers la main abandonnï¿½e.
 	 */
 	void Surrender(PlayerHand *h);
 
 	/**
 	 * Getteur de blackjack.
-	 * @return Booléen.
+	 * @return Boolï¿½en.
 	 */
 	bool getBlackjack();
 
@@ -79,10 +79,10 @@ public:
 	 * @param b Nouvelle valeur de blackjack.
 	 */
 	void setBlackjack(bool b);
-	
+
 	/**
 	* Getteur de surrender.
-	* @return Booléen.
+	* @return Boolï¿½en.
 	*/
 	bool getSurrender();
 

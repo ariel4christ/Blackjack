@@ -1,17 +1,42 @@
 /*
  * UserGame.cpp
  *
- *  Created on: 3 mai 2014
- *      Author: ariel
  */
 
 #include "UserGame.h"
 
-UserGame::UserGame() {
-	// TODO Auto-generated constructor stub
+UserGame::UserGame(int pBalance):player(this->com.CheckFiles(),pBalance){
 
 }
 
 UserGame::~UserGame() {
 	// TODO Auto-generated destructor stub
 }
+
+void UserGame::runGame()
+{
+
+	this->initRound();
+	this->runRound();
+
+}
+
+void UserGame::initRound()
+{
+
+}
+
+void UserGame::quitGame()
+{
+
+}
+
+void UserGame::runRound()
+{
+}
+
+
+
+
+
+

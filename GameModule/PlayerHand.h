@@ -1,5 +1,5 @@
 /**
- * Classe PlayerHand. Hérite de la classe Hand. Main d'un joueur.
+ * Classe PlayerHand. Hï¿½rite de la classe Hand. Main d'un joueur.
  */
 
 #ifndef _PLAYERHAND_H
@@ -10,7 +10,7 @@ class PlayerHand : public Hand
 {
 protected:
 	int bet;  /**< Entier Mise du joueur. */
-	bool stand = false;  /**< Booléen. Vrai si le joueur ne veut plus de carte pour cette main, faux sinon. */
+	bool stand ;  /**< Boolï¿½en. Vrai si le joueur ne veut plus de carte pour cette main, faux sinon. */
 
 public:
 
@@ -36,7 +36,7 @@ public:
 	PlayerHand(const Hand &h, int i);
 
 	/**
-	 * Destructeur. Ne désalloue pas les cartes de la main.
+	 * Destructeur. Ne dï¿½salloue pas les cartes de la main.
 	 * @see ~Hand()
 	 * @see deleteHand()
 	 */
@@ -55,13 +55,13 @@ public:
 	void setBet(int bet);
 
 	/**
-	 * Méthode doublant la valeur de l'attribut bet (mise).
+	 * Mï¿½thode doublant la valeur de l'attribut bet (mise).
 	 */
 	void doubleBet();
 
 	/**
 	 * Getteur de stand.
-	 * @return Booléen.
+	 * @return Boolï¿½en.
 	 */
 	bool getStand();
 
