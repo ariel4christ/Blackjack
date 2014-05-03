@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Mises minimale et maximale par défaut à respectivement 5 et 100
+// Mises minimale et maximale par dÃ©faut Ã© respectivement 5 et 100
 int BankGame::betMin = 5;
 int BankGame::betMax = 100;
 int BankGame::balancePlayerInit = 2000;
@@ -48,20 +48,20 @@ BankGame::BankGame(int bankBalance):
 
 BankGame::~BankGame()
 {
-	// Désallocation des cartes restantes dans deck
+	// DÃ©sallocation des cartes restantes dans deck
 	this->clearDeck();
 
-	// Désallocation des joueurs
+	// DÃ©sallocation des joueurs
 	for (vector<Player*>::iterator it = this->player.begin(); it != this->player.end(); it++)
 	{
-		(*it)->~Player();  // Est-ce que ça marche ici ???
+		(*it)->~Player();  // Est-ce que Ã©a marche ici ???
 		delete *it;
 	}
 }
 
 
 
-/***** Méthodes privées *****/
+/***** MÃ©thodes privÃ©es *****/
 
 void BankGame::newPlayer()
 {
@@ -78,17 +78,17 @@ void BankGame::burnCards()
 		throw runtime_error("impossible de bruler 5 cartes");
 	else for (int i = 1; i <= 5; i++)
 	{
-		delete *(this->deck.end());  // Désallocation ???
+		delete *(this->deck.end());  // DÃ©sallocation ???
 		this->deck.pop_back();  // Supression du pointeur de la liste
 	}
 }
 
 void BankGame::clearDeck()
 {
-	// Désallocation des cartes
+	// DÃ©sallocation des cartes
 	for (vector<Card*>::iterator it = this->deck.begin(); it != this->deck.end(); it++)
 	{
-		delete *it;  // Est-ce que ça marche ici ???
+		delete *it;  // Est-ce que Ã©a marche ici ???
 	}
 	this->deck.clear();
 }
@@ -113,14 +113,14 @@ void BankGame::dealCards()
 	// Tirage de la 1ere carte de la banque
 	Card* c = this->hitCard();
 	this->bank.getHand()->addCard(c);
-	this->com.SendCard(000000, c->getType(), 0);  /***************** ID BANQUE A DEFINIR **************************/
+	this->com.SendCard(4, c->getType(), 0);  // 4 pour id banque
 
 	// Tirage de la 2nd carte de la banque
 	c = NULL;
 	c = this->hitCard();
 	this->bank.getHand()->addCard(c);
-	this->com.SendCard(0000000, c->getType(), 0);  /***************** ID BANQUE A DEFINIR **************************/
-
+	this->com.SendCard(4, c->getType(), 0);  // 4 pour id banque
+	
 }
 
 Card* BankGame::hitCard()
@@ -134,7 +134,7 @@ Card* BankGame::hitCard()
 
 void BankGame::initRound()
 {
-	this->newPlayer();  // Vérification des nouveaux joueurs
+	this->newPlayer();  // VÃ©rification des nouveaux joueurs
 
 
 	if (deck.size() <= player.size() * betMax * 2)
