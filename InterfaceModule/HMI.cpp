@@ -82,7 +82,7 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
  * @param  stay    le joueur peut stay ?
  * @return         le caractère correspondant à l'action voulue par le joueur
  */
-char askAction(bool hit, bool split, bool doubler, bool stay);
+char askAction(bool hit, bool split, bool doubler, bool stay)
 {
     char response;
 
