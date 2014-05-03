@@ -263,9 +263,32 @@ void BankCommunication::setBet(int player, int bet)
     }
 }
 
-void BankCommunication::setHand(Hand h)
+void BankCommunication::setHand(int player, Hand &h)
 {
+    std::vector<Card*> cards = h.getCards();
 
+    char str[256];
+    sprintf(str, "13 %d %d", player, static_cast<int>(cards.size()));
+
+
+    for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++)
+    {
+        sprintf(str, "%s %d", str, (*it)->getType());
+    }
+
+    char fifoNameIn[11];
+
+    // On envoie le message à tous les joueurs
+    for (int i = 0 ; i < 4 ; i++)
+    {
+        sprintf(fifoNameIn, "joueur%d.in", i);
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file != (FILE *) NULL)
+        {
+            int nb = fwrite(str, sizeof(char), 32, file);
+            fclose(file);
+        }
+    }
 }
 
 void BankCommunication::validStand(int player)
