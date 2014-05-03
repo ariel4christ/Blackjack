@@ -14,14 +14,14 @@ Un dossier par module. On aura plus qu'à faire les makefile pour compiler chaqu
 
 Pour lire tous les messages on pourra utiliser sscanf() pour récupérer les infos de la même façon qu'elles sont envoyées :
 ```cpp
-char* str; // Stocke le message reçu
-char* reste; // Stocke le reste du message (ce qu'on a pas encore lu)
+char str[256]; // Stocke le message reçu
+int id_message;
 
 //On regarde le premier entier du message pour savoir quel type de message c'est
-sscanf(str, "%d %s", id_message, reste)
+sscanf(str, "%d", id_message)
 
-// Dans un switch en fonction de id_message, on sait ce qu'on doit recevoir en paramètres, donc on peut refaire un sscanf sur 'reste'
-sscanf(reste, "...", ...);
+// Dans un switch en fonction de id_message, on sait ce qu'on doit recevoir en paramètres, donc on peut refaire un sscanf
+sscanf(str, "%d ...", id_message, ...);
 ```
 
 
