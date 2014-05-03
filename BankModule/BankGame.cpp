@@ -117,9 +117,9 @@ void BankGame::dealCards()
 
 	// Tirage de la 2nd carte de la banque
 	c = NULL;
-	c = this->hitCard();
-	this->bank.getHand()->addCard(c);
-	this->com.SendCard(4, c->getType(), 0);  // 4 pour id banque
+	this->bank.setHiddenCard( hitCard() );
+	this->bank.getHand()->addCard(new Card(NaN));
+	this->com.SendCard(4, NaN, 0);  // 4 pour id banque, 2nd carte est inconnue
 	
 }
 
@@ -155,10 +155,7 @@ void BankGame::initRound()
 		this->com.setBet(id, bet);
 	}
 
-	this->dealCards();
-
-	// Distribution
-	
+	this->dealCards();  // Distribution des cartes initiales
 }
 
 void BankGame::newDeck()
@@ -184,6 +181,11 @@ void BankGame::newGame()
 
 	while (this->com.CheckFiles() == 0)
 		interface.printMessage(/* "En attente de joueurs" */);
+}
+
+void BankGame::runRound()
+{
+
 }
 
 void BankGame::shuffleDeck()
