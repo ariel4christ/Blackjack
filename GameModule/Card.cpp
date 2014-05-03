@@ -66,3 +66,49 @@ EType Card::getType()
 {
 	return this->type;
 }
+
+char* getStringRepresentation()
+{
+	switch (this->type)
+	{
+		case AS:
+			return "|A|";
+			break;
+		case TWO:
+			return "|2|";
+			break;
+		case THREE:
+			return "|3|";
+			break;
+		case FOUR:
+			return "|4|";
+			break;
+		case FIVE:
+			return "|5|";
+			break;
+		case SIX:
+			return "|6|";
+			break;
+		case SEVEN:
+			return "|7|";
+			break;
+		case EIGHT:
+			return "|8|";
+			break;
+		case NINE:
+			return "|9|";
+			break;
+		case TEN:
+			return "|10|";
+			break;
+		case JACK:
+			return "|J|";
+			break;
+		case QUEEN:
+			return "|Q|";
+			break;
+		case KING:
+			return "|K|";
+			break;
+	}
+}
