@@ -67,7 +67,7 @@ EType Card::getType()
 	return this->type;
 }
 
-char* getStringRepresentation()
+const char* Card::getStringRepresentation()
 {
 	switch (this->type)
 	{

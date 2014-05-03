@@ -1,7 +1,8 @@
 #include "Player.h"
 
-Player::Player(int i, int pBalance) : blackjack(false),surrender(false)
-	Participant(i, pBalance)
+using namespace std;
+
+Player::Player(int i, int pBalance) : blackjack(false),surrender(false), Participant(i, pBalance)
 {
 }
 
@@ -16,8 +17,8 @@ Player::~Player()
 void Player::newHand()
 {
 	if (this->hand == NULL)
-		hand = new Hand();
-	else hand2 = new Hand();
+		hand = new PlayerHand();
+	else hand2 = new PlayerHand();
 }
 
 void Player::deleteHand(Hand *h)

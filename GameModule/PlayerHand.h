@@ -15,6 +15,12 @@ protected:
 public:
 
 	/**
+	 * Constructeur par défaut.
+	 * La main est vide.
+	 */
+	PlayerHand();
+
+	/**
 	 * Constructeur.
 	 * @see Hand()
 	 * @param i Mise.

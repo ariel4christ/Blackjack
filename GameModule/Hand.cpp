@@ -45,7 +45,7 @@ int Hand::getValue1()
 int Hand::getValue2()
 {
 	if (this->isMultiValued() == false)
-		throw runtime_error("Hand has only ONE value"));
+		throw runtime_error("Hand has only ONE value");
 
 	else return this->getValue1() + 10;
 }
@@ -58,7 +58,7 @@ vector<Card*>& Hand::getCards()
 void Hand::addCard(Card *c)
 {
 	if (this->numberOfCards() > 22)
-		throw runtime_error("Main pleine"));
+		throw runtime_error("Main pleine");
 
 	this->cards.push_back(c);
 }

@@ -62,7 +62,7 @@ public:
 	 * Retourne une représentation de la carte sur quelques caractères
 	 * @return la réprésentation
 	 */
-	char* getStringRepresentation();
+	const char* getStringRepresentation();
 };
 
 #endif
