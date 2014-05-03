@@ -107,10 +107,21 @@ private:
 	Card* hitCard();
 
 	/**
+	 * Méthode qui initialise un tour : accueil des nouveaux joueurs, demande des mises et distribution des cartes.
+	 */
+	void initRound();
+
+	/**
 	 * Méthode créant un nouveau deck (sabot) neuf. Il contient 312 cartes (24 de chaque EType) non mélangées.
 	 * @see Card::Card()
 	 */
 	void newDeck();
+
+	void newGame();
+
+	void newPlayer();
+
+	void runRound();
 
 	/**
 	 * Méthode de battage (tri aléatoire) des cartes du deck.

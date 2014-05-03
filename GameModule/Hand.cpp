@@ -55,6 +55,13 @@ vector<Card*>& Hand::getCards()
 	return this->cards;
 }
 
+Card* Hand::getCard(unsigned int i)
+{
+	if (i >= this->cards.size())
+		throw runtime_error("Impossible d'accéder à cette carte de la main");
+	else return this->cards[i];
+}
+
 void Hand::addCard(Card *c)
 {
 	if (this->numberOfCards() > 22)

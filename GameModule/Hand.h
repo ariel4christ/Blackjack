@@ -61,18 +61,24 @@ public:
 	int getValue2();
 
 	/**
-	* Méthode qui retourne le vecteur de pointeurs de cartes de la main
-	* @return vector<Card*>& Cartes de la main.
-	*/
+	 * Méthode qui retourne le vecteur de pointeurs de cartes de la main
+	 * @return vector<Card*>& Cartes de la main.
+	 */
 	std::vector<Card*>& getCards();
 
+	/**
+	 * Méthode qui retourne la ième carte de la main.
+	 * Lance une exception si i fait référence à une carte en dehors du vecteur de carte.
+	 * @return Card* Pointeur vers la ième carte de la main.
+	 */
+	Card* getCard(unsigned int i);
 
 	/**
-	* Méthode qui ajoute la carte en paramètre à la liste des ca
-	* Lance une exception si la main contient déjà 22 cartes.
-	* @see Hand::numberOfCards()
-	* @param c Pointeur vers la carte à ajouter à la main.
-	*/
+	 * Méthode qui ajoute la carte en paramètre à la liste des ca
+	 * Lance une exception si la main contient déjà 22 cartes.
+	 * @see Hand::numberOfCards()
+ 	 * @param c Pointeur vers la carte à ajouter à la main.
+	 */
 	void addCard(Card *c);
 
 	/**

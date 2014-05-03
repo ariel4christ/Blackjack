@@ -40,7 +40,7 @@ public:
 
 	/**
 	* Getteur de hand.
-	* @return Entier. Id du joueur.
+	* @return Entier id du joueur.
 	*/
 	inline int getId() { return id; }
 
@@ -49,6 +49,13 @@ public:
 	 * @see Hand::Hand()
 	 */
 	virtual void newHand();
+
+	/**
+	* Méthode créant une nouvelle main avec une mise en paramètre.
+	* @see Hand::Hand(int i)
+	* @param i	Mise de la main.
+	*/
+	void newHand(int i);
 
 	/**
 	 * Méthode supprimant une main du joueur donnée en paramétre.

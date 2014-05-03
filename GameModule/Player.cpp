@@ -25,6 +25,13 @@ void Player::newHand()
 	else hand2 = new PlayerHand();
 }
 
+void Player::newHand(int i)
+{
+	if (this->hand == NULL)
+		hand = new PlayerHand(i);
+	else hand2 = new PlayerHand(i);
+}
+
 void Player::deleteHand(Hand *h)
 {
 	h->deleteHand();
