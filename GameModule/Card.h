@@ -63,6 +63,8 @@ public:
 	 * @return la réprésentation
 	 */
 	const char* getStringRepresentation();
+
+	void setType(EType t) { this->type = t; }
 };
 
 #endif

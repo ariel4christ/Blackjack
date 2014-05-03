@@ -111,6 +111,8 @@ private:
 	 */
 	void initRound();
 
+	int insurance();
+
 	/**
 	 * Méthode créant un nouveau deck (sabot) neuf. Il contient 312 cartes (24 de chaque EType) non mélangées.
 	 * @see Card::Card()

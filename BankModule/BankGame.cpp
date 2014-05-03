@@ -150,7 +150,7 @@ void BankGame::initRound()
 
 		string str = this->com.ReadFile(id);
 		int id_message, bet;
-		sscanf(str.c_str, "%d %d", &id_message, bet);
+		sscanf(str.c_str(), "%d %d", &id_message, &bet);
 
 		this->player[i]->newHand(bet);  // Nouvelle main
 		this->player[i]->decreaseBalance(bet);  // Diminution solde
@@ -159,6 +159,78 @@ void BankGame::initRound()
 	}
 
 	this->dealCards();  // Distribution des cartes initiales
+}
+
+int BankGame::insurance()
+{
+	cout << "Demande d'assurance" << endl;
+
+	for (unsigned int i = 0; i < this->player.size(); i++)
+	{
+		if (!player[i]->getBlackjack())  // Le joueur ne fait pas blackjack
+		{
+			int id = this->player[i]->getId();
+			this->com.AskInsurance(id);
+			string str = com.ReadFile(id);
+			int response = stoi(str);
+
+			switch (response)
+			{
+			case 0:
+				break;
+			case 4:
+				quitePlayer(player[i]);
+				break;
+			case 1:
+				player[i]->decreaseBalance(player[i]->getHand()->getBet() / 2);
+				bank.increaseBalance(player[i]->getHand()->getBet() / 2);
+				com.setBalance(id, player[i]->getBalance());
+				break;
+			default:
+				throw runtime_error("Message incorrect !");
+				break;
+			}
+		}
+	}
+
+	interface.printGameState();
+
+	if (bank.isBankBlackjack())  // La banque fait blackjack
+	{
+		bank.getHand()->getCard(1)->setType(bank.getHiddenCard()->getType());
+		cout << "*** La Banque fait Blackjack ***" << endl;
+		interface.printGameState();
+
+		for (unsigned int i = 0; i < this->player.size(); i++)
+		{
+			if (player[i]->hasInsurance())  // Le joueur a pris une assurance
+			{
+				bank.decreaseBalance(player[i]->getHand()->getBet() / 2);  // Diminution solde banque
+				player[i]->increaseBalance(player[i]->getHand()->getBet()*1.5);  // Augmentation solde joueur
+				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
+				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
+			}
+			else if (player[i]->getBlackjack())  // Le joueur a aussi fait blackjack et donc pas d'assurance demandée
+			{
+				player[i]->increaseBalance(player[i]->getHand()->getBet());  // Augmentaion solde joueur
+				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
+				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
+			}
+			else
+				player[i]->deleteHand(player[i]->getHand());  // Les autres cas, on désalloue la main directement
+		}
+
+		bank.deleteHand();
+		delete bank.getHiddenCard();
+
+		return 0;  // Le tour est fini
+	}
+
+	else
+	{
+		cout << "*** La Banque ne fait pas Blackjack ***" << endl;
+		return 1;  // Le tour continu
+	}
 }
 
 void BankGame::newDeck()
@@ -214,58 +286,10 @@ int BankGame::runRound()
 	if (bank.getHand()->hasAs())
 	{
 		cout << endl << "La Banque a un AS" << endl;
-		cout << "Demande d'assurance" << endl;
-
-		for (unsigned int i = 0; i < this->player.size(); i++)
-		{
-			if (!player[i]->getBlackjack())  // Le joueur ne fait pas blackjack
-			{
-				int id = this->player[i]->getId();
-				this->com.AskInsurance(id);
-				string str = com.ReadFile(id);
-				int response = stoi(str);
-
-				switch (response)
-				{
-				case 0:
-					break;
-				case 4:
-					quitePlayer(player[i]);
-					break;
-				case 1:
-					player[i]->decreaseBalance(player[i]->getHand()->getBet() / 2);
-					bank.increaseBalance(player[i]->getHand()->getBet() / 2);
-					com.setBalance(id, player[i]->getBalance());
-					break;
-				default:
-					throw runtime_error("Message incorrect !");
-					break;
-				}
-			}
-		}
-
-		interface.printGameState();
-
-		if (bank.isBankBlackjack())  // La banque fait blackjack
-		{
-			for (unsigned int i = 0; i < this->player.size(); i++)
-			{
-				if (player[i]->hasInsurance())
-				{
-					bank.decreaseBalance(player[i]->getHand()->getBet() / 2);
-					player[i]->increaseBalance(player[i]->getHand()->getBet()*1.5);
-					com.setBalance(player[i]->getId(), player[i]->getBalance());
-					player[i]->deleteHand();
-				}
-				else
-				{
-					player[i]->increaseBalance(player[i]->getHand()->getBet());
-				}
-			}
-		}
+		if (this->insurance() == 0)
+			return 0; // Le tour est fini
 	}
-	/***** Fin Assurance *****/
-
+	
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
