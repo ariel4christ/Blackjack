@@ -39,6 +39,10 @@ void PlayerCommunication::AskToHIt(int secondHand)
     fclose(file);
 }
 
+/**
+ * Envoie à la banque la mise faite
+ * @param bet la mise
+ */
 void PlayerCommunication::Bet(int bet)
 {
     FILE *file = fopen(fifoNameOut,"w");
@@ -67,6 +71,10 @@ int PlayerCommunication::CheckFiles()
         return 3;
 }
 
+/**
+ * Crée les fichiers in et out pour communiquer avec la banque
+ * @param id l'id du joueur
+ */
 void PlayerCommunication::CreateFiles(int id)
 {
     switch (id)
@@ -112,6 +120,9 @@ void PlayerCommunication::CreateFiles(int id)
     }
 }
 
+/**
+ * Informe la banque que le joueur double
+ */
 void PlayerCommunication::Double()
 {
     FILE *file = fopen(fifoNameOut,"w");
@@ -124,6 +135,9 @@ void PlayerCommunication::Double()
     fclose(file);
 }
 
+/**
+ * Informe le banque que le joueur entre dans le jeu
+ */
 void PlayerCommunication::EnterGame()
 {
     FILE *file = fopen(fifoNameOut,"w");
@@ -136,18 +150,9 @@ void PlayerCommunication::EnterGame()
     fclose(file);
 }
 
-void PlayerCommunication::LeaveGame()
-{
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
-
-    char str[32];
-    sprintf(str, "5");
-    int nb = fwrite(str, sizeof(char), 32, file);
-    fclose(file);
-}
-
+/**
+ * Informe la banque que le joueur quitte le jeu
+ */
 void PlayerCommunication::QuitMessage()
 {
     FILE *file = fopen(fifoNameOut,"w");
@@ -177,6 +182,10 @@ string PlayerCommunication::ReadFile()
 
 }
 
+/**
+ * Envoie la réponse à la demande d'assurance à la banque
+ * @param val la réponse (0 pour non, 1 pour oui)
+ */
 void PlayerCommunication::RespondInsurance(int val)
 {
     FILE *file = fopen(fifoNameOut,"w");
@@ -189,6 +198,9 @@ void PlayerCommunication::RespondInsurance(int val)
     fclose(file);
 }
 
+/**
+ * Informe la banque que le joueur split
+ */
 void PlayerCommunication::Split()
 {
     FILE *file = fopen(fifoNameOut,"w");
@@ -201,6 +213,9 @@ void PlayerCommunication::Split()
     fclose(file);
 }
 
+/**
+ * Informe la banque que le joueur reste
+ */
 void PlayerCommunication::Stand()
 {
     FILE *file = fopen(fifoNameOut,"w");
@@ -213,6 +228,9 @@ void PlayerCommunication::Stand()
     fclose(file);
 }
 
+/**
+ * Informe la banque que le joueur abandonne
+ */
 void PlayerCommunication::Surrender()
 {
     FILE *file = fopen(fifoNameOut,"w");

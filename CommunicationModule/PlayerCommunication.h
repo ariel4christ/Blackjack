@@ -28,7 +28,6 @@ public:
     void CreateFiles(int id);
     void Double();
     void EnterGame();
-    void LeaveGame();
     void QuitMessage();
     std::string ReadFile();
     void RespondInsurance(int val);
