@@ -29,7 +29,7 @@ void Player::deleteHand(Hand *h)
 void Player::Stand(PlayerHand *h)
 {
 	if (h != this->hand && h != this->hand2)
-		throw new std::exception("La main en paramètre n'est pas celle du joueur");
+		throw std::exception("La main en paramètre n'est pas celle du joueur");
 
 	h->setStand(true);
 }
@@ -37,7 +37,7 @@ void Player::Stand(PlayerHand *h)
 void Player::Surrender(PlayerHand *h)
 {
 	if (h != this->hand && h != this->hand2)
-		throw new std::exception("La main en paramètre n'est pas celle du joueur");
+		throw std::exception("La main en paramètre n'est pas celle du joueur");
 
 	this->increaseBalance(h->getBet() / 2);
 	h->deleteHand();

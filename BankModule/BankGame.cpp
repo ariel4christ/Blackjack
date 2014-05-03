@@ -62,7 +62,7 @@ BankGame::~BankGame()
 void BankGame::burnCards()
 {
 	if (this->deck.size() < 5)
-		throw new exception("impossible de bruler 5 cartes");
+		throw exception("impossible de bruler 5 cartes");
 	else for (int i = 1; i <= 5; i++)
 	{
 		delete *(this->deck.end());  // Désallocation ???
@@ -117,7 +117,7 @@ Card* BankGame::hitCard()
 void BankGame::newDeck()
 {
 	this->clearDeck();
-	
+
 	// 24 = 6 paquets * 4 fois la cartes dans un paquet
 	// 24*13 = 312
 	for (int j = 0; j < 24; j++)
