@@ -29,13 +29,14 @@ public:
 	static EType getType(int value);
 
 private:
-	Player player; /** Joueur **/
+	Player player; /**< Player. Joueur courant **/
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable joueurs et l'exécutable bank */
 	char* message; /**< char*. Stocke le message reçu*/
 	char* reste;/**< char*.Stocke le reste du message (ce qu'on a pas encore lu)*/
 	int id_message; /**< Entier. Code d'identification du message*/
 	HMI ihm; /**<HMI. Objet permettant la communication entre le joueur humain et le module joueur*/
 	Card bankCard; /**< Card.  carte de la banque*/
+	PlayerHand *myHand; /**<PlayerHand. main du joueur*/
 
 	/**
 	 * Methode permettant d' initialiser un tour

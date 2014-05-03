@@ -5,8 +5,8 @@
 
 #include "UserGame.h"
 
-UserGame::UserGame(int pBalance):player(this->com.CheckFiles(),pBalance){
-
+UserGame::UserGame(int pBalance):player(this->com.CheckFiles(),pBalance),bankCard(NaN){
+	this->myHand = this->player.getHand();
 }
 
 UserGame::~UserGame() {
@@ -21,7 +21,8 @@ void UserGame::runGame()
 		this->com.ReadFile();
 			sscanf(this->message, "%d %s", &this->id_message, this->reste);
 
-		if(this->id_message == 10){ // si le joueur a ete ajoutee par le module bank
+		// si le joueur a ete ajoutee par le module bank
+		if(this->id_message == 10){
 			this->initRound();
 			this->runRound();
 		}
@@ -46,7 +47,6 @@ void UserGame::initRound()
 		this->player.decreaseBalance(betValue);
 
 	/* ajout des deux cartes a la main du joueur */
-	PlayerHand *myHand = this->player.getHand();
 
 	int typeCard;
 
@@ -60,16 +60,11 @@ void UserGame::initRound()
 	}
 
 	 /* reception des cartes de la banque*/
-
-
 	this->com.ReadFile();
 	sscanf(this->message, "%d %d %d %s", &this->id_message, &num_joueur, &typeCard, this->reste);
 
 	if(this->id_message == 4 && num_joueur == this->player.getId())
 		bankCard = new Card(static_cast<EType>(typeCard));
-
-	/* affichage de l'etat du jeu */
-	this->ihm.PrintGameState(this->player,false,false,false,false);
 
 }
 
@@ -80,7 +75,11 @@ void UserGame::quitGame()
 
 void UserGame::runRound()
 {
-	this->com.ReadFile();
+	this->myHand->isBlackjack();
+	/* affichage de l'etat du jeu */
+	this->ihm.PrintGameState(this->player,true,true,true,true);
+	this->ihm.askAction();
+
 
 }
 
