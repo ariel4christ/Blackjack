@@ -17,7 +17,7 @@ void Bank::newHand()
 {
 	if (this->hand != NULL)
 		this->hand = new Hand();
-	else throw exception("Main déjà existante");
+	else throw runtime_error("Main déjà existante");
 }
 
 void Bank::deleteHand()

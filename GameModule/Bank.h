@@ -6,6 +6,7 @@
 #define _BANK_H
 #include "Participant.h"
 #include "Hand.h"
+#include <stdexcept>
 
 class Bank : public Participant
 {

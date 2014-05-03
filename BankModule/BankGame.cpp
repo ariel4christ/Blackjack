@@ -62,7 +62,7 @@ BankGame::~BankGame()
 void BankGame::burnCards()
 {
 	if (this->deck.size() < 5)
-		throw exception("impossible de bruler 5 cartes");
+		throw runtime_error("impossible de bruler 5 cartes");
 	else for (int i = 1; i <= 5; i++)
 	{
 		delete *(this->deck.end());  // Désallocation ???

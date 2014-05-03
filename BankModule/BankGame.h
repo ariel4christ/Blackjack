@@ -6,6 +6,7 @@
 #define _BANKGAME_H
 
 #include <vector>
+#include <stdexcept>
 #include "../GameModule/Card.h"
 #include "../GameModule/Bank.h"
 #include "../GameModule/Player.h"
@@ -79,7 +80,7 @@ public:
 	 * Méthode A IMPLEMENTER...
 	 */
 	void runGame();
-	
+
 
 private:
 

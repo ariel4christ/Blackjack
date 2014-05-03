@@ -1,4 +1,5 @@
 #include "Hand.h"
+#include <stdexcept>
 
 using namespace std;
 
@@ -44,7 +45,7 @@ int Hand::getValue1()
 int Hand::getValue2()
 {
 	if (this->isMultiValued() == false)
-		throw (new exception("Hand has only ONE value"));
+		throw runtime_error("Hand has only ONE value"));
 
 	else return this->getValue1() + 10;
 }
@@ -57,7 +58,7 @@ vector<Card*>& Hand::getCards()
 void Hand::addCard(Card *c)
 {
 	if (this->numberOfCards() > 22)
-		throw (new exception("Main pleine"));
+		throw runtime_error("Main pleine"));
 
 	this->cards.push_back(c);
 }
@@ -125,7 +126,7 @@ void Hand::setHand(const Hand& h)
 void Hand::trandferSecondCard(Hand *h)
 {
 	if (this->numberOfCards() != 2)
-		throw exception("Impossible : Nombre de cartes incorrecte");
+		throw runtime_error("Impossible : Nombre de cartes incorrecte");
 
 	h->addCard(this->cards[1]);
 	this->cards.pop_back();

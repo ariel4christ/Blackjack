@@ -6,8 +6,9 @@
 #define _HAND_H
 #include "Card.h"
 #include <vector>
+#include <stdexcept>
 
-class Hand 
+class Hand
 {
 protected:
 	std::vector<Card*> cards;  /**< Vecteur de pointeurs vers Card. Cartes constituant la main. */
@@ -25,7 +26,7 @@ public:
 	 * @param c Pointeur vers la 1ere carte de la nouvelle main.
 	 */
 	Hand(Card& c);
-	
+
 	/**
 	 * Constructeur par recopie de main.
 	 * @param h Hand

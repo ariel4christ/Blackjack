@@ -8,6 +8,7 @@
 
 #include "PlayerHand.h"
 #include "Participant.h"
+#include <stdexcept>
 
 class Player : public Participant
 {
