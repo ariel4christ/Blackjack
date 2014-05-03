@@ -17,7 +17,7 @@ Pour lire tous les messages on pourra utiliser sscanf() pour récupérer les inf
 char* str; // Stocke le message reçu
 char* reste; // Stocke le reste du message (ce qu'on a pas encore lu)
 
-On regarde le premier entier du message pour savoir quel type de message c'est
+//On regarde le premier entier du message pour savoir quel type de message c'est
 sscanf(str, "%d %s", id_message, reste)
 
 // Dans un switch en fonction de id_message, on sait ce qu'on doit recevoir en paramètres, donc on peut refaire un sscanf sur 'reste'
