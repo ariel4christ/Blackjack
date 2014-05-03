@@ -23,14 +23,19 @@ public:
 	 * Methode permettant au joueur courant de demarer son jeux
 	 */
 	void runGame();
+	/**
+	 * Methode statique permetant d'obtenir le type d'une carte a partir de la valeur entiere associée
+	 */
+	static EType getType(int value);
 
 private:
 	Player player; /** Joueur **/
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable joueurs et l'exécutable bank */
-	char* message; // Stocke le message reçu
-	char* reste;// Stocke le reste du message (ce qu'on a pas encore lu)
-	int id_message; // code d'identification du message
-	HMI ihm; /** HMI. Objet permettant la communication entre le joueur humain et le module joueur*/
+	char* message; /**< char*. Stocke le message reçu*/
+	char* reste;/**< char*.Stocke le reste du message (ce qu'on a pas encore lu)*/
+	int id_message; /**< Entier. Code d'identification du message*/
+	HMI ihm; /**<HMI. Objet permettant la communication entre le joueur humain et le module joueur*/
+	Card bankCard; /**< Card.  carte de la banque*/
 
 	/**
 	 * Methode permettant d' initialiser un tour
