@@ -15,14 +15,18 @@ UserGame::~UserGame() {
 
 void UserGame::runGame()
 {
-
-	this->initRound();
-	this->runRound();
+	if(this->player.getId()!= -1){
+		this->com.CreateFiles(this->player.getId());
+		this->com.EnterGame();
+		this->initRound();
+		this->runRound();
+	}
 
 }
 
 void UserGame::initRound()
 {
+	this->messagethis->com.ReadFile();
 
 }
 
