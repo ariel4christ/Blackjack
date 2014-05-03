@@ -2,6 +2,9 @@
 
 using namespace std;
 
+/**
+ * La banque propose une assurance à chaque joueur
+ */
 void BankCommunication::AskInsurance()
 {
     char fifoNameIn[11];
@@ -56,6 +59,11 @@ void BankCommunication::CleanFiles()
     remove("joueur3.out");
 }
 
+/**
+ * La banque crédite un joueur
+ * @param player l'id du joueur à créditer
+ * @param money  la somme d'argent à créditer
+ */
 void BankCommunication::CreditPlayer(int player, int money)
 {
     char fifoNameIn[11];
@@ -75,6 +83,11 @@ void BankCommunication::CreditPlayer(int player, int money)
     }
 }
 
+/**
+ * La banque débite un joueur
+ * @param player l'id du joueur à débiter
+ * @param money  la somme d'argent à débiter
+ */
 void BankCommunication::DebitPlayer(int player, int money)
 {
     char fifoNameIn[11];
@@ -94,6 +107,9 @@ void BankCommunication::DebitPlayer(int player, int money)
     }
 }
 
+/**
+ * La banque prévient les joueurs de la fin du round
+ */
 void BankCommunication::EndRound()
 {
     char fifoNameIn[11];
@@ -113,6 +129,10 @@ void BankCommunication::EndRound()
     }
 }
 
+/**
+ * La banque prévient les joueurs de l'arrivée d'un nouveau joueur
+ * @param player l'id du player qui est arrivé
+ */
 void BankCommunication::PlayerEntered(int player)
 {
     char fifoNameIn[11];
@@ -132,6 +152,10 @@ void BankCommunication::PlayerEntered(int player)
     }
 }
 
+/**
+ * La banque prévient les joueurs qu'un joueur à quitté la partie
+ * @param player l'id du joueur qui est parti
+ */
 void BankCommunication::HasQuit(int player)
 {
     char fifoNameIn[11];
@@ -187,6 +211,9 @@ string BankCommunication::ReadFile(int id)
     return (string) str;
 }
 
+/**
+ * La banque prévient les joueurs qu'un round a commencé
+ */
 void BankCommunication::RoundStart()
 {
     char fifoNameIn[11];
@@ -206,6 +233,12 @@ void BankCommunication::RoundStart()
     }
 }
 
+/**
+ * Envoie une carte à un joueur
+ * @param player     l'id du joeuur
+ * @param t          Le type de la carte
+ * @param secondHand Entier : 0 si la carte est pour sa première main, 1 si c'est pour sa deuxième main (en cas de split)
+ */
 void BankCommunication::SendCard(int player, EType t, int secondHand)
 {
     char fifoNameIn[11];
@@ -225,6 +258,11 @@ void BankCommunication::SendCard(int player, EType t, int secondHand)
     }
 }
 
+/**
+ * Modifie le solde d'un joueur
+ * @param player  l'id du joueur
+ * @param balance le solde
+ */
 void BankCommunication::setBalance(int player, int balance)
 {
     char fifoNameIn[11];
@@ -244,6 +282,11 @@ void BankCommunication::setBalance(int player, int balance)
     }
 }
 
+/**
+ * Prévient les joueurs qu'un joueur à misé
+ * @param player l'id du joueur
+ * @param bet    la mise
+ */
 void BankCommunication::setBet(int player, int bet)
 {
     char fifoNameIn[11];
@@ -263,6 +306,11 @@ void BankCommunication::setBet(int player, int bet)
     }
 }
 
+/**
+ * Envoie là un joueur sa main
+ * @param player l'id du joueur
+ * @param h      la main à envoyer
+ */
 void BankCommunication::setHand(int player, Hand &h)
 {
     std::vector<Card*> cards = h.getCards();
@@ -291,6 +339,10 @@ void BankCommunication::setHand(int player, Hand &h)
     }
 }
 
+/**
+ * Prévient les joueurs qu'un joueur est "resté"
+ * @param player l'id du joueur
+ */
 void BankCommunication::validStand(int player)
 {
     char fifoNameIn[11];
@@ -310,6 +362,10 @@ void BankCommunication::validStand(int player)
     }
 }
 
+/**
+ * Prévient les joueurs qu'un joueur à abandonné
+ * @param player l'id du joueur
+ */
 void BankCommunication::validSurrender(int player)
 {
     char fifoNameIn[11];
