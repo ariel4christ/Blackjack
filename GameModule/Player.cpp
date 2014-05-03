@@ -79,3 +79,9 @@ void Player::setSurrender(bool b)
 {
 	this->surrender = b;
 }
+
+void Player::setHand(PlayerHand *h)
+{
+	this->getHand()->deleteHand();
+	this->hand = h;
+}

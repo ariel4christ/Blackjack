@@ -90,6 +90,8 @@ private:
 	 */
 	void burnCards();
 
+	void BankGame::checkAction(Player *p, bool secondHand);
+
 	/**
 	 * Méthode désallouant toutes les cartes du deck. Deck est vidé.
 	 */
@@ -111,6 +113,11 @@ private:
 	 */
 	void initRound();
 
+	/**
+	 * Méthode gérant la partie assurance
+	 * @return	0	Le tour est fini
+				1	Le tour n'est pas fini.
+	 */
 	int insurance();
 
 	/**

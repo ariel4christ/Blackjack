@@ -125,7 +125,13 @@ public:
 	 * @return Booleen.
 	 */
 	inline bool hasInsurance() { return this->insurance; }
-
+	
+	/**
+	* Méthode qui désalloue les cartes de la main courante et la remplace par la main en paramètre.
+	* @param h Nouvelle main.
+	*/
+	void setHand(PlayerHand *h);
+	
 	/**
 	 * Setteur de l'attribut inssurance.
 	 * @param b Booleen valeur de insurance.
