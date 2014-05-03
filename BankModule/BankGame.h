@@ -18,7 +18,7 @@ class BankGame
 private:
 	static int betMin;  /**< Entier. Mise minimale.*/
 	static int betMax;  /**< Entier. Mise maximale.*/
-	static int balancePlayerInit;  /**< Entier. Solde initial des joueurs.*/
+	static long balancePlayerInit;  /**< Entier. Solde initial des joueurs.*/
 
 	std::vector<Card*> deck;  /**< vector<Card*>. Liste des cartes, sabot.*/
 	Bank bank;  /**< Bank Banque du jeu.*/
@@ -120,6 +120,8 @@ private:
 	void newGame();
 
 	void newPlayer();
+
+	void quitePlayer(Player *p);
 
 	void runRound();
 

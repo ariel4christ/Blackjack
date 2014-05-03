@@ -42,6 +42,8 @@ public:
 	 */
 	void deleteHand();
 
+	bool isBankBlackjack();
+
 	inline Hand* getHand() { return hand; }
 	inline Card* getHiddenCard() { return this->hiddenCard; }
 	inline void setHiddenCard(Card* c) { this->hiddenCard = c; }

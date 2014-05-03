@@ -101,7 +101,7 @@ public:
 	 * Méthode retournant VRAI si la main a une configuration de blackjack. FAUX sinon.
 	 * @return Booléen.
 	 */
-	virtual bool isBlackjack();  // à redéfinir dans PlayerHand ?
+	bool isBlackjack();
 
 	/**
 	 * Méthode retournant VRAI si les deux premières cartes de la main ont le même EType. Retourne FAUX sinon.

@@ -1,4 +1,5 @@
 #include "BankGame.h"
+#include <iostream>
 #include <string>
 #include <algorithm>  // std::random_shuffle()
 
@@ -7,7 +8,7 @@ using namespace std;
 // Mises minimale et maximale par défaut é respectivement 5 et 100
 int BankGame::betMin = 5;
 int BankGame::betMax = 100;
-int BankGame::balancePlayerInit = 2000;
+long BankGame::balancePlayerInit = 2000;
 
 int BankGame::getBetMin()
 {
@@ -183,9 +184,74 @@ void BankGame::newGame()
 		interface.printMessage(/* "En attente de joueurs" */);
 }
 
+void BankGame::quitePlayer(Player *p)
+{
+	int id = p->getId();
+	p->~Player();
+	delete p;
+	com.HasQuit(id);
+
+	// Il n'y a plus de joueur : FIN DU JEU
+	if (this->player.empty())
+		this->~BankGame();
+}
+
 void BankGame::runRound()
 {
+	// D�termination des blackjack pour chaque joueur
+	for (unsigned int i = 0; i < this->player.size(); i++)
+	{
+		if (player[i]->getHand()->isBlackjack())  // Le joueur fait blackjack
+		{
+			player[i]->setBlackjack(true);
+			/*** MESSAGE BLACKJACK VERS JOUEUR ***/
+		}
+	}
 
+	/***** Assurance *****/
+	if (bank.getHand()->hasAs())
+	{
+		cout << endl << "La Banque a un AS" << endl;
+		cout << "Demande d'assurance" << endl;
+
+		for (unsigned int i = 0; i < this->player.size(); i++)
+		{
+			int id = player[i]->getId();
+			if (!player[i]->getBlackjack())  // Le joueur ne fait pas blackjack
+			{
+				this->com.AskInsurance(id);
+				string str = com.ReadFile(id);
+				int response = stoi(str);
+				switch (response)
+				{
+				case 0:
+					break;
+				case 4:
+					this->quitePlayer(player[i]);
+					break;
+				case 1:
+					this->player[i]->decreaseBalance(player[i]->getHand()->getBet() / 2);
+					this->bank.increaseBalance(player[i]->getHand()->getBet() / 2);
+					com.setBalance(id, player[i]->getBalance());
+					break;
+				}
+
+			}
+		}
+	}
+	/***** Fin Assurance *****/
+
+
+	for (unsigned int i = 0; i < this->player.size(); i++)
+	{
+		if (player[i]->getBlackjack())  // Le joueur fait blackjack
+		{
+			if (bank.isBankBlackjack())  // La banque fait aussi blackjack
+			{
+				player[i]->getHand()->setStand(true);
+			}
+		}
+	}
 }
 
 void BankGame::shuffleDeck()
