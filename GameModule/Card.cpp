@@ -33,6 +33,8 @@ int Card::getValue()
 {
 	switch (this->type)
 	{
+	case NaN:
+		return 0;
 	case AS:
 		return 1;
 	case TWO:
@@ -71,6 +73,8 @@ const char* Card::getStringRepresentation()
 {
 	switch (this->type)
 	{
+		case NaN:
+			return "|?|";
 		case AS:
 			return "|A|";
 			break;

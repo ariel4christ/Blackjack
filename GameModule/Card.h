@@ -8,7 +8,7 @@
 /**
  *  Enumeration des types de carte.
  */
-enum EType { AS = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
+enum EType { NaN = 0, AS = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
 
 class Card
 {
