@@ -3,6 +3,11 @@
 
 class Interface
 {
+	public:
+		void printGameState();
+		void printMessage();
+		void printNewGame();
+
 
 };
 
