@@ -8,8 +8,6 @@ class Interface
 		void printGameState();
 		void printMessage();
 		void printNewGame();
-
-
 };
 
 #endif

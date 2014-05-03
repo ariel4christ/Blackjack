@@ -18,8 +18,8 @@ private:
 	bool surrender ;  /**< Booléen. Vrai di le joueur a abandonné ses deux main, faux sinon. */
 
 protected:
-	Hand *hand;  /**< Pointeur vers Hand. Main principale du joueur. */
-	Hand *hand2;  /**< Pointeur vers Hand. Seconde main si le joueur sépare sa main principale. */
+	PlayerHand *hand;  /**< Pointeur vers Hand. Main principale du joueur. */
+	PlayerHand *hand2;  /**< Pointeur vers Hand. Seconde main si le joueur sépare sa main principale. */
 
 public:
 
@@ -97,13 +97,13 @@ public:
 	* Getteur de hand.
 	* @return Pointeur vers hand.
 	*/
-	inline Hand* getHand() { return hand;  }
+	inline PlayerHand* getHand() { return hand;  }
 
 	/**
 	* Getteur de hand2.
 	* @return Pointeur vers hand2.
 	*/
-	inline Hand* getHand2() { return hand2; }
+	inline PlayerHand* getHand2() { return hand2; }
 };
 
 #endif
