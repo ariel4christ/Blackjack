@@ -18,10 +18,10 @@ char str[256]; // Stocke le message reçu
 int id_message;
 
 //On regarde le premier entier du message pour savoir quel type de message c'est
-sscanf(str, "%d", id_message)
+sscanf(str, "%d", &id_message)
 
 // Dans un switch en fonction de id_message, on sait ce qu'on doit recevoir en paramètres, donc on peut refaire un sscanf
-sscanf(str, "%d ...", id_message, ...);
+sscanf(str, "%d ...", &id_message, ...);
 ```
 
 
