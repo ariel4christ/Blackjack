@@ -13,7 +13,7 @@
 class BankCommunication
 {
 public:
-    void AskInsurance();
+    void AskInsurance(int player);
     int CheckFiles();
     void CleanFiles();
     void CreditPlayer(int player, int money);
