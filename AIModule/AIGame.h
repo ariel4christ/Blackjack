@@ -6,6 +6,7 @@
 #define _AIGAME_H
 
 #include <vector>
+#include <string>
 #include <stdexcept>
 #include "../GameModule/Card.h"
 #include "../GameModule/Bank.h"
@@ -29,6 +30,9 @@ private:
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable IA et l'exécutable bank */
 	AI aiInterface; /**< AI. Objet permettant l'affichages des differentes étapes de calcul de l'IA */
 	Bank *banque; /**< Bank. Objet bank permetant d'avoir toutes les informations sur la banque necessaire pour le calcul des probabilités*/
+	std::string message;; /**< string. message recu de la banque */
+	PlayerHand *hand1,*hand2; /**<PlayerHand. les mains de l'IA */
+	int id_message; /**< Entier. Code d'identification du message*/
 
 	/**
 	 * Permet de quitter le jeu
@@ -38,12 +42,13 @@ private:
 	/**
 	 * Permets de jouer un tour
 	 */
-	void runRound();
+	bool runRound();
 
 	/**
 	 * Permet de choisir l'action appropriée à faire
+	 * @params myhand la main sur laquelle sera appliquée l'action à faire
 	 */
-	void chooseAction();
+	void chooseAction(PlayerHand* myhand);
 
 	/**
 	 * Permet de vider la liste des joueurs humains

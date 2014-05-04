@@ -10,6 +10,8 @@ class AI : public Interface {
 public:
 	AI();
 	virtual ~AI();
+	int getBet();
+	bool insurrance();
 };
 
 #endif /* AI_H_ */
