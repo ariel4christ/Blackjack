@@ -56,36 +56,42 @@ void UserGame::quitGame()
 void UserGame::runRound()
 {
 	int num_joueur,typeCard,typeCard2,argent,main;
+	bool quit = false;
 
-	while(true)
+	while(!quit)
 	{
 
 		this->message = this->com.ReadFile();
 		sscanf(this->message.c_str(), "%d %s", &this->id_message, this->reste);
 
-		switch(this->id_message){
+		switch(this->id_message)
+		{
 
 		case 1:// AskInsurance receive
-			if(this->ihm.insurrance()) this->com.RespondInsurance(1);
+			if(this->ihm.insurrance()) 
+				this->com.RespondInsurance(1);
 			else this->com.RespondInsurance(0);
-					break;
+			break;
 
 		case 2: // EndRound receive
+			this->player.deleteHand(this->player.getHand());
+			this->player.deleteHand(this->player.getHand2());
+			break;
+
 		case 3: // RoundStart receive
 			this->initRound();
-					break;
+			break;
 
 		case 4: // SendCard receive
 			sscanf(this->message.c_str(), "%d %d %d %d", &this->id_message, &num_joueur, &typeCard, &main);
 
 			if(num_joueur == this->player.getId())
 			{
-
-				if(!main) this->myHand1->addCard(new Card(static_cast<EType>(typeCard)));
+				if(!main) 
+					this->myHand1->addCard(new Card(static_cast<EType>(typeCard)));
 				else this->myHand2->addCard(new Card(static_cast<EType>(typeCard)));
-
 			}
-					break;
+			break;
 
 		case 5: // SetBalance receive
 			int balance;
@@ -94,7 +100,7 @@ void UserGame::runRound()
 			{
 				this->player.setBalance(balance);
 			}
-					break;
+			break;
 
 		case 6: // SetBet receive
 			int bet;
@@ -103,7 +109,7 @@ void UserGame::runRound()
 			{
 				this->myHand1->setBet(bet);
 			}
-					break;
+			break;
 
 		case 7:	// ValidStand receive
 			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur, &main);
@@ -112,7 +118,7 @@ void UserGame::runRound()
 				if(!main) this->player.Stand(this->myHand1);
 				else this->player.Stand(this->myHand2);
 			}
-					break;
+			break;
 
 		case 8: // ValidSurrender receive
 			sscanf(this->message.c_str(), "%d %d %d ", &this->id_message, &num_joueur, &main);
@@ -121,22 +127,23 @@ void UserGame::runRound()
 				if(!main) this->player.Surrender(this->myHand1);
 				else this->player.Surrender(this->myHand2);
 			}
-					break;
+			break;
 
 		case 9: // HasQuit receive
 			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
 			if(num_joueur == this->player.getId())
 			{
-				this->quitGame();
+				quit = true;
 			}
-					break;
+			break;
+
 		case 10: // PlayerEntered receive
 			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
 			if(num_joueur == this->player.getId())
 			{
 				this->com.CreateFiles(this->player.getId());
 			}
-					break;
+			break;
 
 		case 11: // CreditPlayer receive
 			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur,&argent);
@@ -144,7 +151,7 @@ void UserGame::runRound()
 			{
 				this->player.increaseBalance(argent);
 			}
-					break;
+			break;
 
 		case 12: // DebitPlayer receive
 			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur,&argent);
@@ -152,7 +159,7 @@ void UserGame::runRound()
 			{
 				this->player.decreaseBalance(argent);
 			}
-					break;
+			break;
 
 		case 13: // SetHand receive
 			sscanf(this->message.c_str(), "%d %d %d %d %d ", &this->id_message, &num_joueur, &main, &typeCard, &typeCard2);
@@ -168,7 +175,7 @@ void UserGame::runRound()
 				else  this->myHand2->setHand(hand);
 
 			}
-					break;
+			break;
 
 		case 14: // ValidSplit receive
 			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
@@ -176,16 +183,17 @@ void UserGame::runRound()
 			{
 				this->player.newHand();
 			}
-					break;
+			break;
 
 		case 15: // AskAction receive
-		sscanf(this->message.c_str(), "%d %d %d ", &this->id_message, &num_joueur, &main);
-		if(num_joueur == this->player.getId())
-		{
-			if(!main) this->choseAction(myHand1);
-			else this->choseAction(myHand2);
-		}
-				break;
+			sscanf(this->message.c_str(), "%d %d %d ", &this->id_message, &num_joueur, &main);
+			if(num_joueur == this->player.getId())
+			{
+				if(!main) this->choseAction(myHand1);
+				else this->choseAction(myHand2);
+			}
+			break;
+
 		}
 	}
 }
