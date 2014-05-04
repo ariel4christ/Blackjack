@@ -52,7 +52,8 @@ sscanf(str, "%d ...", &id_message, ...);
 - DebitPlayer : **12 *id_joueur* *argent***
 - SetHand : **13 *id_joueur* *carte1* *carte2* ...**
 - ValidSplit : **14 *id_joueur***
-
+- AskAction : **15 *id_joueur* *secondHand***
+- 
 ## Suivi du nombre de joueurs :
 
 On va utiliser un entier pour stocker les places utilisées dans le jeu. Ses 4 derniers bits vont définir chacun si un joueur existe ou non. (La fonction CheckFiles() de BankCommunication retourne cet entier).
