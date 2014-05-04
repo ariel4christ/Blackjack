@@ -26,8 +26,8 @@ public:
     void SendCard(int player, EType t, int secondHand);
     void setBalance(int player, int balance);
     void setBet(int player, int bet);
-    void setHand(int player, Hand &h);
-    void validStand(int player);
+    void setHand(int player, Hand &h, int secondHand);
+    void validStand(int player, int secondHand);
     void validSurrender(int player);
 	void validSplit(int player);
 	void AskAction(int player, int secondHand);
