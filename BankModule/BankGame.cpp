@@ -66,30 +66,6 @@ BankGame::~BankGame()
 
 /***** MÃ©thodes privÃ©es *****/
 
-void BankGame::newPlayer()
-{
-	static int b;  // Initialisé à 0 dans newGame()
-	int c = this->com.CheckFiles();
-	if (b != c)
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			if (b & (1 << i))
-			{
-				this->player.push_back(new Player(i, balancePlayerInit));
-
-				string str;
-				int id_message;
-				sscanf(str.c_str(), "%d", &id_message);
-				if (id_message != 6)
-					throw runtime_error("Message d'entee joueur incorrect");
-				else
-					com.PlayerEntered(i);
-			}
-		}
-	}
-}
-
 void BankGame::burnCards()
 {
 	if (this->deck.size() < 5)
@@ -342,8 +318,32 @@ void BankGame::newGame()
 	cout << endl << "##################################################" << endl;
 	while (this->com.CheckFiles() == 0);  // Boucle tant qu'il n'y a pas de joueur
 
-	static int b = 0;
 	newPlayer();
+}
+
+void BankGame::newPlayer()
+{
+	static int b = 0;
+	int c = this->com.CheckFiles();
+	if (b != c)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if ( (c & (1 << i)) && (!(b & (1 << i))) )
+			{
+				this->player.push_back(new Player(i, balancePlayerInit));
+
+				string str;
+				int id_message;
+				sscanf(str.c_str(), "%d", &id_message);
+				if (id_message != 6)
+					throw runtime_error("Message d'entee joueur incorrect");
+				else
+					com.PlayerEntered(i);
+			}
+		}
+	}
+	b = c;
 }
 
 void BankGame::playerAction(Player *p, int secondHand)
