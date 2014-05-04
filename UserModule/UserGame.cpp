@@ -49,7 +49,7 @@ void UserGame::quitGame()
 {
 	this->player.deleteHand(this->myHand1);
 	this->player.deleteHand(this->myHand2);
-	this->com.QuitMessage();
+	this->~UserGame();
 	exit(1);
 }
 
@@ -204,14 +204,47 @@ void UserGame::choseAction(PlayerHand *myhand)
 
 	/* affichage de l'etat du jeu */
 	this->ihm.PrintGameState(this->player,hit,spliter,doubler,stand);
+
 	/* recois la reponse*/
 	reponse = this->ihm.askAction(hit,spliter,doubler,stand);
 
+	/* valeur permetant de connaitre la main sur laquelle seront appliquées les actions */
+	int value;
+
+	if(myhand == this->myHand1) value = 0;
+	else value = 1;
+
 	switch(reponse)
 	{
-	case 'C':
-		break;
+	case 'C': // Demander carte
 
+		this->com.AskToHIt(value);
+			break;
+
+	case 'P': // Split
+
+		this->com.Split(value);
+			break;
+
+	case 'D': // Doubler
+
+		this->com.Double();
+			break;
+
+	case 'R': // Rester
+
+		this->com.Stand(value);
+			break;
+
+	case 'A': // Abandonner la main
+
+		this->com.Surrender(value);
+			break;
+
+	case 'Q': // Abandonner la main ET quitter le jeu
+
+		this->com.QuitMessage();
+			break;
 	}
 
 }
