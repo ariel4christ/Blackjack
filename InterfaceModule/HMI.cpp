@@ -5,7 +5,9 @@
 #include "HMI.h"
 
 using namespace std;
-
+/**
+ * Demande au joueur la somme qu'il veut parier
+ */
 int HMI::getBet()
 {
 	int bet;
@@ -73,7 +75,7 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
  * @param  stay    le joueur peut stay ?
  * @return         le caractère correspondant à l'action voulue par le joueur
  */
-char askAction(bool hit, bool split, bool doubler, bool stay)
+char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 {
     char response;
 
@@ -93,7 +95,7 @@ char askAction(bool hit, bool split, bool doubler, bool stay)
     return response;
 }
 
-bool insurrance()
+bool HMI::insurrance()
 {
     char response;
 
