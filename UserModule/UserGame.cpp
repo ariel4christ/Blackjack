@@ -196,15 +196,23 @@ void UserGame::choseAction(PlayerHand *myhand)
 	bool doubler = false;
 	bool hit = false;
 	bool stand = true;
+	char reponse;
 
 	if(this->myHand1->isPair() && this->myHand2 == NULL) spliter = true;
 	if(this->myHand1->numberOfCards() == 2 && this->myHand2 == NULL) doubler = true;
 	if(myhand->getValue1() <= 21) hit = true;
 
 	/* affichage de l'etat du jeu */
-	this->ihm.PrintGameState(this->player,true,true,true,true);
+	this->ihm.PrintGameState(this->player,hit,spliter,doubler,stand);
 	/* recois la reponse*/
-	this->ihm.askAction(hit,spliter,doubler,stand);
+	reponse = this->ihm.askAction(hit,spliter,doubler,stand);
+
+	switch(reponse)
+	{
+	case 'C':
+		break;
+
+	}
 
 }
 

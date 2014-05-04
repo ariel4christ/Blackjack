@@ -63,8 +63,8 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
     if (split) cout << "Split ? (P)" << endl;
     if (doubler) cout << "Doubler ? (D)" << endl;
     if (stay) cout << "Rester ? (R)" << endl;
-    cout << "Abandonner la main" << endl;
-    cout << "Abandonner la main ET quitter le jeu" << endl;
+    cout << "Abandonner la main? (A)" << endl;
+    cout << "Abandonner la main ET quitter le jeu? (Q)" << endl;
 }
 
 /**
