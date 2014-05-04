@@ -50,7 +50,8 @@ sscanf(str, "%d ...", &id_message, ...);
 - PlayerEntered : **10 *id_joueur***
 - CreditPlayer : **11 *id_joueur* *argent***
 - DebitPlayer : **12 *id_joueur* *argent***
-- SetHand : **13 *id_joueur* *carte1* carte2* ...**
+- SetHand : **13 *id_joueur* *carte1* *carte2* ...**
+- ValidSplit : **14 *id_joueur***
 
 ## Suivi du nombre de joueurs :
 
