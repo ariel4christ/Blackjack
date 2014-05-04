@@ -45,9 +45,8 @@ void BankGame::setBalancePlayerInit(int i)
 
 
 BankGame::BankGame(int bankBalance):
-	bank(Bank::Bank(bankBalance))
+	bank(bankBalance)
 {
-	this->newDeck();
 }
 
 BankGame::~BankGame()
@@ -361,6 +360,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 	if (secondHand != secHand)
 		throw runtime_error("Erreur de main dans le choix de l'action");
 
+	PlayerHand *h;
 	switch (id_message)
 	{
 	case 1:  // Split
@@ -386,7 +386,6 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 2:  // Stand
-		PlayerHand *h;
 		if (secHand == 0)
 			h = p->getHand();
 		else h = p->getHand2();
@@ -399,7 +398,6 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 3:  // Surrender
-		PlayerHand *h;
 		if (secHand == 0)
 			h = p->getHand();
 		else h = p->getHand2();
@@ -439,7 +437,6 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 8:  // Hit
-		PlayerHand *h;
 		if (secHand == 0)
 			h = p->getHand();
 		else if (p->getHand2() != NULL)
