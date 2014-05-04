@@ -101,6 +101,18 @@ void PlayerCommunication::CreateFiles(int id)
     }
 }
 
+void PlayerCommunication::RemoveFiles(int id)
+{
+    char fifoNameIn[11];
+    char fifoNameOut[12];
+
+    sprintf(fifoNameIn, "joueur%d.in", id);
+    sprintf(fifoNameOut, "joueur%d.out", id);
+
+    remove(fifoNameIn);
+    remove(fifoNameOut);
+}
+
 /**
  * Informe la banque que le joueur double
  */

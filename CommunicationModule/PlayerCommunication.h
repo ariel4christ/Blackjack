@@ -21,6 +21,7 @@ public:
     void Bet(int bet);
     int CheckFiles();
     void CreateFiles(int id);
+    void RemoveFiles(int id);
     void Double();
     void EnterGame();
     void QuitMessage();
