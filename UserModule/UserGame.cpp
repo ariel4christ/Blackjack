@@ -195,11 +195,17 @@ void UserGame::choseAction(PlayerHand *myhand)
 	bool spliter = false;
 	bool doubler = false;
 	bool hit = false;
-	bool quit = true;
-	bool surrender = true;
+	bool stand = true;
+
+	if(this->myHand1->isPair() && this->myHand2 == NULL) spliter = true;
+	if(this->myHand1->numberOfCards() == 2 && this->myHand2 == NULL) doubler = true;
+	if(myhand->getValue1() <= 21) hit = true;
 
 	/* affichage de l'etat du jeu */
 	this->ihm.PrintGameState(this->player,true,true,true,true);
+	/* recois la reponse*/
+	this->ihm.askAction(hit,spliter,doubler,stand);
+
 }
 
 
