@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void PrintGameState(std::vector<Player*> players, Bank bank)
+void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
 {
     cout << "#########################" << endl << endl;
 

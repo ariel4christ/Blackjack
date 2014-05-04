@@ -30,6 +30,10 @@ private:
 
 public:
 
+	Bank& getBank() { return this->bank; }
+
+	std::vector<Player*>& getPlayers() { return this->player; }
+
 	/**
 	 * Méthode statique retournant la mise minimale autorisée.
 	 */

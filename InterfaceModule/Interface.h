@@ -5,9 +5,9 @@
 class Interface
 {
 	public:
-		void printGameState();
-		void printMessage();
-		void printNewGame();
+		virtual void printGameState();
+		virtual void printMessage();
+		virtual void printNewGame();
 };
 
 #endif

@@ -9,7 +9,8 @@
 #include "../GameModule/Hand.h"
 #include "../GameModule/Card.h"
 
-class HMI : public Interface {
+class HMI 
+{
 
 public:
 	char askAction(bool hit, bool split, bool doubler, bool stay);
