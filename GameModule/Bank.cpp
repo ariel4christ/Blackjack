@@ -24,6 +24,7 @@ void Bank::newHand()
 void Bank::deleteHand()
 {
 	this->hand->deleteHand();
+	delete this->hand;
 	this->hand = NULL;
 }
 

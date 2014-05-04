@@ -57,10 +57,12 @@ BankGame::~BankGame()
 	// Désallocation des joueurs
 	for (vector<Player*>::iterator it = this->player.begin(); it != this->player.end(); it++)
 	{
-		(*it)->~Player();  // Est-ce que éa marche ici ???
+		(*it)->~Player();
 		delete *it;
+		*it = NULL;
 	}
-	
+	player.clear();
+
 	com.CleanFiles();
 }
 
@@ -74,7 +76,7 @@ void BankGame::burnCards()
 		throw runtime_error("impossible de bruler 5 cartes");
 	else for (int i = 1; i <= 5; i++)
 	{
-		delete *(this->deck.end());  // Désallocation ???
+		delete *(this->deck.end());
 		this->deck.pop_back();  // Supression du pointeur de la liste
 	}
 }
@@ -84,7 +86,7 @@ void BankGame::clearDeck()
 	// Désallocation des cartes
 	for (vector<Card*>::iterator it = this->deck.begin(); it != this->deck.end(); it++)
 	{
-		delete *it;  // Est-ce que éa marche ici ???
+		delete *it;
 	}
 	this->deck.clear();
 }
@@ -136,6 +138,7 @@ void BankGame::endRound(Player *p, int secondHand)
 		bank.increaseBalance(h->getBet());
 		h->deleteHand();
 		delete h;
+		h = NULL;
 	}
 	else if (bh->getValue2() > 21 || h->getValue2() > bh->getValue2())  // La main de la banque d�passe 21 OU la main du joueur est > � celle de la banque
 	{
@@ -261,21 +264,27 @@ int BankGame::insurance()
 				player[i]->increaseBalance( (int) floor(player[i]->getHand()->getBet()*1.5) );  // Augmentation solde joueur
 				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise � jour solde exe joueur
 				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
+				player[i]->setHand(NULL);
 			}
 			else if (player[i]->getBlackjack())  // Le joueur a aussi fait blackjack (et donc pas d'assurance demand�e)
 			{
 				player[i]->increaseBalance(player[i]->getHand()->getBet());  // Augmentaion solde joueur : on le rembourse
 				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise � jour solde exe joueur
 				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
+				player[i]->setHand(NULL);
 			}
 			else
+			{
 				player[i]->deleteHand(player[i]->getHand());  // Les autres cas, on d�salloue la main directement
+				player[i]->setHand(NULL);
+			}
 						
 		}
 
 		com.EndRound();
 		bank.deleteHand();
 		delete bank.getHiddenCard();
+		bank.setHiddenCard(NULL);
 
 		cout << "*** LE TOUR EST FINI ***" << endl;
 		cout << endl << "##################################################" << endl;
@@ -470,6 +479,7 @@ void BankGame::quitePlayer(Player *p)
 	int id = p->getId();
 	p->~Player();
 	delete p;
+	p = NULL;
 	com.HasQuit(id);
 
 	// Il n'y a plus de joueur : FIN DU JEU
@@ -577,6 +587,7 @@ int BankGame::runRound()
 	Card *c = bank.getHand()->getCard(1);
 	c->setType(bank.getHiddenCard()->getType());  // On met � jour la carte cach�e avec son vrai type
 	delete bank.getHiddenCard();  // D�sallocation de la carte cach�e
+	bank.setHiddenCard(NULL);
 	com.SendCard(4, c->getType(), 0);
 	interface.printGameState(getPlayers(), getBank());
 

@@ -113,7 +113,8 @@ void Hand::deleteHand()
 {
 	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
 	{
-		delete *it;  // Est-ce que ça marche ici ???
+		delete *it;
+		*it = NULL;
 	}
 	this->cards.clear();
 	this->~Hand();
@@ -123,7 +124,8 @@ void Hand::setHand(const Hand& h)
 {
 	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
 	{
-		delete *it;  // Est-ce que ça marche ici ???
+		delete *it;
+		*it = NULL;
 	}
 	this->cards.clear();
 	for (unsigned int i = 0; i < h.cards.size(); i++)

@@ -9,6 +9,8 @@ insurance(false),
 id(i),
 Participant(pBalance)
 {
+	this->hand = NULL;
+	this->hand2 = NULL;
 }
 
 Player::~Player()
@@ -16,7 +18,9 @@ Player::~Player()
 	this->hand->deleteHand();
 	this->hand2->deleteHand();
 	delete hand;
+	hand = NULL;
 	delete hand2;
+	hand2 = NULL;
 }
 
 void Player::newHand()
@@ -36,6 +40,7 @@ void Player::newHand(int i)
 void Player::deleteHand(Hand *h)
 {
 	h->deleteHand();
+	delete h;
 	h = NULL;
 }
 
@@ -55,6 +60,7 @@ void Player::Surrender(PlayerHand *h)
 	this->increaseBalance(h->getBet() / 2);
 	h->deleteHand();
 	delete h;
+	h = NULL;
 
 	if (this->hand == NULL && this->hand2 == NULL)
 		this->setSurrender(true);
@@ -82,6 +88,12 @@ void Player::setSurrender(bool b)
 
 void Player::setHand(PlayerHand *h)
 {
-	this->getHand()->deleteHand();
+	this->hand->deleteHand();
 	this->hand = h;
+}
+
+void Player::setHand2(PlayerHand *h)
+{
+	this->hand2->deleteHand();
+	this->hand2 = h;
 }
