@@ -3,6 +3,8 @@
 #include <string>
 #include <math.h>
 #include <algorithm>  // std::random_shuffle()
+#include <cstdlib>  // std::rand
+#include <ctime>  // std::time
 
 using namespace std;
 
@@ -67,10 +69,25 @@ BankGame::~BankGame()
 
 void BankGame::newPlayer()
 {
+	static int b;  // Initialisé à 0 dans newGame()
 	int c = this->com.CheckFiles();
-	if (c != 0)
+	if (b != c)
 	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (b & (1 << i))
+			{
+				this->player.push_back(new Player(i, balancePlayerInit));
 
+				string str;
+				int id_message;
+				sscanf(str.c_str(), "%d", &id_message);
+				if (id_message != 6)
+					throw runtime_error("Message d'entee joueur incorrect");
+				else
+					com.PlayerEntered(i);
+			}
+		}
 	}
 }
 
@@ -185,7 +202,7 @@ void BankGame::initRound()
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
-		cout << "\t\t" << "Joueur " << p->getId() << " ?..." << endl;
+		cout << "\t\t" << "Joueur " << player[i]->getId() << " ?..." << endl;
 		player[i]->setBlackjack(false);
 		player[i]->setInsurance(false);
 		player[i]->setSurrender(false);
@@ -195,11 +212,17 @@ void BankGame::initRound()
 		string str = this->com.ReadFile(id);
 		int id_message, bet;
 		sscanf(str.c_str(), "%d %d", &id_message, &bet);
+		if (id_message == 9)
+		{
+			this->player[i]->newHand(bet);  // Nouvelle main
+			this->player[i]->decreaseBalance(bet);  // Diminution solde
 
-		this->player[i]->newHand(bet);  // Nouvelle main
-		this->player[i]->decreaseBalance(bet);  // Diminution solde
-
-		this->com.setBet(id, bet);
+			this->com.setBet(id, bet);
+		}
+		else if (id_message == 4)
+		{
+			quitePlayer(player[i]);
+		}
 	}
 
 	this->dealCards();  // Distribution des cartes initiales
@@ -216,7 +239,7 @@ int BankGame::insurance()
 	{
 		if (!player[i]->getBlackjack())  // Le joueur ne fait pas blackjack
 		{
-			cout << "\t\t" << "Joueur " << p->getId() << " ?..." << endl;
+			cout << "\t\t" << "Joueur " << player[i]->getId() << " ?..." << endl;
 
 			int id = this->player[i]->getId();
 			this->com.AskInsurance(id);
@@ -307,14 +330,21 @@ void BankGame::newDeck()
 
 void BankGame::newGame()
 {
+	srand((unsigned) time(0));
+	
 	this->newDeck();
 	this->shuffleDeck();
 	this->burnCards();
 
 	this->com.CleanFiles();
 
-	while (this->com.CheckFiles() == 0)
-		interface.printMessage(/* "En attente de joueurs" */);
+	cout << endl << "##################################################" << endl;
+	cout << "EN ATTENTE DE JOUEURS" << endl;
+	cout << endl << "##################################################" << endl;
+	while (this->com.CheckFiles() == 0);  // Boucle tant qu'il n'y a pas de joueur
+
+	static int b = 0;
+	newPlayer();
 }
 
 void BankGame::playerAction(Player *p, int secondHand)
@@ -385,8 +415,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 4:  // Quit
-		p->~Player();
-		com.HasQuit(id);
+		quitePlayer(p);
 		break;
 
 	case 7:  // Double
@@ -578,11 +607,5 @@ int BankGame::runRound()
 
 void BankGame::shuffleDeck()
 {
-	/*
-	!!! A METTRE AU DEBUT DU MAIN DE L'EXECUTABLE BANQUE !!!
-	#include <cstdlib>  // std::rand
-	#include <ctime>  // std::time
-	srand((unsigned) time(0));
-	*/
 	random_shuffle(this->deck.begin(), this->deck.end());
 }
