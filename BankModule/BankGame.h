@@ -77,9 +77,10 @@ public:
 	~BankGame();
 
 	/**
-	 * Méthode A IMPLEMENTER...
+	 * Méthode qui gere les tours de jeu.
+	 * @return 0 lorsqu'il n'y a plus de joueur dans le jeu.
 	 */
-	void runGame();
+	int runGame();
 
 
 private:
@@ -100,6 +101,14 @@ private:
 	 */
 	void dealCards();
 
+	/**
+	 * Gestion de la fin d'un tour. Calcule si la main du joueur en paramètre a gagné ou perdu.
+	 * @see Participant::increaseBalance()
+	 * @see Participant::decreaseBalance()
+	 * @see BankCommunication::setBalance()
+	 * @param p Pointeur vers le joueur pour lequel on étudie la finalité de sa fin.
+	 * @param secondHand Entier à 0 si c'est la première main du joueur, 1 et c'est la deuxième main.
+	 */
 	void endRound(Player *p, int secondHand);
 
 	/**
@@ -126,8 +135,18 @@ private:
 	 */
 	void newDeck();
 
+	/**
+	 * Méthode l'initialisation du jeu.
+	 * @see newDeck()
+	 * @see shuffleDeck()
+	 * @see burnCards()
+	 * @see BankCommunication::ChechFiles()
+	 */
 	void newGame();
 
+	/**
+	 * Méthode incluant les nouveaux joueurs dans le jeu.
+	 */
 	void newPlayer();
 
 	/**

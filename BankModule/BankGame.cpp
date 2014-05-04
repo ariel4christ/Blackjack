@@ -122,7 +122,6 @@ void BankGame::dealCards()
 	this->bank.setHiddenCard( hitCard() );
 	this->bank.getHand()->addCard(new Card(NaN));
 	this->com.SendCard(4, NaN, 0);  // 4 pour id banque, 2nd carte est inconnue
-	
 }
 
 void BankGame::endRound(Player *p, int secondHand)
@@ -134,27 +133,36 @@ void BankGame::endRound(Player *p, int secondHand)
 	else h = p->getHand2();
 	bh = bank.getHand();
 
+	cout << "##################################################" << endl << endl;
+	cout << "FIN DU TOUR : RESULTATS" << endl;
+
 	if (h->getValue1() > 21 && h->getValue2 > 21)  // La main du joueur dépasse 21
 	{
+		cout << "Le Joueur " << p->getId() << " a perdu !" << endl;
 		bank.increaseBalance(h->getBet());
 		h->deleteHand();
 		delete h;
 	}
 	else if (bh->getValue2() > 21 || h->getValue2() > bh->getValue2())  // La main de la banque dépasse 21 OU la main du joueur est > à celle de la banque
 	{
+		cout << "Le Joueur " << p->getId() << " a gagné !" << endl;
 		bank.decreaseBalance(h->getBet());
 		p->increaseBalance(h->getBet() * 2);  // 1*mise de gains + 1*mise prélevée au départ
 		com.setBalance(p->getId(), p->getBalance());
 	}
 	else if (h->getValue2() < bh->getValue2())  // La main du joueur est inferieur à celle de la banque
 	{
+		cout << "Le Joueur " << p->getId() << " a perdu !" << endl;
 		bank.increaseBalance(h->getBet());
 	}
 	else if (h->getValue2() == bh->getValue2())  // La main du joueur == la main de la banque
 	{
+		cout << "Le Joueur " << p->getId() << " a fait nul !" << endl;
 		p->increaseBalance(h->getBet());  // On rembourse le joueur
 		com.setBalance(p->getId(), p->getBalance());
 	}
+
+	cout << endl << "##################################################" << endl << endl;
 }
 
 Card* BankGame::hitCard()
@@ -168,17 +176,20 @@ Card* BankGame::hitCard()
 
 void BankGame::initRound()
 {
-	this->newPlayer();  // VÃ©rification des nouveaux joueurs
-
-
 	if (deck.size() <= player.size() * betMax * 2)
 		this->newDeck();  // Nouveau deck
 
 	this->com.RoundStart();
-	cout << endl << "** Nouveau Tour : attente des mises... **" << endl;
+	cout << endl << "##################################################" << endl;
+	cout << endl << "***** NOUVEAU TOUR *****" << endl << "~ Attente des mises : " << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
+		cout << "\t\t" << "Joueur " << p->getId() << " ?..." << endl;
+		player[i]->setBlackjack(false);
+		player[i]->setInsurance(false);
+		player[i]->setSurrender(false);
+
 		int id = this->player[i]->getId();
 
 		string str = this->com.ReadFile(id);
@@ -192,6 +203,7 @@ void BankGame::initRound()
 	}
 
 	this->dealCards();  // Distribution des cartes initiales
+	interface.printGameState();
 }
 
 int BankGame::insurance()
@@ -202,10 +214,13 @@ int BankGame::insurance()
 	{
 		if (!player[i]->getBlackjack())  // Le joueur ne fait pas blackjack
 		{
+			cout << "\t\t" << "Joueur " << p->getId() << " ?..." << endl;
+
 			int id = this->player[i]->getId();
 			this->com.AskInsurance(id);
 			string str = com.ReadFile(id);
-			int response = stoi(str);
+			int id_message, response;
+			sscanf(str.c_str(), "%d %d", &id_message, &response);
 
 			switch (response)
 			{
@@ -231,7 +246,7 @@ int BankGame::insurance()
 	if (bank.isBankBlackjack())  // La banque fait blackjack
 	{
 		bank.getHand()->getCard(1)->setType(bank.getHiddenCard()->getType());
-		cout << "*** La Banque fait Blackjack ***" << endl;
+		cout << "*** La Banque fait Blackjack ***" << endl << "*** Les assurances payent ! ***" << endl;
 		interface.printGameState();
 
 		for (unsigned int i = 0; i < this->player.size(); i++)
@@ -243,27 +258,29 @@ int BankGame::insurance()
 				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
 				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
 			}
-			else if (player[i]->getBlackjack())  // Le joueur a aussi fait blackjack et donc pas d'assurance demandée
+			else if (player[i]->getBlackjack())  // Le joueur a aussi fait blackjack (et donc pas d'assurance demandée)
 			{
-				player[i]->increaseBalance(player[i]->getHand()->getBet());  // Augmentaion solde joueur
+				player[i]->increaseBalance(player[i]->getHand()->getBet());  // Augmentaion solde joueur : on le rembourse
 				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
 				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
 			}
 			else
 				player[i]->deleteHand(player[i]->getHand());  // Les autres cas, on désalloue la main directement
-
-			com.EndRound();
+						
 		}
 
+		com.EndRound();
 		bank.deleteHand();
 		delete bank.getHiddenCard();
+
+		cout << "*** LE TOUR EST FINI ***" << endl;
 
 		return 0;  // Le tour est fini
 	}
 
 	else
 	{
-		cout << "*** La Banque ne fait pas Blackjack ***" << endl;
+		cout << "*** La Banque ne fait pas Blackjack ***" << endl << "*** Les assurance sont perdues ! ***" << endl;
 		return 1;  // Le tour continu
 	}
 }
@@ -422,6 +439,18 @@ void BankGame::quitePlayer(Player *p)
 		this->~BankGame();
 }
 
+int BankGame::runGame()
+{
+	this->newGame();
+	this->newPlayer();  // VÃ©rification des nouveaux joueurs
+	while (!player.empty())
+	{
+		initRound();
+		runRound();
+	}
+		return 0;
+}
+
 int BankGame::runRound()
 {
 	// Détermination des blackjack pour chaque joueur
@@ -500,12 +529,22 @@ int BankGame::runRound()
 
 
 	/***** Tirage des cartes de la banque *****/
+	Card *c = bank.getHand()->getCard(1);
+	c->setType(bank.getHiddenCard()->getType());  // On met à jour la carte cachée avec son vrai type
+	delete bank.getHiddenCard();  // Désallocation de la carte cachée
+	com.SendCard(4, c->getType(), 0);
+	interface.printGameState();
+
+	cout << "La banque tire à 16 et s'arrete à 17." << endl;
 	while (bank.getHand()->getValue2 < 17 || bank.getHand()->getValue1 < 17)
 	{
-		Card* c = hitCard();
+		c = NULL;
+		c = hitCard();
 		bank.getHand()->addCard(c);
 		com.SendCard(4, c->getType(), 0);
 	}
+
+	interface.printGameState();
 	/***** Fin du tirage des cartes de la banque *****/
 
 	/***** Fin du tour : verif des mises *****/
