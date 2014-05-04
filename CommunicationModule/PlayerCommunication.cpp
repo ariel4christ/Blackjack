@@ -182,14 +182,14 @@ void PlayerCommunication::RespondInsurance(int val)
 /**
  * Informe la banque que le joueur split
  */
-void PlayerCommunication::Split()
+void PlayerCommunication::Split(int secondHand)
 {
     FILE *file = fopen(fifoNameOut,"w");
     if (file == (FILE *) NULL)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "1");
+    sprintf(str, "1 %d", secondHand);
     int nb = fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
@@ -197,14 +197,14 @@ void PlayerCommunication::Split()
 /**
  * Informe la banque que le joueur reste
  */
-void PlayerCommunication::Stand()
+void PlayerCommunication::Stand(int secondHand)
 {
     FILE *file = fopen(fifoNameOut,"w");
     if (file == (FILE *) NULL)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "2");
+    sprintf(str, "2 %d", secondHand);
     int nb = fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
@@ -212,14 +212,14 @@ void PlayerCommunication::Stand()
 /**
  * Informe la banque que le joueur abandonne
  */
-void PlayerCommunication::Surrender()
+void PlayerCommunication::Surrender(int secondHand)
 {
     FILE *file = fopen(fifoNameOut,"w");
     if (file == (FILE *) NULL)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "3");
+    sprintf(str, "3 %d", secondHand);
     int nb = fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }

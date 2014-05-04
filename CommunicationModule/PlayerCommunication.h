@@ -26,9 +26,9 @@ public:
     void QuitMessage();
     std::string ReadFile();
     void RespondInsurance(int val);
-    void Split();
-    void Stand();
-    void Surrender();
+    void Split(int secondHand);
+    void Stand(int secondHand);
+    void Surrender(int secondHand);
 };
 
 #endif
