@@ -60,6 +60,8 @@ BankGame::~BankGame()
 		(*it)->~Player();  // Est-ce que Ã©a marche ici ???
 		delete *it;
 	}
+	
+	com.CleanFiles();
 }
 
 
@@ -128,21 +130,21 @@ void BankGame::endRound(Player *p, int secondHand)
 	cout << "##################################################" << endl << endl;
 	cout << "FIN DU TOUR : RESULTATS" << endl;
 
-	if (h->getValue1() > 21 && h->getValue2() > 21)  // La main du joueur dépasse 21
+	if (h->getValue1() > 21 && h->getValue2() > 21)  // La main du joueur dï¿½passe 21
 	{
 		cout << "Le Joueur " << p->getId() << " a perdu !" << endl;
 		bank.increaseBalance(h->getBet());
 		h->deleteHand();
 		delete h;
 	}
-	else if (bh->getValue2() > 21 || h->getValue2() > bh->getValue2())  // La main de la banque dépasse 21 OU la main du joueur est > à celle de la banque
+	else if (bh->getValue2() > 21 || h->getValue2() > bh->getValue2())  // La main de la banque dï¿½passe 21 OU la main du joueur est > ï¿½ celle de la banque
 	{
-		cout << "Le Joueur " << p->getId() << " a gagné !" << endl;
+		cout << "Le Joueur " << p->getId() << " a gagnï¿½ !" << endl;
 		bank.decreaseBalance(h->getBet());
-		p->increaseBalance(h->getBet() * 2);  // 1*mise de gains + 1*mise prélevée au départ
+		p->increaseBalance(h->getBet() * 2);  // 1*mise de gains + 1*mise prï¿½levï¿½e au dï¿½part
 		com.setBalance(p->getId(), p->getBalance());
 	}
-	else if (h->getValue2() < bh->getValue2())  // La main du joueur est inferieur à celle de la banque
+	else if (h->getValue2() < bh->getValue2())  // La main du joueur est inferieur ï¿½ celle de la banque
 	{
 		cout << "Le Joueur " << p->getId() << " a perdu !" << endl;
 		bank.increaseBalance(h->getBet());
@@ -257,17 +259,17 @@ int BankGame::insurance()
 			{
 				bank.decreaseBalance(player[i]->getHand()->getBet() / 2);  // Diminution solde banque
 				player[i]->increaseBalance( (int) floor(player[i]->getHand()->getBet()*1.5) );  // Augmentation solde joueur
-				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
+				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise ï¿½ jour solde exe joueur
 				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
 			}
-			else if (player[i]->getBlackjack())  // Le joueur a aussi fait blackjack (et donc pas d'assurance demandée)
+			else if (player[i]->getBlackjack())  // Le joueur a aussi fait blackjack (et donc pas d'assurance demandï¿½e)
 			{
 				player[i]->increaseBalance(player[i]->getHand()->getBet());  // Augmentaion solde joueur : on le rembourse
-				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
+				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise ï¿½ jour solde exe joueur
 				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
 			}
 			else
-				player[i]->deleteHand(player[i]->getHand());  // Les autres cas, on désalloue la main directement
+				player[i]->deleteHand(player[i]->getHand());  // Les autres cas, on dï¿½salloue la main directement
 						
 		}
 
@@ -385,7 +387,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 			com.setHand(id, *p->getHand2(), 1);
 		}
 		else 
-			throw runtime_error("Split non autorisé");
+			throw runtime_error("Split non autorisï¿½");
 		break;
 
 	case 2:  // Stand
@@ -429,8 +431,8 @@ void BankGame::playerAction(Player *p, int secondHand)
 			int bet = p->getHand()->getBet();
 			p->decreaseBalance(bet);
 			p->getHand()->setBet(2*bet);
-			com.setBet( id, 2 * bet );  // Mise à jour mise
-			com.setBalance(id, p->getBalance());  // Mise à jour solde
+			com.setBet( id, 2 * bet );  // Mise ï¿½ jour mise
+			com.setBalance(id, p->getBalance());  // Mise ï¿½ jour solde
 			// La joueur stand
 			h->setStand(true);
 			com.validStand(id, secHand);
@@ -445,7 +447,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 		else if (p->getHand2() != NULL)
 			h = p->getHand2();
 		else 
-			throw runtime_error("Le joueur n'a pas de deuxième main");
+			throw runtime_error("Le joueur n'a pas de deuxiï¿½me main");
 
 		if (h->getValue1() <= 21)
 		{
@@ -456,7 +458,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	default:
-		throw runtime_error("Action non autorisée");
+		throw runtime_error("Action non autorisï¿½e");
 		break;
 	}
 
@@ -490,7 +492,7 @@ int BankGame::runGame()
 
 int BankGame::runRound()
 {
-	// Détermination des blackjack pour chaque joueur
+	// Dï¿½termination des blackjack pour chaque joueur
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
 		if (player[i]->getHand()->isBlackjack())  // Le joueur fait blackjack
@@ -528,7 +530,7 @@ int BankGame::runRound()
 				cout << "*** La Banque ne fait pas Blackjack ***" << endl;
 				cout << "##################################################" << endl;
 				bank.decreaseBalance( (int) floor(player[i]->getHand()->getBet()*1.5) );
-				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet()*2.5) );  // Augmentation du solde : 1,5* mise de gains + 1*mise déjà prélevée
+				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet()*2.5) );  // Augmentation du solde : 1,5* mise de gains + 1*mise dï¿½jï¿½ prï¿½levï¿½e
 				com.setBalance(player[i]->getId(), player[i]->getBalance());
 
 				player[i]->getHand()->deleteHand();
@@ -547,7 +549,7 @@ int BankGame::runRound()
 			while (!player[i]->getHand()->getStand() && !player[i]->getSurrender() && player[i]->getHand() != NULL)
 			{
 				playerAction(player[i], 0);
-				if (player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				if (player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligï¿½ de s'arreter.
 				{
 					player[i]->getHand()->setStand(true);
 					com.validStand(player[i]->getId(), 0);
@@ -559,7 +561,7 @@ int BankGame::runRound()
 			while (player[i]->getHand2() != NULL && !player[i]->getHand2()->getStand() && !player[i]->getSurrender())
 			{
 				playerAction(player[i], 1);
-				if (player[i]->getHand2()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				if (player[i]->getHand2()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligï¿½ de s'arreter.
 				{
 					player[i]->getHand2()->setStand(true);
 					com.validStand(player[i]->getId(), 1);
@@ -573,13 +575,13 @@ int BankGame::runRound()
 
 	/***** Tirage des cartes de la banque *****/
 	Card *c = bank.getHand()->getCard(1);
-	c->setType(bank.getHiddenCard()->getType());  // On met à jour la carte cachée avec son vrai type
-	delete bank.getHiddenCard();  // Désallocation de la carte cachée
+	c->setType(bank.getHiddenCard()->getType());  // On met ï¿½ jour la carte cachï¿½e avec son vrai type
+	delete bank.getHiddenCard();  // Dï¿½sallocation de la carte cachï¿½e
 	com.SendCard(4, c->getType(), 0);
 	interface.printGameState(getPlayers(), getBank());
 
 	cout << endl << "##################################################" << endl;
-	cout << "La banque tire à 16 et s'arrete à 17." << endl;
+	cout << "La banque tire ï¿½ 16 et s'arrete ï¿½ 17." << endl;
 	cout << "##################################################" << endl;
 
 	while (bank.getHand()->getValue2() < 17 || bank.getHand()->getValue1() < 17)
