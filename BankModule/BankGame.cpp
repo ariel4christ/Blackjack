@@ -302,7 +302,7 @@ void BankGame::playerAction(Player *p)
 		if (h != NULL)
 		{
 			h->setStand(true);
-			com.validStand(id);
+			com.validStand(id, secHand);
 		}
 		break;
 
@@ -317,6 +317,8 @@ void BankGame::playerAction(Player *p)
 			bank.increaseBalance(h->getBet() / 2);
 			p->Surrender(h);
 			com.validSurrender(id);
+			if (p->getHand() == NULL && p->getHand2() == NULL)
+				p->setSurrender(true);
 		}
 		break;
 
@@ -337,6 +339,9 @@ void BankGame::playerAction(Player *p)
 			p->getHand()->setBet(2*bet);
 			com.setBet( id, 2 * bet );  // Mise à jour mise
 			com.setBalance(id, p->getBalance());  // Mise à jour solde
+			// La joueur stand
+			h->setStand(true);
+			com.validStand(id, secHand);
 		}
 		else 
 			throw runtime_error("Double impossible");
