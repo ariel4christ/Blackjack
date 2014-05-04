@@ -14,16 +14,15 @@ Un dossier par module. On aura plus qu'à faire les makefile pour compiler chaqu
 
 Pour lire tous les messages on pourra utiliser sscanf() pour récupérer les infos de la même façon qu'elles sont envoyées :
 ```cpp
-char str[256]; // Stocke le message reçu
+string str; // Stocke le message reçu
 int id_message;
 
 //On regarde le premier entier du message pour savoir quel type de message c'est
-sscanf(str, "%d", &id_message)
+sscanf(str.c_str(), "%d", &id_message)
 
 // Dans un switch en fonction de id_message, on sait ce qu'on doit recevoir en paramètres, donc on peut refaire un sscanf
 sscanf(str, "%d ...", &id_message, ...);
 ```
-
 
 ### Joueur vers Banque
 - RespondInsurance (**val** = 0 ou 1) : ***val***

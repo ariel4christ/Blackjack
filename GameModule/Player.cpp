@@ -5,6 +5,7 @@ using namespace std;
 Player::Player(int i, int pBalance) : 
 blackjack(false),
 surrender(false),
+insurance(false),
 id(i),
 Participant(pBalance)
 {
@@ -77,4 +78,10 @@ bool Player::getSurrender()
 void Player::setSurrender(bool b)
 {
 	this->surrender = b;
+}
+
+void Player::setHand(PlayerHand *h)
+{
+	this->getHand()->deleteHand();
+	this->hand = h;
 }

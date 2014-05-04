@@ -104,7 +104,9 @@ bool Hand::isBlackjack()
 
 bool Hand::isPair()
 {
-	return this->cards[0]->getType() == this->cards[1]->getType();
+	if (this->cards[0]->getType() == this->cards[1]->getType() && this->numberOfCards() == 2)
+		return true;
+	else return false;
 }
 
 void Hand::deleteHand()

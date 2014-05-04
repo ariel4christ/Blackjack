@@ -92,3 +92,17 @@ char askAction(bool hit, bool split, bool doubler, bool stay)
 
     return response;
 }
+
+bool insurrance()
+{
+    char response;
+
+    cout << "Voulez-vous prendre une assurance ? O/N" << endl;
+    do
+    {
+        cin >> response;
+        if (cin.fail()) cout << "Erreur, veuillez recommencez" << endl;
+    } while (cin.fail() || (response != 'O' && response != 'N'));
+
+    return (response == 'O') ? true : false;
+}
