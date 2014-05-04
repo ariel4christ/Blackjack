@@ -308,12 +308,12 @@ void BankCommunication::setBet(int player, int bet)
  * @param player l'id du joueur
  * @param h      la main à envoyer
  */
-void BankCommunication::setHand(int player, Hand &h)
+void BankCommunication::setHand(int player, Hand &h, int secondHand)
 {
     std::vector<Card*> cards = h.getCards();
 
     char str[256];
-    sprintf(str, "13 %d %d", player, static_cast<int>(cards.size()));
+    sprintf(str, "13 %d %d %d", player, secondHand, static_cast<int>(cards.size()));
 
 
     for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++)
@@ -340,7 +340,7 @@ void BankCommunication::setHand(int player, Hand &h)
  * Prévient les joueurs qu'un joueur est "resté"
  * @param player l'id du joueur
  */
-void BankCommunication::validStand(int player)
+void BankCommunication::validStand(int player, int secondHand)
 {
     char fifoNameIn[11];
 
@@ -352,7 +352,7 @@ void BankCommunication::validStand(int player)
         if (file != (FILE *) NULL)
         {
             char str[32];
-            sprintf(str, "7 %d", player);
+            sprintf(str, "7 %d %d", player, secondHand);
             int nb = fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
