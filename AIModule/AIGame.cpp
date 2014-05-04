@@ -1,10 +1,10 @@
 #include "AIGame.h"
 
-AIGame::AIGame():listOfCards(NULL),previousBets(NULL),players(NULL)
+AIGame::AIGame()
 {
 }
 
-void AIGaAIGame::~AIGame()
+AIGame::~AIGame()
 {
 }
 
