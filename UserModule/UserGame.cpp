@@ -5,9 +5,15 @@
 
 #include "UserGame.h"
 
-UserGame::UserGame(int pBalance):player(0,0){
-	this->com = PlayerCommunication();
-	this->player = Player(this->com.CheckFiles(),pBalance);
+UserGame::UserGame() : player(0,0), com()
+{
+	int id = this->com.CheckFiles();
+
+	if (id == -1)
+		exit(-1);
+
+	this->com.CreateFiles(id);
+	this->player = Player(id,0);
 }
 
 UserGame::~UserGame() {
@@ -62,13 +68,13 @@ void UserGame::runRound()
 	{
 
 		this->message = this->com.ReadFile();
-		sscanf(this->message.c_str(), "%d %s", &this->id_message, this->reste);
+		sscanf(this->message.c_str(), "%d", &this->id_message);
 
 		switch(this->id_message)
 		{
 
 		case 1:// AskInsurance receive
-			if(this->ihm.insurrance()) 
+			if(this->ihm.insurrance())
 				this->com.RespondInsurance(1);
 			else this->com.RespondInsurance(0);
 			break;
@@ -87,7 +93,7 @@ void UserGame::runRound()
 
 			if(num_joueur == this->player.getId())
 			{
-				if(!main) 
+				if(!main)
 					this->myHand1->addCard(new Card(static_cast<EType>(typeCard)));
 				else this->myHand2->addCard(new Card(static_cast<EType>(typeCard)));
 			}
