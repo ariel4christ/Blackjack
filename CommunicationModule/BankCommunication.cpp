@@ -409,7 +409,7 @@ void BankCommunication::validSplit(int player)
  * Prévient les joueurs qu'un joueur à splite
  * @param player l'id du joueur
  */
-void BankCommunication::AskAction(int player)
+void BankCommunication::AskAction(int player, int secondHand)
 {
 	char fifoNameIn[11];
 
@@ -421,7 +421,7 @@ void BankCommunication::AskAction(int player)
 		if (file != (FILE *)NULL)
 		{
 			char str[32];
-			sprintf(str, "14 %d", player);
+			sprintf(str, "15 %d %d", player, secondHand);
 			int nb = fwrite(str, sizeof(char), 32, file);
 			fclose(file);
 		}

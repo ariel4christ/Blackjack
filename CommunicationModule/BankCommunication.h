@@ -30,7 +30,7 @@ public:
     void validStand(int player);
     void validSurrender(int player);
 	void validSplit(int player);
-	void AskAction(int player);
+	void AskAction(int player, int secondHand);
 };
 
 #endif
