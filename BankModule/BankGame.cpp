@@ -339,7 +339,10 @@ void BankGame::newPlayer()
 				if (id_message != 6)
 					throw runtime_error("Message d'entee joueur incorrect");
 				else
+				{
 					com.PlayerEntered(i);
+					com.setBalance(i, balancePlayerInit);
+				}
 			}
 		}
 	}
@@ -480,6 +483,7 @@ int BankGame::runGame()
 	{
 		initRound();
 		runRound();
+		newPlayer();
 	}
 		return 0;
 }
