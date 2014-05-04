@@ -44,13 +44,13 @@ sscanf(str, "%d ...", &id_message, ...);
 - SendCard : **4 *id_joueur* *type_carte* *secondHand***
 - SetBalance : **5 *id_joueur* *balance***
 - SetBet : **6 *id_joueur* *bet***
-- ValidStand : **7 *id_joueur***
-- ValidSurrender : **8 *id_joueur***
+- ValidStand : **7 *id_joueur* *secondHand***
+- ValidSurrender : **8 *id_joueur* *secondHand***
 - HasQuit : **9 *id_joueur***
 - PlayerEntered : **10 *id_joueur***
 - CreditPlayer : **11 *id_joueur* *argent***
 - DebitPlayer : **12 *id_joueur* *argent***
-- SetHand : **13 *id_joueur* *carte1* *carte2* ...**
+- SetHand : **13 *id_joueur* *secondHand* *carte1* *carte2* ...**
 - ValidSplit : **14 *id_joueur***
 - AskAction : **15 *id_joueur* *secondHand***
 
