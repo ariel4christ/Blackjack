@@ -202,6 +202,8 @@ void UserGame::runRound()
 
 		}
 	}
+
+	this->com.RemoveFiles(this->player.getId());
 }
 
 void UserGame::choseAction(PlayerHand *myhand)
