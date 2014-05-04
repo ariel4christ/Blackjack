@@ -45,7 +45,7 @@ int Hand::getValue1()
 int Hand::getValue2()
 {
 	if (this->isMultiValued() == false)
-		throw runtime_error("Hand has only ONE value");
+		return this->getValue1();
 
 	else return this->getValue1() + 10;
 }
@@ -75,7 +75,7 @@ bool Hand::isMultiValued()
 {
 	for (unsigned int i = 0; i < this->cards.size(); i++)
 	{
-		// Si la valeur de la main est > 11, alors la deuxiçme valeur de la main est > 21
+		// Si la valeur de la main est > 11, alors la deuxieme valeur de la main est > 21
 		if (this->cards[i]->getType() == AS && this->getValue1() <= 11)
 			return true;
 	}

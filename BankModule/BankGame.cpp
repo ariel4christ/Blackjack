@@ -125,6 +125,38 @@ void BankGame::dealCards()
 	
 }
 
+void BankGame::endRound(Player *p, int secondHand)
+{
+	PlayerHand *h;  // Main du joueur
+	Hand *bh;  // Main de la banque
+	if (secondHand == 0)
+		h = p->getHand();
+	else h = p->getHand2();
+	bh = bank.getHand();
+
+	if (h->getValue1() > 21 && h->getValue2 > 21)  // La main du joueur dépasse 21
+	{
+		bank.increaseBalance(h->getBet());
+		h->deleteHand();
+		delete h;
+	}
+	else if (bh->getValue2() > 21 || h->getValue2() > bh->getValue2())  // La main de la banque dépasse 21 OU la main du joueur est > à celle de la banque
+	{
+		bank.decreaseBalance(h->getBet());
+		p->increaseBalance(h->getBet() * 2);  // 1*mise de gains + 1*mise prélevée au départ
+		com.setBalance(p->getId(), p->getBalance());
+	}
+	else if (h->getValue2() < bh->getValue2())  // La main du joueur est inferieur à celle de la banque
+	{
+		bank.increaseBalance(h->getBet());
+	}
+	else if (h->getValue2() == bh->getValue2())  // La main du joueur == la main de la banque
+	{
+		p->increaseBalance(h->getBet());  // On rembourse le joueur
+		com.setBalance(p->getId(), p->getBalance());
+	}
+}
+
 Card* BankGame::hitCard()
 {
 	Card *c;
@@ -261,13 +293,19 @@ void BankGame::newGame()
 		interface.printMessage(/* "En attente de joueurs" */);
 }
 
-void BankGame::playerAction(Player *p)
+void BankGame::playerAction(Player *p, int secondHand)
 {
 	int id = p->getId();
+
+	com.AskAction(id, secondHand);
+		
 	string str = com.ReadFile(id);
 	int id_message;
 	int secHand;
 	sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+
+	if (secondHand != secHand)
+		throw runtime_error("Erreur de main dans le choix de l'action");
 
 	switch (id_message)
 	{
@@ -418,7 +456,7 @@ int BankGame::runRound()
 			{
 				cout << "*** La Banque ne fait pas Blackjack ***" << endl;
 				bank.decreaseBalance( (int) floor(player[i]->getHand()->getBet()*1.5) );
-				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet()*1.5) );  // Augmentation du solde de 1,5*mise
+				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet()*2.5) );  // Augmentation du solde : 1,5* mise de gains + 1*mise déjà prélevée
 				com.setBalance(player[i]->getId(), player[i]->getBalance());
 
 				player[i]->getHand()->deleteHand();
@@ -428,12 +466,59 @@ int BankGame::runRound()
 	}
 	/***** Fin cas "un joueur fait blackjack" *****/
 
-
+	/***** Demandes d'actions aux joueurs *****/
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
-		if (!player[i]->getHand()->getStand() && !player[i]->getSurrender())
-			playerAction(player[i]);
+		if (!this->player[i]->getBlackjack())  // Le joueur n'a pas fait blackjack
+		{
+			// Boucle d'actions sur la main 1
+			while (!player[i]->getHand()->getStand() && !player[i]->getSurrender() && player[i]->getHand() != NULL)
+			{
+				playerAction(player[i], 0);
+				if (player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				{
+					player[i]->getHand()->setStand(true);
+					com.validStand(player[i]->getId(), 0);
+					interface.printGameState();
+				}
+			}
+
+			// Boucle d'actions sur la main 2
+			while (player[i]->getHand2() != NULL && !player[i]->getHand2()->getStand() && !player[i]->getSurrender())
+			{
+				playerAction(player[i], 1);
+				if (player[i]->getHand2()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				{
+					player[i]->getHand2()->setStand(true);
+					com.validStand(player[i]->getId(), 1);
+					interface.printGameState();
+				}
+			}
+		}
 	}
+	/***** Fin des demandes d'actions aux joueurs *****/
+
+
+	/***** Tirage des cartes de la banque *****/
+	while (bank.getHand()->getValue2 < 17 || bank.getHand()->getValue1 < 17)
+	{
+		Card* c = hitCard();
+		bank.getHand()->addCard(c);
+		com.SendCard(4, c->getType(), 0);
+	}
+	/***** Fin du tirage des cartes de la banque *****/
+
+	/***** Fin du tour : verif des mises *****/
+	for (unsigned int i = 0; i < this->player.size(); i++)
+	{
+		if (player[i]->getHand() != NULL)
+			endRound(player[i], 0);
+		if (player[i]->getHand2() != NULL)
+			endRound(player[i], 1);
+	}
+	com.EndRound();
+
+	return 0;
 }
 
 void BankGame::shuffleDeck()

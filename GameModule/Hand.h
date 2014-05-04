@@ -53,7 +53,7 @@ public:
 
 	/**
 	 * Méthode retournant la valeur haute de la main, si elle existe. Le 1er As vaut 11, les autres vallent 1.
-	 * Lance une exception s'il n'existe pas de valeur haute.
+	 * Si la main n'a qu'une seule valeur (elle n'a pas d'AS), retourne getValue1().
 	 * @see isMultiValued()
 	 * @see getValue1()
 	 * @return Entier Valeur haute de la main.

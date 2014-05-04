@@ -100,6 +100,8 @@ private:
 	 */
 	void dealCards();
 
+	void endRound(Player *p, int secondHand);
+
 	/**
 	 * Tire une carte du deck et renvoie son pointeur.
 	 * @return Pointeur vers la carte tirée du deck.
@@ -134,7 +136,7 @@ private:
 	 * @see BankInterface::PrintGameState()
 	 * @param p Pointeur vers le joueur qui envoie une action.
 	 */
-	void playerAction(Player *p);
+	void playerAction(Player *p, int secondHand);
 
 	/**
 	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en paramètre. Fini le jeu s'il n'y a plus de joueur.
