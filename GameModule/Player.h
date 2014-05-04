@@ -16,7 +16,6 @@ class Player : public Participant
 private:
 	int id;  /**< Entier. Identifiant du joueur. */
 	bool blackjack ;  /**< Booléen. Vrai si le joueur fait blackjack, faux sinon. */
-	bool insurance;  /**< Booléen. Vrai si le joueur a pris une assurance, faux sinon. */
 	bool surrender ;  /**< Booléen. Vrai di le joueur a abandonné ses deux main, faux sinon. */
 
 protected:
@@ -112,31 +111,13 @@ public:
 	* Getteur de hand.
 	* @return Pointeur vers hand.
 	*/
-	inline PlayerHand* getHand() { return this->hand;  }
+	inline PlayerHand* getHand() { return hand;  }
 
 	/**
 	* Getteur de hand2.
 	* @return Pointeur vers hand2.
 	*/
-	inline PlayerHand* getHand2() { return this->hand2; }
-
-	/**
-	 * Méthode qui retourne VRAI si le joueur a pris une assurance, FAUX sinon.
-	 * @return Booleen.
-	 */
-	inline bool hasInsurance() { return this->insurance; }
-	
-	/**
-	* Méthode qui désalloue les cartes de la main courante et la remplace par la main en paramètre.
-	* @param h Nouvelle main.
-	*/
-	void setHand(PlayerHand *h);
-	
-	/**
-	 * Setteur de l'attribut inssurance.
-	 * @param b Booleen valeur de insurance.
-	 */
-	inline void setInsurance(bool b) { this->insurance = b; }
+	inline PlayerHand* getHand2() { return hand2; }
 };
 
 #endif
