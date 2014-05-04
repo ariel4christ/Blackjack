@@ -1,9 +1,13 @@
 #ifndef _BANKCOMMUNICATION_H
 #define _BANKCOMMUNICATION_H
-
+#ifdef _WIN32
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
 #include "../GameModule/Card.h"
 #include "../GameModule/Hand.h"
-#include <unistd.h>
+//#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/stat.h>
@@ -29,6 +33,7 @@ public:
     void setHand(int player, Hand &h);
     void validStand(int player);
     void validSurrender(int player);
+	void validSplit(int player);
 };
 
 #endif

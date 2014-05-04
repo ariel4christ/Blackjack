@@ -85,20 +85,6 @@ void BankGame::burnCards()
 	}
 }
 
-void BankGame::checkAction(Player *p, bool secondHand)
-{
-	string str;
-	int id_message;
-	int secHand;
-	sscanf(str.c_str(), "%d %d", &id_message, &secHand);
-
-	switch (id_message)
-	{
-	case 1:
-		break;
-	}
-}
-
 void BankGame::clearDeck()
 {
 	// DÃ©sallocation des cartes
@@ -275,6 +261,112 @@ void BankGame::newGame()
 		interface.printMessage(/* "En attente de joueurs" */);
 }
 
+void BankGame::playerAction(Player *p)
+{
+	int id = p->getId();
+	string str = com.ReadFile(id);
+	int id_message;
+	int secHand;
+	sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+
+	switch (id_message)
+	{
+	case 1:  // Split
+		if (p->getHand()->isPair() && p->getHand2() == NULL && secHand == 0)
+		{
+			com.validSplit(id);
+
+			p->newHand();
+			p->getHand2()->setBet(p->getHand()->getBet());
+			p->decreaseBalance(p->getHand2()->getBet());
+			p->getHand()->trandferSecondCard(p->getHand2());
+
+			Card *c = hitCard();
+			p->getHand()->addCard(c);
+			c = hitCard();
+			p->getHand2()->addCard(c);
+
+			com.setHand(id, *p->getHand(), 0);
+			com.setHand(id, *p->getHand2(), 1);
+		}
+		else 
+			throw runtime_error("Split non autorisé");
+		break;
+
+	case 2:  // Stand
+		PlayerHand *h;
+		if (secHand == 0)
+			h = p->getHand();
+		else h = p->getHand2();
+
+		if (h != NULL)
+		{
+			h->setStand(true);
+			com.validStand(id);
+		}
+		break;
+
+	case 3:  // Surrender
+		PlayerHand *h;
+		if (secHand == 0)
+			h = p->getHand();
+		else h = p->getHand2();
+
+		if (!h->getStand() && h->getValue1() <= 21)
+		{
+			bank.increaseBalance(h->getBet() / 2);
+			p->Surrender(h);
+			com.validSurrender(id);
+		}
+		break;
+
+	case 4:  // Quit
+		p->~Player();
+		com.HasQuit(id);
+		break;
+
+	case 7:  // Double
+		if (p->getHand()->numberOfCards() == 2 && p->getHand2() == NULL)
+		{
+			Card* c = hitCard();
+			p->getHand()->addCard(c);
+			com.SendCard(id, c->getType(), 0);
+
+			int bet = p->getHand()->getBet();
+			p->decreaseBalance(bet);
+			p->getHand()->setBet(2*bet);
+			com.setBet( id, 2 * bet );  // Mise à jour mise
+			com.setBalance(id, p->getBalance());  // Mise à jour solde
+		}
+		else 
+			throw runtime_error("Double impossible");
+		break;
+
+	case 8:  // Hit
+		PlayerHand *h;
+		if (secHand == 0)
+			h = p->getHand();
+		else if (p->getHand2() != NULL)
+			h = p->getHand2();
+		else 
+			throw runtime_error("Le joueur n'a pas de deuxième main");
+
+		if (h->getValue1() <= 21)
+		{
+			Card *c = hitCard();
+			h->addCard(c);
+			com.SendCard(id, c->getType(), secHand);
+		}
+		break;
+
+	default:
+		throw runtime_error("Action non autorisée");
+		break;
+	}
+
+	interface.printGameState();
+}
+
 void BankGame::quitePlayer(Player *p)
 {
 	int id = p->getId();
@@ -329,12 +421,13 @@ int BankGame::runRound()
 			}
 		}
 	}
-	/***** Fin cas *****/
+	/***** Fin cas "un joueur fait blackjack" *****/
+
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
 		if (!player[i]->getHand()->getStand() && !player[i]->getSurrender())
-			checkAction(player[i], false);
+			playerAction(player[i]);
 	}
 }
 

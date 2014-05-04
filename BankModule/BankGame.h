@@ -90,8 +90,6 @@ private:
 	 */
 	void burnCards();
 
-	void BankGame::checkAction(Player *p, bool secondHand);
-
 	/**
 	 * Méthode désallouant toutes les cartes du deck. Deck est vidé.
 	 */
@@ -130,8 +128,27 @@ private:
 
 	void newPlayer();
 
+	/**
+	 * Methode qui va traiter l'action demandee par le joueur en parametre.
+	 * @see BankCommunication::ReadFile()
+	 * @see BankInterface::PrintGameState()
+	 * @param p Pointeur vers le joueur qui envoie une action.
+	 */
+	void playerAction(Player *p);
+
+	/**
+	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en paramètre. Fini le jeu s'il n'y a plus de joueur.
+	 * @see Player::~Player()
+	 * @see BankCommunication::HasQuit()
+	 * @see ~BankGame()
+	 * @param p Pointeur vers le joueur qui quitte le jeu.
+	 */
 	void quitePlayer(Player *p);
 
+	/**
+	 * Methode gerant le deroulement d'un tour.
+	 * @return	0	le tour s'est fini sans probleme.
+	 */
 	int runRound();
 
 	/**

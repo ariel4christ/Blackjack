@@ -381,3 +381,26 @@ void BankCommunication::validSurrender(int player)
         }
     }
 }
+
+/**
+* Prévient les joueurs qu'un joueur à splite
+* @param player l'id du joueur
+*/
+void BankCommunication::validSplit(int player)
+{
+	char fifoNameIn[11];
+
+	// On envoie le message à tous les joueurs
+	for (int i = 0; i < 4; i++)
+	{
+		sprintf(fifoNameIn, "joueur%d.in", i);
+		FILE *file = fopen(fifoNameIn, "w");
+		if (file != (FILE *)NULL)
+		{
+			char str[32];
+			sprintf(str, "14 %d", player);
+			int nb = fwrite(str, sizeof(char), 32, file);
+			fclose(file);
+		}
+	}
+}
