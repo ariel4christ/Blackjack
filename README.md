@@ -26,9 +26,9 @@ sscanf(str, "%d ...", &id_message, ...);
 
 ### Joueur vers Banque
 - RespondInsurance (**val** = 0 ou 1) : ***val***
-- Split : **1**
-- Stand : **2**
-- Surrender : **3**
+- Split : **1 *secondHand***
+- Stand : **2 *secondHand***
+- Surrender : **3 *secondHand***
 - QuitMessage : **4**
 - LeaveGame : **5**
 - EnterGame : **6**
