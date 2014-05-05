@@ -47,7 +47,7 @@ sscanf(str, "%d ...", &id_message, ...);
 - ValidStand : **7 *id_joueur* *secondHand***
 - ValidSurrender : **8 *id_joueur* *secondHand***
 - HasQuit : **9 *id_joueur***
-- PlayerEntered : **10 *id_joueur***
+- PlayerEntered : **10 *id_joueur* *miseMin* *miseMax***
 - CreditPlayer : **11 *id_joueur* *argent***
 - DebitPlayer : **12 *id_joueur* *argent***
 - SetHand : **13 *id_joueur* *secondHand* *carte1* *carte2* ...**

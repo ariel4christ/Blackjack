@@ -4,10 +4,10 @@ using namespace std;
 
 Player::Player(int i, int pBalance) :
 Participant(pBalance),
+id(i),
 blackjack(false),
-surrender(false),
 insurance(false),
-id(i)
+surrender(false)
 {
 	this->hand = NULL;
 	this->hand2 = NULL;
