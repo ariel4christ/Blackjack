@@ -29,7 +29,7 @@ private:
 	std::vector<Player> players;/**< vector<Player>. Liste de tous les joueurs du jeux à la position 0 ,'est l'IA, le reste les joueurs humains */
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable IA et l'exécutable bank */
 	AI aiInterface; /**< AI. Objet permettant l'affichages des differentes étapes de calcul de l'IA */
-	Bank *banque; /**< Bank. Objet bank permetant d'avoir toutes les informations sur la banque necessaire pour le calcul des probabilités*/
+	Card bankCard; /**< Bank. Objet bankCard permetant d'enregistrer la carte de la banque necessaire pour le calcul des probabilités*/
 	std::string message; /**< string. message recu de la banque */
 	PlayerHand *hand1,*hand2; /**<PlayerHand. les mains de l'IA */
 	int id_message; /**< Entier. Code d'identification du message*/

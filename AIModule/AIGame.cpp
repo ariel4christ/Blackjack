@@ -1,6 +1,6 @@
 #include "AIGame.h"
 
-AIGame::AIGame()
+AIGame::AIGame(): bankCard(NaN)
 {
 	int id = this->com.CheckFiles();
 
@@ -75,6 +75,9 @@ bool AIGame::runRound()
 				else this->hand2->addCard(new Card(static_cast<EType>(typeCard)));
 
 			}
+			else if( num_joueur == 0)/* reception de la carte de la banque */
+				this->bankCard.setType(static_cast<EType>(typeCard));
+
 			this->listOfCards.push_back(Card(static_cast<EType>(typeCard))); // recupere les cartes de tous les joueurs les siennes comprises
 			break;
 
@@ -188,8 +191,9 @@ bool AIGame::runRound()
 	return endGame;
 }
 
-void AIGame::chooseAction(PlayerHand* myhand)
+void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 {
+
 
 
 }
