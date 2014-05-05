@@ -1,5 +1,7 @@
 /**
- * Classe UserGame. Classe de gestion des joueurs
+ * Classe UserGame. Classe de gestion des joueurs, exécutable User (joueur humain).
+ * @author Ariel NONO
+ * @author Thomas MAINGUY
  */
 
 #ifndef USERGAME_H_
@@ -12,43 +14,48 @@
 
 class UserGame {
 public:
+
 	/**
-	 * Constructeur de Usergame
+	 * Constructeur de Usergame.
 	 */
 	UserGame();
+
 	/**
-	 * Destructeur de UserGame
+	 * Destructeur de UserGame.
 	 */
 	virtual ~UserGame();
+
 	/**
-	 * Methode permettant au joueur courant de quitter le jeux
+	 * Methode permettant au joueur courant de quitter le jeux.
 	 */
 	void quitGame();
+
 	/**
-	 * Methode permettant au joueur courant de demarer son jeux
+	 * Methode gèrant le déroulement du jeux.
 	 */
 	void runGame();
 
 private:
 
-	Player player; /**< Player. Joueur courant **/
-	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable joueurs et l'exécutable bank */
-	std::string message; /**< string. Stocke le message reçu*/
-	HMI ihm; /**<HMI. Objet permettant la communication entre le joueur humain et le module joueur*/
-	PlayerHand *myHand1,*myHand2; /**<PlayerHand. mains du joueur*/
+	Player player; /**< Player. Joueur courant. */
+	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable joueurs et l'exécutable bank. */
+	std::string message; /**< string. Stocke le message reçu. */
+	HMI ihm; /**<HMI. Objet permettant la communication entre le joueur humain et le module joueur. */
+	PlayerHand *myHand1,*myHand2; /**< PlayerHand*. Pointeurs vers les mains du joueur.*/
 
 	/**
-	 * Methode permettant d' initialiser un tour
+	 * Méthode d'initialisation d'un tour.
 	 */
 	void initRound();
 
 	/**
-	 * Methode permettant de faire un tour
+	 * Méthode qui gère le déroulement d'un tour.
 	 */
 	void runRound();
 
 	/**
-	 * Methode permettant de demander des actions au joueur en fontion de l'etat de sa(ses) main(s)
+	 * Méthode permettant de demander une action au joueur en fontion de l'état du jeu.
+	 * @param myHand Pointeur vers la main pour laquelle on demande une action.
 	 */
 	void choseAction(PlayerHand* myhand);
 

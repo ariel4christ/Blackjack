@@ -1,5 +1,6 @@
 /**
- * Classe BankGame. Classe de gestion du jeu.
+ * Classe BankGame. Classe de gestion du jeu, exécutable banque.
+ * @author Christophe HUBERT
  */
 
 #ifndef _BANKGAME_H

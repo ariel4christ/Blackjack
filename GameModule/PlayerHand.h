@@ -1,5 +1,6 @@
 /**
  * Classe PlayerHand. Hérite de la classe Hand. Main d'un joueur.
+ * @author Christophe HUBERT
  */
 
 #ifndef _PLAYERHAND_H

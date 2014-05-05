@@ -1,4 +1,5 @@
 #include "BankCommunication.h"
+#include "../BankModule/BankGame.h"
 
 using namespace std;
 

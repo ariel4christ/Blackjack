@@ -1,5 +1,6 @@
 /**
  *  Classe Card.
+ * @author Christophe HUBERT
  */
 
 #ifndef _CARD_H
