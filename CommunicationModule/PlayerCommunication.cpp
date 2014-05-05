@@ -41,13 +41,13 @@ void PlayerCommunication::Bet(int bet)
  */
 int PlayerCommunication::CheckFiles()
 {
-    if (access("joueur0.in", R_OK) == 0)
+    if (access("joueur0.in", R_OK) == -1)
         return 0;
-    if (access("joueur1.in", R_OK) == 0)
+    if (access("joueur1.in", R_OK) == -1)
         return 1;
-    if (access("joueur2.in", R_OK) == 0)
+    if (access("joueur2.in", R_OK) == -1)
         return 2;
-    if (access("joueur3.in", R_OK) == 0)
+    if (access("joueur3.in", R_OK) == -1)
         return 3;
     return -1;
 }
