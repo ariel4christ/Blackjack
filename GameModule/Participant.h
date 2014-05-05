@@ -1,6 +1,7 @@
 /**
-* Classe Participant. Classe abstraite
-*/
+ * Classe Participant. Classe abstraite.
+ * @author Christophe HUBERT
+ */
 
 #ifndef _PARTICIPANT_H
 #define _PARTICIPANT_H

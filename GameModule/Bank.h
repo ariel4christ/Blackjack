@@ -1,5 +1,6 @@
 /**
  * Classe Bank. Hérite de la classe Participant.
+ * @author Christophe HUBERT
  */
 
 #ifndef _BANK_H

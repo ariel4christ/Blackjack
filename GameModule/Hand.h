@@ -1,5 +1,6 @@
 /**
  * Classe Hand. Main d'un participant : joueur ou banque.
+ * @author Christophe HUBERT
  */
 
 #ifndef _HAND_H

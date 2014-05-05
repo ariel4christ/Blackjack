@@ -1,6 +1,7 @@
 /**
  * Classe Player. Hérite de la classe Participant.
  * Classe qui va instancier un joueur humain ou un joueur IA.
+ * @author Christophe HUBERT
  */
 
 #ifndef _PLAYER_H
