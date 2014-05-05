@@ -30,12 +30,13 @@ public:
 	void runGame();
 
 private:
+	int betMin;  /**< Entier. Mise minimale.*/
+	int betMax;  /**< Entier. Mise maximale.*/
 
 	Player player; /**< Player. Joueur courant **/
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable joueurs et l'exécutable bank */
 	std::string message; /**< string. Stocke le message reçu*/
 	HMI ihm; /**<HMI. Objet permettant la communication entre le joueur humain et le module joueur*/
-	PlayerHand *myHand1,*myHand2; /**<PlayerHand. mains du joueur*/
 
 	/**
 	 * Methode permettant d' initialiser un tour
