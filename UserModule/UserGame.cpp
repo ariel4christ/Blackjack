@@ -27,7 +27,7 @@ void UserGame::runGame()
 		this->initRound();
 		this->runRound();
 	}
-	else this->quitGame();
+	this->quitGame();
 
 }
 
