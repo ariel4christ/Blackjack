@@ -38,7 +38,7 @@ public:
 	/*
 	 * Destructeur.
 	 */
-	~Participant();
+	virtual ~Participant();
 
 	/**
 	 * Setteur de l'attribut balance.

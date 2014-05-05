@@ -2,12 +2,12 @@
 
 using namespace std;
 
-Player::Player(int i, int pBalance) : 
+Player::Player(int i, int pBalance) :
+Participant(pBalance),
 blackjack(false),
 surrender(false),
 insurance(false),
-id(i),
-Participant(pBalance)
+id(i)
 {
 	this->hand = NULL;
 	this->hand2 = NULL;
