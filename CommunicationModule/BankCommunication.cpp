@@ -142,7 +142,7 @@ void BankCommunication::PlayerEntered(int player)
         if (file != (FILE *) NULL)
         {
             char str[32];
-            sprintf(str, "10 %d", player);
+            sprintf(str, "10 %d %d %d", player, BankGame::getBetMin(), BankGame::getBetMax());
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
