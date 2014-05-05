@@ -30,7 +30,7 @@ private:
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable IA et l'exécutable bank */
 	AI aiInterface; /**< AI. Objet permettant l'affichages des differentes étapes de calcul de l'IA */
 	Bank *banque; /**< Bank. Objet bank permetant d'avoir toutes les informations sur la banque necessaire pour le calcul des probabilités*/
-	std::string message;; /**< string. message recu de la banque */
+	std::string message; /**< string. message recu de la banque */
 	PlayerHand *hand1,*hand2; /**<PlayerHand. les mains de l'IA */
 	int id_message; /**< Entier. Code d'identification du message*/
 

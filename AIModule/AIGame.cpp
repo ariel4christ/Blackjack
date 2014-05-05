@@ -7,7 +7,7 @@ AIGame::AIGame()
 		if (id == -1)
 			exit(-1);
 
-	this->players.push_back(Player(id,0)); /* joueur IA à la position 0*/
+	this->players.push_back(Player(id,1000)); /* joueur IA à la position 0, 100 solde par defaut*/
 }
 
 AIGame::~AIGame()
@@ -190,6 +190,7 @@ bool AIGame::runRound()
 
 void AIGame::chooseAction(PlayerHand* myhand)
 {
+
 
 }
 

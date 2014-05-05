@@ -147,7 +147,7 @@ void UserGame::runRound()
 			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
 			if(num_joueur == this->player.getId())
 			{
-				this->com.CreateFiles(this->player.getId());
+				// que doit t'on mettre ici?
 			}
 			break;
 
