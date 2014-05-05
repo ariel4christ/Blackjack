@@ -1,4 +1,5 @@
 #include "BankCommunication.h"
+#include "../BankModule/BankGame.h"
 
 using namespace std;
 
@@ -130,7 +131,7 @@ void BankCommunication::EndRound()
  * La banque prévient les joueurs de l'arrivée d'un nouveau joueur
  * @param player l'id du player qui est arrivé
  */
-void BankCommunication::PlayerEntered(int player, int betMin, int betMax)
+void BankCommunication::PlayerEntered(int player)
 {
     char fifoNameIn[11];
 
@@ -142,7 +143,7 @@ void BankCommunication::PlayerEntered(int player, int betMin, int betMax)
         if (file != (FILE *) NULL)
         {
             char str[32];
-            sprintf(str, "10 %d %d %d", player, betMin, betMax);
+            sprintf(str, "10 %d %d %d", player, BankGame::getBetMin(), BankGame::getBetMax());
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
