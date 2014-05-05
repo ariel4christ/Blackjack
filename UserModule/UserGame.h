@@ -34,7 +34,6 @@ private:
 	Player player; /**< Player. Joueur courant **/
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable joueurs et l'exécutable bank */
 	std::string message; /**< string. Stocke le message reçu*/
-	int id_message; /**< Entier. Code d'identification du message*/
 	HMI ihm; /**<HMI. Objet permettant la communication entre le joueur humain et le module joueur*/
 	PlayerHand *myHand1,*myHand2; /**<PlayerHand. mains du joueur*/
 

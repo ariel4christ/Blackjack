@@ -63,14 +63,15 @@ void UserGame::runRound()
 {
 	int num_joueur,typeCard,typeCard2,argent,main;
 	bool quit = false;
+	int id_message;
 
 	while(!quit)
 	{
 
 		this->message = this->com.ReadFile();
-		sscanf(this->message.c_str(), "%d", &this->id_message);
+		sscanf(this->message.c_str(), "%d", &id_message);
 
-		switch(this->id_message)
+		switch(id_message)
 		{
 
 		case 1:// AskInsurance receive
@@ -89,7 +90,7 @@ void UserGame::runRound()
 			break;
 
 		case 4: // SendCard receive
-			sscanf(this->message.c_str(), "%d %d %d %d", &this->id_message, &num_joueur, &typeCard, &main);
+			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &typeCard, &main);
 
 			if(num_joueur == this->player.getId())
 			{
@@ -101,7 +102,7 @@ void UserGame::runRound()
 
 		case 5: // SetBalance receive
 			int balance;
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur, &balance);
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &balance);
 			if(num_joueur == this->player.getId())
 			{
 				this->player.setBalance(balance);
@@ -110,7 +111,7 @@ void UserGame::runRound()
 
 		case 6: // SetBet receive
 			int bet;
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur, &bet);
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &bet);
 			if(num_joueur == this->player.getId())
 			{
 				this->myHand1->setBet(bet);
@@ -118,7 +119,7 @@ void UserGame::runRound()
 			break;
 
 		case 7:	// ValidStand receive
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur, &main);
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &main);
 			if(num_joueur == this->player.getId())
 			{
 				if(!main) this->player.Stand(this->myHand1);
@@ -127,7 +128,7 @@ void UserGame::runRound()
 			break;
 
 		case 8: // ValidSurrender receive
-			sscanf(this->message.c_str(), "%d %d %d ", &this->id_message, &num_joueur, &main);
+			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
 			if(num_joueur == this->player.getId())
 			{
 				if(!main) this->player.Surrender(this->myHand1);
@@ -136,7 +137,7 @@ void UserGame::runRound()
 			break;
 
 		case 9: // HasQuit receive
-			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
+			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
 			if(num_joueur == this->player.getId())
 			{
 				quit = true;
@@ -144,7 +145,7 @@ void UserGame::runRound()
 			break;
 
 		case 10: // PlayerEntered receive
-			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
+			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
 			if(num_joueur == this->player.getId())
 			{
 				// que doit t'on mettre ici?
@@ -152,7 +153,7 @@ void UserGame::runRound()
 			break;
 
 		case 11: // CreditPlayer receive
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur,&argent);
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
 			if(num_joueur == this->player.getId())
 			{
 				this->player.increaseBalance(argent);
@@ -160,7 +161,7 @@ void UserGame::runRound()
 			break;
 
 		case 12: // DebitPlayer receive
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur,&argent);
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
 			if(num_joueur == this->player.getId())
 			{
 				this->player.decreaseBalance(argent);
@@ -168,7 +169,7 @@ void UserGame::runRound()
 			break;
 
 		case 13: // SetHand receive
-			sscanf(this->message.c_str(), "%d %d %d %d %d ", &this->id_message, &num_joueur, &main, &typeCard, &typeCard2);
+			sscanf(this->message.c_str(), "%d %d %d %d %d ", &id_message, &num_joueur, &main, &typeCard, &typeCard2);
 			if(num_joueur == this->player.getId())
 			{
 				/* construction d'une main a partir des cartes recues*/
@@ -184,7 +185,7 @@ void UserGame::runRound()
 			break;
 
 		case 14: // ValidSplit receive
-			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
+			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
 			if(num_joueur == this->player.getId())
 			{
 				this->player.newHand();
@@ -192,7 +193,7 @@ void UserGame::runRound()
 			break;
 
 		case 15: // AskAction receive
-			sscanf(this->message.c_str(), "%d %d %d ", &this->id_message, &num_joueur, &main);
+			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
 			if(num_joueur == this->player.getId())
 			{
 				if(!main) this->choseAction(myHand1);
