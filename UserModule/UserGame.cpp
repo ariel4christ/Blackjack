@@ -165,7 +165,7 @@ void UserGame::runRound()
 
 		case 13: // SetHand receive
 			int sizeHand;
-			sscanf(this->message.c_str(), "%d %d %d %d %d ", &id_message, &num_joueur, &main, &sizeHand, &typeCard, &typeCard2);
+			sscanf(this->message.c_str(), "%d %d %d %d %d %d", &id_message, &num_joueur, &main, &sizeHand, &typeCard, &typeCard2);
 			if (num_joueur == this->player.getId())
 			{
 				// Construction d'une main a partir des cartes recues
@@ -214,21 +214,26 @@ void UserGame::choseAction(PlayerHand *myhand)
 	bool stand = true;
 	char reponse;
 
-	if(this->player.getHand()->isPair() && this->player.getHand2() == NULL) spliter = true;
-	if(this->player.getHand()->numberOfCards() == 2 && this->player.getHand2() == NULL) doubler = true;
-	if(myhand->getValue1() <= 21) hit = true;
+	if (this->player.getHand()->isPair() && this->player.getHand2() == NULL)
+		spliter = true;
+	if (this->player.getHand()->numberOfCards() == 2 && this->player.getHand2() == NULL)
+		doubler = true;
+	if (myhand->getValue1() <= 21)
+		hit = true;
 
 	/* affichage de l'etat du jeu */
-	this->ihm.PrintGameState(this->player,hit,spliter,doubler,stand);
+	this->ihm.PrintGameState(this->player, hit, spliter, doubler, stand);
 
-	/* recois la reponse*/
-	reponse = this->ihm.askAction(hit,spliter,doubler,stand);
+	/* recoit la reponse*/
+	reponse = this->ihm.askAction(hit, spliter, doubler, stand);
 
 	/* valeur permetant de connaitre la main sur laquelle seront appliquées les actions */
 	int value;
 
-	if(myhand == this->player.getHand()) value = 0;
-	else value = 1;
+	if (myhand == this->player.getHand())
+		value = 0;
+	else
+		value = 1;
 
 	switch(reponse)
 	{
