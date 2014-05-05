@@ -52,7 +52,7 @@ void UserGame::quitGame()
 
 void UserGame::runRound()
 {
-	int num_joueur,typeCard,typeCard2,argent,main;
+	int num_joueur, typeCard, typeCard2, argent, main, betMin = 0, betMax = 0;
 	bool quit = false;
 	int id_message;
 
@@ -139,7 +139,6 @@ void UserGame::runRound()
 			break;
 
 		case 10: // PlayerEntered receive
-			int betMin = 0, betMax = 0;
 			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &betMin, &betMax);
 			if (num_joueur == this->player.getId())
 			{
@@ -176,9 +175,9 @@ void UserGame::runRound()
 				hand->addCard(new Card(static_cast<EType>(typeCard2)));
 
 				if (!main)
-					this->player.getHand()->setHand(hand);
+					this->player.getHand()->setHand(*hand);
 				else
-					this->player.getHand2()->setHand(hand);
+					this->player.getHand2()->setHand(*hand);
 			}
 			break;
 
