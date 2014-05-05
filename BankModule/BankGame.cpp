@@ -480,6 +480,13 @@ void BankGame::quitePlayer(Player *p)
 	p->~Player();
 	delete p;
 	p = NULL;
+	vector<Player*> tmp;
+	for (int i = 0 ; i < player.size() ; i++)
+	{
+		if (player[i] != NULL)  // Si le pointeur != NULL alors on le stock dans le vecteur tmp
+			tmp.push_back(player[i]);
+	}
+	this->player = tmp;  // Mise à jour de player, le joueur qui a quitté le jeu n'est plus dans le vecteur
 	com.HasQuit(id);
 
 	// Il n'y a plus de joueur : FIN DU JEU
