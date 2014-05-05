@@ -60,8 +60,7 @@ public:
 	EType getType();
 
 	/**
-	 * Retourne une représentation de la carte sur quelques caractères
-	 * @return la réprésentation
+	 * Retourne une représentation de la carte sur quelques caractères	 * @return la réprésentation
 	 */
 	const char* getStringRepresentation();
 

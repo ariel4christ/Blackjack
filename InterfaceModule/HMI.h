@@ -1,5 +1,7 @@
-/*
+/**
  * HMI.h
+ * @author Thomas MAINGUY
+ * @author Ariel NONO
  */
 
 #ifndef HMI_H_
@@ -9,7 +11,7 @@
 #include "../GameModule/Hand.h"
 #include "../GameModule/Card.h"
 
-class HMI 
+class HMI
 {
 
 public:

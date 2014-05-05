@@ -1,3 +1,8 @@
+/**
+ * BankCommunication.h
+ * @author Thomas MAINGUY
+ */
+
 #ifndef _BANKCOMMUNICATION_H
 #define _BANKCOMMUNICATION_H
 

@@ -1,4 +1,9 @@
-#ifndef _PLAYERCOMMUNICATION_H
+/**
+ * PlayerCommunication.h
+ * @author Thomas MAINGUY
+ */
+
+ #ifndef _PLAYERCOMMUNICATION_H
 #define _PLAYERCOMMUNICATION_H
 
 #include <unistd.h>

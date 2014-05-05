@@ -1,3 +1,7 @@
+/**
+ * @author Thomas MAINGUY
+ */
+
 #ifndef _BANKINTERFACE_H
 #define _BANKINTERFACE_H
 
