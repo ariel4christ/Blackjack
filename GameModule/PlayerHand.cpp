@@ -1,6 +1,13 @@
 #include "PlayerHand.h"
 
 
+PlayerHand::PlayerHand() :
+Hand(),
+bet(0),
+stand(false)
+{
+}
+
 PlayerHand::PlayerHand(int i) :
 Hand(),
 bet(i),
@@ -10,13 +17,15 @@ stand(false)
 
 PlayerHand::PlayerHand(Card &c, int i) :
 Hand(c),
-bet(i)
+bet(i),
+stand(false)
 {
 }
 
 PlayerHand::PlayerHand(const Hand &h, int i) :
 Hand(h),
-bet(i)
+bet(i),
+stand(false)
 {
 }
 

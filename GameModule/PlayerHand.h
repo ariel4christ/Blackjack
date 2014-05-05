@@ -18,7 +18,7 @@ public:
 	 * Constructeur par défaut.
 	 * La main est vide.
 	 */
-	PlayerHand() {}
+	PlayerHand();
 
 	/**
 	 * Constructeur.
