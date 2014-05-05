@@ -1,4 +1,4 @@
-all: Bank.o Card.o Hand.o Participant.o Player.o PlayerHand.o BankCommunication.o PlayerCommunication.o AI.o BankInterface.o HMI.o Interface.o BankGame.o AIGame.o UserGame.o
+all: Bank.o Card.o Hand.o Participant.o Player.o PlayerHand.o BankCommunication.o PlayerCommunication.o AI.o BankInterface.o HMI.o BankGame.o AIGame.o UserGame.o
 
 
 Bank.o : GameModule/Bank.h GameModule/Bank.cpp
@@ -35,9 +35,6 @@ BankInterface.o : InterfaceModule/BankInterface.h InterfaceModule/BankInterface.
 
 HMI.o : InterfaceModule/HMI.h InterfaceModule/HMI.cpp
 	g++ -c -o InterfaceModule/HMI.o InterfaceModule/HMI.cpp
-
-Interface.o : InterfaceModule/Interface.h InterfaceModule/Interface.cpp
-	g++ -c -o InterfaceModule/Interface.o InterfaceModule/Interface.cpp
 
 
 UserGame.o : UserModule/UserGame.h UserModule/UserGame.cpp

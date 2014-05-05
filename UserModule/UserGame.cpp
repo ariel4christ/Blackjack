@@ -5,7 +5,7 @@
 
 #include "UserGame.h"
 
-UserGame::UserGame() : player(0, 0), com(), betMin(5), betMax(100)
+UserGame::UserGame() : betMin(5), betMax(100), player(0, 0), com()
 {
 	int id = this->com.CheckFiles();
 

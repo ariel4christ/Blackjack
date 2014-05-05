@@ -4,9 +4,8 @@
 
 #ifndef AI_H_
 #define AI_H_
-#include "Interface.h"
 
-class AI : public Interface {
+class AI {
 public:
 	AI();
 	virtual ~AI();

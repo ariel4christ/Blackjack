@@ -6,10 +6,10 @@
 
 #ifndef HMI_H_
 #define HMI_H_
-#include "Interface.h"
 #include "../GameModule/Player.h"
 #include "../GameModule/Hand.h"
 #include "../GameModule/Card.h"
+#include <iostream>
 
 class HMI
 {
