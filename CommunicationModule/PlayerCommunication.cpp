@@ -15,7 +15,7 @@ void PlayerCommunication::AskToHIt(int secondHand)
 
     char str[32];
     sprintf(str, "8 %d", secondHand);
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -31,7 +31,7 @@ void PlayerCommunication::Bet(int bet)
 
     char str[32];
     sprintf(str, "9 %d", bet);
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -124,7 +124,7 @@ void PlayerCommunication::Double()
 
     char str[32];
     sprintf(str, "7");
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -139,7 +139,7 @@ void PlayerCommunication::EnterGame()
 
     char str[32];
     sprintf(str, "6");
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -154,7 +154,7 @@ void PlayerCommunication::QuitMessage()
 
     char str[32];
     sprintf(str, "4");
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -187,7 +187,7 @@ void PlayerCommunication::RespondInsurance(int val)
 
     char str[32];
     sprintf(str, "%d", val);
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -202,7 +202,7 @@ void PlayerCommunication::Split(int secondHand)
 
     char str[32];
     sprintf(str, "1 %d", secondHand);
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -217,7 +217,7 @@ void PlayerCommunication::Stand(int secondHand)
 
     char str[32];
     sprintf(str, "2 %d", secondHand);
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
 
@@ -232,6 +232,6 @@ void PlayerCommunication::Surrender(int secondHand)
 
     char str[32];
     sprintf(str, "3 %d", secondHand);
-    int nb = fwrite(str, sizeof(char), 32, file);
+    fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }

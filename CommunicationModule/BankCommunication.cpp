@@ -16,7 +16,7 @@ void BankCommunication::AskInsurance(int player)
     {
         char str[32];
         sprintf(str, "1");
-        int nb = fwrite(str, sizeof(char), 32, file);
+        fwrite(str, sizeof(char), 32, file);
         fclose(file);
     }
 }
@@ -74,7 +74,7 @@ void BankCommunication::CreditPlayer(int player, int money)
         {
             char str[32];
             sprintf(str, "11 %d %d", player, money);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -98,7 +98,7 @@ void BankCommunication::DebitPlayer(int player, int money)
         {
             char str[32];
             sprintf(str, "12 %d %d", player, money);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -120,7 +120,7 @@ void BankCommunication::EndRound()
         {
             char str[32];
             sprintf(str, "2");
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -143,7 +143,7 @@ void BankCommunication::PlayerEntered(int player)
         {
             char str[32];
             sprintf(str, "10 %d", player);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -166,7 +166,7 @@ void BankCommunication::HasQuit(int player)
         {
             char str[32];
             sprintf(str, "9 %d", player);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -224,7 +224,7 @@ void BankCommunication::RoundStart()
         {
             char str[32];
             sprintf(str, "3");
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -249,7 +249,7 @@ void BankCommunication::SendCard(int player, EType t, int secondHand)
         {
             char str[32];
             sprintf(str, "4 %d %d %d", player, t, secondHand);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -273,7 +273,7 @@ void BankCommunication::setBalance(int player, int balance)
         {
             char str[32];
             sprintf(str, "5 %d %d", player, balance);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -297,7 +297,7 @@ void BankCommunication::setBet(int player, int bet)
         {
             char str[32];
             sprintf(str, "6 %d %d", player, bet);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -330,7 +330,7 @@ void BankCommunication::setHand(int player, Hand &h, int secondHand)
         FILE *file = fopen(fifoNameIn,"w");
         if (file != (FILE *) NULL)
         {
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -353,7 +353,7 @@ void BankCommunication::validStand(int player, int secondHand)
         {
             char str[32];
             sprintf(str, "7 %d %d", player, secondHand);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -376,7 +376,7 @@ void BankCommunication::validSurrender(int player)
         {
             char str[32];
             sprintf(str, "8 %d", player);
-            int nb = fwrite(str, sizeof(char), 32, file);
+            fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
     }
@@ -399,7 +399,7 @@ void BankCommunication::validSplit(int player)
 		{
 			char str[32];
 			sprintf(str, "14 %d", player);
-			int nb = fwrite(str, sizeof(char), 32, file);
+			fwrite(str, sizeof(char), 32, file);
 			fclose(file);
 		}
 	}
@@ -422,7 +422,7 @@ void BankCommunication::AskAction(int player, int secondHand)
 		{
 			char str[32];
 			sprintf(str, "15 %d %d", player, secondHand);
-			int nb = fwrite(str, sizeof(char), 32, file);
+			fwrite(str, sizeof(char), 32, file);
 			fclose(file);
 		}
 	}
