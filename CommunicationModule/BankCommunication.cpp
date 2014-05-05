@@ -130,7 +130,7 @@ void BankCommunication::EndRound()
  * La banque prévient les joueurs de l'arrivée d'un nouveau joueur
  * @param player l'id du player qui est arrivé
  */
-void BankCommunication::PlayerEntered(int player)
+void BankCommunication::PlayerEntered(int player, int betMin, int betMax)
 {
     char fifoNameIn[11];
 
@@ -142,7 +142,7 @@ void BankCommunication::PlayerEntered(int player)
         if (file != (FILE *) NULL)
         {
             char str[32];
-            sprintf(str, "10 %d %d %d", player, BankGame::getBetMin(), BankGame::getBetMax());
+            sprintf(str, "10 %d %d %d", player, betMin, betMax);
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
