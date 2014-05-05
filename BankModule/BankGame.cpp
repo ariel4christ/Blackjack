@@ -278,7 +278,7 @@ int BankGame::insurance()
 				player[i]->deleteHand(player[i]->getHand());  // Les autres cas, on désalloue la main directement
 				player[i]->setHand(NULL);
 			}
-						
+
 		}
 
 		com.EndRound();
@@ -317,7 +317,7 @@ void BankGame::newDeck()
 void BankGame::newGame()
 {
 	srand((unsigned) time(0));
-	
+
 	this->newDeck();
 	this->shuffleDeck();
 	this->burnCards();
@@ -365,7 +365,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 	int id = p->getId();
 
 	com.AskAction(id, secondHand);
-		
+
 	string str = com.ReadFile(id);
 	int id_message;
 	int secHand;
@@ -395,7 +395,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 			com.setHand(id, *p->getHand(), 0);
 			com.setHand(id, *p->getHand2(), 1);
 		}
-		else 
+		else
 			throw runtime_error("Split non autorisé");
 		break;
 
@@ -443,10 +443,10 @@ void BankGame::playerAction(Player *p, int secondHand)
 			com.setBet( id, 2 * bet );  // Mise à jour mise
 			com.setBalance(id, p->getBalance());  // Mise à jour solde
 			// La joueur stand
-			h->setStand(true);
+			p->getHand()->setStand(true);
 			com.validStand(id, secHand);
 		}
-		else 
+		else
 			throw runtime_error("Double impossible");
 		break;
 
@@ -455,7 +455,7 @@ void BankGame::playerAction(Player *p, int secondHand)
 			h = p->getHand();
 		else if (p->getHand2() != NULL)
 			h = p->getHand2();
-		else 
+		else
 			throw runtime_error("Le joueur n'a pas de deuxième main");
 
 		if (h->getValue1() <= 21)
@@ -481,7 +481,7 @@ void BankGame::quitePlayer(Player *p)
 	delete p;
 	p = NULL;
 	vector<Player*> tmp;
-	for (int i = 0 ; i < player.size() ; i++)
+	for (unsigned int i = 0 ; i < player.size() ; i++)
 	{
 		if (player[i] != NULL)  // Si le pointeur != NULL alors on le stock dans le vecteur tmp
 			tmp.push_back(player[i]);
@@ -525,7 +525,7 @@ int BankGame::runRound()
 		if (this->insurance() == 0)
 			return 0; // Le tour est fini
 	}
-	
+
 	/***** Traitement du cas "un joueur fait blackjack" *****/
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{

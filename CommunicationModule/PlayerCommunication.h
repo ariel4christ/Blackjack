@@ -1,5 +1,5 @@
-#ifndef _BANKCOMMUNICATION_H
-#define _BANKCOMMUNICATION_H
+#ifndef _PLAYERCOMMUNICATION_H
+#define _PLAYERCOMMUNICATION_H
 
 #include <unistd.h>
 #include <stdlib.h>
