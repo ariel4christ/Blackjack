@@ -213,44 +213,7 @@ bool AIGame::runRound()
 
 void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 {
-	switch(this->bankCard.getValue()){
-
-	case 1:
-		break;
-
-	case 1:
-			break;
-
-	case 2:
-			break;
-
-	case 3:
-			break;
-
-	case 4:
-			break;
-
-	case 5:
-			break;
-
-	case 6:
-			break;
-
-	case 7:
-			break;
-
-	case 8:
-			break;
-
-	case 9:
-			break;
-
-	case 10:
-			break;
-
-	}
-
-
+	this->strategy_21(NaN,*myhand);
 
 }
 
@@ -261,6 +224,1493 @@ void AIGame::quitGame()
 	this->~AIGame();
 	exit(1);
 }
+
+void AIGame::strategy_21(EType type,PlayerHand& myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+			break;
+
+		case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
+			case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
+				this->com.Stand(myhand);
+
+		}
+}
+
+void AIGame::strategy_20(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_19(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_18(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_17(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_16(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_15(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_14(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_13(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_12(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_11(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_10(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_9(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_8(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_7(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_6(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_5(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_A(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_10_10(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_9_9(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_8_8(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_7_7(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_6_6(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_5_5(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_4_4(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_3_3(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_2_2(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_10(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_9(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_8(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_7(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_6(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_5(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_4(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_3(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+void AIGame::strategy_A_2(EType type,PlayerHand myhand)
+{
+	switch(this->bankCard.getType()){
+
+		case NaN:
+					break;
+
+		case AS:
+				break;
+
+		case TWO:
+				break;
+
+		case THREE:
+				break;
+
+		case FOUR:
+				break;
+
+		case FIVE:
+				break;
+
+		case SIX:
+				break;
+
+		case SEVEN:
+				break;
+
+		case EIGHT:
+				break;
+
+		case NINE:
+				break;
+
+		case TEN:
+				break;
+
+		case JACK: case QUEEN : case KING:
+				break;
+		}
+}
+
+
+
 
 
 
