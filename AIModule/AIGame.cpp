@@ -1,13 +1,14 @@
 #include "AIGame.h"
 
-AIGame::AIGame(): bankCard(NaN)
+AIGame::AIGame(): betMin(5), betMax(100), ia(0,0), com(),bankCard(NaN)
 {
 	int id = this->com.CheckFiles();
 
 		if (id == -1)
 			exit(-1);
 
-	this->players.push_back(Player(id,1000)); /* joueur IA à la position 0, 100 solde par defaut*/
+		this->com.CreateFiles(id);
+		this->ia = Player(id, 0);
 }
 
 AIGame::~AIGame()
@@ -17,110 +18,124 @@ AIGame::~AIGame()
 void AIGame::runGame()
 {
 	this->com.EnterGame();
-	bool quit = false;
+	bool quit = false; // variable permettant de quitter le jeu
+
 	while(!quit){
-		this->emptyPlayerList();
-		this->players[0].setInsurance(false);
-		this->players[0].setBlackjack(false);
-		this->players[0].setInsurance(false);
-		this->players[0].deleteHand(this->hand1);
-		this->players[0].deleteHand(this->hand2);
-		this->hand1 = NULL;
-		this->hand2 = NULL;
+
+		this->ia.setInsurance(false);
+		this->ia.setBlackjack(false);
+		this->ia.setInsurance(false);
+
+		this->ia.deleteHand(this->ia.getHand());
+		this->ia.deleteHand(this->ia.getHand2());
+
 		int bet = this->aiInterface.getBet();
 		this->com.Bet(bet);
+		this->bankCard.setType(NaN);
+
 		quit = this->runRound();
 	}
+
+	this->quitGame();
+
 
 
 }
 
 bool AIGame::runRound()
 {
-	int num_joueur,typeCard,typeCard2,argent,main;
+	int num_joueur,typeCard,typeCard2,argent,main, id_message;
 	bool endRound = false; /* permet de savoir si le tour est achevé */
 	bool endGame = false; /* permet de savoir si le jeu est achevé */
 
-	this->hand1 = this->players[0].getHand();
-	this->hand2 = this->players[0].getHand2();
 
 	while(!endRound)
 	{
-
 		this->message = this->com.ReadFile();
-		sscanf(this->message.c_str(), "%d", &this->id_message);
+		sscanf(this->message.c_str(), "%d", &id_message);
 
-		switch(this->id_message)
+		switch(id_message)
 		{
 
 		case 1:// AskInsurance receive
+
 			if(this->aiInterface.insurrance())
 				this->com.RespondInsurance(1);
-			else this->com.RespondInsurance(0);
+			else
+				this->com.RespondInsurance(0);
 			break;
 
 		case 2: // EndRound receive
-
+			endRound = true;
+			break;
 		case 3: // RoundStart receive
 			endRound = true;
 			break;
 
 		case 4: // SendCard receive
-			sscanf(this->message.c_str(), "%d %d %d %d", &this->id_message, &num_joueur, &typeCard, &main);
+			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &typeCard, &main);
 
-			if(num_joueur == this->players[0].getId())
+			if(num_joueur == this->ia.getId())
 			{
 				if(!main)
-					this->hand1->addCard(new Card(static_cast<EType>(typeCard)));
-				else this->hand2->addCard(new Card(static_cast<EType>(typeCard)));
+					this->ia.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
+				else
+					this->ia.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
 
 			}
-			else if( num_joueur == 0)/* reception de la carte de la banque */
-				this->bankCard.setType(static_cast<EType>(typeCard));
+			else
+				if( num_joueur == 0)/* reception de la carte de la banque */
+					this->bankCard.setType(static_cast<EType>(typeCard));
 
 			this->listOfCards.push_back(Card(static_cast<EType>(typeCard))); // recupere les cartes de tous les joueurs les siennes comprises
 			break;
 
 		case 5: // SetBalance receive
 			int balance;
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur, &balance);
-			if(num_joueur == this->players[0].getId())
+
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &balance);
+			if(num_joueur == this->ia.getId())
 			{
-				this->players[0].setBalance(balance);
+				this->ia.setBalance(balance);
 			}
 			break;
 
 		case 6: // SetBet receive
 			int bet;
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur, &bet);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &bet);
+
+			if(num_joueur == this->ia.getId())
 			{
-				this->hand1->setBet(bet);
+				this->ia.getHand()->setBet(bet);
 				this->previousBets.push_back(bet);
 			}
 			break;
 
 		case 7:	// ValidStand receive
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur, &main);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &main);
+			if(num_joueur == this->ia.getId())
 			{
-				if(!main) this->players[0].Stand(this->hand1);
-				else this->players[0].Stand(this->hand2);
+				if(!main)
+					this->ia.Stand(this->ia.getHand());
+				else
+					this->ia.Stand(this->ia.getHand2());
 			}
 			break;
 
 		case 8: // ValidSurrender receive
-			sscanf(this->message.c_str(), "%d %d %d ", &this->id_message, &num_joueur, &main);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
+			if(num_joueur == this->ia.getId())
 			{
-				if(!main) this->players[0].Surrender(this->hand1);
-				else this->players[0].Surrender(this->hand2);
+				if(!main)
+					this->ia.Surrender(this->ia.getHand());
+				else
+					this->ia.Surrender(this->ia.getHand2());
 			}
 			break;
 
 		case 9: // HasQuit receive
-			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
+			if(num_joueur == this->ia.getId())
 			{
 				 endGame = true;
 				 endRound = true;
@@ -128,32 +143,33 @@ bool AIGame::runRound()
 			break;
 
 		case 10: // PlayerEntered receive
-			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &betMin, &betMax);
+			if (num_joueur == this->ia.getId())
 			{
-				this->com.CreateFiles(this->players[0].getId());
+				this->betMin = betMin;
+				this->betMax = betMax;
 			}
 			break;
 
 		case 11: // CreditPlayer receive
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur,&argent);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
+			if(num_joueur == this->ia.getId())
 			{
-				this->players[0].increaseBalance(argent);
+				this->ia.increaseBalance(argent);
 			}
 			break;
 
 		case 12: // DebitPlayer receive
-			sscanf(this->message.c_str(), "%d %d %d", &this->id_message, &num_joueur,&argent);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
+			if(num_joueur == this->ia.getId())
 			{
-				this->players[0].decreaseBalance(argent);
+				this->ia.decreaseBalance(argent);
 			}
 			break;
 
 		case 13: // SetHand receive
-			sscanf(this->message.c_str(), "%d %d %d %d %d ", &this->id_message, &num_joueur, &main, &typeCard, &typeCard2);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d %d %d ", &id_message, &num_joueur, &main, &typeCard, &typeCard2);
+			if(num_joueur == this->ia.getId())
 			{
 				/* construction d'une main a partir des cartes recues*/
 				Hand hand;
@@ -164,26 +180,30 @@ bool AIGame::runRound()
 				this->listOfCards.push_back(Card(static_cast<EType>(typeCard)));
 				this->listOfCards.push_back(Card(static_cast<EType>(typeCard2)));
 
-				if(!main) this->hand1->setHand(hand);
-				else  this->hand2->setHand(hand);
+				if(!main)
+					this->ia.getHand()->setHand(hand);
+				else
+					this->ia.getHand2()->setHand(hand);
 
 			}
 			break;
 
 		case 14: // ValidSplit receive
-			sscanf(this->message.c_str(), "%d %d ", &this->id_message, &num_joueur);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
+			if(num_joueur == this->ia.getId())
 			{
-				this->players[0].newHand();
+				this->ia.newHand();
 			}
 			break;
 
 		case 15: // AskAction receive
-			sscanf(this->message.c_str(), "%d %d %d ", &this->id_message, &num_joueur, &main);
-			if(num_joueur == this->players[0].getId())
+			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
+			if(num_joueur == this->ia.getId())
 			{
-				if(!main) this->chooseAction(hand1);
-				else this->chooseAction(hand2);
+				if(!main)
+					this->chooseAction(this->ia.getHand());
+				else
+					this->chooseAction(this->ia.getHand2());
 			}
 			break;
 		}
@@ -193,6 +213,42 @@ bool AIGame::runRound()
 
 void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 {
+	switch(this->bankCard.getValue()){
+
+	case 1:
+		break;
+
+	case 1:
+			break;
+
+	case 2:
+			break;
+
+	case 3:
+			break;
+
+	case 4:
+			break;
+
+	case 5:
+			break;
+
+	case 6:
+			break;
+
+	case 7:
+			break;
+
+	case 8:
+			break;
+
+	case 9:
+			break;
+
+	case 10:
+			break;
+
+	}
 
 
 
@@ -200,20 +256,13 @@ void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 
 void AIGame::quitGame()
 {
-	this->players[0].deleteHand(this->hand1);
-	this->players[0].deleteHand(this->hand2);
+	this->ia.deleteHand(this->ia.getHand());
+	this->ia.deleteHand(this->ia.getHand2());
 	this->~AIGame();
 	exit(1);
 }
 
-void AIGame::emptyPlayerList()
-{
-	int taille = this->players.size();
 
-	for(int i(1); i<taille ; i++)
-		this->players.pop_back();
-
-}
 
 
 
