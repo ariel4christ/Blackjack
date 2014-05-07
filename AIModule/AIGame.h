@@ -327,6 +327,17 @@ private:
 	 * @params type2b. Deuxiemme élement du deuxiemme couple de type de carte
 	 */
 	bool isEqual(EType type1a,EType type1b,EType type2a,EType type2b);
+	
+	/**
+	 * Methode permetant de determiner la bonne somme d'argent à miser
+	 */
+	int getBet();
+
+	/**
+	 * Methode permetant d'evaluer une carte selon le systeme Hi-LO
+	 * @params type type de carte sur lequel à base duquel s'effectue le calcul
+	 */
+	int pointCard(EType type);
 
 
 };
