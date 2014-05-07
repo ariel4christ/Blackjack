@@ -1034,6 +1034,28 @@ bool AIGame::isEqual(EType type1a,EType type1b,EType type2a,EType type2b)
 	return false;
 }
 
+int AIGame::getBet() {
+	return 0;
+}
+
+int AIGame::pointCard(EType type) {
+
+	int resultat;
+
+	switch(type){
+	case AS:case KING:case QUEEN: case JACK:case TEN:
+		resultat = -1;
+		break;
+	case SEVEN:case EIGHT:case NINE:
+		resultat = 0;
+		break;
+	case TWO:case THREE:case FOUR: case FIVE:  case SIX:
+		resultat = 1;
+		break;
+	}
+	return resultat;
+
+}
 
 
 
