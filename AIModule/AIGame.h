@@ -335,7 +335,7 @@ private:
 
 	/**
 	 * Methode permetant d'evaluer une carte selon le systeme Hi-LO
-	 * @params type type de carte sur lequel à base duquel s'effectue le calcul
+	 * @params type type de carte à base duquel s'effectue le calcul
 	 */
 	int pointCard(EType type);
 
