@@ -315,6 +315,7 @@ private:
 
 	/**
 	 * Methode permettant de savoir si les cartes d'une main sont presentes dans les combinaisons de cartes spéciales
+	 * @params myhand . Main sur laquelle s'applique la verification
 	 */
 	bool isSpecial(PlayerHand* myhand);
 
