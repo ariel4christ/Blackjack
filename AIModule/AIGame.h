@@ -338,7 +338,11 @@ private:
 	 * @params type type de carte à base duquel s'effectue le calcul
 	 */
 	int pointCard(EType type);
-
+	
+	/**
+	 * Methode permetant de determiner le nombre de carte restant dans le sabot 
+	 */
+	int numRemainCard();
 
 };
 
