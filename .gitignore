@@ -3,3 +3,9 @@
 *.gch
 *.in
 *.out
+Bank
+Player
+html/
+latex/
+*.zip
+Doxyfile
