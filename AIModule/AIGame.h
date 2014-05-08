@@ -1,11 +1,13 @@
 /**
  * Classe AIGame.
+ * @autor Ariel NONO
  */
 
 #ifndef _AIGAME_H
 #define _AIGAME_H
 
 #include <vector>
+#include <math.h>
 #include <string>
 #include <stdexcept>
 #include "../GameModule/Card.h"
@@ -327,7 +329,7 @@ private:
 	 * @params type2b. Deuxiemme élement du deuxiemme couple de type de carte
 	 */
 	bool isEqual(EType type1a,EType type1b,EType type2a,EType type2b);
-	
+
 	/**
 	 * Methode permetant de determiner la bonne somme d'argent à miser
 	 */
@@ -338,11 +340,11 @@ private:
 	 * @params type type de carte à base duquel s'effectue le calcul
 	 */
 	int pointCard(EType type);
-	
+
 	/**
-	 * Methode permetant de determiner le nombre de carte restant dans le sabot 
+	 * Methode permetant de donner la réelle estimation de l'avantage de l'IA
 	 */
-	int numRemainCard();
+	float trueCountCard();
 
 };
 

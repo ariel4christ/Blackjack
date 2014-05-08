@@ -20,16 +20,19 @@ void AIGame::runGame()
 	this->com.EnterGame();
 	bool quit = false; // variable permettant de quitter le jeu
 
-	while(!quit){
+	while(!quit)
+	{
 
 		this->ia.setInsurance(false);
 		this->ia.setBlackjack(false);
 		this->ia.setInsurance(false);
 
-		this->ia.deleteHand(this->ia.getHand());
-		this->ia.deleteHand(this->ia.getHand2());
+		if (this->ia.getHand() != NULL)
+			this->ia.deleteHand(this->player.getHand());
+		if (this->ia.getHand2() != NULL)
+			this->ia.deleteHand(this->player.getHand2());
 
-		int bet = this->aiInterface.getBet();
+		int bet = this->getBet();
 		this->com.Bet(bet);
 		this->bankCard.setType(NaN);
 
@@ -341,7 +344,8 @@ void AIGame::quitGame()
 
 void AIGame::strategy_21(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -356,7 +360,8 @@ void AIGame::strategy_21(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_20(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -371,7 +376,8 @@ void AIGame::strategy_20(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_19(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -386,7 +392,8 @@ void AIGame::strategy_19(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_18(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -401,7 +408,8 @@ void AIGame::strategy_18(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_17(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -420,7 +428,8 @@ void AIGame::strategy_17(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_16(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -441,7 +450,8 @@ void AIGame::strategy_16(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_15(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -462,7 +472,8 @@ void AIGame::strategy_15(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_14(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -483,7 +494,8 @@ void AIGame::strategy_14(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_13(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -504,7 +516,8 @@ void AIGame::strategy_13(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_12(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -525,7 +538,8 @@ void AIGame::strategy_12(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_11(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -544,7 +558,8 @@ void AIGame::strategy_11(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_10(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -563,7 +578,8 @@ void AIGame::strategy_10(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_9(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -581,7 +597,8 @@ void AIGame::strategy_9(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_8(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -596,7 +613,8 @@ void AIGame::strategy_8(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_7(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -615,7 +633,8 @@ void AIGame::strategy_7(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_6(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -634,7 +653,8 @@ void AIGame::strategy_6(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_5(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -653,7 +673,8 @@ void AIGame::strategy_5(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_A(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -672,7 +693,8 @@ void AIGame::strategy_A_A(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_10_10(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -687,7 +709,8 @@ void AIGame::strategy_10_10(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_9_9(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -704,7 +727,8 @@ void AIGame::strategy_9_9(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_8_8(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -722,7 +746,8 @@ void AIGame::strategy_8_8(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_7_7(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -744,7 +769,8 @@ void AIGame::strategy_7_7(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_6_6(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -766,7 +792,8 @@ void AIGame::strategy_6_6(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_5_5(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -785,7 +812,8 @@ void AIGame::strategy_5_5(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_4_4(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -804,7 +832,8 @@ void AIGame::strategy_4_4(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_3_3(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -826,7 +855,8 @@ void AIGame::strategy_3_3(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_2_2(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -844,7 +874,8 @@ void AIGame::strategy_2_2(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_10(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -859,7 +890,8 @@ void AIGame::strategy_A_10(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_9(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -874,7 +906,8 @@ void AIGame::strategy_A_9(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_8(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -889,7 +922,8 @@ void AIGame::strategy_A_8(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_7(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -911,7 +945,8 @@ void AIGame::strategy_A_7(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_6(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -928,7 +963,8 @@ void AIGame::strategy_A_6(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_5(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -945,7 +981,8 @@ void AIGame::strategy_A_5(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_4(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -962,7 +999,8 @@ void AIGame::strategy_A_4(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_3(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
 
 	case NaN:
 		break;
@@ -979,19 +1017,19 @@ void AIGame::strategy_A_3(EType type,PlayerHand* myhand)
 
 void AIGame::strategy_A_2(EType type,PlayerHand* myhand)
 {
-	switch(this->bankCard.getType()){
+	switch(this->bankCard.getType())
+	{
+	case NaN:
+		break;
 
-		case NaN:
-			break;
+	case TWO:case THREE:case FOUR:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
+		this->com.AskToHIt(this->handValue(myhand));
+		break;
 
-		case TWO:case THREE:case FOUR:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
-			this->com.AskToHIt(this->handValue(myhand));
-			break;
-
-		case FIVE:case SIX:
-			this->com.Double();
-			break;
-		}
+	case FIVE:case SIX:
+		this->com.Double();
+		break;
+	}
 }
 
 int AIGame::handValue(PlayerHand* myhand)
@@ -1035,15 +1073,41 @@ bool AIGame::isEqual(EType type1a,EType type1b,EType type2a,EType type2b)
 }
 
 int AIGame::getBet() {
-	return 0;
+
+	float bankAdvantage,iaAdvantage,standartDeviation,variance,optimalUnitBet;
+	int optimalBet;
+	int numHand,totalUnit;
+
+	totalUnit = this->betMax/this->betMin;
+
+	if(this->ia.getHand2() == NULL)
+		numHand = 1;
+	else numHand = 2;
+
+	bankAdvantage = -0.0055 + 0.0063 - 0.0011;
+	iaAdvantage = 0.05 * this->trueCountCard() - bankAdvantage;
+
+	standartDeviation = 1.5 * sqrt(numHand);
+	variance = pow(standartDeviation,2);
+
+	optimalUnitBet = (totalUnit * iaAdvantage)/variance;
+
+	optimalBet = (int)(optimalUnitBet * this->betMin);
+
+	if(optimalBet<= this->betMin)
+		return this->betMin;
+
+	return optimalBet;
 }
 
 int AIGame::pointCard(EType type) {
 
 	int resultat;
 
-	switch(type){
-	case AS:case KING:case QUEEN: case JACK:case TEN:
+	switch(type)
+	{
+
+	case NaN:case AS:case KING:case QUEEN: case JACK:case TEN:
 		resultat = -1;
 		break;
 	case SEVEN:case EIGHT:case NINE:
@@ -1056,6 +1120,27 @@ int AIGame::pointCard(EType type) {
 	return resultat;
 
 }
+
+float AIGame::trueCountCard()
+{
+	float actualCount = 0,trueCount = 0;
+	float numConsummeDeck = 0;
+	float numRemainDeck = 0;
+
+	for(unsigned int i(0); i<listOfCards.size(); i++)
+	{
+		actualCount += this->pointCard(listOfCards[i].getType());
+	}
+
+	numConsummeDeck = (float)listOfCards.size()/6;
+	numRemainDeck = 6 - numConsummeDeck;
+
+	trueCount = actualCount / numRemainDeck;
+
+	return trueCount;
+}
+
+
 
 
 
