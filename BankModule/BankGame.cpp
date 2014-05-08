@@ -344,7 +344,7 @@ void BankGame::newPlayer()
 			{
 				this->player.push_back(new Player(i, balancePlayerInit));
 
-				string str;
+				string str = com.ReadFile(i);
 				int id_message;
 				sscanf(str.c_str(), "%d", &id_message);
 				if (id_message != 6)
