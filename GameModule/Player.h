@@ -47,12 +47,12 @@ public:
 	~Player();
 
 	/**
-	* Getteur de hand.
+	* Getteur de id.
 	* @return Entier id du joueur.
 	*/
 	inline int getId() { return id; }
 
-	inline int setId(int id) { this->id = id; }
+	inline void setId(int id) { this->id = id; }
 
 	/**
 	 * Méthode créant une nouvelle main. Méthode virtuelle héritée de Participant.

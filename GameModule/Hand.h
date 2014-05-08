@@ -113,8 +113,8 @@ public:
 
 
 	/**
-	 * Méthode qui supprime la main ET les cartes qu'elle contient.
-	 * @see ~Hand()
+	 * Méthode qui les cartes qu'elle contient.
+	 * Il faut absolument appeler delete après l'appel de cette fonction!
 	 */
 	void deleteHand();
 
@@ -124,6 +124,12 @@ public:
 	 * @param h Hand.
 	 */
 	void setHand(const Hand& h);
+
+    /**
+	 * Méthode qui désalloue les cartes de la main courante et remplace les cartes par celles du pointeur en paramètre.
+	 * @param h Pointeur vers la nouvelle main.
+	 */
+	void setHand(Hand* h);
 
 	/**
 	 * Méthode qui transfère le 2eme carte de la main courante vers la main en paramètre.

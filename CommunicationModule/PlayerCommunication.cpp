@@ -129,7 +129,7 @@ void PlayerCommunication::Double()
 }
 
 /**
- * Informe le banque que le joueur entre dans le jeu
+ * Informe la banque que le joueur entre dans le jeu
  */
 void PlayerCommunication::EnterGame()
 {

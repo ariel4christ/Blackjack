@@ -57,7 +57,6 @@ BankGame::~BankGame()
 	// Désallocation des joueurs
 	for (vector<Player*>::iterator it = this->player.begin(); it != this->player.end(); it++)
 	{
-		(*it)->~Player();
 		delete *it;
 		*it = NULL;
 	}
@@ -477,7 +476,6 @@ void BankGame::playerAction(Player *p, int secondHand)
 void BankGame::quitePlayer(Player *p)
 {
 	int id = p->getId();
-	p->~Player();
 	delete p;
 	p = NULL;
 	vector<Player*> tmp;
@@ -550,7 +548,7 @@ int BankGame::runRound()
 				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet()*2.5) );  // Augmentation du solde : 1,5* mise de gains + 1*mise d�j� pr�lev�e
 				com.setBalance(player[i]->getId(), player[i]->getBalance());
 
-				player[i]->getHand()->deleteHand();
+				player[i]->deleteHand(player[i]->getHand());
 				player[i]->setHand(NULL);
 			}
 		}

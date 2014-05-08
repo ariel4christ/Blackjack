@@ -23,6 +23,7 @@ UserGame::~UserGame() {
 void UserGame::runGame()
 {
 	this->com.EnterGame();
+	this->initRound();
 	this->runRound();
 }
 
@@ -31,9 +32,10 @@ void UserGame::initRound()
 	this->player.setBlackjack(false);
 	this->player.setSurrender(false);
 	this->player.setInsurance(false);
-
-	this->player.deleteHand(this->player.getHand());
-	this->player.deleteHand(this->player.getHand2());
+    if (player.getHand() != NULL)
+        this->player.deleteHand(this->player.getHand());
+    if (player.getHand2() != NULL)
+        this->player.deleteHand(this->player.getHand2());
 
 	int bet;
 

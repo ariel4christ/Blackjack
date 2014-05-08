@@ -117,7 +117,6 @@ void Hand::deleteHand()
 		*it = NULL;
 	}
 	this->cards.clear();
-	this->~Hand();
 }
 
 void Hand::setHand(const Hand& h)
@@ -132,6 +131,18 @@ void Hand::setHand(const Hand& h)
 	{
 		this->cards.push_back(h.cards[i]);
 	}
+}
+
+void Hand::setHand(Hand* h)
+{
+	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
+	{
+		delete *it;
+		*it = NULL;
+	}
+	this->cards.clear();
+
+	this->cards = h->cards;
 }
 
 void Hand::trandferSecondCard(Hand *h)
