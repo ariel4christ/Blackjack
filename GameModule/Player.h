@@ -34,6 +34,12 @@ public:
 	Player(int i, int pBalance);
 
 	/**
+	 * Constructeur.
+	 * @param pBalance Solde initial du joueur.
+	 */
+	Player(int pBalance);
+
+	/**
 	 * Destructeur. Destruction des mains et des cartes.
 	 * @see Hand::deleteHand()
 	 * @see Hand::~Hand()
@@ -45,6 +51,8 @@ public:
 	* @return Entier id du joueur.
 	*/
 	inline int getId() { return id; }
+
+	inline int setId(int id) { this->id = id; }
 
 	/**
 	 * Méthode créant une nouvelle main. Méthode virtuelle héritée de Participant.

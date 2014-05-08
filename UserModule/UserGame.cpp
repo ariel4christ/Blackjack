@@ -5,7 +5,7 @@
 
 #include "UserGame.h"
 
-UserGame::UserGame() : betMin(5), betMax(100), player(0, 0), com()
+UserGame::UserGame() : betMin(5), betMax(100), player(0), com()
 {
 	int id = this->com.CheckFiles();
 
@@ -13,7 +13,7 @@ UserGame::UserGame() : betMin(5), betMax(100), player(0, 0), com()
 		exit(-1);
 
 	this->com.CreateFiles(id);
-	this->player = Player(id, 0);
+	this->player.setId(id);
 }
 
 UserGame::~UserGame() {

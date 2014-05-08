@@ -13,6 +13,11 @@ surrender(false)
 	this->hand2 = NULL;
 }
 
+Player::Player(int pBalance) :
+Player(0, pBalance)
+{
+}
+
 Player::~Player()
 {
 	this->hand->deleteHand();
