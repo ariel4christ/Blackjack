@@ -70,13 +70,17 @@ void BankCommunication::CreditPlayer(int player, int money)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "11 %d %d", player, money);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "11 %d %d", player, money);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -94,13 +98,17 @@ void BankCommunication::DebitPlayer(int player, int money)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "12 %d %d", player, money);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "12 %d %d", player, money);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -116,13 +124,17 @@ void BankCommunication::EndRound()
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "2");
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "2");
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -139,13 +151,17 @@ void BankCommunication::PlayerEntered(int player)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "10 %d %d %d", player, BankGame::getBetMin(), BankGame::getBetMax());
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "10 %d %d %d", player, BankGame::getBetMin(), BankGame::getBetMax());
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -162,13 +178,17 @@ void BankCommunication::HasQuit(int player)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "9 %d", player);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "9 %d", player);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -220,13 +240,17 @@ void BankCommunication::RoundStart()
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "3");
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "3");
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -245,13 +269,17 @@ void BankCommunication::SendCard(int player, EType t, int secondHand)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "4 %d %d %d", player, t, secondHand);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "4 %d %d %d", player, t, secondHand);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -269,13 +297,17 @@ void BankCommunication::setBalance(int player, int balance)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "5 %d %d", player, balance);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "5 %d %d", player, balance);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -293,13 +325,17 @@ void BankCommunication::setBet(int player, int bet)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "6 %d %d", player, bet);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "6 %d %d", player, bet);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -328,11 +364,15 @@ void BankCommunication::setHand(int player, Hand &h, int secondHand)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -349,13 +389,17 @@ void BankCommunication::validStand(int player, int secondHand)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "7 %d %d", player, secondHand);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "7 %d %d", player, secondHand);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -372,13 +416,17 @@ void BankCommunication::validSurrender(int player)
     for (int i = 0 ; i < 4 ; i++)
     {
         sprintf(fifoNameIn, "joueur%d.in", i);
-        FILE *file = fopen(fifoNameIn,"w");
-        if (file != (FILE *) NULL)
+
+        if (access(fifoNameIn, R_OK) == 0)
         {
-            char str[32];
-            sprintf(str, "8 %d", player);
-            fwrite(str, sizeof(char), 32, file);
-            fclose(file);
+            FILE *file = fopen(fifoNameIn,"w");
+            if (file != (FILE *) NULL)
+            {
+                char str[32];
+                sprintf(str, "8 %d", player);
+                fwrite(str, sizeof(char), 32, file);
+                fclose(file);
+            }
         }
     }
 }
@@ -395,14 +443,18 @@ void BankCommunication::validSplit(int player)
 	for (int i = 0; i < 4; i++)
 	{
 		sprintf(fifoNameIn, "joueur%d.in", i);
-		FILE *file = fopen(fifoNameIn, "w");
-		if (file != (FILE *)NULL)
-		{
-			char str[32];
-			sprintf(str, "14 %d", player);
-			fwrite(str, sizeof(char), 32, file);
-			fclose(file);
-		}
+
+        if (access(fifoNameIn, R_OK) == 0)
+        {
+    		FILE *file = fopen(fifoNameIn, "w");
+    		if (file != (FILE *)NULL)
+    		{
+    			char str[32];
+    			sprintf(str, "14 %d", player);
+    			fwrite(str, sizeof(char), 32, file);
+    			fclose(file);
+    		}
+        }
 	}
 }
 
@@ -418,13 +470,17 @@ void BankCommunication::AskAction(int player, int secondHand)
 	for (int i = 0; i < 4; i++)
 	{
 		sprintf(fifoNameIn, "joueur%d.in", i);
-		FILE *file = fopen(fifoNameIn, "w");
-		if (file != (FILE *)NULL)
-		{
-			char str[32];
-			sprintf(str, "15 %d %d", player, secondHand);
-			fwrite(str, sizeof(char), 32, file);
-			fclose(file);
-		}
+
+        if (access(fifoNameIn, R_OK) == 0)
+        {
+    		FILE *file = fopen(fifoNameIn, "w");
+    		if (file != (FILE *)NULL)
+    		{
+    			char str[32];
+    			sprintf(str, "15 %d %d", player, secondHand);
+    			fwrite(str, sizeof(char), 32, file);
+    			fclose(file);
+    		}
+        }
 	}
 }
