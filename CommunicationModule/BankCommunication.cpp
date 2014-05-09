@@ -77,7 +77,7 @@ void BankCommunication::CreditPlayer(int player, int money)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "11 %d %d", player, money);
+                sprintf(str, "11 %d %d ", player, money);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -105,7 +105,7 @@ void BankCommunication::DebitPlayer(int player, int money)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "12 %d %d", player, money);
+                sprintf(str, "12 %d %d ", player, money);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -158,7 +158,7 @@ void BankCommunication::PlayerEntered(int player)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "10 %d %d %d", player, BankGame::getBetMin(), BankGame::getBetMax());
+                sprintf(str, "10 %d %d %d ", player, BankGame::getBetMin(), BankGame::getBetMax());
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -185,7 +185,7 @@ void BankCommunication::HasQuit(int player)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "9 %d", player);
+                sprintf(str, "9 %d ", player);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -276,7 +276,7 @@ void BankCommunication::SendCard(int player, EType t, int secondHand)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "4 %d %d %d", player, t, secondHand);
+                sprintf(str, "4 %d %d %d ", player, t, secondHand);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -304,7 +304,7 @@ void BankCommunication::setBalance(int player, int balance)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "5 %d %d", player, balance);
+                sprintf(str, "5 %d %d ", player, balance);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -332,7 +332,7 @@ void BankCommunication::setBet(int player, int bet)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "6 %d %d", player, bet);
+                sprintf(str, "6 %d %d ", player, bet);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -350,12 +350,12 @@ void BankCommunication::setHand(int player, Hand &h, int secondHand)
     std::vector<Card*> cards = h.getCards();
 
     char str[256];
-    sprintf(str, "13 %d %d %d", player, secondHand, static_cast<int>(cards.size()));
+    sprintf(str, "13 %d %d %d ", player, secondHand, static_cast<int>(cards.size()));
 
 
     for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++)
     {
-        sprintf(str, "%s %d", str, (*it)->getType());
+        sprintf(str, "%s %d ", str, (*it)->getType());
     }
 
     char fifoNameIn[11];
@@ -396,7 +396,7 @@ void BankCommunication::validStand(int player, int secondHand)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "7 %d %d", player, secondHand);
+                sprintf(str, "7 %d %d ", player, secondHand);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -423,7 +423,7 @@ void BankCommunication::validSurrender(int player)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "8 %d", player);
+                sprintf(str, "8 %d ", player);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -450,7 +450,7 @@ void BankCommunication::validSplit(int player)
     		if (file != (FILE *)NULL)
     		{
     			char str[32];
-    			sprintf(str, "14 %d", player);
+    			sprintf(str, "14 %d ", player);
     			fwrite(str, sizeof(char), 32, file);
     			fclose(file);
     		}
@@ -477,7 +477,7 @@ void BankCommunication::AskAction(int player, int secondHand)
     		if (file != (FILE *)NULL)
     		{
     			char str[32];
-    			sprintf(str, "15 %d %d", player, secondHand);
+    			sprintf(str, "15 %d %d ", player, secondHand);
     			fwrite(str, sizeof(char), 32, file);
     			fclose(file);
     		}

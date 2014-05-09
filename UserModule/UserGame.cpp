@@ -5,7 +5,12 @@
 
 #include "UserGame.h"
 
-UserGame::UserGame() : betMin(5), betMax(100), player(0), com()
+using namespace std;
+
+int UserGame::betMin = 5;
+int UserGame::betMax = 100;
+
+UserGame::UserGame() : player(0), com()
 {
 	int id = this->com.CheckFiles();
 
@@ -23,6 +28,37 @@ UserGame::~UserGame() {
 void UserGame::runGame()
 {
 	this->com.EnterGame();
+	int id = this->player.getId();
+	string str = com.ReadFile();
+	int id_message;
+	cout << str << endl;
+	sscanf(str.c_str(), "%d", &id_message);
+	if (id_message == 10)  // Message PlayerEntered
+	{
+        int id_player, bet_min, bet_max;
+        sscanf(str.c_str(), "%d %d %d %d", &id_message, &id_player, &bet_min, &bet_max);
+        if (id == id_player)
+        {
+            UserGame::betMin = bet_min;
+            UserGame::betMax = bet_max;
+            cout << "mise min = " << betMin << " et mise max = " << betMax << endl;
+        }
+	}
+	else throw runtime_error("Erreur reception message PlayerEntered");
+
+	str = com.ReadFile();
+	cout << str << endl;
+	sscanf(str.c_str(), "%d", &id_message);
+	if (id_message == 5)
+	{
+        int id_player, balance;
+        sscanf(str.c_str(), "%d %d %d", &id_message, &id_player, &balance);
+        if (id == id_player)
+            player.setBalance(balance);
+        cout << "balance = " << player.getBalance() << endl;
+	}
+	else throw runtime_error("Message d'initialisation du solde joueur non recu");
+
 	this->initRound();
 	this->runRound();
 }

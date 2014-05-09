@@ -3,6 +3,7 @@
  */
 
 #include "HMI.h"
+#include "../UserModule/UserGame.h"
 
 using namespace std;
 /**
@@ -12,7 +13,7 @@ int HMI::getBet()
 {
 	int bet;
 	do{
-		cout<<"Faites votre pari"<< endl;
+		cout << "Entrez vorte mise ente " << UserGame::getBetMin() << " et " << UserGame::getBetMax() << " :" << endl;
 		cin>>bet;
 
 		if(cin.fail())// valeur recu en cosole n'est pas un entier

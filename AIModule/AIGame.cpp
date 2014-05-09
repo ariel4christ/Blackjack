@@ -28,9 +28,9 @@ void AIGame::runGame()
 		this->ia.setInsurance(false);
 
 		if (this->ia.getHand() != NULL)
-			this->ia.deleteHand(this->player.getHand());
+			this->ia.deleteHand(this->ia.getHand());
 		if (this->ia.getHand2() != NULL)
-			this->ia.deleteHand(this->player.getHand2());
+			this->ia.deleteHand(this->ia.getHand2());
 
 		int bet = this->getBet();
 		this->com.Bet(bet);
