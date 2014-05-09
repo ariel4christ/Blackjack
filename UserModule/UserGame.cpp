@@ -29,6 +29,7 @@ void UserGame::runGame()
 {
 	this->com.EnterGame();
 	int id = this->player.getId();
+
 	string str = com.ReadFile();
 	int id_message;
 	cout << str << endl;
@@ -42,6 +43,7 @@ void UserGame::runGame()
             UserGame::betMin = bet_min;
             UserGame::betMax = bet_max;
             cout << "mise min = " << betMin << " et mise max = " << betMax << endl;
+            com.sendAck();
         }
 	}
 	else throw runtime_error("Erreur reception message PlayerEntered");

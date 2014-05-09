@@ -35,6 +35,7 @@ public:
     void Split(int secondHand);
     void Stand(int secondHand);
     void Surrender(int secondHand);
+    void sendAck();
 };
 
 #endif

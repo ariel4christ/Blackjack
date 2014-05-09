@@ -351,6 +351,13 @@ void BankGame::newPlayer()
 				else
 				{
 					com.PlayerEntered(i);
+
+					string str2 = com.ReadFile(i);  // Accussé de réception
+                    int id_message2;
+                    sscanf(str2.c_str(), "%d", &id_message2);
+                    if (id_message2 != 10)
+                        throw runtime_error("Accusée de reception non reçu");
+
 					com.setBalance(i, balancePlayerInit);
 				}
 			}

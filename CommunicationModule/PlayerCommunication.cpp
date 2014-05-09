@@ -235,3 +235,18 @@ void PlayerCommunication::Surrender(int secondHand)
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
+
+/**
+ * Informe la banque que le joueur a réceptionné le message précédant.
+ */
+void PlayerCommunication::sendAck()
+{
+    FILE *file = fopen(fifoNameOut,"w");
+    if (file == (FILE *) NULL)
+        throw runtime_error("Erreur d'ouverture du fichier out");
+
+    char str[32];
+    sprintf(str, "10");
+    fwrite(str, sizeof(char), 32, file);
+    fclose(file);
+}
