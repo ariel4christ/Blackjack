@@ -21,7 +21,7 @@ class AIGame
 public:
 
 	AIGame();
-	virtual ~AIGame();
+    ~AIGame();
 	void runGame();
 
 private:

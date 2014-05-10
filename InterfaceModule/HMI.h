@@ -19,6 +19,7 @@ public:
 	int getBet();
 	bool insurrance();
     void PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay);
+    void PrintEndRound(Player &p);
 };
 
 #endif /* HMI_H_ */

@@ -10,11 +10,14 @@
 class AI {
 public:
 	AI();
-	virtual ~AI();
+
+	~AI();
+
 	/**
 	 * Methode permettant d'afficher la mise de l'ia
 	 */
 	void IaBet(int bet);
+
 	bool insurrance(int val);
 };
 

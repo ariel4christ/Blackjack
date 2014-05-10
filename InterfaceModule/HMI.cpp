@@ -13,7 +13,7 @@ int HMI::getBet()
 {
 	int bet;
 	do{
-		cout << "Entrez vorte mise ente " << UserGame::getBetMin() << " et " << UserGame::getBetMax() << " :" << endl;
+		cout << "Entrez votre mise ente $" << UserGame::getBetMin() << " et $" << UserGame::getBetMax() << " :" << endl;
 		cin>>bet;
 
 		if(cin.fail())// valeur recu en cosole n'est pas un entier
@@ -35,9 +35,9 @@ int HMI::getBet()
 void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay)
 {
 	cout << "#########################" << endl << endl;
-	cout << "JOUEUR " << p.getId() << endl << endl;
-	cout << "SOLDE : $ " << p.getBalance() << endl << endl;
-	cout << "Mise : $ " << p.getHand()->getBet() << endl << endl;
+	cout << "JOUEUR " << p.getId() << endl;
+	cout << "Solde : $ " << p.getBalance() << endl << endl;
+	cout << "Main 1 :" << endl << "Mise : $ " << p.getHand()->getBet() << endl << endl;
 
 	std::vector<Card*> cards = p.getHand()->getCards();
 	cout << "Cartes : ";
@@ -45,20 +45,26 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
     {
         cout << (*it)->getStringRepresentation() << " ";
     }
-    cout << endl;
+    cout << "Valeur : " << p.getHand()->getValue2();
+    if (p.getHand()->getValue2() != p.getHand()->getValue1())
+        cout << " / " << p.getHand()->getValue1();
+    cout << endl << endl;
 
     if (p.getHand2() != NULL)
     {
-    	cout << "Main 2 : " << endl << "====" << endl;
-    	cout << "Mise : $ " << p.getHand2()->getBet() << endl << endl;
+    	cout << "====" << endl << "Main 2 : " <<  endl;
+    	cout << "\tMise : $ " << p.getHand2()->getBet() << endl << endl;
 
 		std::vector<Card*> cards2 = p.getHand2()->getCards();
-		cout << "Cartes : ";
+		cout << "\tCartes : ";
 	    for (vector<Card*>::iterator it = cards2.begin(); it != cards2.end(); it++)
 	    {
 	        cout << (*it)->getStringRepresentation() << " ";
 	    }
-	    cout << endl;
+	    cout << "Valeur : " << p.getHand2()->getValue2();
+	    if (p.getHand2()->getValue2() != p.getHand2()->getValue1())
+            cout << " / " << p.getHand2()->getValue1();
+	    cout << endl << endl;
     }
 
     // On affiche les messages qu'il faut
@@ -95,7 +101,10 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
     {
         cin >> response;
         if (cin.fail()) cout << "Erreur, veuillez recommencez" << endl;
-    } while (cin.fail() || response == ' ' || (response != possibleChoices[0] && response != possibleChoices[1] && response != possibleChoices[2] && response != possibleChoices[3] && response != possibleChoices[4] && response != possibleChoices[5]));
+    } while (cin.fail() || response == ' ' ||
+            (response != possibleChoices[0] && response != possibleChoices[1]
+            && response != possibleChoices[2] && response != possibleChoices[3]
+            && response != possibleChoices[4] && response != possibleChoices[5]));
 
     return response;
 }
@@ -103,7 +112,7 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 bool HMI::insurrance()
 {
     char response;
-
+    cout << "La première carte de la banque est un AS." << endl << "La banque peut faire Blackjack !" << endl;
     cout << "Voulez-vous prendre une assurance ? O/N" << endl;
     do
     {
@@ -112,4 +121,13 @@ bool HMI::insurrance()
     } while (cin.fail() || (response != 'O' && response != 'N'));
 
     return (response == 'O') ? true : false;
+}
+
+void HMI::PrintEndRound(Player &p)
+{
+    cout << endl << "#########################" << endl << endl;
+    cout << "Fin du Tour. Les résulats sont affichés dans la banque." << endl;
+    cout << "Nouveau solde : $" << p.getBalance() << endl << endl;
+    cout << "Début du tour suivant..." << endl << endl;
+    cout << "#########################" << endl << endl;
 }

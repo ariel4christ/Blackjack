@@ -31,6 +31,7 @@ void UserGame::runGame()
 	int id = this->player.getId();
 
 	string str = com.ReadFile();
+	cout << str<<endl;
 	int id_message;
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 10)  // Message PlayerEntered
@@ -47,6 +48,7 @@ void UserGame::runGame()
 	else throw runtime_error("Erreur reception message PlayerEntered");
 
 	str = com.ReadFile();
+	cout << str <<endl;
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 5)
 	{
@@ -109,6 +111,8 @@ void UserGame::runRound()
 			break;
 
 		case 2: // EndRound receive
+            this->endRound();
+            com.sendAck();
 			break;
 
 		case 3: // RoundStart receive
@@ -147,7 +151,7 @@ void UserGame::runRound()
                     this->player.newHand(bet);
                 this->player.decreaseBalance(bet);
 			}
-			com.sendAck(); cout << "^";
+			com.sendAck();
 			break;
 
 		case 7:	// ValidStand receive
@@ -313,7 +317,15 @@ void UserGame::choseAction(PlayerHand *myhand)
 }
 
 
+void UserGame::endRound()
+{
+    this->ihm.PrintEndRound(player);
 
+    if (getPlayer().getHand() != NULL)
+        this->getPlayer().setHand(NULL);
+    if (getPlayer().getHand2() != NULL)
+        this->getPlayer().setHand2(NULL);
+}
 
 
 

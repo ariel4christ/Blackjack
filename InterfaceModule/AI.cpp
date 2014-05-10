@@ -7,13 +7,12 @@
 
 using namespace std;
 
-AI::AI() {
-	// TODO Auto-generated constructor stub
-
+AI::AI()
+{
 }
 
-AI::~AI() {
-	// TODO Auto-generated destructor stub
+AI::~AI()
+{
 }
 
 void AI::IaBet(int bet)

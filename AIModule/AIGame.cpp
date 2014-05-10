@@ -2,7 +2,7 @@
 
 
 
-AIGame::AIGame(): betMin(5), betMax(100), ia(0,0), com(),bankCard(NaN)
+AIGame::AIGame(): betMin(5), betMax(100), ia(0,0),bankCard(NaN)
 {
 	int id = this->com.CheckFiles();
 

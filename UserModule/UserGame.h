@@ -71,6 +71,8 @@ private:
 	 */
 	void choseAction(PlayerHand* myhand);
 
+	void endRound();
+
 };
 
 #endif /* USERGAME_H_ */

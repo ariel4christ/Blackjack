@@ -166,7 +166,7 @@ void BankGame::endRound(Player *p, int secondHand)
 		p->deleteHand(p->getHand());
 	else p->deleteHand(p->getHand2());*/
     //delete h;
-    h = NULL;
+    //h = NULL;
 
     cout << endl;
 }
@@ -186,28 +186,31 @@ void BankGame::initRound()
 		this->newDeck();  // Nouveau deck
 
 	this->com.RoundStart();
+
 	cout << endl << "##################################################" << endl;
 	cout << endl << "***** NOUVEAU TOUR *****" << endl << "~ Attente des mises : " << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
+        int id = this->player[i]->getId();
 		cout << "\t\t" << "Joueur " << player[i]->getId() << " ?" << endl;
+
+		string str = this->com.ReadFile(id);
+
 		player[i]->setBlackjack(false);
 		player[i]->setInsurance(false);
 		player[i]->setSurrender(false);
-
-		int id = this->player[i]->getId();
 
 		if (player[i]->getHand() != NULL)
             player[i]->setHand(NULL);
         if (player[i]->getHand2() != NULL)
             player[i]->setHand2(NULL);
 
-		string str = this->com.ReadFile(id);
 		int id_message, bet;
-		sscanf(str.c_str(), "%d %d", &id_message, &bet);
+		sscanf(str.c_str(), "%d ", &id_message);
 		if (id_message == 9)
 		{
+            sscanf(str.c_str(), "%d %d", &id_message, &bet);
 			this->player[i]->newHand(bet);  // Nouvelle main
 			this->player[i]->decreaseBalance(bet);  // Diminution solde
 
@@ -218,7 +221,7 @@ void BankGame::initRound()
 		{
 			quitePlayer(player[i]);
 		}
-		else if (id_message == 10) {}
+//		else if (id_message == 10) {}
 		else throw runtime_error("erreur lors de la détermination de la mise");
 	}
 
@@ -284,22 +287,17 @@ int BankGame::insurance()
 				player[i]->increaseBalance( (int) floor(player[i]->getHand()->getBet()*1.5) );  // Augmentation solde joueur
 				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
 				recevingAck(i);
-				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
-				player[i]->setHand(NULL);
 			}
 			else if (player[i]->getBlackjack())  // Le joueur a aussi fait blackjack (et donc pas d'assurance demandée)
 			{
 				player[i]->increaseBalance(player[i]->getHand()->getBet());  // Augmentaion solde joueur : on le rembourse
 				com.setBalance(player[i]->getId(), player[i]->getBalance());  // Mise à jour solde exe joueur
 				recevingAck(i);
-				player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
-				player[i]->setHand(NULL);
+
 			}
-			else
-			{
-				player[i]->deleteHand(player[i]->getHand());  // Les autres cas, on désalloue la main directement
-				player[i]->setHand(NULL);
-			}
+
+//			player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
+            player[i]->setHand(NULL);
 
 		}
 
@@ -395,15 +393,16 @@ void BankGame::playerAction(Player *p, int secondHand)
 	string str = com.ReadFile(id);
 	int id_message;
 	int secHand;
-	sscanf(str.c_str(), "%d %d", &id_message, &secHand);
-
-	if (secondHand != secHand)
-		throw runtime_error("Erreur de main dans le choix de l'action");
+	sscanf(str.c_str(), "%d ", &id_message);
 
 	PlayerHand *h;
 	switch (id_message)
 	{
 	case 1:  // Split
+        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+        if (secondHand != secHand)
+            throw runtime_error("Erreur de main dans le choix de l'action");
+
 		if (p->getHand()->isPair() && p->getHand2() == NULL && secHand == 0)
 		{
 			com.validSplit(id);
@@ -426,6 +425,10 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 2:  // Stand
+        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+        if (secondHand != secHand)
+            throw runtime_error("Erreur de main dans le choix de l'action");
+
 		if (secHand == 0)
 			h = p->getHand();
 		else h = p->getHand2();
@@ -438,6 +441,10 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 3:  // Surrender
+        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+        if (secondHand != secHand)
+            throw runtime_error("Erreur de main dans le choix de l'action");
+
 		if (secHand == 0)
 			h = p->getHand();
 		else h = p->getHand2();
@@ -479,6 +486,10 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 8:  // Hit
+        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+        if (secondHand != secHand)
+            throw runtime_error("Erreur de main dans le choix de l'action");
+
 		if (secHand == 0)
 			h = p->getHand();
 		else if (p->getHand2() != NULL)
@@ -661,6 +672,7 @@ int BankGame::runRound()
     // Désallocation mains joueurs
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
+        recevingAck(i);
         if (player[i]->getHand() != NULL)
             //player[i]->deleteHand(player[i]->getHand());
             player[i]->setHand(NULL);
@@ -674,7 +686,7 @@ int BankGame::runRound()
 	if (bank.getHand() != NULL)
 	{
         bank.deleteHand();
-    	}
+    }
 
 	return 0;
 }

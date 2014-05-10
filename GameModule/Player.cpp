@@ -43,7 +43,7 @@ void Player::newHand()
     }
 	else
 	{
-        hand2 = new PlayerHand();
+        this->hand2 = new PlayerHand();
         this->hand2->getCards().clear();
     }
 }
