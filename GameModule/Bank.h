@@ -13,7 +13,7 @@ class Bank : public Participant
 {
 private:
 	Hand *hand;  /**< Pointeur vers Hand. Main de la banque. */
-	Card* hiddenCard;
+	Card *hiddenCard;
 
 public:
 
@@ -47,6 +47,8 @@ public:
 
 	inline Hand* getHand() { return hand; }
 	inline Card* getHiddenCard() { return this->hiddenCard; }
+
+	inline void setHand(Hand *h) { this->deleteHand(); this->hand = h; }
 	inline void setHiddenCard(Card* c) { this->hiddenCard = c; }
 };
 

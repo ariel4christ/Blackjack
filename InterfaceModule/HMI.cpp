@@ -17,9 +17,9 @@ int HMI::getBet()
 		cin>>bet;
 
 		if(cin.fail())// valeur recu en cosole n'est pas un entier
-			cout<<"Veuillez inserer un pari entier"<<endl;
+			cout<<"Veuillez entrer une mise entière"<<endl;
 	}
-	while(cin.fail());
+	while(cin.fail() || bet < UserGame::getBetMin() || bet > UserGame::getBetMax());
 
 	return bet;
 }

@@ -6,6 +6,7 @@ using namespace std;
 
 Hand::Hand()
 {
+    this->cards.clear();
 }
 
 Hand::Hand(Card& c)
@@ -111,12 +112,15 @@ bool Hand::isPair()
 
 void Hand::deleteHand()
 {
-	for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
-	{
-		delete *it;
-		*it = NULL;
+    if (!this->cards.empty())
+    {
+        for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
+        {
+            delete *it;
+            *it = NULL;
+        }
+        this->cards.clear();
 	}
-	this->cards.clear();
 }
 
 void Hand::setHand(const Hand& h)

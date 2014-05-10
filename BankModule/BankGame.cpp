@@ -92,6 +92,7 @@ void BankGame::clearDeck()
 
 void BankGame::dealCards()
 {
+    cout << endl << "Distribution des cartes..." << endl << endl;
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
 		Card* c;
@@ -108,7 +109,9 @@ void BankGame::dealCards()
 	}
 
 	// Tirage de la 1ere carte de la banque
-	Card* c = this->hitCard();
+	Card* c;
+	c = this->hitCard();
+	this->bank.newHand();
 	this->bank.getHand()->addCard(c);
 	this->com.SendCard(4, c->getType(), 0);  // 4 pour id banque
 
@@ -181,7 +184,7 @@ void BankGame::initRound()
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
-		cout << "\t\t" << "Joueur " << player[i]->getId() << " ?..." << endl;
+		cout << "\t\t" << "Joueur " << player[i]->getId() << " ?" << endl;
 		player[i]->setBlackjack(false);
 		player[i]->setInsurance(false);
 		player[i]->setSurrender(false);
@@ -359,6 +362,11 @@ void BankGame::newPlayer()
                         throw runtime_error("Accusée de reception non reçu");
 
 					com.setBalance(i, balancePlayerInit);
+
+                    str2 = com.ReadFile(i);  // Accussé de réception
+                    sscanf(str2.c_str(), "%d", &id_message2);
+                    if (id_message2 != 10)
+                        throw runtime_error("Accusée de reception non reçu");
 				}
 			}
 		}
@@ -368,6 +376,7 @@ void BankGame::newPlayer()
 
 void BankGame::playerAction(Player *p, int secondHand)
 {
+    cout << "Ask action to player" << endl;
 	int id = p->getId();
 
 	com.AskAction(id, secondHand);
@@ -627,6 +636,25 @@ int BankGame::runRound()
 			endRound(player[i], 1);
 	}
 	com.EndRound();
+
+	for (unsigned int i = 0; i < this->player.size(); i++)
+	{
+        if (player[i]->getHand() != NULL)
+        {
+            player[i]->deleteHand(player[i]->getHand());
+            player[i]->setHand(NULL);
+        }
+        if (player[i]->getHand2() != NULL)
+        {
+            player[i]->deleteHand(player[i]->getHand2());
+            player[i]->setHand2(NULL);
+        }
+	}
+	if (bank.getHand() != NULL)
+	{
+        bank.deleteHand();
+        bank.setHand(NULL);
+    }
 
 	return 0;
 }

@@ -6,6 +6,7 @@ Bank::Bank(int bankBalance) :
 	Participant(bankBalance),
 	hiddenCard(NULL)
 {
+    this->hand = NULL;
 }
 
 Bank::~Bank()
@@ -16,8 +17,11 @@ Bank::~Bank()
 
 void Bank::newHand()
 {
-	if (this->hand != NULL)
+	if (this->hand == NULL)
+	{
 		this->hand = new Hand();
+		this->hand->getCards().clear();
+    }
 	else throw runtime_error("Main déjà existante");
 }
 

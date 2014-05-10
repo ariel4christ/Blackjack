@@ -246,7 +246,7 @@ void PlayerCommunication::sendAck()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "10");
+    sprintf(str, "10 ");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }

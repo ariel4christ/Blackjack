@@ -58,10 +58,11 @@ void UserGame::runGame()
         if (id == id_player)
             player.setBalance(balance);
         cout << "balance = " << player.getBalance() << endl;
+        com.sendAck();
 	}
 	else throw runtime_error("Message d'initialisation du solde joueur non recu");
 
-	this->initRound();
+//	this->initRound();
 	this->runRound();
 }
 
@@ -78,6 +79,7 @@ void UserGame::initRound()
 	int bet;
 
 	bet = this->ihm.getBet();
+	cout << bet << endl;
 	this->com.Bet(bet);
 
 }

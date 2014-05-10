@@ -21,26 +21,26 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
     {
         cout << "Joueur " << (*it)->getId() << " : " << endl;
 
-        cout << "Mise : $ " << (*it)->getHand()->getBet() << endl << endl;
+        cout << "\t Mise : $ " << (*it)->getHand()->getBet() << endl;
 
         cards = (*it)->getHand()->getCards();
-        cout << "Cartes : ";
+        cout << "\t Cartes : ";
         for (vector<Card*>::iterator it2 = cards.begin(); it2 != cards.end(); it2++)
         {
-            cout << (*it2)->getStringRepresentation() << " ";
+            cout << "\t " << (*it2)->getStringRepresentation() << " ";
         }
         cout << endl;
 
         if ((*it)->getHand2() != NULL)
         {
-            cout << "Main 2 : " << endl << "====" << endl;
-            cout << "Mise : $ " << (*it)->getHand2()->getBet() << endl << endl;
+            cout << "\t Main 2 : " << endl << "====" << endl;
+            cout << "\t Mise : $ " << (*it)->getHand2()->getBet() << endl << endl;
 
             std::vector<Card*> cards2 = (*it)->getHand2()->getCards();
-            cout << "Cartes : ";
+            cout << "\t Cartes : ";
             for (vector<Card*>::iterator it2 = cards2.begin(); it2 != cards2.end(); it2++)
             {
-                cout << (*it2)->getStringRepresentation() << " ";
+                cout << "\t " << (*it2)->getStringRepresentation() << " ";
             }
             cout << endl;
         }
