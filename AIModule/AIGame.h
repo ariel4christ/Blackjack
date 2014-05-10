@@ -7,7 +7,6 @@
 #define _AIGAME_H
 
 #include <vector>
-#include <iostream>
 #include <math.h>
 #include <string>
 #include <stdexcept>
@@ -16,7 +15,7 @@
 #include "../GameModule/Player.h"
 #include "../CommunicationModule/PlayerCommunication.h"
 #include "../InterfaceModule/AI.h"
-using namespace std;
+
 class AIGame
 {
 public:

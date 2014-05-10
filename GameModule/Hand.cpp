@@ -114,10 +114,13 @@ void Hand::deleteHand()
 {
     if (!this->cards.empty())
     {
-        for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
+        //for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
+        for(unsigned int i = 0 ; i < cards.size(); ++i)
         {
-            delete *it;
-            *it = NULL;
+            //delete *it;
+            //*it = NULL;
+            delete cards[i];
+            cards[i] = NULL;
         }
         this->cards.clear();
 	}

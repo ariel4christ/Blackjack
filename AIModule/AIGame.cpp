@@ -6,11 +6,9 @@ AIGame::AIGame(): betMin(5), betMax(100), ia(0,0), com(),bankCard(NaN)
 
 		if (id == -1)
 			exit(-1);
-		cout<<"id="<<id<<endl;
+
 		this->com.CreateFiles(id);
-		cout<<"create file verification";
-		this->ia = Player(id);
-		cout<<"fin constructeur"<<endl;
+		this->ia = Player(id, 0);
 }
 
 AIGame::~AIGame()
@@ -21,10 +19,10 @@ void AIGame::runGame()
 {
 	this->com.EnterGame();
 	bool quit = false; // variable permettant de quitter le jeu
-	cout<<"runGame entered"<<endl;
+
 	while(!quit)
 	{
-		cout<<"run"<<endl;
+
 		this->ia.setInsurance(false);
 		this->ia.setBlackjack(false);
 		this->ia.setInsurance(false);
@@ -85,7 +83,7 @@ bool AIGame::runRound()
 
 			}
 			else
-				if( num_joueur == 4)/* reception de la carte de la banque */
+				if( num_joueur == 0)/* reception de la carte de la banque */
 					this->bankCard.setType(static_cast<EType>(typeCard));
 
 			this->listOfCards.push_back(Card(static_cast<EType>(typeCard))); // recupere les cartes de tous les joueurs les siennes comprises

@@ -86,7 +86,7 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 
     if (hit) possibleChoices[0] = 'C'; else possibleChoices[0] = ' ';
     if (split) possibleChoices[1] = 'P'; else possibleChoices[1] = ' ';
-    if (doubler) possibleChoices[2] = 'S'; else possibleChoices[2] = ' ';
+    if (doubler) possibleChoices[2] = 'D'; else possibleChoices[2] = ' ';
     if (stay) possibleChoices[3] = 'R'; else possibleChoices[3] = ' ';
     possibleChoices[4] = 'A';
     possibleChoices[5] = 'Q';
