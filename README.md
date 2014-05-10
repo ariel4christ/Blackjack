@@ -35,6 +35,7 @@ sscanf(str, "%d ...", &id_message, ...);
 - Double : **7**
 - AskToHit : **8 *secondHand***
 - Bet : **9 *bet***
+- Accusé de reception : **10**
 
 ### Banque vers Joueur
 
