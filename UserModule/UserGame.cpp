@@ -32,7 +32,6 @@ void UserGame::runGame()
 
 	string str = com.ReadFile();
 	int id_message;
-	cout << str << endl;
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 10)  // Message PlayerEntered
 	{
@@ -42,14 +41,12 @@ void UserGame::runGame()
         {
             UserGame::betMin = bet_min;
             UserGame::betMax = bet_max;
-            cout << "mise min = " << betMin << " et mise max = " << betMax << endl;
             com.sendAck();
         }
 	}
 	else throw runtime_error("Erreur reception message PlayerEntered");
 
 	str = com.ReadFile();
-	cout << str << endl;
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 5)
 	{
@@ -57,12 +54,10 @@ void UserGame::runGame()
         sscanf(str.c_str(), "%d %d %d", &id_message, &id_player, &balance);
         if (id == id_player)
             player.setBalance(balance);
-        cout << "balance = " << player.getBalance() << endl;
         com.sendAck();
 	}
 	else throw runtime_error("Message d'initialisation du solde joueur non recu");
 
-//	this->initRound();
 	this->runRound();
 }
 
@@ -79,7 +74,6 @@ void UserGame::initRound()
 	int bet;
 
 	bet = this->ihm.getBet();
-	cout << bet << endl;
 	this->com.Bet(bet);
 
 }
@@ -128,8 +122,10 @@ void UserGame::runRound()
 			{
 				if (!main)
 					this->player.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
-				else this->player.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
+				else
+                    this->player.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
 			}
+			this->com.sendAck();
 			break;
 
 		case 5: // SetBalance receive
@@ -139,6 +135,7 @@ void UserGame::runRound()
 			{
 				this->player.setBalance(balance);
 			}
+			com.sendAck();
 			break;
 
 		case 6: // SetBet receive
@@ -146,8 +143,11 @@ void UserGame::runRound()
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &bet);
 			if (num_joueur == this->player.getId())
 			{
-				this->player.getHand()->setBet(bet);
+                if (player.getHand() == NULL)
+                    this->player.newHand(bet);
+                this->player.decreaseBalance(bet);
 			}
+			com.sendAck();
 			break;
 
 		case 7:	// ValidStand receive

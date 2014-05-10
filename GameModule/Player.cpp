@@ -37,15 +37,29 @@ Player::~Player()
 void Player::newHand()
 {
 	if (this->hand == NULL)
-		hand = new PlayerHand();
-	else hand2 = new PlayerHand();
+	{
+		this->hand = new PlayerHand();
+		this->hand->getCards().clear();
+    }
+	else
+	{
+        hand2 = new PlayerHand();
+        this->hand2->getCards().clear();
+    }
 }
 
 void Player::newHand(int i)
 {
 	if (this->hand == NULL)
-		hand = new PlayerHand(i);
-	else hand2 = new PlayerHand(i);
+	{
+		this->hand = new PlayerHand(i);
+		this->hand->getCards().clear();
+    }
+	else
+	{
+        hand2 = new PlayerHand(i);
+        this->hand2->getCards().clear();
+    }
 }
 
 void Player::deleteHand(Hand *h)

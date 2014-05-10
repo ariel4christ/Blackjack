@@ -35,6 +35,8 @@ int HMI::getBet()
 void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay)
 {
 	cout << "#########################" << endl << endl;
+	cout << "JOUEUR " << p.getId() << endl << endl;
+	cout << "SOLDE : $ " << p.getBalance() << endl << endl;
 	cout << "Mise : $ " << p.getHand()->getBet() << endl << endl;
 
 	std::vector<Card*> cards = p.getHand()->getCards();
