@@ -6,11 +6,9 @@ AIGame::AIGame(): betMin(5), betMax(100), ia(0,0), com(),bankCard(NaN)
 
 		if (id == -1)
 			exit(-1);
-		cout<<"id="<<id<<endl;
+
 		this->com.CreateFiles(id);
-		cout<<"create file verification";
-		this->ia = Player(id);
-		cout<<"fin constructeur"<<endl;
+		this->ia.setId(id);
 }
 
 AIGame::~AIGame()
@@ -20,11 +18,12 @@ AIGame::~AIGame()
 void AIGame::runGame()
 {
 	this->com.EnterGame();
+
 	bool quit = false; // variable permettant de quitter le jeu
-	cout<<"runGame entered"<<endl;
+
 	while(!quit)
 	{
-		cout<<"run"<<endl;
+
 		this->ia.setInsurance(false);
 		this->ia.setBlackjack(false);
 		this->ia.setInsurance(false);
@@ -35,7 +34,9 @@ void AIGame::runGame()
 			this->ia.deleteHand(this->ia.getHand2());
 
 		int bet = this->getBet();
+		this->aiInterface.IaBet(bet);
 		this->com.Bet(bet);
+
 		this->bankCard.setType(NaN);
 
 		quit = this->runRound();
@@ -49,7 +50,7 @@ void AIGame::runGame()
 
 bool AIGame::runRound()
 {
-	int num_joueur,typeCard,typeCard2,argent,main, id_message;
+	int num_joueur,typeCard,typeCard2,argent,main, id_message, idIA;
 	bool endRound = false; /* permet de savoir si le tour est achevé */
 	bool endGame = false; /* permet de savoir si le jeu est achevé */
 
@@ -58,6 +59,7 @@ bool AIGame::runRound()
 	{
 		this->message = this->com.ReadFile();
 		sscanf(this->message.c_str(), "%d", &id_message);
+		idIA = this->ia.getId();
 
 		switch(id_message)
 		{
@@ -76,7 +78,7 @@ bool AIGame::runRound()
 		case 4: // SendCard receive
 			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &typeCard, &main);
 
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				if(!main)
 					this->ia.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
@@ -95,9 +97,12 @@ bool AIGame::runRound()
 			int balance;
 
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &balance);
-			if(num_joueur == this->ia.getId())
+			cout<<"balance="<<balance<<endl;
+			if(num_joueur == idIA)
 			{
 				this->ia.setBalance(balance);
+				this->com.sendAck();
+
 			}
 			break;
 
@@ -105,7 +110,7 @@ bool AIGame::runRound()
 			int bet;
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &bet);
 
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				this->ia.getHand()->setBet(bet);
 				this->previousBets.push_back(bet);
@@ -114,7 +119,7 @@ bool AIGame::runRound()
 
 		case 7:	// ValidStand receive
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &main);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				if(!main)
 					this->ia.Stand(this->ia.getHand());
@@ -125,7 +130,7 @@ bool AIGame::runRound()
 
 		case 8: // ValidSurrender receive
 			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				if(!main)
 					this->ia.Surrender(this->ia.getHand());
@@ -136,7 +141,7 @@ bool AIGame::runRound()
 
 		case 9: // HasQuit receive
 			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				 endGame = true;
 				 endRound = true;
@@ -145,16 +150,19 @@ bool AIGame::runRound()
 
 		case 10: // PlayerEntered receive
 			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &betMin, &betMax);
-			if (num_joueur == this->ia.getId())
+
+			if (num_joueur == idIA)
 			{
 				this->betMin = betMin;
 				this->betMax = betMax;
+				this->com.sendAck();
+				this->aiInterface.insurrance(num_joueur);
 			}
 			break;
 
 		case 11: // CreditPlayer receive
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				this->ia.increaseBalance(argent);
 			}
@@ -162,7 +170,7 @@ bool AIGame::runRound()
 
 		case 12: // DebitPlayer receive
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				this->ia.decreaseBalance(argent);
 			}
@@ -170,7 +178,7 @@ bool AIGame::runRound()
 
 		case 13: // SetHand receive
 			sscanf(this->message.c_str(), "%d %d %d %d %d ", &id_message, &num_joueur, &main, &typeCard, &typeCard2);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				/* construction d'une main a partir des cartes recues*/
 				Hand hand;
@@ -191,7 +199,7 @@ bool AIGame::runRound()
 
 		case 14: // ValidSplit receive
 			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				this->ia.newHand();
 			}
@@ -199,7 +207,7 @@ bool AIGame::runRound()
 
 		case 15: // AskAction receive
 			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
-			if(num_joueur == this->ia.getId())
+			if(num_joueur == idIA)
 			{
 				if(!main)
 					this->chooseAction(this->ia.getHand());
@@ -1075,6 +1083,9 @@ int AIGame::getBet() {
 	float bankAdvantage,iaAdvantage,standartDeviation,variance,optimalUnitBet;
 	int optimalBet;
 	int numHand,totalUnit;
+
+	if(this->bankCard.getType() == NaN)
+		return this->betMin;
 
 	totalUnit = this->betMax/this->betMin;
 

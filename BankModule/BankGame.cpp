@@ -674,8 +674,11 @@ void BankGame::recevingAck()
         string str = com.ReadFile(i);  // Accussé de réception
         int id_message;
         sscanf(str.c_str(), "%d", &id_message);
+        cout<<"Bank rcv_id:"<<id_message<<endl;
         if (id_message != 10)
             throw runtime_error("Accusée de reception non reçu");
+
+
     }
 }
 
@@ -685,5 +688,6 @@ void BankGame::recevingAck(int i)
     int id_message;
     sscanf(str.c_str(), "%d", &id_message);
     if (id_message != 10)
-        throw runtime_error("Accusée de reception non reçu");
+       throw runtime_error("Accusée de reception non reçu");
+    	//throw runtime_error(str);
 }
