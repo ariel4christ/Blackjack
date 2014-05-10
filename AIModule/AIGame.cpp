@@ -1,5 +1,7 @@
 #include "AIGame.h"
 
+
+
 AIGame::AIGame(): betMin(5), betMax(100), ia(0,0), com(),bankCard(NaN)
 {
 	int id = this->com.CheckFiles();
@@ -65,18 +67,18 @@ bool AIGame::runRound()
 		switch(id_message)
 		{
 
-		case 1:// AskInsurance receive
+		case 1:// AskInsurance received
 			this->com.RespondInsurance(0);
 			break;
 
-		case 2: // EndRound receive
+		case 2: // EndRound received
 			endRound = true;
 			break;
-		case 3: // RoundStart receive
+		case 3: // RoundStart received
 			endRound = true;
 			break;
 
-		case 4: // SendCard receive
+		case 4: // SendCard received
 			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &typeCard, &main);
 
 			if(num_joueur == idIA)
@@ -94,11 +96,11 @@ bool AIGame::runRound()
 			this->listOfCards.push_back(Card(static_cast<EType>(typeCard))); // recupere les cartes de tous les joueurs les siennes comprises
 			break;
 
-		case 5: // SetBalance receive
+		case 5: // SetBalance received
 			int balance;
 
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &balance);
-			cout<<"balance="<<balance<<endl;
+			std::cout<<"balance="<<balance<<std::endl;
 			if(num_joueur == idIA)
 			{
 				this->ia.setBalance(balance);
@@ -107,7 +109,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 6: // SetBet receive
+		case 6: // SetBet received
 			int bet;
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &bet);
 
@@ -118,7 +120,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 7:	// ValidStand receive
+		case 7:	// ValidStand received
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &main);
 			if(num_joueur == idIA)
 			{
@@ -129,7 +131,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 8: // ValidSurrender receive
+		case 8: // ValidSurrender received
 			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
 			if(num_joueur == idIA)
 			{
@@ -140,7 +142,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 9: // HasQuit receive
+		case 9: // HasQuit received
 			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
 			if(num_joueur == idIA)
 			{
@@ -149,7 +151,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 10: // PlayerEntered receive
+		case 10: // PlayerEntered received
 			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &betMin, &betMax);
 
 			if (num_joueur == idIA)
@@ -161,7 +163,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 11: // CreditPlayer receive
+		case 11: // CreditPlayer received
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
 			if(num_joueur == idIA)
 			{
@@ -169,7 +171,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 12: // DebitPlayer receive
+		case 12: // DebitPlayer received
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
 			if(num_joueur == idIA)
 			{
@@ -177,7 +179,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 13: // SetHand receive
+		case 13: // SetHand received
 			sscanf(this->message.c_str(), "%d %d %d %d %d ", &id_message, &num_joueur, &main, &typeCard, &typeCard2);
 			if(num_joueur == idIA)
 			{
@@ -198,7 +200,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 14: // ValidSplit receive
+		case 14: // ValidSplit received
 			sscanf(this->message.c_str(), "%d %d ", &id_message, &num_joueur);
 			if(num_joueur == idIA)
 			{
@@ -206,7 +208,7 @@ bool AIGame::runRound()
 			}
 			break;
 
-		case 15: // AskAction receive
+		case 15: // AskAction received
 			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
 			if(num_joueur == idIA)
 			{
