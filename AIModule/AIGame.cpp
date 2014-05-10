@@ -61,11 +61,7 @@ bool AIGame::runRound()
 		{
 
 		case 1:// AskInsurance receive
-
-			if(this->aiInterface.insurrance())
-				this->com.RespondInsurance(1);
-			else
-				this->com.RespondInsurance(0);
+			this->com.RespondInsurance(0);
 			break;
 
 		case 2: // EndRound receive

@@ -32,7 +32,7 @@ private:
 	std::vector<Card> listOfCards; /**< vector<Card>. Liste de toutes les cartes qui on été jouées au cours du jeux */
 	Player ia;/**< Player. Joueur IA */
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable IA et l'exécutable bank */
-	AI aiInterface; /**< AI. Objet permettant l'affichages des differentes étapes de calcul de l'IA */
+	//AI aiInterface; /**< AI. Objet permettant l'affichages des differentes étapes de calcul de l'IA */
 	Card bankCard; /**< Bank. Objet bankCard permetant d'enregistrer la carte de la banque necessaire pour le calcul des probabilités*/
 	std::string message; /**< string. message recu de la banque */
 

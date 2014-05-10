@@ -1,4 +1,4 @@
-all: Bank Player
+all: Bank Player Ia
 
 objDir = obj
 
@@ -7,6 +7,10 @@ Bank : $(objDir)/BankMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $
 
 Player : $(objDir)/PlayerMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/HMI.o $(objDir)/UserGame.o
 	g++ -g -o Player $(objDir)/PlayerMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/HMI.o $(objDir)/UserGame.o
+	
+Ia: $(objDir)/IaMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/AIGame.o
+	g++ -g -o Ia $(objDir)/IaMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/AIGame.o
+
 
 
 
@@ -15,7 +19,9 @@ $(objDir)/BankMain.o : BankMain.cpp
 
 $(objDir)/PlayerMain.o : PlayerMain.cpp
 	g++ -g -c -o $(objDir)/PlayerMain.o PlayerMain.cpp
-
+	
+$(objDir)/IaMain.o : IaMain.cpp
+	g++ -g -c -o $(objDir)/IaMain.o IaMain.cpp
 
 $(objDir)/Bank.o : GameModule/Bank.h GameModule/Bank.cpp
 	g++ -g -c -o $(objDir)/Bank.o GameModule/Bank.cpp

@@ -13,9 +13,15 @@ surrender(false)
 	this->hand2 = NULL;
 }
 
-Player::Player(int pBalance) :
-Player(0, pBalance)
+Player::Player(int pBalance):
+Participant(pBalance),
+id(0),
+blackjack(false),
+insurance(false),
+surrender(false)
 {
+	this->hand = NULL;
+	this->hand2 = NULL;
 }
 
 Player::~Player()
