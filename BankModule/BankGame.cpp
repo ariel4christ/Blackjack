@@ -674,7 +674,7 @@ int BankGame::runRound()
 	if (bank.getHand() != NULL)
 	{
         bank.deleteHand();
-    }
+    	}
 
 	return 0;
 }
@@ -692,7 +692,7 @@ void BankGame::recevingAck()
         int id_message;
         sscanf(str.c_str(), "%d", &id_message);
         if (id_message != 10)
-            throw runtime_error("Accusée de reception non reçu");
+	   throw runtime_error("Accusée de reception non reçu");
     }
 }
 
@@ -702,5 +702,5 @@ void BankGame::recevingAck(int i)
     int id_message;
     sscanf(str.c_str(), "%d", &id_message);
     if (id_message != 10)
-        throw runtime_error("Accusée de reception non reçu");
+       throw runtime_error("Accusée de reception non reçu");
 }

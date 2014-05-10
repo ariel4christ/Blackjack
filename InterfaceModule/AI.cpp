@@ -5,6 +5,8 @@
 
 #include "AI.h"
 
+using namespace std;
+
 AI::AI() {
 	// TODO Auto-generated constructor stub
 
@@ -14,13 +16,16 @@ AI::~AI() {
 	// TODO Auto-generated destructor stub
 }
 
-int AI::getBet()
+void AI::IaBet(int bet)
 {
-	return 0;/* mis temporairement*/
+	cout << "#########################" << endl << endl;
+	cout<<"#";
+	cout<<"AI bet :"<<bet<<endl;
 }
 
-bool AI::insurrance()
+bool AI::insurrance(int value)
 {
+	cout<<"value = "<<value<<endl;
 	return true;/* mis temporairement*/
 }
 

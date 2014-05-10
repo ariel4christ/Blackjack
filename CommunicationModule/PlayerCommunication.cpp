@@ -1,4 +1,5 @@
 #include "PlayerCommunication.h"
+#include <iostream>
 
 using namespace std;
 
@@ -249,4 +250,5 @@ void PlayerCommunication::sendAck()
     sprintf(str, "10 ");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
+
 }
