@@ -84,8 +84,8 @@ void Player::Surrender(PlayerHand *h)
 
 	this->increaseBalance(h->getBet() / 2);
 	h->deleteHand();
-	delete h;
-	h = NULL;
+//	delete h;
+//	h = NULL;
 
 	if (this->hand == NULL && this->hand2 == NULL)
 		this->setSurrender(true);

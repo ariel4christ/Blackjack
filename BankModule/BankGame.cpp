@@ -455,6 +455,11 @@ void BankGame::playerAction(Player *p, int secondHand)
 			bank.increaseBalance(h->getBet() / 2);
 			p->Surrender(h);
 			com.validSurrender(id);
+
+			if (secHand == 0)
+                p->setHand(NULL);
+            else p->setHand2(NULL);
+
 			if (p->getHand() == NULL && p->getHand2() == NULL)
 				p->setSurrender(true);
 		}
