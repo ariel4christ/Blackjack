@@ -160,8 +160,9 @@ private:
 	 * @see BankCommunication::ReadFile()
 	 * @see BankInterface::PrintGameState()
 	 * @param p Pointeur vers le joueur qui envoie une action.
+	 * @return 0 si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
-	void playerAction(Player *p, int secondHand);
+	int playerAction(Player *p, int secondHand);
 
 	/**
 	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en paramètre. Fini le jeu s'il n'y a plus de joueur.
@@ -169,12 +170,13 @@ private:
 	 * @see BankCommunication::HasQuit()
 	 * @see ~BankGame()
 	 * @param p Pointeur vers le joueur qui quitte le jeu.
+	 * @return 0 si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
-	void quitePlayer(Player *p);
+	int quitePlayer(Player *p);
 
 	/**
 	 * Methode gerant le deroulement d'un tour.
-	 * @return	0	le tour s'est fini sans probleme.
+	 * @return	1	le tour s'est fini sans probleme, 0 si le jeu est terminé.
 	 */
 	int runRound();
 

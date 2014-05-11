@@ -26,12 +26,16 @@ surrender(false)
 
 Player::~Player()
 {
-	this->hand->deleteHand();
-	this->hand2->deleteHand();
-	delete hand;
-	hand = NULL;
-	delete hand2;
-	hand2 = NULL;
+    if (this->hand != NULL)
+    {
+        this->hand->deleteHand();
+        delete hand;
+    }
+    if (this->hand2 != NULL)
+    {
+        this->hand2->deleteHand();
+        delete hand2;
+	}
 }
 
 void Player::newHand()

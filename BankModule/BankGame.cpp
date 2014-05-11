@@ -54,15 +54,21 @@ BankGame::~BankGame()
 	// Désallocation des cartes restantes dans deck
 	this->clearDeck();
 
-	// Désallocation des joueurs
-	for (vector<Player*>::iterator it = this->player.begin(); it != this->player.end(); it++)
-	{
-		delete *it;
-		*it = NULL;
+    if (!player.empty())
+    {
+        // Désallocation des joueurs
+        for (vector<Player*>::iterator it = this->player.begin(); it != this->player.end(); it++)
+        {
+            delete *it;
+            *it = NULL;
+        }
+        player.clear();
 	}
-	player.clear();
-
 	com.CleanFiles();
+
+	cout << endl << "##################################################" << endl;
+	cout << endl << "***** FIN DU JEU *****" << endl;
+	cout << endl << "##################################################" << endl;
 }
 
 
@@ -384,7 +390,7 @@ void BankGame::newPlayer()
 	b = c;
 }
 
-void BankGame::playerAction(Player *p, int secondHand)
+int BankGame::playerAction(Player *p, int secondHand)
 {
     cout << "Demande d'action au Joueur " << p->getId() << " \tMain " << secondHand + 1 << endl;
 	int id = p->getId();
@@ -466,7 +472,8 @@ void BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 4:  // Quit
-		quitePlayer(p);
+		if(quitePlayer(p) == 0)
+            return 0;
 		break;
 
 	case 7:  // Double
@@ -518,35 +525,49 @@ void BankGame::playerAction(Player *p, int secondHand)
 	}
 
 	interface.printGameState(getPlayers(), getBank());
+	return 1;
 }
 
-void BankGame::quitePlayer(Player *p)
+int BankGame::quitePlayer(Player *p)
 {
 	int id = p->getId();
-	delete p;
-	p = NULL;
-	vector<Player*> tmp;
-	for (unsigned int i = 0 ; i < player.size() ; i++)
-	{
-		if (player[i] != NULL)  // Si le pointeur != NULL alors on le stock dans le vecteur tmp
-			tmp.push_back(player[i]);
-	}
-	this->player = tmp;  // Mise à jour de player, le joueur qui a quitté le jeu n'est plus dans le vecteur
 	com.HasQuit(id);
 
-	// Il n'y a plus de joueur : FIN DU JEU
-	if (this->player.empty())
-		this->~BankGame();
+	delete p;
+	p = NULL;
+
+    cout << player.size() << endl;
+    if (this->player.size() > 1)
+    {
+        // Suppression du joueur de la liste des joueurs
+        vector<Player*> tmp;
+        for (unsigned int i = 0 ; i < player.size() ; i++)
+        {
+            if (player[i] != NULL)  // Si le pointeur != NULL alors on le stock dans le vecteur tmp
+                tmp.push_back(player[i]);
+        }
+        this->player = tmp;  // Mise à jour de player, le joueur qui a quitté le jeu n'est plus dans le vecteur
+        return 1;
+    }
+
+    // Il n'y a qu'un joueur qui vient de quitter le jeu : FIN DU JEU
+	else
+	{
+        this->player.clear();
+		return 0;
+    }
+
 }
 
 int BankGame::runGame()
 {
+    int i = 1;
 	this->newGame();
 	this->newPlayer();  // Vérification des nouveaux joueurs
-	while (!player.empty())
+	while (i && !player.empty())
 	{
 		initRound();
-		runRound();
+		i = runRound();
 		newPlayer();
 	}
 		return 0;
@@ -568,7 +589,7 @@ int BankGame::runRound()
 		cout << "La Banque a un AS" << endl;
 		cout << "##################################################" << endl;
 		if (this->insurance() == 0)
-			return 0; // Le tour est fini
+			return 1; // Le tour est fini
 	}
 
 	/***** Traitement du cas "un joueur fait blackjack" *****/
@@ -610,7 +631,9 @@ int BankGame::runRound()
 			// Boucle d'actions sur la main 1
 			while (!player[i]->getHand()->getStand() && !player[i]->getSurrender() && player[i]->getHand() != NULL)
 			{
-				playerAction(player[i], 0);
+				if (playerAction(player[i], 0) == 0)
+                    return 0; // Fin du jeu
+
 				if (player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est oblig� de s'arreter.
 				{
 					player[i]->getHand()->setStand(true);
@@ -702,7 +725,7 @@ int BankGame::runRound()
         bank.deleteHand();
     }
 
-	return 0;
+	return 1;
 }
 
 void BankGame::shuffleDeck()
