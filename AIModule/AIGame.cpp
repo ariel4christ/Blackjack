@@ -2,16 +2,15 @@
 
 
 
-AIGame::AIGame(): betMin(5), betMax(100), ia(0,0),bankCard(NaN)
+AIGame::AIGame(): betMin(5), betMax(100), ia(0,0), bankCard(NaN), com(), listOfCards(), previousBets()
 {
 	int id = this->com.CheckFiles();
 
-		if (id == -1)
-			exit(-1);
+	if (id == -1)
+		exit(-1);
 
-		this->com.CreateFiles(id);
-		this->ia.setId(id);
-
+	this->com.CreateFiles(id);
+	this->ia.setId(id);
 }
 
 AIGame::~AIGame()
