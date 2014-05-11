@@ -86,8 +86,8 @@ public:
 	 */
 	int runGame();
 
-	void recevingAck();
-    void recevingAck(int i);
+	void ReceiveAck();
+    void ReceiveAck(int i);
 
 private:
 
