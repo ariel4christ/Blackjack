@@ -1,8 +1,11 @@
 #include "AIGame.h"
 
+using namespace std;
 
+int AIGame::betMin = 5;
+int AIGame::betMax = 100;
 
-AIGame::AIGame(): betMin(5), betMax(100), ia(0,0), bankCard(NaN), com(), listOfCards(), previousBets()
+AIGame::AIGame(): ia(0,0), bankCard(NaN), com(), listOfCards(), previousBets()
 {
 	int id = this->com.CheckFiles();
 
@@ -20,6 +23,45 @@ AIGame::~AIGame()
 void AIGame::runGame()
 {
 	this->com.EnterGame();
+    int id = this->ia.getId();
+
+	string str = com.ReadFile();
+	cout << str<<endl;
+	int id_message;
+	sscanf(str.c_str(), "%d", &id_message);
+	if (id_message == 10)  // Message PlayerEntered
+	{
+        int id_player, bet_min, bet_max;
+        sscanf(str.c_str(), "%d %d %d %d", &id_message, &id_player, &bet_min, &bet_max);
+        if (id == id_player)
+        {
+            AIGame::betMin = bet_min;
+            AIGame::betMax = bet_max;
+            com.sendAck();
+        }
+	}
+	else throw runtime_error("Erreur reception message PlayerEntered");
+
+
+    str = com.ReadFile();
+	cout << str <<endl;
+	sscanf(str.c_str(), "%d", &id_message);
+	if (id_message == 5)
+	{
+        int id_player, balance;
+        sscanf(str.c_str(), "%d %d %d", &id_message, &id_player, &balance);
+        if (id == id_player)
+            ia.setBalance(balance);
+        com.sendAck();
+	}
+	else throw runtime_error("Message d'initialisation du solde joueur non recu");
+
+
+    str = this->com.ReadFile();
+    sscanf(str.c_str(), "%d", &id_message);
+	if (id_message != 3)
+        throw runtime_error("Erreur message roundStart");
+
 
 	bool quit = false; // variable permettant de quitter le jeu
 
@@ -117,6 +159,7 @@ bool AIGame::runRound()
 				this->ia.getHand()->setBet(bet);
 				this->previousBets.push_back(bet);
 			}
+			com.sendAck();
 			break;
 
 		case 7:	// ValidStand received

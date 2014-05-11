@@ -26,8 +26,8 @@ public:
 
 private:
 
-	int betMin;  /**< Entier. Mise minimale.*/
-	int betMax;  /**< Entier. Mise maximale.*/
+	static int betMin;  /**< Entier. Mise minimale.*/
+	static int betMax;  /**< Entier. Mise maximale.*/
 	std::vector<int> previousBets; /**< vector<int>. Liste des differentes mises au cours du jeu par l'IA */
 	std::vector<Card> listOfCards; /**< vector<Card>. Liste de toutes les cartes qui on été jouées au cours du jeux */
 	Player ia;/**< Player. Joueur IA */

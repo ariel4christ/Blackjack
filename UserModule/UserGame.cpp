@@ -69,9 +69,9 @@ void UserGame::initRound()
 	this->player.setSurrender(false);
 	this->player.setInsurance(false);
     if (player.getHand() != NULL)
-        this->player.deleteHand(this->player.getHand());
+        this->player.setHand(NULL);
     if (player.getHand2() != NULL)
-        this->player.deleteHand(this->player.getHand2());
+        this->player.setHand2(NULL);
 
 	int bet;
 
