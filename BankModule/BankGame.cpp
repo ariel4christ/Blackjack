@@ -161,6 +161,7 @@ void BankGame::endRound(Player *p, int secondHand)
 		com.setBalance(p->getId(), p->getBalance());
 		recevingAck(p->getId());
 	}
+
 /*
 	if (secondHand == 0)
 		p->deleteHand(p->getHand());
@@ -188,7 +189,7 @@ void BankGame::initRound()
 	this->com.RoundStart();
 
 	cout << endl << "##################################################" << endl;
-	cout << endl << "***** NOUVEAU TOUR *****" << endl << "~ Attente des mises : " << endl;
+	cout << endl << "***** NOUVEAU TOUR *****" << endl << "Attente des mises : " << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
@@ -663,9 +664,17 @@ int BankGame::runRound()
 			endRound(player[i], 0);
 		if (player[i]->getHand2() != NULL)
 			endRound(player[i], 1);
+
+        if (player[i]->getBalance() < getBetMin())
+        {
+            cout << endl << "Votre solde est insuffisant pour continuer Joueur" << i;
+            cout << ". Vous avez perdu!" << endl;
+            this->quitePlayer(player[i]);
+        }
 	}
 
     cout << "##################################################" << endl << endl;
+
 
 	com.EndRound();
 

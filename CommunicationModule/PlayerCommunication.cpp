@@ -15,6 +15,7 @@ void PlayerCommunication::AskToHIt(int secondHand)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "8 %d ", secondHand);
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -31,6 +32,7 @@ void PlayerCommunication::Bet(int bet)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "9 %d ", bet);
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -124,6 +126,7 @@ void PlayerCommunication::Double()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "7");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -139,6 +142,7 @@ void PlayerCommunication::EnterGame()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "6");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -154,6 +158,7 @@ void PlayerCommunication::QuitMessage()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "4");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -172,6 +177,7 @@ string PlayerCommunication::ReadFile()
     char str[32];
 
     fread(str,sizeof(char),32,file);
+    fflush(file);
     return (string) str;
 
 }
@@ -187,6 +193,7 @@ void PlayerCommunication::RespondInsurance(int val)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "%d ", val);
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -202,6 +209,7 @@ void PlayerCommunication::Split(int secondHand)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "1 %d ", secondHand);
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -217,6 +225,7 @@ void PlayerCommunication::Stand(int secondHand)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "2 %d ", secondHand);
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -232,6 +241,7 @@ void PlayerCommunication::Surrender(int secondHand)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "3 %d ", secondHand);
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
@@ -247,6 +257,7 @@ void PlayerCommunication::sendAck()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
+    //fflush(file);
     sprintf(str, "10 ");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);

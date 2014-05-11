@@ -17,7 +17,7 @@ class HMI
 public:
 	char askAction(bool hit, bool split, bool doubler, bool stay);
 	int getBet();
-	bool insurrance();
+	bool insurrance(Player &p);
     void PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay);
     void PrintEndRound(Player &p);
 };

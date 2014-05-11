@@ -6,6 +6,8 @@
 #include "../UserModule/UserGame.h"
 
 using namespace std;
+
+
 /**
  * Demande au joueur la somme qu'il veut parier
  */
@@ -13,11 +15,11 @@ int HMI::getBet()
 {
 	int bet;
 	do{
-		cout << "Entrez votre mise ente $" << UserGame::getBetMin() << " et $" << UserGame::getBetMax() << " :" << endl;
+		cout << "> Entrez votre mise ente $" << UserGame::getBetMin() << " et $" << UserGame::getBetMax() << " :" << endl;
 		cin>>bet;
 
-		if(cin.fail())// valeur recu en cosole n'est pas un entier
-			cout<<"Veuillez entrer une mise entière"<<endl;
+		if(cin.fail())// valeur recu en console n'est pas un entier
+			cout<<"### Veuillez entrer une mise entière SVP ###"<<endl;
 	}
 	while(cin.fail() || bet < UserGame::getBetMin() || bet > UserGame::getBetMax());
 
@@ -99,8 +101,10 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 
     do
     {
+        cout << endl << "> Entrez la lettre correspondant à votre décision : ";
+        response = '\0';
         cin >> response;
-        if (cin.fail()) cout << "Erreur, veuillez recommencez" << endl;
+        if (cin.fail()) cout << "### Erreur, veuillez recommencez ###" << endl;
     } while (cin.fail() || response == ' ' ||
             (response != possibleChoices[0] && response != possibleChoices[1]
             && response != possibleChoices[2] && response != possibleChoices[3]
@@ -109,15 +113,19 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
     return response;
 }
 
-bool HMI::insurrance()
+bool HMI::insurrance(Player &player)
 {
     char response;
-    cout << "La première carte de la banque est un AS." << endl << "La banque peut faire Blackjack !" << endl;
-    cout << "Voulez-vous prendre une assurance ? O/N" << endl;
+    cout << endl << "> La première carte de la banque est un AS." << endl << "> La banque peut faire Blackjack !" << endl;
+
+    if(player.getBalance() < (int) player.getHand()->getBet() / 2)
+        return false;
+
+    cout << "# Voulez-vous prendre une assurance ? O/N" << endl;
     do
     {
         cin >> response;
-        if (cin.fail()) cout << "Erreur, veuillez recommencez" << endl;
+        if (cin.fail()) cout << "### Erreur, veuillez recommencez ###" << endl;
     } while (cin.fail() || (response != 'O' && response != 'N'));
 
     return (response == 'O') ? true : false;

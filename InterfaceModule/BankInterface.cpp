@@ -14,6 +14,7 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
     {
         cout << (*it)->getStringRepresentation() << " ";
     }
+    cout << "Valeur : " << bank.getHand()->getValue2();
     cout << endl;
 
 
@@ -27,8 +28,11 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
         cout << "\t Cartes : ";
         for (vector<Card*>::iterator it2 = cards.begin(); it2 != cards.end(); it2++)
         {
-            cout << "\t " << (*it2)->getStringRepresentation() << " ";
+            cout << (*it2)->getStringRepresentation() << " ";
         }
+        cout << "Valeur : " << (*it)->getHand()->getValue2();
+        if ((*it)->getHand()->getValue2() != (*it)->getHand()->getValue1())
+            cout << " / " << (*it)->getHand()->getValue1();
         cout << endl;
 
         if ((*it)->getHand2() != NULL)
@@ -40,8 +44,11 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
             cout << "\t Cartes : ";
             for (vector<Card*>::iterator it2 = cards2.begin(); it2 != cards2.end(); it2++)
             {
-                cout << "\t " << (*it2)->getStringRepresentation() << " ";
+                cout << (*it2)->getStringRepresentation() << " ";
             }
+            cout << "Valeur : " << (*it)->getHand()->getValue2();
+            if ((*it)->getHand()->getValue2() != (*it)->getHand()->getValue1())
+                cout << " / " << (*it)->getHand()->getValue1();
             cout << endl;
         }
     }

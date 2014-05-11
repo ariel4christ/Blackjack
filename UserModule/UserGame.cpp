@@ -104,7 +104,7 @@ void UserGame::runRound()
 		{
 
 		case 1:// AskInsurance receive
-			if (this->ihm.insurrance())
+			if (this->ihm.insurrance(this->player))
 				this->com.RespondInsurance(1);
 			else
 				this->com.RespondInsurance(0);
@@ -260,10 +260,14 @@ void UserGame::choseAction(PlayerHand *myhand)
 	bool stand = true;
 	char reponse;
 
-	if (this->player.getHand()->isPair() && this->player.getHand2() == NULL)
-		spliter = true;
-	if (this->player.getHand()->numberOfCards() == 2 && this->player.getHand2() == NULL)
-		doubler = true;
+	if (this->player.getHand()->isPair() && this->player.getHand2() == NULL
+        && this->player.getBalance() >= this->player.getHand()->getBet())
+            spliter = true;
+
+	if (this->player.getHand()->numberOfCards() == 2 && this->player.getHand2() == NULL
+        && this->player.getBalance() >= this->player.getHand()->getBet())
+            doubler = true;
+
 	if (myhand->getValue1() <= 21)
 		hit = true;
 
