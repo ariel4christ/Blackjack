@@ -2,6 +2,7 @@
  * Classe UserGame. Classe de gestion des joueurs, exécutable User (joueur humain).
  * @author Ariel NONO
  * @author Thomas MAINGUY
+ * @author Christophe HUBERT
  */
 
 #ifndef USERGAME_H_

@@ -1,6 +1,6 @@
-/*
+/**
  * AI.cpp
- *
+ * @author Ariel NONO
  */
 
 #include "AI.h"

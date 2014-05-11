@@ -1,4 +1,9 @@
-#include "AIGame.h"
+/**
+ * Classe AIGame.
+ * @autor Ariel NONO
+ */
+
+ #include "AIGame.h"
 
 using namespace std;
 

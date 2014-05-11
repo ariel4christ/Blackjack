@@ -1,3 +1,8 @@
+/**
+ * Bank.cpp
+ * @author Christophe HUBERT
+ */
+
 #include "Bank.h"
 
 using namespace std;

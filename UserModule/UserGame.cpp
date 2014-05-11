@@ -1,9 +1,8 @@
-/*
+/**
  * UserGame.cpp
  * @author Ariel NONO
  * @author Thomas MAINGUY
  * @author Christophe HUBERT
- *
  */
 
 #include "UserGame.h"

@@ -1,3 +1,8 @@
+/**
+ * BankCommunication.cpp
+ * @author Thomas MAINGUY
+ */
+
 #include "BankCommunication.h"
 #include "../BankModule/BankGame.h"
 

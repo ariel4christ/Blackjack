@@ -1,3 +1,8 @@
+/**
+ * Hand.cpp
+ * @author Christophe HUBERT
+ */
+
 #include "Hand.h"
 #include <stdexcept>
 
@@ -117,8 +122,6 @@ void Hand::deleteHand()
         //for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
         for(unsigned int i = 0 ; i < cards.size(); ++i)
         {
-            //delete *it;
-            //*it = NULL;
             delete cards[i];
             cards[i] = NULL;
         }

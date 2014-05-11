@@ -1,3 +1,8 @@
+/**
+ * BankGame.cpp
+ * @author Christophe HUBERT
+ */
+
 #include "BankGame.h"
 #include <iostream>
 #include <string>
@@ -168,13 +173,6 @@ void BankGame::endRound(Player *p, int secondHand)
 		ReceiveAck(p->getId());
 	}
 
-/*
-	if (secondHand == 0)
-		p->deleteHand(p->getHand());
-	else p->deleteHand(p->getHand2());*/
-    //delete h;
-    //h = NULL;
-
     cout << endl;
 }
 
@@ -303,7 +301,6 @@ int BankGame::insurance()
 
 			}
 
-//			player[i]->deleteHand(player[i]->getHand());  // Desallocation main joueur
             player[i]->setHand(NULL);
 
 		}

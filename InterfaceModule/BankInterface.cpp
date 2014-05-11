@@ -1,3 +1,8 @@
+/**
+ * BankInterface.cpp
+ * @author Thomas MAINGUY
+ */
+
 #include "BankInterface.h"
 
 using namespace std;

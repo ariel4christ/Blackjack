@@ -1,3 +1,8 @@
+/**
+ * PlayerHand.cpp
+ * @author Christophe HUBERT
+ */
+
 #include "PlayerHand.h"
 
 

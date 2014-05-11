@@ -1,3 +1,8 @@
+/**
+ * Card.cpp
+ * @author Christophe HUBERT
+ */
+
 #include "Card.h"
 
 // Initialisation par défaut de la variable statique sID

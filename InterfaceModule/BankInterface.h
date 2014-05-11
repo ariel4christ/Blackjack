@@ -1,4 +1,5 @@
 /**
+ * BankInterface.h
  * @author Thomas MAINGUY
  */
 

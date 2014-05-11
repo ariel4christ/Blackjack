@@ -1,5 +1,7 @@
-/*
+/**
  * HMI.cpp
+ * @author Thomas MAINGUY
+ * @author Ariel NONO
  */
 
 #include "HMI.h"

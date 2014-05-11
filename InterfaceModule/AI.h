@@ -1,5 +1,6 @@
-/*
+/**
  * AI.h
+ * @author Ariel NONO
  */
 
 #ifndef AI_H_
