@@ -1,5 +1,8 @@
 /*
  * UserGame.cpp
+ * @author Ariel NONO
+ * @author Thomas MAINGUY
+ * @author Christophe HUBERT
  *
  */
 
@@ -31,7 +34,6 @@ void UserGame::runGame()
 	int id = this->player.getId();
 
 	string str = com.ReadFile();
-	cout << str<<endl;
 	int id_message;
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 10)  // Message PlayerEntered
