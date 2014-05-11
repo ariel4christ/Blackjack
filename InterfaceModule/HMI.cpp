@@ -14,14 +14,18 @@ using namespace std;
 int HMI::getBet()
 {
 	int bet;
-	do{
+	do {
 		cout << "> Entrez votre mise ente $" << UserGame::getBetMin() << " et $" << UserGame::getBetMax() << " :" << endl;
 		cin>>bet;
 
-		if(cin.fail())// valeur recu en console n'est pas un entier
-			cout<<"### Veuillez entrer une mise entière SVP ###"<<endl;
+		if (cin.fail()) // Valeur recue en console n'est pas un entier
+        {
+			cout << "### Veuillez entrer une mise entière SVP ###" << endl;
+            cin.clear();
+            cin.ignore(999,'\n');
+        }
 	}
-	while(cin.fail() || bet < UserGame::getBetMin() || bet > UserGame::getBetMax());
+	while (cin.fail() || bet < UserGame::getBetMin() || bet > UserGame::getBetMax());
 
 	return bet;
 }
