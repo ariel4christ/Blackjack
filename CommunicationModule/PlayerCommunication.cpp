@@ -182,7 +182,7 @@ string PlayerCommunication::ReadFile()
     char str[32];
 
     fread(str,sizeof(char),32,file);
-    fflush(file);
+    fclose(file);
     return (string) str;
 
 }
