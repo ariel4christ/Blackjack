@@ -410,6 +410,7 @@ int BankGame::playerAction(Player *p, int secondHand)
 		if (p->getHand()->isPair() && p->getHand2() == NULL && secHand == 0)
 		{
 			com.validSplit(id);
+			ReceiveAck(id);
 
 			p->newHand();
 			p->getHand2()->setBet(p->getHand()->getBet());
@@ -422,7 +423,9 @@ int BankGame::playerAction(Player *p, int secondHand)
 			p->getHand2()->addCard(c);
 
 			com.setHand(id, *p->getHand(), 0);
+			ReceiveAck(id);
 			com.setHand(id, *p->getHand2(), 1);
+			ReceiveAck(id);
 		}
 		else
 			throw runtime_error("Split non autorisé");
@@ -441,6 +444,7 @@ int BankGame::playerAction(Player *p, int secondHand)
 		{
 			h->setStand(true);
 			com.validStand(id, secHand);
+			ReceiveAck(id);
 		}
 		break;
 

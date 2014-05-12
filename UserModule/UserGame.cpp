@@ -163,6 +163,8 @@ void UserGame::runRound()
 					this->player.Stand(this->player.getHand());
 				else
 					this->player.Stand(this->player.getHand2());
+
+                com.sendAck();
 			}
 			break;
 
@@ -225,6 +227,8 @@ void UserGame::runRound()
 					this->player.getHand()->setHand(*hand);
 				else
 					this->player.getHand2()->setHand(*hand);
+
+                com.sendAck();
 			}
 			break;
 
@@ -234,6 +238,7 @@ void UserGame::runRound()
 			{
 				this->player.newHand();
 			}
+			com.sendAck();
 			break;
 
 		case 15: // AskAction receive

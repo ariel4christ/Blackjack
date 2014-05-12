@@ -180,7 +180,7 @@ string PlayerCommunication::ReadFile()
         throw runtime_error("Erreur d'ouverture du fichier in");
 
     char str[32];
-
+    usleep(1000);
     fread(str,sizeof(char),32,file);
     fclose(file);
     return (string) str;
