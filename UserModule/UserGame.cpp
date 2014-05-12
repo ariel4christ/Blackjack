@@ -130,7 +130,7 @@ void UserGame::runRound()
 				else
                     this->player.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
 			}
-			this->com.sendAck();
+			com.sendAck();
 			break;
 
 		case 5: // SetBalance receive

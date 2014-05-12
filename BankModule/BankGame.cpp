@@ -673,6 +673,7 @@ int BankGame::runRound()
 		c = hitCard();
 		bank.getHand()->addCard(c);
 		com.SendCard(4, c->getType(), 0);
+		ReceiveAck();
 	}
 
 	interface.printGameState(getPlayers(), getBank());
