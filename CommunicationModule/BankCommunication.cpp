@@ -229,7 +229,7 @@ string BankCommunication::ReadFile(int id)
         throw runtime_error("Erreur d'ouverture du fichier in");
 
     char str[32];
-    usleep(1000);
+    usleep(1500);  // Attente pour une meilleur sychonisation entre les processus
     fread(str,sizeof(char),32,file);
     fclose(file);
     return (string) str;

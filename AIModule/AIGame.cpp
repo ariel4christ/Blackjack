@@ -78,9 +78,9 @@ void AIGame::runGame()
 		this->ia.setInsurance(false);
 
 		if (this->ia.getHand() != NULL)
-			this->ia.deleteHand(this->ia.getHand());
+			this->ia.setHand(NULL);
 		if (this->ia.getHand2() != NULL)
-			this->ia.deleteHand(this->ia.getHand2());
+			this->ia.setHand2(NULL);
 
 		int bet = this->getBet();
 		this->aiInterface.IaBet(bet);
@@ -392,8 +392,8 @@ void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 
 void AIGame::quitGame()
 {
-	this->ia.deleteHand(this->ia.getHand());
-	this->ia.deleteHand(this->ia.getHand2());
+	this->ia.setHand(NULL);
+	this->ia.setHand2(NULL);
 	this->~AIGame();
 	exit(1);
 }

@@ -24,7 +24,7 @@ UserGame::UserGame() : player(0), com()
 }
 
 UserGame::~UserGame() {
-
+    this->ihm.PrintMessage("Vous avez quittez la partie !\nA bientot :)");
 }
 
 void UserGame::runGame()
@@ -49,7 +49,6 @@ void UserGame::runGame()
 	else throw runtime_error("Erreur reception message PlayerEntered");
 
 	str = com.ReadFile();
-	cout << str <<endl;
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 5)
 	{
@@ -76,15 +75,18 @@ void UserGame::initRound()
 
 	int bet;
 
-	bet = this->ihm.getBet();
+	bet = this->ihm.getBet(this->player);
+	if (bet == -1)
+        this->com.QuitMessage();
+
 	this->com.Bet(bet);
 
 }
 
 void UserGame::quitGame()
 {
-	this->player.deleteHand(this->player.getHand());
-	this->player.deleteHand(this->player.getHand2());
+	this->player.setHand(NULL);
+	this->player.setHand(NULL);
 	this->~UserGame();
 	exit(1);
 }

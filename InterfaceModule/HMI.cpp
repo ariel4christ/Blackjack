@@ -13,21 +13,40 @@ using namespace std;
 /**
  * Demande au joueur la somme qu'il veut parier
  */
-int HMI::getBet()
+int HMI::getBet(Player &p)
 {
-	int bet;
-	do {
-		cout << "> Entrez votre mise ente $" << UserGame::getBetMin() << " et $" << UserGame::getBetMax() << " :" << endl;
-		cin>>bet;
+	long bet;
 
-		if (cin.fail()) // Valeur recue en console n'est pas un entier
+    cout << endl << "##################################################" << endl;
+    cout << endl << "*** Nouveau Tour ***" << endl << endl;
+
+	do
+	{
+        cout << "~ Votre solde est de $ " << p.getBalance() << "." << endl << endl;
+        cout << "> Si vous souhaitez quitter le jeu, entrez Q." << endl;
+		cout << "> Sinon, entrer une mise entière comprise entre $ " << UserGame::getBetMin() << " et $ " << UserGame::getBetMax() << " : ";
+		char bet_str[16];
+		scanf("%s", bet_str);
+        cout << endl;
+
+        if (bet_str[0] == 'Q')
+            return -1;
+
+        bet = strtol(bet_str, NULL, 10);
+
+        if (bet == 0)
         {
-			cout << "### Veuillez entrer une mise entière SVP ###" << endl;
+            cout << "##### Veuillez entrer une mise entière SVP #####" << endl << endl;
             cin.clear();
             cin.ignore(999,'\n');
+            bet = -1;  // permettera de rester dans la boucle do while
         }
+        else if (bet < UserGame::getBetMin() || bet > UserGame::getBetMax())
+            cout << "##### La mise doit etre entre $ " << UserGame::getBetMin() << " et $ " << UserGame::getBetMax() << " ! #####" << endl << endl;
 	}
-	while (cin.fail() || bet < UserGame::getBetMin() || bet > UserGame::getBetMax());
+	while (bet < UserGame::getBetMin() || bet > UserGame::getBetMax());
+
+    cout << "##################################################" << endl << endl;
 
 	return bet;
 }
@@ -42,13 +61,13 @@ int HMI::getBet()
  */
 void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay)
 {
-	cout << "#########################" << endl << endl;
-	cout << "JOUEUR " << p.getId() << endl;
-	cout << "Solde : $ " << p.getBalance() << endl << endl;
-	cout << "Main 1 :" << endl << "Mise : $ " << p.getHand()->getBet() << endl << endl;
+	cout << "##################################################" << endl << endl;
+	cout << "~ JOUEUR " << p.getId() << endl;
+	cout << "~ Solde : $ " << p.getBalance() << endl;
+	cout << "~ Main 1 :" << endl << "\tMise : $ " << p.getHand()->getBet() << endl;
 
 	std::vector<Card*> cards = p.getHand()->getCards();
-	cout << "Cartes : ";
+	cout << "\tCartes : ";
     for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++)
     {
         cout << (*it)->getStringRepresentation() << " ";
@@ -60,8 +79,8 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
 
     if (p.getHand2() != NULL)
     {
-    	cout << "====" << endl << "Main 2 : " <<  endl;
-    	cout << "\tMise : $ " << p.getHand2()->getBet() << endl << endl;
+    	cout << "Main 2 : " <<  endl;
+    	cout << "\tMise : $ " << p.getHand2()->getBet() << endl;
 
 		std::vector<Card*> cards2 = p.getHand2()->getCards();
 		cout << "\tCartes : ";
@@ -76,12 +95,12 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
     }
 
     // On affiche les messages qu'il faut
-    if (hit) cout << "Demander carte ? (C)" << endl;
-    if (split) cout << "Split ? (P)" << endl;
-    if (doubler) cout << "Doubler ? (D)" << endl;
-    if (stay) cout << "Rester ? (R)" << endl;
-    cout << "Abandonner la main? (A)" << endl;
-    cout << "Abandonner la main ET quitter le jeu? (Q)" << endl;
+    if (hit) cout << "> Demander carte ? (C)" << endl;
+    if (split) cout << "> Partager la main (split) ? (P)" << endl;
+    if (doubler) cout << "> Doubler ? (D)" << endl;
+    if (stay) cout << "> Rester ? (R)" << endl;
+    cout << "> Abandonner la main? (A)" << endl;
+    cout << "> Abandonner la main ET quitter le jeu? (Q)" << endl;
 }
 
 /**
@@ -107,7 +126,7 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 
     do
     {
-        cout << endl << "> Entrez la lettre correspondant à votre décision : ";
+        cout << endl << "~ Entrez la lettre correspondant à votre décision : ";
         response = '\0';
         cin >> response;
         if (cin.fail()) cout << "### Erreur, veuillez recommencez ###" << endl;
@@ -122,16 +141,16 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 bool HMI::insurrance(Player &player)
 {
     char response;
-    cout << endl << "> La première carte de la banque est un AS." << endl << "> La banque peut faire Blackjack !" << endl;
+    cout << endl << "~ La première carte de la banque est un AS." << endl << "~ La banque peut faire Blackjack !" << endl;
 
     if(player.getBalance() < (int) player.getHand()->getBet() / 2)
         return false;
 
-    cout << "# Voulez-vous prendre une assurance ? O/N" << endl;
+    cout << "> Voulez-vous prendre une assurance ? O/N" << endl;
     do
     {
         cin >> response;
-        if (cin.fail()) cout << "### Erreur, veuillez recommencez ###" << endl;
+        if (cin.fail()) cout << "### Erreur, veuillez recommencez. Merci d'entrer O ou N ###" << endl;
     } while (cin.fail() || (response != 'O' && response != 'N'));
 
     return (response == 'O') ? true : false;
@@ -139,9 +158,16 @@ bool HMI::insurrance(Player &player)
 
 void HMI::PrintEndRound(Player &p)
 {
-    cout << endl << "#########################" << endl << endl;
+    cout << endl << "##################################################" << endl << endl;
     cout << "Fin du Tour. Les résulats sont affichés dans la banque." << endl;
     cout << "Nouveau solde : $" << p.getBalance() << endl << endl;
     cout << "Début du tour suivant..." << endl << endl;
-    cout << "#########################" << endl << endl;
+    cout << "##################################################" << endl << endl;
+}
+
+void HMI::PrintMessage(string str)
+{
+    cout << "##################################################" << endl << endl;
+    cout << str << endl << endl;
+    cout << "##################################################" << endl << endl;
 }

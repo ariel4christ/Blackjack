@@ -7,37 +7,26 @@
 
 using namespace std;
 
+
 void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
 {
-    cout << "#########################" << endl << endl;
-
-    cout << "Cartes Banque : ";
-
-    std::vector<Card*> cards = bank.getHand()->getCards();
-
-    for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++)
-    {
-        cout << (*it)->getStringRepresentation() << " ";
-    }
-    cout << "Valeur : " << bank.getHand()->getValue2();
-    cout << endl;
-
+    cout << "##################################################" << endl << endl;
 
     for (std::vector<Player*>::iterator it = players.begin(); it != players.end(); ++it)
     {
-        cout << "Joueur " << (*it)->getId() << " : " << endl;
+        cout << "Joueur " << (*it)->getId() << "  :   ";
 
         if ((*it)->getHand() != NULL)
         {
-            cout << "\t Mise : $ " << (*it)->getHand()->getBet() << endl;
+            cout << "$ " << (*it)->getHand()->getBet();
 
-            cards = (*it)->getHand()->getCards();
-            cout << "\t Cartes : ";
+            std::vector<Card*> cards = (*it)->getHand()->getCards();
+            cout << "\t";
             for (vector<Card*>::iterator it2 = cards.begin(); it2 != cards.end(); it2++)
             {
                 cout << (*it2)->getStringRepresentation() << " ";
             }
-            cout << "Valeur : " << (*it)->getHand()->getValue2();
+            cout << "   " << (*it)->getHand()->getValue2();
             if ((*it)->getHand()->getValue2() != (*it)->getHand()->getValue1())
                 cout << " / " << (*it)->getHand()->getValue1();
             cout << endl;
@@ -45,25 +34,35 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
 
         if ((*it)->getHand2() != NULL)
         {
-            cout << "\t Main 2 : " << endl << "====" << endl;
-            cout << "\t Mise : $ " << (*it)->getHand2()->getBet() << endl << endl;
+            cout << "Joueur " << (*it)->getId() << "  :   ";
+            cout << "$ " << (*it)->getHand2()->getBet();
 
-            std::vector<Card*> cards2 = (*it)->getHand2()->getCards();
-            cout << "\t Cartes : ";
-            for (vector<Card*>::iterator it2 = cards2.begin(); it2 != cards2.end(); it2++)
+            std::vector<Card*> cards = (*it)->getHand2()->getCards();
+            cout << "\t";
+            for (vector<Card*>::iterator it2 = cards.begin(); it2 != cards.end(); it2++)
             {
                 cout << (*it2)->getStringRepresentation() << " ";
             }
-            cout << "Valeur : " << (*it)->getHand()->getValue2();
+            cout << "   " << (*it)->getHand()->getValue2();
             if ((*it)->getHand()->getValue2() != (*it)->getHand()->getValue1())
                 cout << " / " << (*it)->getHand()->getValue1();
             cout << endl;
         }
+
         else if ((*it)->getHand() == NULL)
-        {
-            cout << "Le joueur a abandonné tour." << endl << endl;
-        }
+            cout << "Le joueur a abandonné le tour." << endl;
+
+        cout << endl;
     }
 
 
+    cout << "Banque    :\t\t";
+
+    std::vector<Card*> cards = bank.getHand()->getCards();
+
+    for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++)
+        cout << (*it)->getStringRepresentation() << " ";
+
+    cout << "   " << bank.getHand()->getValue2() << endl << endl;
+    cout << "##################################################" << endl << endl;
 }

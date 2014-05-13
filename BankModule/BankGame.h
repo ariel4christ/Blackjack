@@ -125,8 +125,9 @@ private:
 
 	/**
 	 * Méthode qui initialise un tour : accueil des nouveaux joueurs, demande des mises et distribution des cartes.
+	 * @return  1   si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
-	void initRound();
+	int initRound();
 
 	/**
 	 * Méthode gérant la partie assurance

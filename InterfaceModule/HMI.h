@@ -16,10 +16,11 @@ class HMI
 
 public:
 	char askAction(bool hit, bool split, bool doubler, bool stay);
-	int getBet();
+	int getBet(Player &p);
 	bool insurrance(Player &p);
     void PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay);
     void PrintEndRound(Player &p);
+    void PrintMessage(std::string str);
 };
 
 #endif /* HMI_H_ */

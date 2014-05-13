@@ -68,13 +68,6 @@ public:
 	void newHand(int i);
 
 	/**
-	 * Méthode supprimant une main du joueur donnée en paramétre.
-	 * @param h Pointeur vers une main du joueur.
-	 * @see Hand::deleteHand()
-	 */
-	void deleteHand(Hand *h);
-
-	/**
 	 * Méthode qui appelle PlayerHand::setStand() sur la main en paramétre.
 	 * Lance une exception si la main en paramétre n'est pas une du joueur.
 	 * @see PlayerHand::setStand()
@@ -152,6 +145,20 @@ public:
 	 * @param b Booleen valeur de insurance.
 	 */
 	inline void setInsurance(bool b) { this->insurance = b; }
+
+
+protected:
+
+	/**
+	 * Méthode supprimant une main du joueur donnée en paramétre.
+	 * Pour désallouer un main, utilisez setHand(NULL) et setHand2(NULL).
+	 * @param h Pointeur vers une main du joueur.
+	 * @see Hand::deleteHand()
+	 * @see setHand()
+	 * @see setHand2()
+	 */
+	void deleteHand(Hand *h);
+
 };
 
 #endif

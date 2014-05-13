@@ -13,6 +13,22 @@
 
 using namespace std;
 
+
+// numb_cols = nombre de colonnes dans la console.
+// Je prends toujours 50.
+void center_output(std::string str, int num_cols)
+{
+    // Calculate left padding
+    int padding_left = (num_cols / 2) - (str.size() / 2);
+
+    // Put padding spaces
+    for(int i = 0; i < padding_left; ++i) std::cout << ' ';
+
+    // Print the message
+    std::cout << str << endl;
+}
+
+
 // Mises minimale et maximale par défaut à respectivement 5 et 100
 int BankGame::betMin = 5;
 int BankGame::betMax = 100;
@@ -59,6 +75,11 @@ BankGame::~BankGame()
 	// Désallocation des cartes restantes dans deck
 	this->clearDeck();
 
+    if (bank.getHand() != 0)
+        bank.setHand(NULL);
+    if (bank.getHiddenCard() != NULL)
+        bank.setHiddenCard(NULL);
+
     if (!player.empty())
     {
         // Désallocation des joueurs
@@ -72,7 +93,7 @@ BankGame::~BankGame()
 	com.CleanFiles();
 
 	cout << endl << "##################################################" << endl;
-	cout << endl << "***** FIN DU JEU *****" << endl;
+	center_output("******* FIN DU JEU *******", 50);
 	cout << endl << "##################################################" << endl;
 }
 
@@ -185,7 +206,7 @@ Card* BankGame::hitCard()
 	return c;
 }
 
-void BankGame::initRound()
+int BankGame::initRound()
 {
 	if (deck.size() <= player.size() * betMax * 2)
 		this->newDeck();  // Nouveau deck
@@ -193,11 +214,12 @@ void BankGame::initRound()
 	this->com.RoundStart();
 
 	cout << endl << "##################################################" << endl;
-	cout << endl << "***** NOUVEAU TOUR *****" << endl << "Attente des mises : " << endl;
+	center_output("***** NOUVEAU TOUR *****", 50);
+	cout << endl << "Attente des mises : " << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
-        int id = this->player[i]->getId();
+		int id = this->player[i]->getId();
 		cout << "\t\t" << "Joueur " << player[i]->getId() << " ?" << endl;
 
 		string str = this->com.ReadFile(id);
@@ -207,15 +229,15 @@ void BankGame::initRound()
 		player[i]->setSurrender(false);
 
 		if (player[i]->getHand() != NULL)
-            player[i]->setHand(NULL);
-        if (player[i]->getHand2() != NULL)
-            player[i]->setHand2(NULL);
+            		player[i]->setHand(NULL);
+        	if (player[i]->getHand2() != NULL)
+            		player[i]->setHand2(NULL);
 
 		int id_message, bet;
 		sscanf(str.c_str(), "%d ", &id_message);
 		if (id_message == 9)
 		{
-            sscanf(str.c_str(), "%d %d", &id_message, &bet);
+           		sscanf(str.c_str(), "%d %d", &id_message, &bet);
 			this->player[i]->newHand(bet);  // Nouvelle main
 			this->player[i]->decreaseBalance(bet);  // Diminution solde
 
@@ -224,15 +246,17 @@ void BankGame::initRound()
 		}
 		else if (id_message == 4)
 		{
-			quitePlayer(player[i]);
+			if(quitePlayer(player[i]) == 0)
+                	return 0;  // Le jeu est fini car il n'y a plus de joueur
 		}
-//		else if (id_message == 10) {}
 		else throw runtime_error("erreur lors de la détermination de la mise");
 	}
 
 	this->dealCards();  // Distribution des cartes initiales
 	cout << "##################################################" << endl;
 	this->interface.printGameState(getPlayers(), getBank());
+
+	return 1;
 }
 
 int BankGame::insurance()
@@ -244,7 +268,7 @@ int BankGame::insurance()
 	{
 		if (!player[i]->getBlackjack())  // Le joueur ne fait pas blackjack
 		{
-			cout << "\t\t" << "Joueur " << player[i]->getId() << " ?..." << endl;
+			cout << "\t\t" << "Joueur " << player[i]->getId() << " ?" << endl;
 
 			int id = this->player[i]->getId();
 			this->com.AskInsurance(id);
@@ -257,9 +281,15 @@ int BankGame::insurance()
 			case 0:
 				break;
 			case 4:
-                sscanf(str.c_str(), "%d %d", &id_message, &idPlayer);
-                if (idPlayer == id)
-                    quitePlayer(player[i]);
+                		sscanf(str.c_str(), "%d %d", &id_message, &idPlayer);
+                		if (idPlayer == id)
+               			{
+                    			if (quitePlayer(player[i]) == 0)
+                    			{
+                        			cout << endl << "##################################################" << endl;
+                        			return 0;  // Le jeu est fini car il n'y a plus de joueur
+                    			}
+                		}
 				break;
 			case 1:
 				player[i]->decreaseBalance(player[i]->getHand()->getBet() / 2);
@@ -301,7 +331,7 @@ int BankGame::insurance()
 
 			}
 
-            player[i]->setHand(NULL);
+            		player[i]->setHand(NULL);
 
 		}
 
@@ -347,6 +377,11 @@ void BankGame::newGame()
 	this->burnCards();
 
 	this->com.CleanFiles();
+	cout << string(50, '\n');
+    	cout << endl << "##################################################" << endl;
+	center_output("******* BLACKJACK *******", 50); cout << endl;
+	center_output("Bienvenu", 50);
+	cout << endl << "##################################################" << endl;
 
 	cout << endl << "##################################################" << endl;
 	cout << "EN ATTENTE DE JOUEURS" << endl;
@@ -379,17 +414,18 @@ void BankGame::newPlayer()
 					ReceiveAck(i);
 
 					com.setBalance(i, balancePlayerInit);
-                    ReceiveAck(i);
+                    			ReceiveAck(i);
 				}
 			}
 		}
 	}
+
 	b = c;
 }
 
 int BankGame::playerAction(Player *p, int secondHand)
 {
-    cout << "Demande d'action au Joueur " << p->getId() << " \tMain " << secondHand + 1 << endl;
+    	cout << "Demande d'action au Joueur " << p->getId() << " pour sa main " << secondHand + 1 << endl;
 	int id = p->getId();
 
 	com.AskAction(id, secondHand);
@@ -403,55 +439,55 @@ int BankGame::playerAction(Player *p, int secondHand)
 	switch (id_message)
 	{
 	case 1:  // Split
-        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
-        if (secondHand != secHand)
-            throw runtime_error("Erreur de main dans le choix de l'action");
+		sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+		if (secondHand != secHand)
+		    throw runtime_error("Erreur de main dans le choix de l'action");
 
-		if (p->getHand()->isPair() && p->getHand2() == NULL && secHand == 0)
-		{
-			com.validSplit(id);
-			ReceiveAck(id);
+			if (p->getHand()->isPair() && p->getHand2() == NULL && secHand == 0)
+			{
+				com.validSplit(id);
+				ReceiveAck(id);
 
-			p->newHand();
-			p->getHand2()->setBet(p->getHand()->getBet());
-			p->decreaseBalance(p->getHand2()->getBet());
-			p->getHand()->trandferSecondCard(p->getHand2());
+				p->newHand();
+				p->getHand2()->setBet(p->getHand()->getBet());
+				p->decreaseBalance(p->getHand2()->getBet());
+				p->getHand()->trandferSecondCard(p->getHand2());
 
-			Card *c = hitCard();
-			p->getHand()->addCard(c);
-			c = hitCard();
-			p->getHand2()->addCard(c);
+				Card *c = hitCard();
+				p->getHand()->addCard(c);
+				c = hitCard();
+				p->getHand2()->addCard(c);
 
-			com.setHand(id, *p->getHand(), 0);
-			ReceiveAck(id);
-			com.setHand(id, *p->getHand2(), 1);
-			ReceiveAck(id);
-		}
-		else
-			throw runtime_error("Split non autorisé");
-		break;
+				com.setHand(id, *p->getHand(), 0);
+				ReceiveAck(id);
+				com.setHand(id, *p->getHand2(), 1);
+				ReceiveAck(id);
+			}
+			else
+				throw runtime_error("Split non autorisé");
+			break;
 
 	case 2:  // Stand
-        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
-        if (secondHand != secHand)
-            throw runtime_error("Erreur de main dans le choix de l'action");
+		sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+		if (secondHand != secHand)
+		    throw runtime_error("Erreur de main dans le choix de l'action");
 
-		if (secHand == 0)
-			h = p->getHand();
-		else h = p->getHand2();
+			if (secHand == 0)
+				h = p->getHand();
+			else h = p->getHand2();
 
-		if (h != NULL)
-		{
-			h->setStand(true);
-			com.validStand(id, secHand);
-			ReceiveAck(id);
-		}
-		break;
+			if (h != NULL)
+			{
+				h->setStand(true);
+				com.validStand(id, secHand);
+				ReceiveAck(id);
+			}
+			break;
 
 	case 3:  // Surrender
-        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
-        if (secondHand != secHand)
-            throw runtime_error("Erreur de main dans le choix de l'action");
+        	sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+		if (secondHand != secHand)
+		    throw runtime_error("Erreur de main dans le choix de l'action");
 
 		if (secHand == 0)
 			h = p->getHand();
@@ -464,8 +500,8 @@ int BankGame::playerAction(Player *p, int secondHand)
 			com.validSurrender(id);
 
 			if (secHand == 0)
-                p->setHand(NULL);
-            else p->setHand2(NULL);
+	        		p->setHand(NULL);
+	    		else p->setHand2(NULL);
 
 			if (p->getHand() == NULL && p->getHand2() == NULL)
 				p->setSurrender(true);
@@ -474,7 +510,7 @@ int BankGame::playerAction(Player *p, int secondHand)
 
 	case 4:  // Quit
 		if(quitePlayer(p) == 0)
-            return 0;
+            		return 0;
 		break;
 
 	case 7:  // Double
@@ -500,9 +536,9 @@ int BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 8:  // Hit
-        sscanf(str.c_str(), "%d %d", &id_message, &secHand);
-        if (secondHand != secHand)
-            throw runtime_error("Erreur de main dans le choix de l'action");
+        	sscanf(str.c_str(), "%d %d", &id_message, &secHand);
+        	if (secondHand != secHand)
+            		throw runtime_error("Erreur de main dans le choix de l'action");
 
 		if (secHand == 0)
 			h = p->getHand();
@@ -534,44 +570,46 @@ int BankGame::quitePlayer(Player *p)
 	int id = p->getId();
 	com.HasQuit(id);
 
+	if (p->getHand() != NULL)
+        	p->setHand(NULL);
+	if (p->getHand2() != NULL)
+        	p->setHand2(NULL);
+
 	delete p;
 	p = NULL;
 
-    cout << player.size() << endl;
-    if (this->player.size() > 1)
-    {
-        // Suppression du joueur de la liste des joueurs
-        vector<Player*> tmp;
-        for (unsigned int i = 0 ; i < player.size() ; i++)
-        {
-            if (player[i] != NULL)  // Si le pointeur != NULL alors on le stock dans le vecteur tmp
-                tmp.push_back(player[i]);
-        }
-        this->player = tmp;  // Mise à jour de player, le joueur qui a quitté le jeu n'est plus dans le vecteur
-        return 1;
-    }
+	if (this->player.size() > 1)
+	{
+        	// Suppression du joueur de la liste des joueurs
+        	vector<Player*> tmp;
+		for (unsigned int i = 0 ; i < player.size() ; i++)
+		{
+		    if (player[i] != NULL)  // Si le pointeur != NULL alors on le stock dans le vecteur tmp
+		        tmp.push_back(player[i]);
+		}
+		this->player = tmp;  // Mise à jour de player, le joueur qui a quitté le jeu n'est plus dans le vecteur
+		return 1;
+    	}
 
     // Il n'y a qu'un joueur qui vient de quitter le jeu : FIN DU JEU
 	else
 	{
-        this->player.clear();
+        	this->player.clear();
 		return 0;
-    }
-
+	}
 }
 
 int BankGame::runGame()
 {
-    int i = 1;
 	this->newGame();
 	this->newPlayer();  // Vérification des nouveaux joueurs
-	while (i && !player.empty())
+	while (!player.empty())
 	{
-		initRound();
-		i = runRound();
+		if (initRound() == 0) return 0;
+		if (runRound() == 0) return 0;
 		newPlayer();
 	}
-		return 0;
+	return 0;
 }
 
 int BankGame::runRound()
@@ -617,7 +655,6 @@ int BankGame::runRound()
 				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet()*2.5) );  // Augmentation du solde : 1,5* mise de gains + 1*mise d�j� pr�lev�e
 				com.setBalance(player[i]->getId(), player[i]->getBalance());
                 ReceiveAck(i);
-				player[i]->deleteHand(player[i]->getHand());
 				player[i]->setHand(NULL);
 			}
 		}
@@ -633,7 +670,7 @@ int BankGame::runRound()
 			while (!player[i]->getHand()->getStand() && !player[i]->getSurrender() && player[i]->getHand() != NULL)
 			{
 				if (playerAction(player[i], 0) == 0)
-                    return 0; // Fin du jeu
+					return 0; // Fin du jeu
 
 				if (player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est oblig� de s'arreter.
 				{
@@ -665,6 +702,7 @@ int BankGame::runRound()
 	delete bank.getHiddenCard();  // Désallocation de la carte cachée
 	bank.setHiddenCard(NULL);
 	com.SendCard(4, c->getType(), 0);
+	ReceiveAck();
 	interface.printGameState(getPlayers(), getBank());
 
 	cout << endl << "##################################################" << endl;
@@ -685,7 +723,7 @@ int BankGame::runRound()
 
 	/***** Fin du tour : verif des mises *****/
 
-    cout << endl << "##################################################" << endl << endl;
+	cout << endl << "##################################################" << endl << endl;
 	cout << "FIN DU TOUR : RESULTATS" << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
@@ -695,37 +733,36 @@ int BankGame::runRound()
 		if (player[i]->getHand2() != NULL)
 			endRound(player[i], 1);
 
-        if (player[i]->getBalance() < getBetMin())
-        {
-            cout << endl << "Votre solde est insuffisant pour continuer Joueur" << i;
-            cout << ". Vous avez perdu!" << endl;
-            this->quitePlayer(player[i]);
-        }
+        	if (player[i]->getBalance() < getBetMin())
+		{
+		    cout << endl << "Votre solde est insuffisant pour continuer Joueur" << i;
+		    cout << ". Vous avez perdu!" << endl;
+		    if (quitePlayer(player[i]) == 0);
+		        return 0;  // Le jeu est fini car il n'y a plus de joueur
+		}
 	}
 
-    cout << "##################################################" << endl << endl;
+	cout << "##################################################" << endl << endl;
 
 
 	com.EndRound();
 
-    // Désallocation mains joueurs
+	// Désallocation mains joueurs
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
-        ReceiveAck(i);
-        if (player[i]->getHand() != NULL)
-            //player[i]->deleteHand(player[i]->getHand());
-            player[i]->setHand(NULL);
+		ReceiveAck(i);
+		if (player[i]->getHand() != NULL)
+		//player[i]->deleteHand(player[i]->getHand());
+		player[i]->setHand(NULL);
 
-        if (player[i]->getHand2() != NULL)
-            //player[i]->deleteHand(player[i]->getHand2());
-            player[i]->setHand2(NULL);
+		if (player[i]->getHand2() != NULL)
+		//player[i]->deleteHand(player[i]->getHand2());
+		player[i]->setHand2(NULL);
 	}
 
 	// Désallocation main banque
 	if (bank.getHand() != NULL)
-	{
-        bank.deleteHand();
-    }
+        	bank.setHand(NULL);
 
 	return 1;
 }
@@ -737,21 +774,21 @@ void BankGame::shuffleDeck()
 
 void BankGame::ReceiveAck()
 {
-    for (unsigned int i = 0 ; i < this->player.size() ; ++i)
-    {
-        string str = com.ReadFile(i);  // Accussé de réception
-        int id_message;
-        sscanf(str.c_str(), "%d", &id_message);
-        if (id_message != 10)
-        	throw runtime_error("Accusée de reception non reçu");
-    }
+	for (unsigned int i = 0 ; i < this->player.size() ; ++i)
+	{
+		string str = com.ReadFile(i);  // Accussé de réception
+		int id_message;
+		sscanf(str.c_str(), "%d", &id_message);
+		if (id_message != 10)
+			throw runtime_error("Accusée de reception non reçu");
+	}
 }
 
 void BankGame::ReceiveAck(int i)
 {
-    string str = com.ReadFile(i);  // Accussé de réception
-    int id_message;
-    sscanf(str.c_str(), "%d", &id_message);
-    if (id_message != 10)
-       throw runtime_error("Accusée de reception non reçu");
+	string str = com.ReadFile(i);  // Accussé de réception
+	int id_message;
+	sscanf(str.c_str(), "%d", &id_message);
+	if (id_message != 10)
+		throw runtime_error("Accusée de reception non reçu");
 }
