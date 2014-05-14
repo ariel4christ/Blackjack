@@ -10,7 +10,7 @@ using namespace std;
 int AIGame::betMin = 5;
 int AIGame::betMax = 100;
 
-AIGame::AIGame(): ia(0,0), bankCard(NaN), com(), listOfCards(), previousBets()
+AIGame::AIGame(): previousBets(),listOfCards(),ia(0,0), com(), bankCard(NaN)
 {
 	int id = this->com.CheckFiles();
 
@@ -50,7 +50,7 @@ void AIGame::runGame()
 
 
     str = com.ReadFile();
-	cout << str <<endl;
+
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 5)
 	{
@@ -61,7 +61,6 @@ void AIGame::runGame()
         com.sendAck();
 	}
 	else throw runtime_error("Message d'initialisation du solde joueur non recu");
-
 
     str = this->com.ReadFile();
     sscanf(str.c_str(), "%d", &id_message);
@@ -87,7 +86,6 @@ void AIGame::runGame()
         this->ia.newHand();
 
 		int bet = this->getBet();
-		this->aiInterface.IaBet(bet);
 		this->com.Bet(bet);
 
 		this->bankCard.setType(NaN);
@@ -119,6 +117,7 @@ bool AIGame::runRound()
 
 		case 1:// AskInsurance received
 			this->com.RespondInsurance(0);
+			this->aiInterface.insurrance(0);
 			break;
 
 		case 2: // EndRound received
@@ -171,6 +170,7 @@ bool AIGame::runRound()
 			{
 				this->ia.getHand()->setBet(bet);
 				this->previousBets.push_back(bet);
+				this->aiInterface.stateBalanceBet(this->ia,bet);
 			}
 			com.sendAck();
 			break;
@@ -203,6 +203,7 @@ bool AIGame::runRound()
 			{
 				 endGame = true;
 				 endRound = true;
+				 this->aiInterface.choice(this->handValue(this->ia.getHand()),false,false,false,false,true,false);
 			}
 			break;
 
@@ -214,7 +215,6 @@ bool AIGame::runRound()
 				this->betMin = betMin;
 				this->betMax = betMax;
 				this->com.sendAck();
-				this->aiInterface.insurrance(num_joueur);
 			}
 			break;
 
@@ -223,6 +223,7 @@ bool AIGame::runRound()
 			if(num_joueur == idIA)
 			{
 				this->ia.increaseBalance(argent);
+				this->aiInterface.balanceState(this->ia);
 			}
 			break;
 
@@ -231,6 +232,7 @@ bool AIGame::runRound()
 			if(num_joueur == idIA)
 			{
 				this->ia.decreaseBalance(argent);
+				this->aiInterface.balanceState(this->ia);
 			}
 			break;
 
@@ -267,6 +269,7 @@ bool AIGame::runRound()
 			sscanf(this->message.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
 			if(num_joueur == idIA)
 			{
+				this->aiInterface.stateCards(this->ia);
 				if(!main)
 					this->chooseAction(this->ia.getHand());
 				else
@@ -417,6 +420,7 @@ void AIGame::strategy_21(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -433,6 +437,7 @@ void AIGame::strategy_20(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -449,6 +454,7 @@ void AIGame::strategy_19(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -465,6 +471,7 @@ void AIGame::strategy_18(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -480,11 +487,13 @@ void AIGame::strategy_17(EType type,PlayerHand* myhand)
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -500,14 +509,17 @@ void AIGame::strategy_16(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	case SEVEN:case EIGHT:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 			break;
 
 	case AS:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 			break;
 	}
 }
@@ -522,14 +534,17 @@ void AIGame::strategy_15(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	case SEVEN:case EIGHT:case NINE:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 			break;
 
 	case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 			break;
 	}
 }
@@ -544,14 +559,17 @@ void AIGame::strategy_14(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	case SEVEN:case EIGHT:case NINE:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 			break;
 
 	case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 			break;
 	}
 }
@@ -566,14 +584,17 @@ void AIGame::strategy_13(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	case SEVEN:case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 			break;
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 			break;
 	}
 }
@@ -588,14 +609,17 @@ void AIGame::strategy_12(EType type,PlayerHand* myhand)
 
 	case FOUR:case FIVE:case SIX:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	case TWO:case THREE:case SEVEN:case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 			break;
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 			break;
 	}
 }
@@ -610,11 +634,13 @@ void AIGame::strategy_11(EType type,PlayerHand* myhand)
 
 	case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 
 	}
@@ -630,11 +656,13 @@ void AIGame::strategy_10(EType type,PlayerHand* myhand)
 
 	case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 
 	}
@@ -650,10 +678,12 @@ void AIGame::strategy_9(EType type,PlayerHand* myhand)
 
 	case TWO:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case THREE:case FOUR:case FIVE:case SIX:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 
 	}
@@ -670,6 +700,7 @@ void AIGame::strategy_8(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -685,11 +716,13 @@ void AIGame::strategy_7(EType type,PlayerHand* myhand)
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -705,11 +738,13 @@ void AIGame::strategy_6(EType type,PlayerHand* myhand)
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -725,11 +760,13 @@ void AIGame::strategy_5(EType type,PlayerHand* myhand)
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -745,11 +782,13 @@ void AIGame::strategy_A_A(EType type,PlayerHand* myhand)
 
 	case AS:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
-		this->com.Split(this->handValue(myhand));
+			this->com.Split(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,true,false,false);
 		break;
 
 	}
@@ -766,6 +805,7 @@ void AIGame::strategy_10_10(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -781,10 +821,12 @@ void AIGame::strategy_9_9(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case EIGHT:case NINE:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	case SEVEN:case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 
 	}
 }
@@ -799,10 +841,12 @@ void AIGame::strategy_8_8(EType type,PlayerHand* myhand)
 
 	case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:case EIGHT:case NINE:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -818,14 +862,17 @@ void AIGame::strategy_7_7(EType type,PlayerHand* myhand)
 
 	case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
-		this->com.Split(this->handValue(myhand));
+			this->com.Split(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,true,false,false);
 		break;
 
 	case EIGHT:case NINE:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -841,14 +888,17 @@ void AIGame::strategy_6_6(EType type,PlayerHand* myhand)
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:
-		this->com.Split(this->handValue(myhand));
+			this->com.Split(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,true,false,false);
 		break;
 
 	case SEVEN:case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -864,11 +914,13 @@ void AIGame::strategy_5_5(EType type,PlayerHand* myhand)
 
 	case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 
 	}
@@ -883,12 +935,14 @@ void AIGame::strategy_4_4(EType type,PlayerHand* myhand)
 		break;
 
 	case FIVE:case SIX:
-		this->com.Split(this->handValue(myhand));
+			this->com.Split(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,true,false,false);
 		break;
 
 	case AS:case TWO:case THREE:case FOUR:case SEVEN:case EIGHT:
 	case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -904,14 +958,17 @@ void AIGame::strategy_3_3(EType type,PlayerHand* myhand)
 
 	case AS:
 		this->com.Surrender(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,false,false,true);
 		break;
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
-		this->com.Split(this->handValue(myhand));
+			this->com.Split(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,true,false,false);
 		break;
 
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -927,10 +984,12 @@ void AIGame::strategy_2_2(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 		this->com.Split(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,false,false,true,false,false);
 		break;
 
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:case AS:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -947,6 +1006,7 @@ void AIGame::strategy_A_10(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -963,6 +1023,7 @@ void AIGame::strategy_A_9(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -979,6 +1040,7 @@ void AIGame::strategy_A_8(EType type,PlayerHand* myhand)
 	case AS:case TWO:case THREE:case FOUR:case FIVE:case SIX:case SEVEN:
 	case EIGHT:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	}
@@ -994,14 +1056,17 @@ void AIGame::strategy_A_7(EType type,PlayerHand* myhand)
 
 	case TWO:case SEVEN:case EIGHT:
 		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),false,true,false,false,false,false);
 		break;
 
 	case THREE:case FOUR:case FIVE:case SIX:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 
 	case AS:case NINE:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	}
@@ -1017,10 +1082,12 @@ void AIGame::strategy_A_6(EType type,PlayerHand* myhand)
 
 	case TWO:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case THREE:case FOUR:case FIVE:case SIX:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 	}
 }
@@ -1035,10 +1102,12 @@ void AIGame::strategy_A_5(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case FOUR:case FIVE:case SIX:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 	}
 }
@@ -1053,10 +1122,12 @@ void AIGame::strategy_A_4(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case FOUR:case FIVE:case SIX:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 	}
 }
@@ -1071,10 +1142,12 @@ void AIGame::strategy_A_3(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case FIVE:case SIX:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 	}
 }
@@ -1088,10 +1161,12 @@ void AIGame::strategy_A_2(EType type,PlayerHand* myhand)
 
 	case TWO:case THREE:case FOUR:case SEVEN:case EIGHT:case NINE:case AS:case TEN:case JACK: case QUEEN : case KING:
 		this->com.AskToHIt(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand),true,false,false,false,false,false);
 		break;
 
 	case FIVE:case SIX:
 		this->com.Double();
+		this->aiInterface.choice(this->handValue(myhand),false,false,true,false,false,false);
 		break;
 	}
 }

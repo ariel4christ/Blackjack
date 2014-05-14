@@ -7,6 +7,9 @@
 #define AI_H_
 
 #include <iostream>
+#include <vector>
+#include "../GameModule/Player.h"
+#include "../GameModule/Card.h"
 
 class AI {
 public:
@@ -15,11 +18,14 @@ public:
 	~AI();
 
 	/**
-	 * Methode permettant d'afficher la mise de l'ia
+	 * Methode permettant d'afficher le solde et la mise de l'ia
 	 */
-	void IaBet(int bet);
+	void stateBalanceBet(Player& ia,int bet);
+	void insurrance(int val);
+	void stateCards(Player& ia);
+	void choice(int hand,bool hit, bool stand, bool Double, bool split,bool quit,bool surrender);
+	void balanceState(Player& ia);
 
-	bool insurrance(int val);
 };
 
 #endif /* AI_H_ */
