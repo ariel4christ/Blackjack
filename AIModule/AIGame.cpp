@@ -19,6 +19,7 @@ AIGame::AIGame(): ia(0,0), bankCard(NaN), com(), listOfCards(), previousBets()
 
 	this->com.CreateFiles(id);
 	this->ia.setId(id);
+
 }
 
 AIGame::~AIGame()
@@ -31,10 +32,10 @@ void AIGame::runGame()
     int id = this->ia.getId();
 
 	string str = com.ReadFile();
-	cout << str<<endl;
+
 	int id_message;
 	sscanf(str.c_str(), "%d", &id_message);
-	if (id_message == 10)  // Message PlayerEntered
+	if (id_message == 10)  // Message PlBetayerEntered
 	{
         int id_player, bet_min, bet_max;
         sscanf(str.c_str(), "%d %d %d %d", &id_message, &id_player, &bet_min, &bet_max);
@@ -77,10 +78,13 @@ void AIGame::runGame()
 		this->ia.setBlackjack(false);
 		this->ia.setInsurance(false);
 
-		if (this->ia.getHand() != NULL)
+
+        if (this->ia.getHand() != NULL)
 			this->ia.setHand(NULL);
 		if (this->ia.getHand2() != NULL)
 			this->ia.setHand2(NULL);
+
+        this->ia.newHand();
 
 		int bet = this->getBet();
 		this->aiInterface.IaBet(bet);
@@ -136,10 +140,14 @@ bool AIGame::runRound()
 
 			}
 			else
-				if( num_joueur == 0)/* reception de la carte de la banque */
+			{
+				if( num_joueur == 4 && typeCard != 0)/* reception de la carte de la banque */
 					this->bankCard.setType(static_cast<EType>(typeCard));
+            }
 
-			this->listOfCards.push_back(Card(static_cast<EType>(typeCard))); // recupere les cartes de tous les joueurs les siennes comprises
+            if(typeCard != NaN)
+                this->listOfCards.push_back(Card(static_cast<EType>(typeCard))); // recupere les cartes de tous les joueurs les siennes comprises
+            this->com.sendAck();
 			break;
 
 		case 5: // SetBalance received
@@ -281,111 +289,111 @@ void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 	if( !isSpecial(myhand) && myhand->getValue1() == 21)
 		this->strategy_21(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 20)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 20)
 		this->strategy_20(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 19)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 19)
 		this->strategy_19(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 18)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 18)
 		this->strategy_18(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 17)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 17)
 		this->strategy_17(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 16)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 16)
 		this->strategy_16(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 15)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 15)
 		this->strategy_15(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 14)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 14)
 		this->strategy_14(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 13)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 13)
 		this->strategy_13(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 12)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 12)
 		this->strategy_12(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 11)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 11)
 		this->strategy_11(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 10)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 10)
 		this->strategy_10(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 9)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 9)
 		this->strategy_9(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 8)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 8)
 		this->strategy_8(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 7)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 7)
 		this->strategy_7(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 6)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 6)
 		this->strategy_6(this->bankCard.getType(),myhand);
 
-	if(!isSpecial(myhand) && myhand->getValue1() == 5)
+	else if(!isSpecial(myhand) && myhand->getValue1() == 5)
 		this->strategy_5(this->bankCard.getType(),myhand);
 
-	if(isSpecial(myhand) && isEqual(type1,type2,AS,AS))
+	else if(isSpecial(myhand) && isEqual(type1,type2,AS,AS))
 		this->strategy_A_A(this->bankCard.getType(),myhand);
 
-	if(isSpecial(myhand) && (isEqual(type1,type2,KING,KING) || isEqual(type1,type2,KING,QUEEN) || isEqual(type1,type2,KING,JACK)
+	else if(isSpecial(myhand) && (isEqual(type1,type2,KING,KING) || isEqual(type1,type2,KING,QUEEN) || isEqual(type1,type2,KING,JACK)
 			 || isEqual(type1,type2,KING,TEN) || isEqual(type1,type2,QUEEN,QUEEN) || isEqual(type1,type2,QUEEN,JACK)
 			 || isEqual(type1,type2,QUEEN,TEN) || isEqual(type1,type2,JACK,JACK) || isEqual(type1,type2,TEN,TEN)))
 			this->strategy_10_10(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,NINE,NINE))
+	else if( isSpecial(myhand) && isEqual(type1,type2,NINE,NINE))
 			this->strategy_9_9(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,EIGHT,EIGHT))
+	else if( isSpecial(myhand) && isEqual(type1,type2,EIGHT,EIGHT))
 			this->strategy_8_8(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,SEVEN,SEVEN))
+	else if( isSpecial(myhand) && isEqual(type1,type2,SEVEN,SEVEN))
 			this->strategy_7_7(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,SIX,SIX))
+	else if( isSpecial(myhand) && isEqual(type1,type2,SIX,SIX))
 				this->strategy_6_6(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,FIVE,FIVE))
+	else if( isSpecial(myhand) && isEqual(type1,type2,FIVE,FIVE))
 				this->strategy_5_5(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,FOUR,FOUR))
+	else if( isSpecial(myhand) && isEqual(type1,type2,FOUR,FOUR))
 				this->strategy_4_4(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,THREE,THREE))
+	else if( isSpecial(myhand) && isEqual(type1,type2,THREE,THREE))
 				this->strategy_3_3(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,TWO,TWO))
+	else if( isSpecial(myhand) && isEqual(type1,type2,TWO,TWO))
 				this->strategy_2_2(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && ( isEqual(type1,type2,AS,KING) || isEqual(type1,type2,AS,QUEEN) || isEqual(type1,type2,AS,JACK) || isEqual(type1,type2,AS,TEN)))
+	else if( isSpecial(myhand) && ( isEqual(type1,type2,AS,KING) || isEqual(type1,type2,AS,QUEEN) || isEqual(type1,type2,AS,JACK) || isEqual(type1,type2,AS,TEN)))
 				this->strategy_A_10(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,NINE))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,NINE))
 				this->strategy_A_9(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,EIGHT))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,EIGHT))
 					this->strategy_A_8(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,SEVEN))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,SEVEN))
 					this->strategy_A_7(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,SIX))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,SIX))
 					this->strategy_A_6(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,FIVE))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,FIVE))
 					this->strategy_A_5(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,FOUR))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,FOUR))
 					this->strategy_A_4(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,THREE))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,THREE))
 					this->strategy_A_3(this->bankCard.getType(),myhand);
 
-	if( isSpecial(myhand) && isEqual(type1,type2,AS,TWO))
+	else if( isSpecial(myhand) && isEqual(type1,type2,AS,TWO))
 					this->strategy_A_2(this->bankCard.getType(),myhand);
 
 }
