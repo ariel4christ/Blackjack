@@ -16,8 +16,8 @@ Bank::Bank(int bankBalance) :
 
 Bank::~Bank()
 {
-	this->hand->deleteHand();
-	delete hand;
+    if (this->getHand() != NULL)
+        this->setHand(NULL);
 }
 
 void Bank::newHand()

@@ -377,10 +377,10 @@ void BankGame::newGame()
 	this->burnCards();
 
 	this->com.CleanFiles();
-	cout << string(50, '\n');
-    	cout << endl << "##################################################" << endl;
+	system("clear");
+    cout << endl << "##################################################" << endl;
 	center_output("******* BLACKJACK *******", 50); cout << endl;
-	center_output("Bienvenu", 50);
+	center_output("Bienvenue", 50);
 	cout << endl << "##################################################" << endl;
 
 	cout << endl << "##################################################" << endl;
@@ -425,7 +425,7 @@ void BankGame::newPlayer()
 
 int BankGame::playerAction(Player *p, int secondHand)
 {
-    	cout << "Demande d'action au Joueur " << p->getId() << " pour sa main " << secondHand + 1 << endl;
+    cout << "Demande d'action au Joueur " << p->getId() << " pour sa main " << secondHand + 1 << endl;
 	int id = p->getId();
 
 	com.AskAction(id, secondHand);
@@ -672,7 +672,7 @@ int BankGame::runRound()
 				if (playerAction(player[i], 0) == 0)
 					return 0; // Fin du jeu
 
-				if (player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est oblig� de s'arreter.
+				if (!player[i]->getSurrender() && player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est oblig� de s'arreter.
 				{
 					player[i]->getHand()->setStand(true);
 					com.validStand(player[i]->getId(), 0);
