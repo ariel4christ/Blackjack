@@ -100,6 +100,9 @@ void Player::Surrender(PlayerHand *h)
 
 bool Player::getBlackjack()
 {
+    if (getHand() != NULL && getHand2() == NULL && getHand()->numberOfCards() == 2  && getHand()->getValue2() == 21)
+        setBlackjack(true);
+
 	return this->blackjack;
 }
 

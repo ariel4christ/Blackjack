@@ -120,11 +120,16 @@ void AI::balanceState(Player & ia)
 	cout<<"Nouveau solde :\t$"<<ia.getBalance()<<endl<<endl;
 }
 
+// numb_cols = nombre de colonnes dans la console.
+// Je prends toujours 50.
+void AI::center_output(std::string str, int num_cols)
+{
+    // Calculate left padding
+    int padding_left = (num_cols / 2) - (str.size() / 2);
 
+    // Put padding spaces
+    for(int i = 0; i < padding_left; ++i) std::cout << ' ';
 
-
-
-
-
-
-
+    // Print the message
+    std::cout << str << endl;
+}

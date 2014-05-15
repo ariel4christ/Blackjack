@@ -12,10 +12,12 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
 {
     cout << "##################################################" << endl << endl;
 
+    /* Affichage des cartes des joueurs */
     for (std::vector<Player*>::iterator it = players.begin(); it != players.end(); ++it)
     {
         cout << "Joueur " << (*it)->getId() << "  :   ";
 
+        // Affichage Main 1
         if ((*it)->getHand() != NULL)
         {
             cout << "$ " << (*it)->getHand()->getBet();
@@ -32,6 +34,7 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
             cout << endl;
         }
 
+        // Affichage Main 2
         if ((*it)->getHand2() != NULL)
         {
             cout << "Joueur " << (*it)->getId() << "  :   ";
@@ -55,8 +58,8 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
         cout << endl;
     }
 
-
-    cout << "Banque    :\t\t";
+    /* Affichage des cartes de la banque */
+    cout << "Banque    :   " << "\t\t";
 
     std::vector<Card*> cards = bank.getHand()->getCards();
 
@@ -65,4 +68,19 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
 
     cout << "   " << bank.getHand()->getValue2() << endl << endl;
     cout << "##################################################" << endl << endl;
+}
+
+
+// numb_cols = nombre de colonnes dans la console.
+// Je prends toujours 50.
+void BankInterface::center_output(std::string str, int num_cols)
+{
+    // Calculate left padding
+    int padding_left = (num_cols / 2) - (str.size() / 2);
+
+    // Put padding spaces
+    for(int i = 0; i < padding_left; ++i) std::cout << ' ';
+
+    // Print the message
+    std::cout << str << endl;
 }

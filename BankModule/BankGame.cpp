@@ -14,21 +14,6 @@
 using namespace std;
 
 
-// numb_cols = nombre de colonnes dans la console.
-// Je prends toujours 50.
-void center_output(std::string str, int num_cols)
-{
-    // Calculate left padding
-    int padding_left = (num_cols / 2) - (str.size() / 2);
-
-    // Put padding spaces
-    for(int i = 0; i < padding_left; ++i) std::cout << ' ';
-
-    // Print the message
-    std::cout << str << endl;
-}
-
-
 // Mises minimale et maximale par défaut à respectivement 5 et 100
 int BankGame::betMin = 5;
 int BankGame::betMax = 100;
@@ -93,7 +78,7 @@ BankGame::~BankGame()
 	com.CleanFiles();
 
 	cout << endl << "##################################################" << endl;
-	center_output("******* FIN DU JEU *******", 50);
+	BankInterface::center_output("******* FIN DU JEU *******", 50);
 	cout << endl << "##################################################" << endl;
 }
 
@@ -194,7 +179,7 @@ void BankGame::endRound(Player *p, int secondHand)
 		ReceiveAck(p->getId());
 	}
 
-    cout << endl;
+	cout << endl << "La Banque a un solde de $ " << bank.getBalance() << endl << endl;
 }
 
 Card* BankGame::hitCard()
@@ -214,8 +199,8 @@ int BankGame::initRound()
 	this->com.RoundStart();
 
 	cout << endl << "##################################################" << endl;
-	center_output("***** NOUVEAU TOUR *****", 50);
-	cout << endl << "Attente des mises : " << endl;
+	BankInterface::center_output("***** NOUVEAU TOUR *****", 50);
+	cout << endl << "~ Attente des mises : " << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{
@@ -379,8 +364,8 @@ void BankGame::newGame()
 	this->com.CleanFiles();
 	system("clear");
     cout << endl << "##################################################" << endl;
-	center_output("******* BLACKJACK *******", 50); cout << endl;
-	center_output("Bienvenue", 50);
+	BankInterface::center_output("******* BLACKJACK *******", 50); cout << endl;
+	BankInterface::center_output("Bienvenue", 50);
 	cout << endl << "##################################################" << endl;
 
 	cout << endl << "##################################################" << endl;
@@ -578,6 +563,8 @@ int BankGame::quitePlayer(Player *p)
 	delete p;
 	p = NULL;
 
+    cout << "~~~~~ Le Joueur " << id << " a quitté le jeu ! ~~~~~" << endl << endl;
+
 	if (this->player.size() > 1)
 	{
         	// Suppression du joueur de la liste des joueurs
@@ -667,28 +654,28 @@ int BankGame::runRound()
 		if (!this->player[i]->getBlackjack())  // Le joueur n'a pas fait blackjack
 		{
 			// Boucle d'actions sur la main 1
-			while (!player[i]->getHand()->getStand() && !player[i]->getSurrender() && player[i]->getHand() != NULL)
+			while (player[i]->getHand() != NULL && !player[i]->getHand()->getStand() && !player[i]->getSurrender())
 			{
 				if (playerAction(player[i], 0) == 0)
 					return 0; // Fin du jeu
 
-				if (!player[i]->getSurrender() && player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est oblig� de s'arreter.
+				if (!player[i]->getSurrender() && player[i]->getHand() != NULL && player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est oblig� de s'arreter.
 				{
 					player[i]->getHand()->setStand(true);
 					com.validStand(player[i]->getId(), 0);
-					interface.printGameState(getPlayers(), getBank());
 				}
 			}
 
 			// Boucle d'actions sur la main 2
 			while (player[i]->getHand2() != NULL && !player[i]->getHand2()->getStand() && !player[i]->getSurrender())
 			{
-				playerAction(player[i], 1);
-				if (player[i]->getHand2()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				if (playerAction(player[i], 1) == 0);
+                    return 0;  // Fin du jeu
+
+				if (player[i]->getHand() != NULL && player[i]->getHand2()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
 				{
 					player[i]->getHand2()->setStand(true);
 					com.validStand(player[i]->getId(), 1);
-					interface.printGameState(getPlayers(), getBank());
 				}
 			}
 		}
@@ -724,7 +711,7 @@ int BankGame::runRound()
 	/***** Fin du tour : verif des mises *****/
 
 	cout << endl << "##################################################" << endl << endl;
-	cout << "FIN DU TOUR : RESULTATS" << endl;
+	cout << "FIN DU TOUR : RESULTATS" << endl << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
 	{

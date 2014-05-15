@@ -17,6 +17,13 @@ class BankInterface
 {
 public:
     void printGameState(std::vector<Player*> &players, Bank &bank);
+
+    /**
+     * Fonction centrant la string passée en paramètre, par rappot au nombre de colonnes.
+     * @param str String contenant le message.
+     * @param int Entier nombre de colonnes.
+     */
+    static void center_output(std::string str, int num_cols);
 };
 
 #endif
