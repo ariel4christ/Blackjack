@@ -20,7 +20,10 @@ public:
 	bool insurrance(Player &p);
     void PrintGameState(Player &p, bool hit, bool split, bool doubler, bool stay);
     void PrintEndRound(Player &p);
+    void PrintEnterGame(int id);
     void PrintMessage(std::string str);
+
+    static void center_output(std::string str, int num_cols);
 };
 
 #endif /* HMI_H_ */

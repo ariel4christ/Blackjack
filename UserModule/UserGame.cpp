@@ -24,13 +24,14 @@ UserGame::UserGame() : player(0), com()
 }
 
 UserGame::~UserGame() {
-    this->ihm.PrintMessage("Vous avez quittez la partie !\nA bientot :)");
+    this->ihm.PrintMessage("Vous avez quitté la partie !\nA bientot :)");
 }
 
 void UserGame::runGame()
 {
-	this->com.EnterGame();
+    this->com.EnterGame();
 	int id = this->player.getId();
+    ihm.PrintEnterGame(id);
 
 	string str = com.ReadFile();
 	int id_message;
@@ -158,13 +159,14 @@ void UserGame::runRound()
 			break;
 
 		case 7:	// ValidStand receive
-			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur, &main);
+			sscanf(str.c_str(), "%d %1d %1d", &id_message, &num_joueur, &main);
 			if (num_joueur == this->player.getId())
 			{
 				if (!main)
 					this->player.Stand(this->player.getHand());
-				else
+				else if (main == 1)
 					this->player.Stand(this->player.getHand2());
+                else throw runtime_error("erreur numero de main dans validStand");
 
                 com.sendAck();
 			}

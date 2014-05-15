@@ -17,8 +17,8 @@ int HMI::getBet(Player &p)
 {
 	long bet;
 
-    cout << endl << "##################################################" << endl;
-    cout << endl << "*** Nouveau Tour ***" << endl << endl;
+    cout << endl << "##################################################" << endl << endl;
+    center_output("*** Nouveau Tour ***\n", 50);
 
 	do
 	{
@@ -165,9 +165,37 @@ void HMI::PrintEndRound(Player &p)
     cout << "##################################################" << endl << endl;
 }
 
+/**
+ * Affichage de début de jeu.
+ * @param id Entier contenant l'id (identifiant) du joueur.
+ */
+void HMI::PrintEnterGame(int id)
+{
+    system("clear");
+    cout << "##################################################" << endl << endl;
+    center_output("******* Blackjack *******", 50);
+    cout << endl;
+    center_output("*** Nouveau Joueur ***", 50);
+    cout << endl << "~ Bienvenu, votre nom est : Joueur " << id << endl << endl;
+    cout << "##################################################" << endl << endl;
+}
 void HMI::PrintMessage(string str)
 {
     cout << "##################################################" << endl << endl;
     cout << str << endl << endl;
     cout << "##################################################" << endl << endl;
+}
+
+// numb_cols = nombre de colonnes dans la console.
+// Je prends toujours 50.
+void HMI::center_output(std::string str, int num_cols)
+{
+    // Calculate left padding
+    int padding_left = (num_cols / 2) - (str.size() / 2);
+
+    // Put padding spaces
+    for(int i = 0; i < padding_left; ++i) std::cout << ' ';
+
+    // Print the message
+    std::cout << str << endl;
 }
