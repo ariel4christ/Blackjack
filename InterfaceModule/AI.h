@@ -7,6 +7,7 @@
 #define AI_H_
 
 #include <iostream>
+#include <stdlib.h>
 #include <vector>
 #include "../GameModule/Player.h"
 #include "../GameModule/Card.h"

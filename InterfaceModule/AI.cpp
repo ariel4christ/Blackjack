@@ -77,6 +77,7 @@ void AI::stateBalanceBet(Player & ia,int bet)
 
 void AI::choice(int hand,bool hit, bool stand, bool Double, bool split,bool quit,bool surrender)
 {
+    system("clear");
 	cout << "##################################################" << endl << endl;
 	if(hand == 0)//premiere main
 	{
