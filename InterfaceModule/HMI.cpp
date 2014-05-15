@@ -18,13 +18,14 @@ int HMI::getBet(Player &p)
 	long bet;
 
     cout << endl << "##################################################" << endl << endl;
-    center_output("*** Nouveau Tour ***\n", 50);
+    center_output("*** Nouveau Tour ***", 50);
+    cout << endl;
 
 	do
 	{
         cout << "~ Votre solde est de $ " << p.getBalance() << "." << endl << endl;
         cout << "> Si vous souhaitez quitter le jeu, entrez Q." << endl;
-		cout << "> Sinon, entrer une mise entière comprise entre $ " << UserGame::getBetMin() << " et $ " << UserGame::getBetMax() << " : ";
+		cout << "> Sinon, entrez une mise entière comprise entre $ " << UserGame::getBetMin() << " et $ " << UserGame::getBetMax() << " : ";
 		char bet_str[16];
 		scanf("%s", bet_str);
         cout << endl;
