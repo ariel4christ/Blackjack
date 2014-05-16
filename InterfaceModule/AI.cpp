@@ -18,20 +18,20 @@ AI::~AI()
 
 void AI::insurrance(int value)
 {
-	cout << "##################################################" << endl << endl;
+	center_output("\n##################################################\n" ,50);
 	if(!value)
-		cout<<">L'IA ne prends pas d'assurance !"<<endl<<endl;;
+		cout<<" L'IA ne prends pas d'assurance !"<<endl<<endl;;
 }
 
 void AI::stateCards(Player& ia){
 
-	cout << "##################################################" << endl << endl;
+	center_output("\n##################################################\n" ,50);
 	std::vector<Card*>  myCards;
 
-	cout<<"Les cartes de l'IA:"<<endl;
+	cout<<" Les cartes de l'IA :"<<endl;
 
 	if(ia.getHand() != NULL){
-		cout << "\n___Main 1___\n" <<  endl;
+		cout << "\n ___Main 1___\n" <<  endl;
 		myCards = ia.getHand()->getCards();
 
 		for (vector<Card*>::iterator it = myCards.begin(); it != myCards.end(); it++)
@@ -39,7 +39,7 @@ void AI::stateCards(Player& ia){
 	        cout << (*it)->getStringRepresentation() << " ";
 	    }
 		cout<<""<<endl<<endl;
-	    cout << "Valeur : " << ia.getHand()->getValue2();
+	    cout << " Valeur : " << ia.getHand()->getValue2();
 
 	    if (ia.getHand()->getValue2() != ia.getHand()->getValue1())
 	        cout << " / " << ia.getHand()->getValue1();
@@ -48,7 +48,7 @@ void AI::stateCards(Player& ia){
 	}
 	    if (ia.getHand2() != NULL)
 	    {
-	    	cout << "\n___Main 2___\n" <<  endl;
+	    	cout << "\n ___Main 2___\n" <<  endl;
 
 			std::vector<Card*> myCards2 = ia.getHand2()->getCards();
 
@@ -59,7 +59,7 @@ void AI::stateCards(Player& ia){
 
 		    cout<<""<<endl<<endl;
 
-		    cout << "Valeur : " << ia.getHand2()->getValue2();
+		    cout << " Valeur : " << ia.getHand2()->getValue2();
 
 		    if (ia.getHand2()->getValue2() != ia.getHand2()->getValue1())
 	            cout << " / " << ia.getHand2()->getValue1();
@@ -70,20 +70,21 @@ void AI::stateCards(Player& ia){
 
 void AI::stateBalanceBet(Player & ia,int bet)
 {
-	cout << "##################################################" << endl << endl;
-	cout<< "\nSolde:\t"<<ia.getBalance()<<endl<<endl;
-	cout<<"L'IA mise :\t $"<<bet<<endl<<endl;
+    system("clear");
+	center_output("\n##################################################\n" ,50);
+	cout<< "\n Solde:\t"<<ia.getBalance()<<endl<<endl;
+	cout<<" L'IA mise :\t $"<<bet<<endl<<endl;
 }
 
 void AI::choice(int hand,bool hit, bool stand, bool Double, bool split,bool quit,bool surrender)
 {
-    system("clear");
-	cout << "##################################################" << endl << endl;
+
+	center_output("\n##################################################\n" ,50);
 	if(hand == 0)//premiere main
 	{
-		cout << "___Main 1___" <<  endl;
+		cout << " ___Main 1___" <<  endl;
 		if(stand)
-			cout<<"\nL'IA prefere rester !"<<endl;
+			cout<<"\n L'IA prefere rester !"<<endl;
 		else if(hit)
 			cout<<"\n L'IA choisi de tirer une carte "<<endl;
 		else if(Double)
@@ -98,9 +99,9 @@ void AI::choice(int hand,bool hit, bool stand, bool Double, bool split,bool quit
 	}
 	else
 	{
-		cout << "\n___Main 2___\n" <<  endl;
+		cout << "\n ___Main 2___\n" <<  endl;
 				if(stand)
-					cout<<"\nL'IA prefere rester !"<<endl;
+					cout<<"\n L'IA prefere rester !"<<endl;
 				else if(hit)
 					cout<<"\n L'IA choisi de tirer une carte "<<endl;
 				else if(Double)
@@ -116,8 +117,8 @@ void AI::choice(int hand,bool hit, bool stand, bool Double, bool split,bool quit
 
 void AI::balanceState(Player & ia)
 {
-	cout << "##################################################" << endl << endl;
-	cout<<"Nouveau solde :\t$"<<ia.getBalance()<<endl<<endl;
+	center_output("\n##################################################\n" ,50);
+	cout<<" Nouveau solde :\t$"<<ia.getBalance()<<endl<<endl;
 }
 
 // numb_cols = nombre de colonnes dans la console.
@@ -133,3 +134,13 @@ void AI::center_output(std::string str, int num_cols)
     // Print the message
     std::cout << str << endl;
 }
+
+void AI::endRound()
+{
+	center_output("\n##################################################\n" ,50);
+	center_output("Fin de Tour",50);
+	center_output("\n##################################################\n" ,50);
+
+}
+
+
