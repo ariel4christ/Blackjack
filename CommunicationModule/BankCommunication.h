@@ -8,6 +8,7 @@
 
 #include "../GameModule/Card.h"
 #include "../GameModule/Hand.h"
+#include "../GameModule/Player.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -24,7 +25,7 @@ public:
     void CreditPlayer(int player, int money);
     void DebitPlayer(int player, int money);
     void EndRound();
-    void PlayerEntered(int player);
+    void PlayerEntered(int id_player, std::vector<Player*> &player);
     void HasQuit(int player);
     std::string ReadFile(int id);
     void RoundStart();
@@ -36,6 +37,8 @@ public:
     void validSurrender(int player);
 	void validSplit(int player);
 	void AskAction(int player, int secondHand);
+	void ReceiveAck();
+    void ReceiveAck(int i);
 };
 
 #endif

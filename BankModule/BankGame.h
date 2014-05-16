@@ -30,48 +30,75 @@ private:
 
 
 public:
+
+    /**
+     * Getteur de bank.
+     * @return  Référence de l'objet bank.
+     */
 	Bank& getBank() { return this->bank; }
 
+    /**
+     * Getteur de player.
+     * @return  Référence du vecteur des joueurs.
+     */
 	std::vector<Player*>& getPlayers() { return this->player; }
 
 	/**
 	 * Méthode statique retournant la mise minimale autorisée.
+	 * @return  Entier  Mise min.
 	 */
 	static int getBetMin();
 
 	/**
 	 * Méthode statique retournant la mise maximale autorisée.
+	 * @return  Entier  Mise min.
 	 */
 	static int getBetMax();
 
 	/**
 	 * Méthode statique retournant le solde initial d'un joueur.
+	 * @return  Entier long     Solde initial d'un joueur.
 	 */
-	static int getBalancePlayerInit();
+	static long getBalancePlayerInit();
+
+	/**
+	 * Méthode retournant l'attribut com par référence.
+	 * @return  BankCommunication   Référence de com.
+	 */
+	 BankCommunication& getCom() { return this->com; }
 
 	/**
 	 * Méthode statique déterminant la mise minimale autorisée.
-	 * @param i Nouvelle mise minimale autorisée.
+	 * @param   i   Nouvelle mise minimale autorisée.
 	 */
 	static void setBetMin(int i);
 
 	/**
 	 * Méthode statique déterminant la mise maximale autorisée.
-	 * @param i Nouvelle mise maximale autorisée.
+	 * @param   i   Nouvelle mise maximale autorisée.
 	 */
 	static void setBetMax(int i);
 
 	/**
 	 * Méthode statique déterminant le solde initial d'un joueur.
-	 * @param i Nouveau solde initiale d'un joueur.
+	 * @param   i   Nouveau solde initiale d'un joueur.
 	 */
 	static void setBalancePlayerInit(int i);
 
 	/**
 	 * Constructeur.
-	 * @param bankBalance Solde initiale de la banque.
+	 * @param   bankBalance Solde initiale de la banque.
 	 */
-	BankGame(int bankBalance);
+	BankGame(long bankInit);
+
+    /**
+	 * Constructeur.
+	 * @param   min         Mise minimale.
+	 * @param   max         Mise Maximale.
+	 * @param   playerInit  Solde initial des joueurs.
+	 * @param   bankBalance Solde initiale de la banque.
+	 */
+	BankGame(int min, int max, long playerInit, long bankInit);
 
 	/**
 	 * Destructeur. Destruction de deck et de player.
@@ -86,8 +113,6 @@ public:
 	 */
 	int runGame();
 
-	void ReceiveAck();
-    void ReceiveAck(int i);
 
 private:
 
@@ -112,20 +137,20 @@ private:
 	 * @see Participant::increaseBalance()
 	 * @see Participant::decreaseBalance()
 	 * @see BankCommunication::setBalance()
-	 * @param p Pointeur vers le joueur pour lequel on étudie la finalité de sa fin.
-	 * @param secondHand Entier à 0 si c'est la première main du joueur, 1 et c'est la deuxième main.
+	 * @param   p           Pointeur vers le joueur pour lequel on étudie la finalité de sa fin.
+	 * @param   secondHand  Entier à 0 si c'est la première main du joueur, 1 et c'est la deuxième main.
 	 */
 	void endRound(Player *p, int secondHand);
 
 	/**
 	 * Tire une carte du deck et renvoie son pointeur.
-	 * @return Pointeur vers la carte tirée du deck.
+	 * @return  Pointeur vers la carte tirée du deck.
 	 */
 	Card* hitCard();
 
 	/**
 	 * Méthode qui initialise un tour : accueil des nouveaux joueurs, demande des mises et distribution des cartes.
-	 * @return  1   si le jeu est fini car il n'y a plus de joueur, 1 sinon.
+	 * @return  0 si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
 	int initRound();
 
@@ -160,8 +185,8 @@ private:
 	 * Methode qui va traiter l'action demandee par le joueur en parametre.
 	 * @see BankCommunication::ReadFile()
 	 * @see BankInterface::PrintGameState()
-	 * @param p Pointeur vers le joueur qui envoie une action.
-	 * @return 0 si le jeu est fini car il n'y a plus de joueur, 1 sinon.
+	 * @param   p   Pointeur vers le joueur qui envoie une action.
+	 * @return  0   si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
 	int playerAction(Player *p, int secondHand);
 
@@ -170,14 +195,14 @@ private:
 	 * @see Player::~Player()
 	 * @see BankCommunication::HasQuit()
 	 * @see ~BankGame()
-	 * @param p Pointeur vers le joueur qui quitte le jeu.
-	 * @return 0 si le jeu est fini car il n'y a plus de joueur, 1 sinon.
+	 * @param   p   Pointeur vers le joueur qui quitte le jeu.
+	 * @return  0   si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
 	int quitePlayer(Player *p);
 
 	/**
 	 * Methode gerant le deroulement d'un tour.
-	 * @return	1	le tour s'est fini sans probleme, 0 si le jeu est terminé.
+	 * @return  1   le tour s'est fini sans probleme, 0 si le jeu est terminé.
 	 */
 	int runRound();
 

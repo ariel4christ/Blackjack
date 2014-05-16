@@ -148,14 +148,14 @@ void BankCommunication::EndRound()
  * La banque prévient les joueurs de l'arrivée d'un nouveau joueur
  * @param player l'id du player qui est arrivé
  */
-void BankCommunication::PlayerEntered(int player)
+void BankCommunication::PlayerEntered(int id_player, vector<Player*> &player)
 {
     char fifoNameIn[11];
 
     // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
+    for (vector<Player*>::iterator it = player.begin() ; it != player.end() ; ++it)
     {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+        sprintf(fifoNameIn, "joueur%d.in", (*it)->getId());
 
         if (access(fifoNameIn, R_OK) == 0)
         {
@@ -163,7 +163,7 @@ void BankCommunication::PlayerEntered(int player)
             if (file != (FILE *) NULL)
             {
                 char str[32];
-                sprintf(str, "10 %d %d %d ", player, BankGame::getBetMin(), BankGame::getBetMax());
+                sprintf(str, "10 %d %d %d ", id_player, BankGame::getBetMin(), BankGame::getBetMax());
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -299,23 +299,20 @@ void BankCommunication::setBalance(int player, int balance)
 {
     char fifoNameIn[11];
 
-    // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
-    {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file != (FILE *) NULL)
         {
-            FILE *file = fopen(fifoNameIn,"w");
-            if (file != (FILE *) NULL)
-            {
-                char str[32];
-                sprintf(str, "5 %d %d ", player, balance);
-                fwrite(str, sizeof(char), 32, file);
-                fclose(file);
-            }
+            char str[32];
+            sprintf(str, "5 %d %d ", player, balance);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
     }
+
 }
 
 /**
@@ -327,21 +324,17 @@ void BankCommunication::setBet(int player, int bet)
 {
     char fifoNameIn[11];
 
-    // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
-    {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file != (FILE *) NULL)
         {
-            FILE *file = fopen(fifoNameIn,"w");
-            if (file != (FILE *) NULL)
-            {
-                char str[32];
-                sprintf(str, "6 %d %d ", player, bet);
-                fwrite(str, sizeof(char), 32, file);
-                fclose(file);
-            }
+            char str[32];
+            sprintf(str, "6 %d %d ", player, bet);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
     }
 }
@@ -391,21 +384,17 @@ void BankCommunication::validStand(int player, int secondHand)
 {
     char fifoNameIn[11];
 
-    // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
-    {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file != (FILE *) NULL)
         {
-            FILE *file = fopen(fifoNameIn,"w");
-            if (file != (FILE *) NULL)
-            {
-                char str[32];
-                sprintf(str, "7 %d %d ", player, secondHand);
-                fwrite(str, sizeof(char), 32, file);
-                fclose(file);
-            }
+            char str[32];
+            sprintf(str, "7 %d %d ", player, secondHand);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
     }
 }
@@ -418,22 +407,18 @@ void BankCommunication::validSurrender(int player)
 {
     char fifoNameIn[11];
 
-    // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
-    {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file != (FILE *) NULL)
         {
-            FILE *file = fopen(fifoNameIn,"w");
-            if (file != (FILE *) NULL)
-            {
-                char str[32];
-                //fflush(file);
-                sprintf(str, "8 %d ", player);
-                fwrite(str, sizeof(char), 32, file);
-                fclose(file);
-            }
+            char str[32];
+            //fflush(file);
+            sprintf(str, "8 %d ", player);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
     }
 }
@@ -446,23 +431,19 @@ void BankCommunication::validSplit(int player)
 {
 	char fifoNameIn[11];
 
-	// On envoie le message à tous les joueurs
-	for (int i = 0; i < 4; i++)
-	{
-		sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn, "w");
+        if (file != (FILE *)NULL)
         {
-    		FILE *file = fopen(fifoNameIn, "w");
-    		if (file != (FILE *)NULL)
-    		{
-    			char str[32];
-        		sprintf(str, "14 %d ", player);
-    			fwrite(str, sizeof(char), 32, file);
-    			fclose(file);
-    		}
+            char str[32];
+            sprintf(str, "14 %d ", player);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
-	}
+    }
 }
 
 /**
@@ -473,21 +454,45 @@ void BankCommunication::AskAction(int player, int secondHand)
 {
 	char fifoNameIn[11];
 
-	// On envoie le message à tous les joueurs
-	for (int i = 0; i < 4; i++)
-	{
-		sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn, "w");
+        if (file != (FILE *)NULL)
         {
-    		FILE *file = fopen(fifoNameIn, "w");
-    		if (file != (FILE *)NULL)
-    		{
-    			char str[32];
-        		sprintf(str, "15 %d %d ", player, secondHand);
-    			fwrite(str, sizeof(char), 32, file);
-    			fclose(file);
-    		}
+            char str[32];
+            sprintf(str, "15 %d %d ", player, secondHand);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
+    }
+}
+
+/**
+ * Méthode gérant la réception des ACK envoyés par tous les joueurs.
+ */
+void BankCommunication::ReceiveAck()
+{
+	for (int i = 0 ; i < 4 ; ++i)
+	{
+		string str = ReadFile(i);  // Accussé de réception
+		int id_message;
+		sscanf(str.c_str(), "%d", &id_message);
+		if (id_message != 10)
+			throw runtime_error("Accusée de reception non reçu");
 	}
+}
+
+/**
+ * Méthode gérant la réception de l'ACK envoyé par le joueur dont l'id est en paramètre.
+ * @param id Entier, identifiant du joueur où on attend un ACK.
+ */
+void BankCommunication::ReceiveAck(int id)
+{
+	string str = ReadFile(id);  // Accussé de réception
+	int id_message;
+	sscanf(str.c_str(), "%d", &id_message);
+	if (id_message != 10)
+		throw runtime_error("Accusée de reception non reçu");
 }
