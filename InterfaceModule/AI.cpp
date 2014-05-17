@@ -142,5 +142,15 @@ void AI::endRound()
 	center_output("\n##################################################\n" ,50);
 
 }
+void AI::EnterGame(int id)
+{
+    system("clear");
+    cout << "##################################################" << endl << endl;
+    center_output("******* Blackjack *******", 50);
+    cout << endl;
+    center_output("*** IA ***", 50);
+    cout << endl <<" Son nom est : Joueur " << id << endl << endl;
+    cout << "##################################################" << endl << endl;
+}
 
 

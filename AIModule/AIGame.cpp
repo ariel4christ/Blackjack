@@ -30,6 +30,7 @@ void AIGame::runGame()
 {
 	this->com.EnterGame();
     int id = this->ia.getId();
+    this->aiInterface.EnterGame(id);
 
 	string str = com.ReadFile();
 
@@ -64,11 +65,6 @@ void AIGame::runGame()
 	}
 	else throw runtime_error("Message d'initialisation du solde joueur non recu");
 
-    str = this->com.ReadFile();
-    sscanf(str.c_str(), "%d", &id_message);
-	if (id_message != 3)
-        throw runtime_error("Erreur message roundStart");
-
 
 	bool quit = false; // variable permettant de quitter le jeu
 
@@ -96,9 +92,6 @@ void AIGame::runGame()
 	}
 
 	this->quitGame();
-
-
-
 }
 
 bool AIGame::runRound()
@@ -130,6 +123,7 @@ bool AIGame::runRound()
 
 		case 3: // RoundStart received
 			endRound = true;
+
 			break;
 
 		case 4: // SendCard received

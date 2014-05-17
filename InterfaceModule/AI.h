@@ -27,6 +27,7 @@ public:
 	void choice(int hand,bool hit, bool stand, bool Double, bool split,bool quit,bool surrender);
 	void balanceState(Player& ia);
 	void endRound();
+	void EnterGame(int id);
 
     static void center_output(std::string str, int num_cols);
 };
