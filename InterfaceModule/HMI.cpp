@@ -112,7 +112,7 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
  * @param  stay    le joueur peut stay ?
  * @return         le caractère correspondant à l'action voulue par le joueur
  */
-char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
+char HMI::askAction(bool hit, bool split, bool doubler, bool stay, int secHand)
 {
     char response;
 
@@ -127,7 +127,13 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 
     do
     {
-        cout << endl << "~ Entrez la lettre correspondant à votre décision : ";
+        cout << endl << "> Entrez la lettre correspondant à votre décision ";
+        if (secHand == 0)
+            cout << "pour la main 1 : ";
+        else if (secHand == 1)
+            cout << "pour la main 2 : ";
+        else throw runtime_error("Erreur dans le numero de main HMI::AskAction");
+
         response = '\0';
         cin >> response;
         if (cin.fail()) cout << "### Erreur, veuillez recommencez ###" << endl;
@@ -136,6 +142,7 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
             && response != possibleChoices[2] && response != possibleChoices[3]
             && response != possibleChoices[4] && response != possibleChoices[5]));
 
+    cout << "~ Attente Banque..." << endl << endl;
     return response;
 }
 
@@ -147,14 +154,14 @@ bool HMI::insurrance(Player &player)
     if(player.getBalance() < (int) player.getHand()->getBet() / 2)
         return false;
 
-    cout << "> Voulez-vous prendre une assurance ? O/N" << endl;
     do
     {
+        cout << "> Voulez-vous prendre une assurance ? O/N" << endl;
         cin >> response;
         if (cin.fail()) cout << "### Erreur, veuillez recommencez. Merci d'entrer O ou N ###" << endl;
-    } while (cin.fail() || (response != 'O' && response != 'N'));
+    } while (cin.fail() || (response != 'O' && response != 'N' && response != 'o' && response != 'n'));
 
-    return (response == 'O') ? true : false;
+    return (response == 'O'|| response =='o') ? true : false;
 }
 
 void HMI::PrintEndRound(Player &p)
@@ -177,7 +184,7 @@ void HMI::PrintEnterGame(int id)
     center_output("******* Blackjack *******", 50);
     cout << endl;
     center_output("*** Nouveau Joueur ***", 50);
-    cout << endl << "~ Bienvenu, votre nom est : Joueur " << id << endl << endl;
+    cout << endl << "~ Bienvenue, votre nom est : Joueur " << id << endl << endl;
     cout << "##################################################" << endl << endl;
 }
 void HMI::PrintMessage(string str)

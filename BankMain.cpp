@@ -48,15 +48,15 @@ int main(int argc, char  *argv[])
 		cout << "> Voulez-vous supprimer les vieux fichiers ? O / N \t: ";
 		cin >> suppr;
 		cout << endl;
-	} while (cin.fail() || (suppr != 'O' && suppr != 'N'));
+	} while (cin.fail() || (suppr != 'O' && suppr != 'N' && suppr!= 'o' && suppr != 'n'));
 	
-	if (suppr == 'O')
+	if (suppr == 'O' || suppr == 'o')
 	{
 		bank.getCom().CleanFiles();
 		cout << "Fichiers supprimés! Vous pouvez lancer les programmes Joueur." << endl;
 	}
 	
-	cout << "\n\nLorsque tous les programmes joueurs sont lancés pour le 1er tour,\n> Appuillez sur n'importe quelle touche..." << endl;
+	cout << "\n\nLorsque tous les programmes joueurs sont lancés pour le 1er tour,\n> Appuillez sur Entrée..." << endl;
 	while (getchar() != '\n');
 	getchar();
 	cout << endl << "##################################################" << endl;
