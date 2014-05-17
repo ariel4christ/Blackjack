@@ -125,14 +125,14 @@ void BankGame::dealCards()
 		c = this->hitCard();
 		this->player[i]->getHand()->addCard(c);
 		this->com.SendCard(this->player[i]->getId(), c->getType(), 0);
-		com.ReceiveAck(i);
+		com.ReceiveAck(player);
 
 		// Tirage de la 2nd carte
 		c = NULL;
 		c = this->hitCard();
 		this->player[i]->getHand()->addCard(c);
 		this->com.SendCard(this->player[i]->getId(), c->getType(), 0);
-		com.ReceiveAck(i);
+		com.ReceiveAck(player);
 	}
 
 	// Tirage de la 1ere carte de la banque
@@ -141,14 +141,14 @@ void BankGame::dealCards()
 	this->bank.newHand();
 	this->bank.getHand()->addCard(c);
 	this->com.SendCard(4, c->getType(), 0);  // 4 pour id banque
-    com.ReceiveAck();
+    com.ReceiveAck(player);
 
 	// Tirage de la 2nd carte de la banque
 	c = NULL;
 	this->bank.setHiddenCard( hitCard() );
 	this->bank.getHand()->addCard(new Card(NaN));
 	this->com.SendCard(4, NaN, 0);  // 4 pour id banque, 2nd carte est inconnue
-    com.ReceiveAck();
+    com.ReceiveAck(player);
 }
 
 void BankGame::endRound(Player *p, int secondHand)
@@ -522,7 +522,8 @@ int BankGame::playerAction(Player *p, int secondHand)
 		{
 			Card* c = hitCard();
 			p->getHand()->addCard(c);
-			com.SendCard(id, c->getType(), 0);
+			com.SendCard(id, c->getType(), 0);  // Envoie de la carte
+            com.ReceiveAck(player);
 
 			int bet = p->getHand()->getBet();
 			p->decreaseBalance(bet);
@@ -531,9 +532,10 @@ int BankGame::playerAction(Player *p, int secondHand)
 			com.ReceiveAck(id);
 			com.setBalance(id, p->getBalance());  // Mise à jour solde
 			com.ReceiveAck(id);
-			// La joueur stand
+
+			// Le joueur stand obligatoirement
 			p->getHand()->setStand(true);
-			com.validStand(id, secHand);
+			com.validStand(id, 0);
 		}
 		else throw runtime_error("Double impossible");
 		break;
@@ -554,7 +556,7 @@ int BankGame::playerAction(Player *p, int secondHand)
 			Card *c = hitCard();
 			h->addCard(c);
 			com.SendCard(id, c->getType(), secHand);
-			com.ReceiveAck(id);
+			com.ReceiveAck(player);
 		}
 		break;
 
@@ -706,7 +708,7 @@ int BankGame::runRound()
 	delete bank.getHiddenCard();  // Désallocation de la carte cachée
 	bank.setHiddenCard(NULL);
 	com.SendCard(4, c->getType(), 0);
-	com.ReceiveAck();
+	com.ReceiveAck(player);
 	interface.printGameState(getPlayers(), getBank());
 
 	cout << endl << "##################################################" << endl;
@@ -719,7 +721,7 @@ int BankGame::runRound()
 		c = hitCard();
 		bank.getHand()->addCard(c);
 		com.SendCard(4, c->getType(), 0);
-		com.ReceiveAck();
+		com.ReceiveAck(player);
 	}
 
 	interface.printGameState(getPlayers(), getBank());

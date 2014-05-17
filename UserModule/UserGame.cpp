@@ -162,7 +162,7 @@ void UserGame::runRound()
 			sscanf(str.c_str(), "%d %1d %1d", &id_message, &num_joueur, &main);
 			if (num_joueur == this->player.getId())
 			{
-				if (!main)
+				if (main == 0)
 					this->player.Stand(this->player.getHand());
 				else if (main == 1)
 					this->player.Stand(this->player.getHand2());
@@ -250,9 +250,9 @@ void UserGame::runRound()
 			if (num_joueur == this->player.getId())
 			{
 				if (!main)
-					this->choseAction(this->player.getHand());
+					this->choseAction(this->player.getHand(), 0);
 				else
-					this->choseAction(this->player.getHand2());
+					this->choseAction(this->player.getHand2(), 1);
 			}
 			break;
 
@@ -262,13 +262,14 @@ void UserGame::runRound()
 	this->com.RemoveFiles(this->player.getId());
 }
 
-void UserGame::choseAction(PlayerHand *myhand)
+void UserGame::choseAction(PlayerHand *myhand, int secHand)
 {
 	bool spliter = false;
 	bool doubler = false;
 	bool hit = false;
 	bool stand = true;
 	char reponse;
+
 
 	if (this->player.getHand()->isPair() && this->player.getHand2() == NULL
         && this->player.getBalance() >= this->player.getHand()->getBet())
@@ -285,7 +286,7 @@ void UserGame::choseAction(PlayerHand *myhand)
 	this->ihm.PrintGameState(this->player, hit, spliter, doubler, stand);
 
 	/* recoit la reponse*/
-	reponse = this->ihm.askAction(hit, spliter, doubler, stand);
+	reponse = this->ihm.askAction(hit, spliter, doubler, stand, secHand);
 
 	/* valeur permetant de connaitre la main sur laquelle seront appliquées les actions */
 	int value;

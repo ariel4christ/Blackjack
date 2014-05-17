@@ -68,9 +68,10 @@ private:
 
 	/**
 	 * Méthode permettant de demander une action au joueur en fontion de l'état du jeu.
-	 * @param myHand Pointeur vers la main pour laquelle on demande une action.
+	 * @param   myHand  Pointeur vers la main pour laquelle on demande une action.
+	 * @param   secHand Entier, vaut 0 si action sur main 1 et 1 si action sur main 2.
 	 */
-	void choseAction(PlayerHand* myhand);
+	void choseAction(PlayerHand* myhand, int secHand);
 
 	void endRound();
 

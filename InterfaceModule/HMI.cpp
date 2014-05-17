@@ -112,7 +112,7 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
  * @param  stay    le joueur peut stay ?
  * @return         le caractère correspondant à l'action voulue par le joueur
  */
-char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
+char HMI::askAction(bool hit, bool split, bool doubler, bool stay, int secHand)
 {
     char response;
 
@@ -127,7 +127,13 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay)
 
     do
     {
-        cout << endl << "~ Entrez la lettre correspondant à votre décision : ";
+        cout << endl << "~ Entrez la lettre correspondant à votre décision ";
+        if (secHand == 0)
+            cout << "pour la main 1 : ";
+        else if (secHand == 1)
+            cout << "pour la main 2 : ";
+        else throw runtime_error("Erreur dans le numero de main HMI::AskAction");
+
         response = '\0';
         cin >> response;
         if (cin.fail()) cout << "### Erreur, veuillez recommencez ###" << endl;
@@ -177,7 +183,7 @@ void HMI::PrintEnterGame(int id)
     center_output("******* Blackjack *******", 50);
     cout << endl;
     center_output("*** Nouveau Joueur ***", 50);
-    cout << endl << "~ Bienvenu, votre nom est : Joueur " << id << endl << endl;
+    cout << endl << "~ Bienvenue, votre nom est : Joueur " << id << endl << endl;
     cout << "##################################################" << endl << endl;
 }
 void HMI::PrintMessage(string str)

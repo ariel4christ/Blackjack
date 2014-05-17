@@ -37,7 +37,7 @@ public:
     void validSurrender(int player);
 	void validSplit(int player);
 	void AskAction(int player, int secondHand);
-	void ReceiveAck();
+	void ReceiveAck(std::vector<Player*> &p);
     void ReceiveAck(int i);
 };
 
