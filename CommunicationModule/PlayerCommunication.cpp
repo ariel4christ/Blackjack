@@ -20,7 +20,7 @@ void PlayerCommunication::AskToHIt(int secondHand)
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "8 %d ", secondHand);
+    sprintf(str, "8 %1d ", secondHand);
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
@@ -112,8 +112,8 @@ void PlayerCommunication::RemoveFiles(int id)
     char fifoNameIn[11];
     char fifoNameOut[12];
 
-    sprintf(fifoNameIn, "joueur%d.in", id);
-    sprintf(fifoNameOut, "joueur%d.out", id);
+    sprintf(fifoNameIn, "joueur%1d.in", id);
+    sprintf(fifoNameOut, "joueur%1d.out", id);
 
     remove(fifoNameIn);
     remove(fifoNameOut);
@@ -129,7 +129,7 @@ void PlayerCommunication::Double()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "7");
+    sprintf(str, "7 ");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
@@ -144,7 +144,7 @@ void PlayerCommunication::EnterGame()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "6");
+    sprintf(str, "6 ");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }
@@ -159,7 +159,7 @@ void PlayerCommunication::QuitMessage()
         throw runtime_error("Erreur d'ouverture du fichier out");
 
     char str[32];
-    sprintf(str, "4");
+    sprintf(str, "4 ");
     fwrite(str, sizeof(char), 32, file);
     fclose(file);
 }

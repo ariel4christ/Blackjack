@@ -73,23 +73,19 @@ void BankCommunication::CreditPlayer(int player, int money)
 {
     char fifoNameIn[11];
 
-    // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
-    {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file == (FILE*) NULL)
+            perror("Erreur ouverture fichier .in lors de CreditPlayer");
+        else
         {
-            FILE *file = fopen(fifoNameIn,"w");
-            if (file == (FILE*) NULL)
-                perror("Erreur ouverture fichier .in lors de CreditPlayer");
-            else
-            {
-                char str[32];
-                sprintf(str, "11 %d %d ", player, money);
-                fwrite(str, sizeof(char), 32, file);
-                fclose(file);
-            }
+            char str[32];
+            sprintf(str, "11 %1d %d ", player, money);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
     }
 }
@@ -103,23 +99,19 @@ void BankCommunication::DebitPlayer(int player, int money)
 {
     char fifoNameIn[11];
 
-    // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
-    {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", player);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file == (FILE*) NULL)
+            perror("Erreur ouverture fichier .in lors de DebitPlayer");
+        else
         {
-            FILE *file = fopen(fifoNameIn,"w");
-            if (file == (FILE*) NULL)
-                perror("Erreur ouverture fichier .in lors de DebitPlayer");
-            else
-            {
-                char str[32];
-                sprintf(str, "12 %d %d ", player, money);
-                fwrite(str, sizeof(char), 32, file);
-                fclose(file);
-            }
+            char str[32];
+            sprintf(str, "12 %1d %d ", player, money);
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
     }
 }
@@ -127,14 +119,14 @@ void BankCommunication::DebitPlayer(int player, int money)
 /**
  * La banque prévient les joueurs de la fin du round
  */
-void BankCommunication::EndRound()
+void BankCommunication::EndRound(vector<Player*> &p)
 {
     char fifoNameIn[11];
 
     // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
+    for (vector<Player*>::iterator it = p.begin() ; it != p.end() ; ++it)
     {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+        sprintf(fifoNameIn, "joueur%d.in", (*it)->getId());
 
         if (access(fifoNameIn, R_OK) == 0)
         {
@@ -144,7 +136,7 @@ void BankCommunication::EndRound()
             else
             {
                 char str[32];
-                sprintf(str, "2");
+                sprintf(str, "2 ");
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -173,7 +165,7 @@ void BankCommunication::PlayerEntered(int id_player, vector<Player*> &player)
             else
             {
                 char str[32];
-                sprintf(str, "10 %d %d %d ", id_player, BankGame::getBetMin(), BankGame::getBetMax());
+                sprintf(str, "10 %1d %d %d ", id_player, BankGame::getBetMin(), BankGame::getBetMax());
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -185,14 +177,14 @@ void BankCommunication::PlayerEntered(int id_player, vector<Player*> &player)
  * La banque prévient les joueurs qu'un joueur à quitté la partie
  * @param player l'id du joueur qui est parti
  */
-void BankCommunication::HasQuit(int player)
+void BankCommunication::HasQuit(int player, vector<Player*> &p)
 {
     char fifoNameIn[11];
 
     // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
+    for (vector<Player*>::iterator it = p.begin() ; it != p.end() ; ++it)
     {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+        sprintf(fifoNameIn, "joueur%d.in", (*it)->getId());
 
         if (access(fifoNameIn, R_OK) == 0)
         {
@@ -249,31 +241,29 @@ string BankCommunication::ReadFile(int id)
 }
 
 /**
- * La banque prévient les joueurs qu'un round a commencé
+ * La banque prévient le joueurs qu'un tour a commencé
+ * @param   id    Entier identifiant du joueur
  */
-void BankCommunication::RoundStart()
+void BankCommunication::RoundStart(int id)
 {
     char fifoNameIn[11];
 
-    // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
-    {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+    sprintf(fifoNameIn, "joueur%d.in", id);
 
-        if (access(fifoNameIn, R_OK) == 0)
+    if (access(fifoNameIn, R_OK) == 0)
+    {
+        FILE *file = fopen(fifoNameIn,"w");
+        if (file == (FILE*) NULL)
+            perror("Erreur ouverture fichier .in lors de RoundStart");
+        else
         {
-            FILE *file = fopen(fifoNameIn,"w");
-            if (file == (FILE*) NULL)
-                perror("Erreur ouverture fichier .in lors de RoundStart");
-            else
-            {
-                char str[32];
-                sprintf(str, "3");
-                fwrite(str, sizeof(char), 32, file);
-                fclose(file);
-            }
+            char str[32];
+            sprintf(str, "3 ");
+            fwrite(str, sizeof(char), 32, file);
+            fclose(file);
         }
     }
+
 }
 
 /**
@@ -282,14 +272,14 @@ void BankCommunication::RoundStart()
  * @param t          Le type de la carte
  * @param secondHand Entier : 0 si la carte est pour sa première main, 1 si c'est pour sa deuxième main (en cas de split)
  */
-void BankCommunication::SendCard(int player, EType t, int secondHand)
+void BankCommunication::SendCard(int player, EType t, int secondHand, vector<Player*> &p)
 {
     char fifoNameIn[11];
 
     // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
+     for (vector<Player*>::iterator it = p.begin() ; it != p.end() ; ++it)
     {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+        sprintf(fifoNameIn, "joueur%d.in", (*it)->getId());
 
         if (access(fifoNameIn, R_OK) == 0)
         {
@@ -299,7 +289,7 @@ void BankCommunication::SendCard(int player, EType t, int secondHand)
             else
             {
                 char str[32];
-                sprintf(str, "4 %d %d %d ", player, t, secondHand);
+                sprintf(str, "4 %1d %d %1d ", player, t, secondHand);
                 fwrite(str, sizeof(char), 32, file);
                 fclose(file);
             }
@@ -326,7 +316,7 @@ void BankCommunication::setBalance(int player, int balance)
         else
         {
             char str[32];
-            sprintf(str, "5 %d %d ", player, balance);
+            sprintf(str, "5 %1d %d ", player, balance);
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
@@ -343,7 +333,7 @@ void BankCommunication::setBet(int player, int bet)
 {
     char fifoNameIn[11];
 
-    sprintf(fifoNameIn, "joueur%d.in", player);
+    sprintf(fifoNameIn, "joueur%1d.in", player);
 
     if (access(fifoNameIn, R_OK) == 0)
     {
@@ -353,7 +343,7 @@ void BankCommunication::setBet(int player, int bet)
         else
         {
             char str[32];
-            sprintf(str, "6 %d %d ", player, bet);
+            sprintf(str, "6 %1d %d ", player, bet);
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
@@ -365,12 +355,12 @@ void BankCommunication::setBet(int player, int bet)
  * @param player l'id du joueur
  * @param h      la main à envoyer
  */
-void BankCommunication::setHand(int player, Hand &h, int secondHand)
+void BankCommunication::setHand(int player, Hand &h, int secondHand, vector<Player*> &p)
 {
     std::vector<Card*> cards = h.getCards();
 
     char str[256];
-    sprintf(str, "13 %d %d %d ", player, secondHand, static_cast<int>(cards.size()));
+    sprintf(str, "13 %1d %1d %d ", player, secondHand, static_cast<int>(cards.size()));
 
 
     for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++)
@@ -381,9 +371,9 @@ void BankCommunication::setHand(int player, Hand &h, int secondHand)
     char fifoNameIn[11];
 
     // On envoie le message à tous les joueurs
-    for (int i = 0 ; i < 4 ; i++)
+    for (vector<Player*>::iterator it = p.begin() ; it != p.end() ; ++it)
     {
-        sprintf(fifoNameIn, "joueur%d.in", i);
+        sprintf(fifoNameIn, "joueur%d.in", (*it)->getId());
 
         if (access(fifoNameIn, R_OK) == 0)
         {
@@ -407,7 +397,7 @@ void BankCommunication::validStand(int player, int secondHand)
 {
     char fifoNameIn[11];
 
-    sprintf(fifoNameIn, "joueur%d.in", player);
+    sprintf(fifoNameIn, "joueur%1d.in", player);
 
     if (access(fifoNameIn, R_OK) == 0)
     {
@@ -417,7 +407,7 @@ void BankCommunication::validStand(int player, int secondHand)
         else
         {
             char str[32];
-            sprintf(str, "7 %d %d ", player, secondHand);
+            sprintf(str, "7 %1d %1d ", player, secondHand);
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
@@ -442,7 +432,7 @@ void BankCommunication::validSurrender(int player)
         else
         {
             char str[32];
-            sprintf(str, "8 %d ", player);
+            sprintf(str, "8 %1d ", player);
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
@@ -457,7 +447,7 @@ void BankCommunication::validSplit(int player)
 {
 	char fifoNameIn[11];
 
-    sprintf(fifoNameIn, "joueur%d.in", player);
+    sprintf(fifoNameIn, "joueur%1d.in", player);
 
     if (access(fifoNameIn, R_OK) == 0)
     {
@@ -467,7 +457,7 @@ void BankCommunication::validSplit(int player)
         else
         {
             char str[32];
-            sprintf(str, "14 %d ", player);
+            sprintf(str, "14 %1d ", player);
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }
@@ -482,7 +472,7 @@ void BankCommunication::AskAction(int player, int secondHand)
 {
 	char fifoNameIn[11];
 
-    sprintf(fifoNameIn, "joueur%d.in", player);
+    sprintf(fifoNameIn, "joueur%1d.in", player);
 
     if (access(fifoNameIn, R_OK) == 0)
     {
@@ -492,7 +482,7 @@ void BankCommunication::AskAction(int player, int secondHand)
         else
         {
             char str[32];
-            sprintf(str, "15 %d %d ", player, secondHand);
+            sprintf(str, "15 %1d %1d ", player, secondHand);
             fwrite(str, sizeof(char), 32, file);
             fclose(file);
         }

@@ -96,6 +96,7 @@ void UserGame::runRound()
 {
 	int num_joueur, typeCard, typeCard2, argent, main, betMin = 0, betMax = 0;
 	bool quit = false;
+	int id = this->player.getId();
 
 	while(!quit)
 	{
@@ -126,7 +127,7 @@ void UserGame::runRound()
 		case 4: // SendCard receive
 			sscanf(str.c_str(), "%d %d %d %d", &id_message, &num_joueur, &typeCard, &main);
 
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				if (!main)
 					this->player.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
@@ -139,7 +140,7 @@ void UserGame::runRound()
 		case 5: // SetBalance receive
 			int balance;
 			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur, &balance);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				this->player.setBalance(balance);
 			}
@@ -149,7 +150,7 @@ void UserGame::runRound()
 		case 6: // SetBet receive
 			int bet;
 			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur, &bet);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
                 if (player.getHand() == NULL)
                     this->player.newHand(bet);
@@ -160,7 +161,7 @@ void UserGame::runRound()
 
 		case 7:	// ValidStand receive
 			sscanf(str.c_str(), "%d %1d %1d", &id_message, &num_joueur, &main);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				if (main == 0)
 					this->player.Stand(this->player.getHand());
@@ -174,7 +175,7 @@ void UserGame::runRound()
 
 		case 8: // ValidSurrender receive
 			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur, &main);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				if (!main)
 					this->player.Surrender(this->player.getHand());
@@ -185,24 +186,28 @@ void UserGame::runRound()
 
 		case 9: // HasQuit receive
 			sscanf(str.c_str(), "%d %d", &id_message, &num_joueur);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				quit = true;
 			}
+			else this->ihm.PrintMessage("~ Un joueur a quitté le jeu.");
+
+			com.sendAck();
 			break;
 
 		case 10: // PlayerEntered receive
 			sscanf(str.c_str(), "%d %d %d %d", &id_message, &num_joueur, &betMin, &betMax);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				this->betMin = betMin;
 				this->betMax = betMax;
 			}
+			com.sendAck();
 			break;
 
 		case 11: // CreditPlayer receive
 			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				this->player.increaseBalance(argent);
 			}
@@ -210,7 +215,7 @@ void UserGame::runRound()
 
 		case 12: // DebitPlayer receive
 			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
-			if(num_joueur == this->player.getId())
+			if(num_joueur == id)
 			{
 				this->player.decreaseBalance(argent);
 			}
@@ -219,7 +224,7 @@ void UserGame::runRound()
 		case 13: // SetHand receive
 			int sizeHand;
 			sscanf(str.c_str(), "%d %d %d %d %d %d", &id_message, &num_joueur, &main, &sizeHand, &typeCard, &typeCard2);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				// Construction d'une main a partir des cartes recues
 				Hand *hand = new Hand();
@@ -238,7 +243,7 @@ void UserGame::runRound()
 
 		case 14: // ValidSplit receive
 			sscanf(str.c_str(), "%d %d ", &id_message, &num_joueur);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				this->player.newHand();
 			}
@@ -247,7 +252,7 @@ void UserGame::runRound()
 
 		case 15: // AskAction receive
 			sscanf(str.c_str(), "%d %d %d ", &id_message, &num_joueur, &main);
-			if (num_joueur == this->player.getId())
+			if (num_joueur == id)
 			{
 				if (!main)
 					this->choseAction(this->player.getHand(), 0);
@@ -256,10 +261,13 @@ void UserGame::runRound()
 			}
 			break;
 
+        default :
+			throw runtime_error("Erreur id message runGame()");
+
 		}
 	}
 
-	this->com.RemoveFiles(this->player.getId());
+	this->com.RemoveFiles(id);
 }
 
 void UserGame::choseAction(PlayerHand *myhand, int secHand)

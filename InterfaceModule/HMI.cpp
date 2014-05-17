@@ -127,7 +127,7 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay, int secHand)
 
     do
     {
-        cout << endl << "~ Entrez la lettre correspondant à votre décision ";
+        cout << endl << "> Entrez la lettre correspondant à votre décision ";
         if (secHand == 0)
             cout << "pour la main 1 : ";
         else if (secHand == 1)
@@ -142,6 +142,7 @@ char HMI::askAction(bool hit, bool split, bool doubler, bool stay, int secHand)
             && response != possibleChoices[2] && response != possibleChoices[3]
             && response != possibleChoices[4] && response != possibleChoices[5]));
 
+    cout << "~ Attente Banque..." << endl << endl;
     return response;
 }
 
@@ -153,14 +154,14 @@ bool HMI::insurrance(Player &player)
     if(player.getBalance() < (int) player.getHand()->getBet() / 2)
         return false;
 
-    cout << "> Voulez-vous prendre une assurance ? O/N" << endl;
     do
     {
+        cout << "> Voulez-vous prendre une assurance ? O/N" << endl;
         cin >> response;
         if (cin.fail()) cout << "### Erreur, veuillez recommencez. Merci d'entrer O ou N ###" << endl;
-    } while (cin.fail() || (response != 'O' && response != 'N'));
+    } while (cin.fail() || (response != 'O' && response != 'N' && response != 'o' && response != 'n'));
 
-    return (response == 'O') ? true : false;
+    return (response == 'O'|| response =='o') ? true : false;
 }
 
 void HMI::PrintEndRound(Player &p)
