@@ -39,7 +39,11 @@ void Bank::deleteHand()
 
 bool Bank::isBankBlackjack()
 {
-	if (hand->numberOfCards() == 2 && (hand->getCard(0)->getValue() + hiddenCard->getValue()) == 21)
+    Hand tmp;
+    tmp.addCard(this->hand->getCard(0));
+    tmp.addCard(this->hiddenCard);
+
+	if (hand->numberOfCards() == 2 && tmp.getValue2() == 21)
 		return true;
 
 	return false;

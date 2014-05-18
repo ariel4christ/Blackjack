@@ -47,9 +47,9 @@ void BankInterface::printGameState(std::vector<Player*> &players, Bank &bank)
             {
                 cout << (*it2)->getStringRepresentation() << " ";
             }
-            cout << "\t" << (*it)->getHand()->getValue2();
-            if ((*it)->getHand()->getValue2() != (*it)->getHand()->getValue1())
-                cout << " / " << (*it)->getHand()->getValue1();
+            cout << "\t" << (*it)->getHand2()->getValue2();
+            if ((*it)->getHand2()->getValue2() != (*it)->getHand2()->getValue1())
+                cout << " / " << (*it)->getHand2()->getValue1();
 
             cout << endl;
         }

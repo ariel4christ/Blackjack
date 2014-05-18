@@ -67,6 +67,7 @@ BankGame::~BankGame()
 {
 	// Désallocation des cartes restantes dans deck
 	this->clearDeck();
+	cout << "taille player : " << player.size() << endl;
 
     if (bank.getHand() != 0)
         bank.setHand(NULL);
@@ -202,7 +203,7 @@ int BankGame::initRound()
     if (bank.getBalance() < 2 * betMax * player.size())
     {
         for (unsigned int i = 0 ; i < this->player.size() ; ++i)
-            quitePlayer(player[i]);
+            quitPlayer(player[i]);
 
         cout << endl << "##################################################" << endl << endl;
         BankInterface::center_output("~~~ La Banque n'a plus assez d'argent pour continuer ~~~", 50);
@@ -219,8 +220,11 @@ int BankGame::initRound()
 		this->burnCards();
     }
 
+    static int cptTours = 0;
+    cptTours++;
 	cout << endl << "##################################################" << endl;
 	BankInterface::center_output("***** NOUVEAU TOUR *****", 50);
+	cout << endl << "~ Tour n° " << cptTours << endl;
 	cout << endl << "~ Attente des mises : " << endl;
 
 	for (unsigned int i = 0; i < this->player.size(); i++)
@@ -253,7 +257,7 @@ int BankGame::initRound()
 		}
 		else if (id_message == 4)
 		{
-			if(quitePlayer(player[i]) == 0)
+			if(quitPlayer(player[i]) == 0)
                 return 0;  // Le jeu est fini car il n'y a plus de joueur
             else i--;
 		}
@@ -293,7 +297,7 @@ int BankGame::insurance()
                 sscanf(str.c_str(), "%d %d", &id_message, &idPlayer);
                 if (idPlayer == id)
                 {
-                    if (quitePlayer(player[i]) == 0)
+                    if (quitPlayer(player[i]) == 0)
                     {
                         cout << endl << "##################################################" << endl;
                         return 0;  // Le jeu est fini car il n'y a plus de joueur
@@ -379,6 +383,7 @@ void BankGame::newDeck()
 		for (int i = 1; i <= 13; i++)
 			this->deck.push_back( new Card((EType) i) );
 	}
+    BankInterface::center_output("~ Nouveau sabot de cartes en jeu.", 50);
 }
 
 void BankGame::newGame()
@@ -521,7 +526,7 @@ int BankGame::playerAction(Player *p, int secondHand)
 		break;
 
 	case 4:  // Quit
-		if(quitePlayer(p) == 0)
+		if(quitPlayer(p) == 0)
             return 0;
         else return -1;
 		break;
@@ -579,7 +584,7 @@ int BankGame::playerAction(Player *p, int secondHand)
 	return 1;
 }
 
-int BankGame::quitePlayer(Player *p)
+int BankGame::quitPlayer(Player *p)
 {
 	int id = p->getId();
 	com.HasQuit(id, this->player);
@@ -679,42 +684,48 @@ int BankGame::runRound()
 	/***** Fin cas "un joueur fait blackjack" *****/
 
 	/***** Demandes d'actions aux joueurs *****/
-	for (unsigned int j = 0; j < this->player.size(); ++j)
+	for (unsigned int i = 0; i < this->player.size(); ++i)
 	{
-		if (this->player[j] != NULL && !this->player[j]->getBlackjack())  // Le joueur n'a pas fait blackjack
+		if (this->player[i] != NULL && !this->player[i]->getBlackjack())  // Le joueur n'a pas fait blackjack
 		{
             int returnPlayerAction;
 			// Boucle d'actions sur la main 1
-			while (player[j]->getHand() != NULL && !player[j]->getHand()->getStand() && !player[j]->getSurrender())
+			while (player[i]->getHand() != NULL && !player[i]->getHand()->getStand() && !player[i]->getSurrender())
 			{
-				returnPlayerAction = this->playerAction(player[j], 0);
-				if (returnPlayerAction == -1)
+				returnPlayerAction = this->playerAction(player[i], 0);
+				if (returnPlayerAction == -1)  // Le joueur a abandonné mais il y a d'autres joueurs
 				{
-                    j--;
+                    i--;
 					break;  // Le joueur a quitté le jeu donc le joueur n'existe plus dans le vecteur
                 }
                 else if (returnPlayerAction == 0)
-                    return 0;  // Fin du jeu
+                    return 0;  // Fin du jeu car le dernier joueur a quitté le jeu
 
-				else if (!player[j]->getSurrender() && player[j]->getHand() != NULL && player[j]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				else if (!player[i]->getSurrender() && player[i]->getHand() != NULL && player[i]->getHand()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
 				{
-					this->player[j]->getHand()->setStand(true);
-					this->com.validStand(player[j]->getId(), 0);
-					this->com.ReceiveAck(player[j]->getId());
+					this->player[i]->getHand()->setStand(true);
+					this->com.validStand(player[i]->getId(), 0);
+					this->com.ReceiveAck(player[i]->getId());
 				}
 			}
 
 			// Boucle d'actions sur la main 2
-			while (returnPlayerAction != -1 && player[j]->getHand2() != NULL && !player[j]->getHand2()->getStand() && !player[j]->getSurrender())
+			while (returnPlayerAction != -1 && player[i]->getHand2() != NULL && !player[i]->getHand2()->getStand() && !player[i]->getSurrender())
 			{
-				if (this->playerAction(player[j], 1) == 0);
-                    return 0;  // Fin du jeu
-
-				if (player[j]->getHand() != NULL && player[j]->getHand2()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				returnPlayerAction = this->playerAction(player[i], 1);
+				if (returnPlayerAction == -1)  // Le joueur a abandonné mais il y a d'autres joueurs
 				{
-					this->player[j]->getHand2()->setStand(true);
-					this->com.validStand(this->player[j]->getId(), 1);
-					this->com.ReceiveAck(this->player[j]->getId());
+                    i--;
+                    break;  // Le joueur a quitté le jeu donc le joueur n'existe plus dans le vecteur
+				}
+                else if (returnPlayerAction == 0)
+                    return 0;  // Fin du jeu car le dernier joueur a quitté le jeu
+
+				if (player[i]->getHand2() != NULL && player[i]->getHand2()->getValue1() >= 21)  // Si la valeur basse de la main est >= 21, le joueur est obligé de s'arreter.
+				{
+					this->player[i]->getHand2()->setStand(true);
+					this->com.validStand(this->player[i]->getId(), 1);
+					this->com.ReceiveAck(this->player[i]->getId());
 				}
 			}
 		}
@@ -769,7 +780,7 @@ int BankGame::runRound()
 		{
 		    cout << endl << "~ Votre solde est insuffisant pour continuer Joueur" << i;
             BankInterface::center_output("*** Vous devez quitter le jeu ***", 50);
-		    if (quitePlayer(player[i]) == 0);
+		    if (quitPlayer(player[i]) == 0);
 		        return 0;  // Le jeu est fini car il n'y a plus de joueur
 		}
 	}

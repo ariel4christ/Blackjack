@@ -194,11 +194,10 @@ private:
 	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en paramètre. Fini le jeu s'il n'y a plus de joueur.
 	 * @see Player::~Player()
 	 * @see BankCommunication::HasQuit()
-	 * @see ~BankGame()
 	 * @param   p   Pointeur vers le joueur qui quitte le jeu.
 	 * @return  0   si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
-	int quitePlayer(Player *p);
+	int quitPlayer(Player *p);
 
 	/**
 	 * Methode gerant le deroulement d'un tour.
