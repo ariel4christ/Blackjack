@@ -24,7 +24,7 @@ UserGame::UserGame() : player(0), com()
 }
 
 UserGame::~UserGame() {
-    this->ihm.PrintMessage("Vous avez quitté la partie !\nA bientot :)");
+    this->ihm.PrintMessage("~ Vous avez quitté la partie !\n~ A bientot :)");
 }
 
 void UserGame::runGame()
@@ -62,6 +62,7 @@ void UserGame::runGame()
 	else throw runtime_error("Message d'initialisation du solde joueur non recu");
 
 	this->runRound();
+	this->quitGame();
 }
 
 void UserGame::initRound()
@@ -86,10 +87,10 @@ void UserGame::initRound()
 
 void UserGame::quitGame()
 {
+    if (player.getBalance() < betMin);
+        this->ihm.PrintMessage("~ Votre solde est insuffisant pour continuer.\n~ Vous avez perdu :(");
 	this->player.setHand(NULL);
 	this->player.setHand(NULL);
-	this->~UserGame();
-	exit(1);
 }
 
 void UserGame::runRound()
@@ -133,8 +134,13 @@ void UserGame::runRound()
 					this->player.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
 				else
                     this->player.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
+
+                if (this->player.getHand()->isBlackjack() && this->player.getHand2() == NULL)
+                    ihm.PrintMessage("~ BRAVO, vous faites Blackjack !\n~ Attendez la fin du tour...");
 			}
 			com.sendAck();
+
+
 			break;
 
 		case 5: // SetBalance receive
@@ -182,6 +188,7 @@ void UserGame::runRound()
 				else
 					this->player.Surrender(this->player.getHand2());
 			}
+			com.sendAck();
 			break;
 
 		case 9: // HasQuit receive
@@ -190,8 +197,8 @@ void UserGame::runRound()
 			{
 				quit = true;
 			}
-			else this->ihm.PrintMessage("~ Un joueur a quitté le jeu.");
-
+			else
+                cout << "~~~~~ Le joueur " << num_joueur << " a quitté le jeu. ~~~~~" << endl << endl;
 			com.sendAck();
 			break;
 
@@ -236,9 +243,8 @@ void UserGame::runRound()
 					this->player.getHand()->setHand(*hand);
 				else
 					this->player.getHand2()->setHand(*hand);
-
-                com.sendAck();
 			}
+			com.sendAck();
 			break;
 
 		case 14: // ValidSplit receive

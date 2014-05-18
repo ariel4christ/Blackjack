@@ -102,7 +102,7 @@ bool Hand::hasAs()
 
 bool Hand::isBlackjack()
 {
-	if (this->numberOfCards() == 2 && this->getValue1() == 21)
+	if (this->numberOfCards() == 2 && (this->getValue2() == 21 || this->getValue1() == 21))
 		return true;
 
 	return false;

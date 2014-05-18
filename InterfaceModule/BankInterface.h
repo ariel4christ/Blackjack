@@ -16,6 +16,12 @@
 class BankInterface
 {
 public:
+
+    /**
+     * Affiche l'état du jeuavec les joueurs et la banque.
+     * @param   players Liste des joueurs passée par référence.
+     * @param   bank    Banque du jeu passée par référence.
+     */
     void printGameState(std::vector<Player*> &players, Bank &bank);
 
     /**
