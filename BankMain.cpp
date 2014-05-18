@@ -1,3 +1,9 @@
+/**
+ * BankMain.cpp
+ * Main de l'éxécutable Bank.
+ * @author Christophe HUBERT
+ */
+
 #include "BankModule/BankGame.h"
 
 using namespace std;

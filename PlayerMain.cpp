@@ -1,6 +1,11 @@
+/**
+ * PlayerMain.cpp
+ * Main de l'éxécutable Player.
+ */
 #include "UserModule/UserGame.h"
 
 using namespace std;
+
 
 int main(int argc, char const *argv[])
 {
