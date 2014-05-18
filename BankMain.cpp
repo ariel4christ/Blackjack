@@ -82,7 +82,7 @@ int main(int argc, char  *argv[])
 		cout << "Fichiers supprimés! Vous pouvez lancer les programmes Joueur." << endl;
 	}
 
-	cout << "\n\nLorsque tous les programmes joueurs sont lancés pour le 1er tour,\n> Appuillez sur Entrée..." << endl;
+	cout << "\n\nLorsque tous les programmes joueurs sont lancés pour le 1er tour,\n> Appuyez sur Entrée..." << endl;
 	while (getchar() != '\n');
 	getchar();
 	cout << endl << "##################################################" << endl;
