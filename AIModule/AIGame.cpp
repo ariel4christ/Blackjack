@@ -737,7 +737,7 @@ void AIGame::strategy_11(EType type, PlayerHand* myhand) {
 	case SEVEN:
 	case EIGHT:
 	case NINE:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if(!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL){
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -777,7 +777,7 @@ void AIGame::strategy_10(EType type, PlayerHand* myhand) {
 	case SEVEN:
 	case EIGHT:
 	case NINE:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -816,7 +816,7 @@ void AIGame::strategy_9(EType type, PlayerHand* myhand) {
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -1174,7 +1174,7 @@ void AIGame::strategy_5_5(EType type, PlayerHand* myhand) {
 	case SEVEN:
 	case EIGHT:
 	case NINE:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -1404,7 +1404,7 @@ void AIGame::strategy_A_7(EType type, PlayerHand* myhand) {
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -1451,7 +1451,7 @@ void AIGame::strategy_A_6(EType type, PlayerHand* myhand) {
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -1486,7 +1486,7 @@ void AIGame::strategy_A_5(EType type, PlayerHand* myhand) {
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -1521,7 +1521,7 @@ void AIGame::strategy_A_4(EType type, PlayerHand* myhand) {
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -1556,7 +1556,7 @@ void AIGame::strategy_A_3(EType type, PlayerHand* myhand) {
 
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
@@ -1590,7 +1590,7 @@ void AIGame::strategy_A_2(EType type, PlayerHand* myhand) {
 
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
 			this->com.Double();
 			this->aiInterface.choice(this->handValue(myhand), false, false,
 					true, false, false, false);
