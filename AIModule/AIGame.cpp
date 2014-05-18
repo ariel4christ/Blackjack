@@ -24,6 +24,7 @@ AIGame::AIGame() :
 }
 
 AIGame::~AIGame() {
+this->aiInterface.EndGame();
 }
 
 void AIGame::runGame() {
@@ -45,6 +46,7 @@ void AIGame::runGame() {
 			AIGame::betMax = bet_max;
 			com.sendAck();
 		}
+
 	} else
 		throw runtime_error("Erreur reception message PlayerEntered");
 
@@ -56,8 +58,8 @@ void AIGame::runGame() {
 		sscanf(str.c_str(), "%d %d %d", &id_message, &id_player, &balance);
 		if (id == id_player) {
 			ia.setBalance(balance);
-			com.sendAck();
 		}
+		com.sendAck();
 	} else
 		throw runtime_error("Message d'initialisation du solde joueur non recu");
 
@@ -152,6 +154,7 @@ bool AIGame::runRound() {
 						this->ia.getHand()->getBet());
 
 			}
+			com.sendAck();
 			break;
 
 		case 6: // SetBet received
@@ -201,6 +204,7 @@ bool AIGame::runRound() {
 				this->aiInterface.choice(this->handValue(this->ia.getHand()),
 						false, false, false, false, true, false);
 			}
+			com.sendAck();
 			break;
 
 		case 10: // PlayerEntered received
@@ -212,6 +216,7 @@ bool AIGame::runRound() {
 				this->betMax = betMax;
 				this->com.sendAck();
 			}
+			com.sendAck();
 			break;
 
 		case 11: // CreditPlayer received
@@ -261,6 +266,7 @@ bool AIGame::runRound() {
 				this->ia.newHand();
 				this->com.sendAck();
 			}
+			com.sendAck();
 			break;
 
 		case 15: // AskAction received
