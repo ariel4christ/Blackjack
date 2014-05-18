@@ -424,7 +424,7 @@ void BankGame::newPlayer()
 				int id_message;
 				sscanf(str.c_str(), "%d", &id_message);
 				if (id_message != 6)
-					throw runtime_error("Message d'entee joueur incorrect");
+					throw runtime_error("Message d'entrée joueur incorrect");
 				else
 				{
 					com.PlayerEntered(i, player);

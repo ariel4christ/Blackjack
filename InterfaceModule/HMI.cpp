@@ -88,7 +88,7 @@ void HMI::PrintGameState(Player &p, bool hit, bool split, bool doubler, bool sta
 
     if (p.getHand2() != NULL)
     {
-    	cout << "Main 2 : " <<  endl;
+    	cout << "~ Main 2 : " <<  endl;
     	cout << "\tMise : $ " << p.getHand2()->getBet() << endl;
 
 		std::vector<Card*> cards2 = p.getHand2()->getCards();
