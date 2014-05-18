@@ -252,6 +252,8 @@ void UserGame::runRound()
 			if (num_joueur == id)
 			{
 				this->player.newHand();
+				this->player.getHand2()->setBet(this->player.getHand()->getBet());
+            	this->player.decreaseBalance(this->player.getHand2()->getBet());
 			}
 			com.sendAck();
 			break;
