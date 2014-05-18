@@ -67,8 +67,8 @@ BankGame::~BankGame()
 {
 	// Désallocation des cartes restantes dans deck
 	this->clearDeck();
-	cout << "taille player : " << player.size() << endl;
 
+    // Désallocation Bank
     if (bank.getHand() != 0)
         bank.setHand(NULL);
     if (bank.getHiddenCard() != NULL)
@@ -84,6 +84,7 @@ BankGame::~BankGame()
         }
         player.clear();
 	}
+
 	com.CleanFiles();
 
 	cout << endl << "##################################################" << endl;
@@ -605,7 +606,6 @@ int BankGame::quitPlayer(Player *p)
     }
 
     cout << "~~~~~ Le Joueur " << id << " a quitté le jeu ! ~~~~~" << endl << endl;
-
 	if (this->player.size() > 1)
 	{
         // Suppression du joueur de la liste des joueurs
@@ -778,10 +778,12 @@ int BankGame::runRound()
 
         if (player[i]->getBalance() < getBetMin())
 		{
-		    cout << endl << "~ Votre solde est insuffisant pour continuer Joueur" << i;
+		    cout << endl << "~ Votre solde est insuffisant pour continuer Joueur" << i << endl;
             BankInterface::center_output("*** Vous devez quitter le jeu ***", 50);
-		    if (quitPlayer(player[i]) == 0);
+		    if (quitPlayer(player[i]) == 0)
 		        return 0;  // Le jeu est fini car il n'y a plus de joueur
+
+            i--;
 		}
 	}
 

@@ -44,8 +44,8 @@ void UserGame::runGame()
         {
             UserGame::betMin = bet_min;
             UserGame::betMax = bet_max;
-            com.sendAck();
         }
+        com.sendAck();
 	}
 	else throw runtime_error("Erreur reception message PlayerEntered");
 
@@ -138,9 +138,8 @@ void UserGame::runRound()
                 if (this->player.getHand()->isBlackjack() && this->player.getHand2() == NULL)
                     ihm.PrintMessage("~ BRAVO, vous faites Blackjack !\n~ Attendez la fin du tour...");
 			}
-			com.sendAck();
 
-
+			this->com.sendAck();
 			break;
 
 		case 5: // SetBalance receive
@@ -150,7 +149,7 @@ void UserGame::runRound()
 			{
 				this->player.setBalance(balance);
 			}
-			com.sendAck();
+			this->com.sendAck();
 			break;
 
 		case 6: // SetBet receive
@@ -162,7 +161,7 @@ void UserGame::runRound()
                     this->player.newHand(bet);
                 this->player.decreaseBalance(bet);
 			}
-			com.sendAck();
+			this->com.sendAck();
 			break;
 
 		case 7:	// ValidStand receive
@@ -174,9 +173,8 @@ void UserGame::runRound()
 				else if (main == 1)
 					this->player.Stand(this->player.getHand2());
                 else throw runtime_error("erreur numero de main dans validStand");
-
-                com.sendAck();
 			}
+			this->com.sendAck();
 			break;
 
 		case 8: // ValidSurrender receive
@@ -188,7 +186,7 @@ void UserGame::runRound()
 				else
 					this->player.Surrender(this->player.getHand2());
 			}
-			com.sendAck();
+			this->com.sendAck();
 			break;
 
 		case 9: // HasQuit receive
@@ -244,7 +242,7 @@ void UserGame::runRound()
 				else
 					this->player.getHand2()->setHand(*hand);
 			}
-			com.sendAck();
+			this->com.sendAck();
 			break;
 
 		case 14: // ValidSplit receive
@@ -263,22 +261,22 @@ void UserGame::runRound()
 			if (num_joueur == id)
 			{
 				if (!main)
-					this->choseAction(this->player.getHand(), 0);
+					this->chooseAction(this->player.getHand(), 0);
 				else
-					this->choseAction(this->player.getHand2(), 1);
+					this->chooseAction(this->player.getHand2(), 1);
 			}
 			break;
 
         default :
 			throw runtime_error("Erreur id message runGame()");
-
+            break;
 		}
 	}
 
 	this->com.RemoveFiles(id);
 }
 
-void UserGame::choseAction(PlayerHand *myhand, int secHand)
+void UserGame::chooseAction(PlayerHand *myhand, int secHand)
 {
 	bool spliter = false;
 	bool doubler = false;

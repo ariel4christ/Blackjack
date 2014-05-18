@@ -71,7 +71,7 @@ private:
 	 * @param   myHand  Pointeur vers la main pour laquelle on demande une action.
 	 * @param   secHand Entier, vaut 0 si action sur main 1 et 1 si action sur main 2.
 	 */
-	void choseAction(PlayerHand* myhand, int secHand);
+	void chooseAction(PlayerHand* myhand, int secHand);
 
 	void endRound();
 
