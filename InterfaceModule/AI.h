@@ -28,6 +28,7 @@ public:
 	void balanceState(Player& ia);
 	void endRound();
 	void EnterGame(int id);
+	void startRound();
 
     static void center_output(std::string str, int num_cols);
 };
