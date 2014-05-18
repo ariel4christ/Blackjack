@@ -22,7 +22,7 @@ public:
 
 	AIGame();
     ~AIGame();
-	void runGame();
+	void runGame(bool wait);
 
 private:
 
@@ -44,7 +44,7 @@ private:
 	/**
 	 * Permets de jouer un tour
 	 */
-	bool runRound();
+	bool runRound(bool wait);
 
 	/**
 	 * Permet de choisir l'action appropriée à faire
