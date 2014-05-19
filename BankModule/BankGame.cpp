@@ -746,7 +746,7 @@ int BankGame::runRound()
 	cout << "La banque tire à 16 et s'arrete à 17." << endl;
 	cout << "##################################################" << endl;
 
-	while (bank.getHand()->getValue2() < 17 || bank.getHand()->getValue1() < 17)
+	while (bank.getHand()->getValue2() < 17)
 	{
 		c = NULL;
 		c = hitCard();
@@ -814,5 +814,6 @@ int BankGame::runRound()
 
 void BankGame::shuffleDeck()
 {
+	random_shuffle(this->deck.begin(), this->deck.end());
 	random_shuffle(this->deck.begin(), this->deck.end());
 }
