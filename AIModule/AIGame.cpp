@@ -27,7 +27,8 @@ AIGame::~AIGame() {
 this->aiInterface.EndGame();
 }
 
-void AIGame::runGame() {
+void AIGame::runGame(bool wait) {
+
 	this->com.EnterGame();
 	int id = this->ia.getId();
 	this->aiInterface.EnterGame(id);
@@ -86,13 +87,14 @@ void AIGame::runGame() {
             listOfCards.clear();
 		}
 
-		quit = this->runRound();
+		quit = this->runRound(wait);
 	}
 
 	this->quitGame();
 }
 
-bool AIGame::runRound() {
+bool AIGame::runRound( bool wait) {
+
 	int num_joueur, typeCard, typeCard2, argent, main, id_message, idIA;
 	bool endRound = false; /* permet de savoir si le tour est achevé */
 	bool endGame = false; /* permet de savoir si le jeu est achevé */
@@ -116,6 +118,10 @@ bool AIGame::runRound() {
 			this->aiInterface.endRound();
 			this->com.sendAck();
 			hasSplit = false;
+			if(wait){
+				this->aiInterface.nextRound();
+				getchar();
+			}
 			break;
 
 		case 3: // RoundStart received

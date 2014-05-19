@@ -30,6 +30,7 @@ public:
 	void EnterGame(int id);
 	void startRound();
 	void EndGame();
+	void nextRound();
 
     static void center_output(std::string str, int num_cols);
 };

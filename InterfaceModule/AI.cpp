@@ -168,6 +168,13 @@ void AI::EndGame()
 
 }
 
+void AI::nextRound()
+{
+	center_output("\n\n Appuyer sur Entrer pour passer au prochain tour!",50);
+}
+
+
+
 
 
 
