@@ -118,9 +118,10 @@ bool AIGame::runRound( bool wait) {
 			this->aiInterface.endRound();
 			this->com.sendAck();
 			hasSplit = false;
-			if(wait){
+			if (wait)
+			{
 				this->aiInterface.nextRound();
-				getchar();
+				while (getchar() != '\n');
 			}
 			break;
 

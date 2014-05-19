@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
 	AI::center_output("******* Blackjack *******", 50);
 	cout << endl << "En attente de la Banque..." << endl;
 	cout << endl << "##################################################" << endl << endl;
-	if(strcmp(argv[1],"-v") == 0){
+	if(argc >= 2 && strcmp(argv[1],"-v") == 0){
 		wait=true;
 		AI::center_output("##################################################",50);
 		AI::center_output("~~~ MODE INTERACTIF ~~~~",50);
