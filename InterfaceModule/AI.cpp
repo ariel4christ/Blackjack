@@ -1,6 +1,7 @@
 /**
  * AI.cpp
  * @author Ariel NONO
+ * @author Ali SIF
  */
 
 #include "AI.h"
@@ -28,17 +29,22 @@ void AI::stateCards(Player& ia){
 	center_output("\n##################################################\n" ,50);
 	std::vector<Card*>  myCards;
 
-	cout<<" Les cartes de l'IA :"<<endl;
+    cout<<"~ Joueur " << ia.getId() << " : IA " << endl;
+
 
 	if(ia.getHand() != NULL){
-		cout << "\n ___Main 1___\n" <<  endl;
+        cout << endl << "~ Main 1" <<endl<<endl;
+
 		myCards = ia.getHand()->getCards();
+
+        cout << "~ Cartes :";
 
 		for (vector<Card*>::iterator it = myCards.begin(); it != myCards.end(); it++)
 	    {
 	        cout <<" "<< (*it)->getStringRepresentation() << " ";
 	    }
-		cout<<""<<endl<<endl;
+
+        cout<<" ";
 	    cout << " Valeur : " << ia.getHand()->getValue2();
 
 	    if (ia.getHand()->getValue2() != ia.getHand()->getValue1())
@@ -71,8 +77,8 @@ void AI::stateCards(Player& ia){
 void AI::stateBalanceBet(Player & ia,int bet)
 {
 	center_output("\n##################################################\n" ,50);
-	cout<< "\n Solde:\t"<<ia.getBalance()<<endl<<endl;
-	cout<<" L'IA mise :\t $"<<bet<<endl<<endl;
+    cout<< "\n > Solde de l'IA :\t"<<ia.getBalance()<<endl<<endl;
+    cout<<" > L'IA mise :\t $"<<bet<<endl<<endl;
 }
 
 void AI::choice(int hand,bool hit, bool stand, bool Double, bool split,bool quit,bool surrender)
@@ -134,10 +140,11 @@ void AI::center_output(std::string str, int num_cols)
     std::cout << str << endl;
 }
 
-void AI::endRound()
+void AI::endRound(Player &ia)
 {
 	center_output("\n##################################################\n\n" ,50);
-	center_output("Fin de Tour",50);
+    center_output("Fin de Tour les Resultats sont affichés sur la Banque.",50);
+    cout<<" Nouveau solde :\t$"<<ia.getBalance()<<endl<<endl;
 	center_output("\n##################################################" ,50);
 
 }
@@ -145,7 +152,7 @@ void AI::endRound()
 void AI::startRound()
 {
 	center_output("\n\n##################################################\n" ,50);
-	center_output("Nouveau Tour",50);
+    center_output("Debut du Tour suivant",50);
 
 
 }
@@ -160,7 +167,7 @@ void AI::EnterGame(int id)
     cout << "##################################################" << endl << endl;
 }
 
-void AI::EndGame()
+void AI::endGame()
 {
 	center_output("\n##################################################\n\n" ,50);
 	center_output("L'IA quitte le Jeu !",50);

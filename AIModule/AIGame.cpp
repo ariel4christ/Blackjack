@@ -24,7 +24,7 @@ AIGame::AIGame() :
 }
 
 AIGame::~AIGame() {
-this->aiInterface.EndGame();
+this->aiInterface.endGame();
 }
 
 void AIGame::runGame(bool wait) {
@@ -115,7 +115,7 @@ bool AIGame::runRound( bool wait) {
 
 		case 2: // EndRound received
 			endRound = true;
-			this->aiInterface.endRound();
+			this->aiInterface.endRound(this->ia);
 			this->com.sendAck();
 			hasSplit = false;
 			if (wait)
@@ -177,6 +177,7 @@ bool AIGame::runRound( bool wait) {
 				this->ia.getHand()->setBet(bet);
 				this->previousBets.push_back(bet);
 				this->aiInterface.stateBalanceBet(this->ia, bet);
+                this->ia.decreaseBalance(bet);
 			}
 			this->com.sendAck();
 			break;

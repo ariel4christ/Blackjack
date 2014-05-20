@@ -22,6 +22,7 @@ int HMI::getBet(Player &p)
 
     cout << endl << "##################################################" << endl << endl;
     center_output("*** Nouveau Tour ***", 50);
+    cout << endl << "##################################################" << endl << endl;
     cout << endl;
 
 	do
@@ -189,10 +190,10 @@ bool HMI::insurrance(Player &player)
  */
 void HMI::PrintEndRound(Player &p)
 {
+
     cout << endl << "##################################################" << endl << endl;
     cout << "Fin du Tour. Les résulats sont affichés dans la banque." << endl;
-    cout << "Nouveau solde : $" << p.getBalance() << endl << endl;
-    cout << "Début du tour suivant..." << endl << endl;
+    cout << "Nouveau solde : $ " << p.getBalance() << endl << endl;
     cout << "##################################################" << endl << endl;
 }
 
