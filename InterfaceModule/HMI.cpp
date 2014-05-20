@@ -190,9 +190,8 @@ bool HMI::insurrance(Player &player)
  */
 void HMI::PrintEndRound(Player &p)
 {
-
     cout << endl << "##################################################" << endl << endl;
-    cout << "Fin du Tour. Les résulats sont affichés dans la banque." << endl;
+    cout << "Fin du Tour. Les résulats sont affichés dans la Banque." << endl;
     cout << "Nouveau solde : $ " << p.getBalance() << endl << endl;
     cout << "##################################################" << endl << endl;
 }
