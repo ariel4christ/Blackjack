@@ -1,15 +1,17 @@
-all: Bank Player Ia
-
 objDir = obj
+
+
+all: $(objDir) Bank Player Ia
+
 
 Bank : $(objDir)/BankMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/BankCommunication.o $(objDir)/BankInterface.o $(objDir)/BankGame.o
 	g++ -g -o Bank $(objDir)/BankMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/BankCommunication.o $(objDir)/BankInterface.o $(objDir)/BankGame.o
 
 Player : $(objDir)/PlayerMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/HMI.o $(objDir)/UserGame.o
 	g++ -g -o Player $(objDir)/PlayerMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/HMI.o $(objDir)/UserGame.o
-	
-Ia: $(objDir)/IaMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/AIGame.o $(objDir)/AI.o 
-	g++ -g -o Ia $(objDir)/IaMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/AIGame.o $(objDir)/AI.o 
+
+Ia: $(objDir)/IaMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/AIGame.o $(objDir)/AI.o
+	g++ -g -o Ia $(objDir)/IaMain.o $(objDir)/Bank.o $(objDir)/Card.o $(objDir)/Hand.o $(objDir)/Participant.o $(objDir)/Player.o $(objDir)/PlayerHand.o $(objDir)/PlayerCommunication.o $(objDir)/AIGame.o $(objDir)/AI.o
 
 
 
@@ -19,7 +21,7 @@ $(objDir)/BankMain.o : BankMain.cpp
 
 $(objDir)/PlayerMain.o : PlayerMain.cpp
 	g++ -g -c -o $(objDir)/PlayerMain.o PlayerMain.cpp
-	
+
 $(objDir)/IaMain.o : IaMain.cpp
 	g++ -g -c -o $(objDir)/IaMain.o IaMain.cpp
 
@@ -67,4 +69,12 @@ $(objDir)/BankGame.o : BankModule/BankGame.h BankModule/BankGame.cpp
 
 $(objDir)/AIGame.o : AIModule/AIGame.h AIModule/AIGame.cpp
 	g++ -g -c -o $(objDir)/AIGame.o AIModule/AIGame.cpp
-	
+
+
+
+$(objDir) :
+	mkdir -p $(objDir)
+
+
+clean:
+	rm -rf obj/
