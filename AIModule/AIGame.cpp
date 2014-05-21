@@ -109,12 +109,16 @@ bool AIGame::runRound( bool wait) {
 		{
 
 		case 1:// AskInsurance received
-            if(trueCountCard()>= 3){
+            if (trueCountCard()>= 3)
+            {
                 this->com.RespondInsurance(1);
+                this->ia.decreaseBalance(this->ia.getHand()->getBet() / 2);
                 this->aiInterface.insurrance(1);
-            }else{
-			this->com.RespondInsurance(0);
-			this->aiInterface.insurrance(0);
+            }
+            else
+            {
+				this->com.RespondInsurance(0);
+				this->aiInterface.insurrance(0);
 			}
 			break;
 
@@ -137,8 +141,7 @@ bool AIGame::runRound( bool wait) {
 			break;
 
 		case 4: // SendCard received
-			sscanf(this->message.c_str(), "%d %d %d %d", &id_message,
-					&num_joueur, &typeCard, &main);
+			sscanf(this->message.c_str(), "%d %d %d %d", &id_message, &num_joueur, &typeCard, &main);
 
 			if (num_joueur == idIA)
 			{
@@ -148,7 +151,8 @@ bool AIGame::runRound( bool wait) {
 					this->ia.getHand2()->addCard(new Card(static_cast<EType> (typeCard)));
 
 			}
-			else {
+			else
+			{
 				if (num_joueur == 4 && typeCard != 0)  // reception de la carte de la banque
 					this->bankCard.setType(static_cast<EType> (typeCard));
 			}
@@ -164,7 +168,8 @@ bool AIGame::runRound( bool wait) {
 
 			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &balance);
 
-			if (num_joueur == idIA) {
+			if (num_joueur == idIA)
+			{
 				this->ia.setBalance(balance);
 				this->aiInterface.stateBalanceBet(this->ia,
                 this->ia.getHand()->getBet());
@@ -181,8 +186,8 @@ bool AIGame::runRound( bool wait) {
 			{
 				this->ia.getHand()->setBet(bet);
 				this->previousBets.push_back(bet);
+				this->ia.decreaseBalance(bet);
 				this->aiInterface.stateBalanceBet(this->ia, bet);
-                this->ia.decreaseBalance(bet);
 			}
 			this->com.sendAck();
 			break;
@@ -235,26 +240,25 @@ bool AIGame::runRound( bool wait) {
 			break;
 
 		case 11: // CreditPlayer received
-			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,
-					&argent);
-			if (num_joueur == idIA) {
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &argent);
+			if (num_joueur == idIA)
+			{
 				this->ia.increaseBalance(argent);
 				this->aiInterface.balanceState(this->ia);
 			}
 			break;
 
 		case 12: // DebitPlayer received
-			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur,
-					&argent);
-			if (num_joueur == idIA) {
+			sscanf(this->message.c_str(), "%d %d %d", &id_message, &num_joueur, &argent);
+			if (num_joueur == idIA)
+			{
 				this->ia.decreaseBalance(argent);
 				this->aiInterface.balanceState(this->ia);
 			}
 			break;
 
 		case 13: // SetHand received
-			sscanf(this->message.c_str(), "%d %d %d %d %d ", &id_message,
-					&num_joueur, &main, &typeCard, &typeCard2);
+			sscanf(this->message.c_str(), "%d %d %d %d %d ", &id_message, &num_joueur, &main, &typeCard, &typeCard2);
 			if (num_joueur == idIA)
 			{
 				/* construction d'une main a partir des cartes recues*/

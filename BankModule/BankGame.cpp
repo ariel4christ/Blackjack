@@ -345,8 +345,9 @@ int BankGame::insurance()
 				player[i]->increaseBalance(player[i]->getHand()->getBet());  // Augmentaion solde joueur : on le rembourse
 				com.setBalance(id, player[i]->getBalance());  // Mise à jour solde exe joueur
 				com.ReceiveAck(id);
-
 			}
+            else // La banque récupère la mise du joueur
+                bank.increaseBalance(player[i]->getHand()->getBet());
 
             player[i]->setHand(NULL);
 
@@ -359,6 +360,7 @@ int BankGame::insurance()
 		bank.setHiddenCard(NULL);
 
 		cout << "LE TOUR EST FINI" << endl;
+        cout << endl << "Le solde de la Banque est de $ " << bank.getBalance() << endl << endl;
 		cout << endl << "##################################################" << endl;
 
 		return 0;  // Le tour est fini
@@ -367,6 +369,7 @@ int BankGame::insurance()
 	else
 	{
 		cout << "~ La Banque ne fait pas Blackjack" << endl << "*** Les assurance sont perdues ! ***" << endl;
+        cout << endl << "Le solde de la Banque est de $ " << bank.getBalance() << endl << endl;
 		cout << "##################################################" << endl;
 
 		return 1;  // Le tour continu

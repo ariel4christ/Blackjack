@@ -111,7 +111,10 @@ void UserGame::runRound()
 
 		case 1:// AskInsurance receive
 			if (this->ihm.insurrance(this->player))
+			{
 				this->com.RespondInsurance(1);
+				this->player.decreaseBalance(this->player.getHand()->getBet() / 2);
+			}
 			else
 				this->com.RespondInsurance(0);
 			break;
