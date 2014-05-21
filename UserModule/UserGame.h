@@ -37,19 +37,37 @@ public:
 	 */
 	void runGame();
 
-	PlayerCommunication& getCom() { return this->com; }
+	PlayerCommunication& getCom()
+	{
+		return this->com;
+	}
 
-	Player& getPlayer() { return this->player; }
+	Player& getPlayer()
+	{
+		return this->player;
+	}
 
-	static int getBetMin() { return UserGame::betMin; }
-	static int getBetMax() { return UserGame::betMax; }
+	static int getBetMin()
+	{
+		return UserGame::betMin;
+	}
+	static int getBetMax()
+	{
+		return UserGame::betMax;
+	}
 
-	static void setBetMin(int i) { betMin = i; }
-	static void setBetMax(int i) { betMax = i; }
+	static void setBetMin(int i)
+	{
+		betMin = i;
+	}
+	static void setBetMax(int i)
+	{
+		betMax = i;
+	}
 
 private:
-	static int betMin;  /**< Entier. Mise minimale.*/
-	static int betMax;  /**< Entier. Mise maximale.*/
+	static int betMin; /**< Entier. Mise minimale.*/
+	static int betMax; /**< Entier. Mise maximale.*/
 
 	Player player; /**< Player. Joueur courant. */
 	PlayerCommunication com; /**< PlayerCommunication. Objet permettant la communication entre l'exécutable joueurs et l'exécutable bank. */

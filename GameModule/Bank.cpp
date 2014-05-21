@@ -8,16 +8,15 @@
 using namespace std;
 
 Bank::Bank(int bankBalance) :
-	Participant(bankBalance),
-	hiddenCard(NULL)
+		Participant(bankBalance), hiddenCard(NULL)
 {
-    this->hand = NULL;
+	this->hand = NULL;
 }
 
 Bank::~Bank()
 {
-    if (this->getHand() != NULL)
-        this->setHand(NULL);
+	if (this->getHand() != NULL)
+		this->setHand(NULL);
 }
 
 void Bank::newHand()
@@ -26,8 +25,9 @@ void Bank::newHand()
 	{
 		this->hand = new Hand();
 		this->hand->getCards().clear();
-    }
-	else throw runtime_error("Main déjà existante");
+	}
+	else
+		throw runtime_error("Main dï¿½jï¿½ existante");
 }
 
 void Bank::deleteHand()
@@ -39,9 +39,9 @@ void Bank::deleteHand()
 
 bool Bank::isBankBlackjack()
 {
-    Hand tmp;
-    tmp.addCard(this->hand->getCard(0));
-    tmp.addCard(this->hiddenCard);
+	Hand tmp;
+	tmp.addCard(this->hand->getCard(0));
+	tmp.addCard(this->hiddenCard);
 
 	if (hand->numberOfCards() == 2 && tmp.getValue2() == 21)
 		return true;

@@ -7,11 +7,11 @@
 #define _PLAYERHAND_H
 #include "Hand.h"
 
-class PlayerHand : public Hand
+class PlayerHand: public Hand
 {
 protected:
-	int bet;  /**< Entier Mise du joueur. */
-	bool stand ;  /**< Booléen. Vrai si le joueur ne veut plus de carte pour cette main, faux sinon. */
+	int bet; /**< Entier Mise du joueur. */
+	bool stand; /**< Booléen. Vrai si le joueur ne veut plus de carte pour cette main, faux sinon. */
 
 public:
 

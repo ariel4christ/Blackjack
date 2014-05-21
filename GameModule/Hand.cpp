@@ -8,10 +8,9 @@
 
 using namespace std;
 
-
 Hand::Hand()
 {
-    this->cards.clear();
+	this->cards.clear();
 }
 
 Hand::Hand(Card& c)
@@ -33,7 +32,6 @@ Hand::~Hand()
 {
 }
 
-
 int Hand::numberOfCards()
 {
 	return this->cards.size();
@@ -53,7 +51,8 @@ int Hand::getValue2()
 	if (this->isMultiValued() == false)
 		return this->getValue1();
 
-	else return this->getValue1() + 10;
+	else
+		return this->getValue1() + 10;
 }
 
 vector<Card*>& Hand::getCards()
@@ -65,7 +64,8 @@ Card* Hand::getCard(unsigned int i)
 {
 	if (i >= this->cards.size())
 		throw runtime_error("Impossible d'accéder à cette carte de la main");
-	else return this->cards[i];
+	else
+		return this->cards[i];
 }
 
 void Hand::addCard(Card *c)
@@ -75,7 +75,6 @@ void Hand::addCard(Card *c)
 
 	this->cards.push_back(c);
 }
-
 
 bool Hand::isMultiValued()
 {
@@ -112,20 +111,21 @@ bool Hand::isPair()
 {
 	if (this->cards[0]->getType() == this->cards[1]->getType() && this->numberOfCards() == 2)
 		return true;
-	else return false;
+	else
+		return false;
 }
 
 void Hand::deleteHand()
 {
-    if (!this->cards.empty())
-    {
-        //for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
-        for(unsigned int i = 0 ; i < cards.size(); ++i)
-        {
-            delete cards[i];
-            cards[i] = NULL;
-        }
-        this->cards.clear();
+	if (!this->cards.empty())
+	{
+		//for (vector<Card*>::iterator it = this->cards.begin(); it != this->cards.end(); it++)
+		for (unsigned int i = 0; i < cards.size(); ++i)
+		{
+			delete cards[i];
+			cards[i] = NULL;
+		}
+		this->cards.clear();
 	}
 }
 

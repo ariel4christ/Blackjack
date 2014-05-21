@@ -11,18 +11,18 @@
 #include "Participant.h"
 #include <stdexcept>
 
-class Player : public Participant
+class Player: public Participant
 {
 
 private:
-	int id;  /**< Entier. Identifiant du joueur. */
-	bool blackjack ;  /**< Booléen. Vrai si le joueur fait blackjack, faux sinon. */
-	bool insurance;  /**< Booléen. Vrai si le joueur a pris une assurance, faux sinon. */
-	bool surrender ;  /**< Booléen. Vrai di le joueur a abandonné ses deux main, faux sinon. */
+	int id; /**< Entier. Identifiant du joueur. */
+	bool blackjack; /**< Booléen. Vrai si le joueur fait blackjack, faux sinon. */
+	bool insurance; /**< Booléen. Vrai si le joueur a pris une assurance, faux sinon. */
+	bool surrender; /**< Booléen. Vrai di le joueur a abandonné ses deux main, faux sinon. */
 
 protected:
-	PlayerHand *hand;  /**< Pointeur vers Hand. Main principale du joueur. */
-	PlayerHand *hand2;  /**< Pointeur vers Hand. Seconde main si le joueur sépare sa main principale. */
+	PlayerHand *hand; /**< Pointeur vers Hand. Main principale du joueur. */
+	PlayerHand *hand2; /**< Pointeur vers Hand. Seconde main si le joueur sépare sa main principale. */
 
 public:
 
@@ -47,12 +47,18 @@ public:
 	~Player();
 
 	/**
-	* Getteur de id.
-	* @return Entier id du joueur.
-	*/
-	inline int getId() { return id; }
+	 * Getteur de id.
+	 * @return Entier id du joueur.
+	 */
+	inline int getId()
+	{
+		return id;
+	}
 
-	inline void setId(int id) { this->id = id; }
+	inline void setId(int id)
+	{
+		this->id = id;
+	}
 
 	/**
 	 * Méthode créant une nouvelle main. Méthode virtuelle héritée de Participant.
@@ -61,10 +67,10 @@ public:
 	virtual void newHand();
 
 	/**
-	* Méthode créant une nouvelle main avec une mise en paramètre.
-	* @see Hand::Hand(int i)
-	* @param i	Mise de la main.
-	*/
+	 * Méthode créant une nouvelle main avec une mise en paramètre.
+	 * @see Hand::Hand(int i)
+	 * @param i	Mise de la main.
+	 */
 	void newHand(int i);
 
 	/**
@@ -99,53 +105,64 @@ public:
 	void setBlackjack(bool b);
 
 	/**
-	* Getteur de surrender.
-	* @return Booléen.
-	*/
+	 * Getteur de surrender.
+	 * @return Booléen.
+	 */
 	bool getSurrender();
 
 	/**
-	* Setteur de surrender.
-	* @param b Nouvelle valeur de surrender.
-	*/
+	 * Setteur de surrender.
+	 * @param b Nouvelle valeur de surrender.
+	 */
 	void setSurrender(bool b);
 
 	/**
-	* Getteur de hand.
-	* @return Pointeur vers hand.
-	*/
-	inline PlayerHand* getHand() { return this->hand;  }
+	 * Getteur de hand.
+	 * @return Pointeur vers hand.
+	 */
+	inline PlayerHand* getHand()
+	{
+		return this->hand;
+	}
 
 	/**
-	* Getteur de hand2.
-	* @return Pointeur vers hand2.
-	*/
-	inline PlayerHand* getHand2() { return this->hand2; }
+	 * Getteur de hand2.
+	 * @return Pointeur vers hand2.
+	 */
+	inline PlayerHand* getHand2()
+	{
+		return this->hand2;
+	}
 
 	/**
 	 * Méthode qui retourne VRAI si le joueur a pris une assurance, FAUX sinon.
 	 * @return Booleen.
 	 */
-	inline bool hasInsurance() { return this->insurance; }
+	inline bool hasInsurance()
+	{
+		return this->insurance;
+	}
 
 	/**
-	* Méthode qui désalloue les cartes de la main 1 et la remplace par la main en paramètre.
-	* @param h Nouvelle main.
-	*/
+	 * Méthode qui désalloue les cartes de la main 1 et la remplace par la main en paramètre.
+	 * @param h Nouvelle main.
+	 */
 	void setHand(PlayerHand *h);
 
 	/**
-	* Méthode qui désalloue les cartes de la main 2 et la remplace par la main en paramètre.
-	* @param h Nouvelle main.
-	*/
+	 * Méthode qui désalloue les cartes de la main 2 et la remplace par la main en paramètre.
+	 * @param h Nouvelle main.
+	 */
 	void setHand2(PlayerHand *h);
 
 	/**
 	 * Setteur de l'attribut inssurance.
 	 * @param b Booleen valeur de insurance.
 	 */
-	inline void setInsurance(bool b) { this->insurance = b; }
-
+	inline void setInsurance(bool b)
+	{
+		this->insurance = b;
+	}
 
 protected:
 

@@ -16,7 +16,7 @@ void Participant::increaseBalance(int i)
 }
 
 Participant::Participant(int b) :
-balance(b)
+		balance(b)
 {
 }
 

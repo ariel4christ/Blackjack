@@ -12,7 +12,8 @@ int AIGame::betMax = 100;
 bool hasSplit = false;
 
 AIGame::AIGame() :
-	previousBets(), listOfCards(), ia(0, 0), com(), bankCard(NaN) {
+		previousBets(), listOfCards(), ia(0, 0), com(), bankCard(NaN)
+{
 	int id = this->com.CheckFiles();
 
 	if (id == -1)
@@ -23,11 +24,13 @@ AIGame::AIGame() :
 
 }
 
-AIGame::~AIGame() {
-this->aiInterface.endGame();
+AIGame::~AIGame()
+{
+	this->aiInterface.endGame();
 }
 
-void AIGame::runGame(bool wait) {
+void AIGame::runGame(bool wait)
+{
 
 	this->com.EnterGame();
 	int id = this->ia.getId();
@@ -40,33 +43,38 @@ void AIGame::runGame(bool wait) {
 	if (id_message == 10) // Message PlayerEntered
 	{
 		int id_player, bet_min, bet_max;
-		sscanf(str.c_str(), "%d %d %d %d", &id_message, &id_player, &bet_min,
-				&bet_max);
-		if (id == id_player) {
+		sscanf(str.c_str(), "%d %d %d %d", &id_message, &id_player, &bet_min, &bet_max);
+		if (id == id_player)
+		{
 			AIGame::betMin = bet_min;
 			AIGame::betMax = bet_max;
 			com.sendAck();
 		}
 
-	} else
+	}
+	else
 		throw runtime_error("Erreur reception message PlayerEntered");
 
 	str = com.ReadFile();
 
 	sscanf(str.c_str(), "%d", &id_message);
-	if (id_message == 5) {
+	if (id_message == 5)
+	{
 		int id_player, balance;
 		sscanf(str.c_str(), "%d %d %d", &id_message, &id_player, &balance);
-		if (id == id_player) {
+		if (id == id_player)
+		{
 			ia.setBalance(balance);
 		}
 		com.sendAck();
-	} else
+	}
+	else
 		throw runtime_error("Message d'initialisation du solde joueur non recu");
 
 	bool quit = false; // variable permettant de quitter le jeu
 
-	while (!quit) {
+	while (!quit)
+	{
 		this->ia.setInsurance(false);
 		this->ia.setBlackjack(false);
 		this->ia.setInsurance(false);
@@ -82,9 +90,9 @@ void AIGame::runGame(bool wait) {
 
 		if (listOfCards.size() >= 307)
 		{
-            for (vector<Card>::iterator it = listOfCards.begin() ; it != listOfCards.end() ; ++it)
-                (*it).~Card();
-            listOfCards.clear();
+			for (vector<Card>::iterator it = listOfCards.begin(); it != listOfCards.end(); ++it)
+				(*it).~Card();
+			listOfCards.clear();
 		}
 
 		quit = this->runRound(wait);
@@ -93,7 +101,8 @@ void AIGame::runGame(bool wait) {
 	this->quitGame();
 }
 
-bool AIGame::runRound( bool wait) {
+bool AIGame::runRound(bool wait)
+{
 
 	int num_joueur, typeCard, typeCard2, argent, main, id_message, idIA;
 	bool endRound = false; /* permet de savoir si le tour est achevé */
@@ -108,15 +117,15 @@ bool AIGame::runRound( bool wait) {
 		switch (id_message)
 		{
 
-		case 1:// AskInsurance received
-            if (trueCountCard()>= 3)
-            {
-                this->com.RespondInsurance(1);
-                this->ia.decreaseBalance(this->ia.getHand()->getBet() / 2);
-                this->aiInterface.insurrance(1);
-            }
-            else
-            {
+		case 1: // AskInsurance received
+			if (trueCountCard() >= 3)
+			{
+				this->com.RespondInsurance(1);
+				this->ia.decreaseBalance(this->ia.getHand()->getBet() / 2);
+				this->aiInterface.insurrance(1);
+			}
+			else
+			{
 				this->com.RespondInsurance(0);
 				this->aiInterface.insurrance(0);
 			}
@@ -130,14 +139,15 @@ bool AIGame::runRound( bool wait) {
 			if (wait)
 			{
 				this->aiInterface.nextRound();
-				while (getchar() != '\n');
+				while (getchar() != '\n')
+					;
 			}
 			break;
 
 		case 3: // RoundStart received
 			endRound = false;
 			this->aiInterface.startRound();
-            this->com.Bet(this->getBet());
+			this->com.Bet(this->getBet());
 			break;
 
 		case 4: // SendCard received
@@ -146,19 +156,19 @@ bool AIGame::runRound( bool wait) {
 			if (num_joueur == idIA)
 			{
 				if (!main)
-					this->ia.getHand()->addCard(new Card(static_cast<EType> (typeCard)));
+					this->ia.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
 				else
-					this->ia.getHand2()->addCard(new Card(static_cast<EType> (typeCard)));
+					this->ia.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
 
 			}
 			else
 			{
 				if (num_joueur == 4 && typeCard != 0)  // reception de la carte de la banque
-					this->bankCard.setType(static_cast<EType> (typeCard));
+					this->bankCard.setType(static_cast<EType>(typeCard));
 			}
 
 			if (typeCard != NaN)
-				this->listOfCards.push_back(Card(static_cast<EType> (typeCard))); // recupere les cartes de tous les joueurs les siennes comprises
+				this->listOfCards.push_back(Card(static_cast<EType>(typeCard))); // recupere les cartes de tous les joueurs les siennes comprises
 
 			this->com.sendAck();
 			break;
@@ -171,8 +181,7 @@ bool AIGame::runRound( bool wait) {
 			if (num_joueur == idIA)
 			{
 				this->ia.setBalance(balance);
-				this->aiInterface.stateBalanceBet(this->ia,
-                this->ia.getHand()->getBet());
+				this->aiInterface.stateBalanceBet(this->ia, this->ia.getHand()->getBet());
 
 			}
 			this->com.sendAck();
@@ -222,8 +231,7 @@ bool AIGame::runRound( bool wait) {
 			{
 				endGame = true;
 				endRound = true;
-				this->aiInterface.choice(this->handValue(this->ia.getHand()),
-						false, false, false, false, true, false);
+				this->aiInterface.choice(this->handValue(this->ia.getHand()), false, false, false, false, true, false);
 			}
 			com.sendAck();
 			break;
@@ -264,11 +272,11 @@ bool AIGame::runRound( bool wait) {
 				/* construction d'une main a partir des cartes recues*/
 				Hand hand;
 
-				hand.addCard(new Card(static_cast<EType> (typeCard)));
-				hand.addCard(new Card(static_cast<EType> (typeCard2)));
+				hand.addCard(new Card(static_cast<EType>(typeCard)));
+				hand.addCard(new Card(static_cast<EType>(typeCard2)));
 
-				this->listOfCards.push_back(Card(static_cast<EType> (typeCard)));
-				this->listOfCards.push_back(Card(static_cast<EType> (typeCard2)));
+				this->listOfCards.push_back(Card(static_cast<EType>(typeCard)));
+				this->listOfCards.push_back(Card(static_cast<EType>(typeCard2)));
 
 				if (!main)
 					this->ia.getHand()->setHand(hand);
@@ -300,7 +308,7 @@ bool AIGame::runRound( bool wait) {
 			}
 			break;
 
-        default :
+		default:
 			throw runtime_error("Erreur id message runRound()");
 			break;
 		}  // Fin switch
@@ -370,12 +378,12 @@ void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 	else if (isSpecial(myhand) && isEqual(type1, type2, AS, AS))
 		this->strategy_A_A(this->bankCard.getType(), myhand);
 
-	else if (isSpecial(myhand) && (isEqual(type1, type2, KING, KING)
-			|| isEqual(type1, type2, KING, QUEEN) || isEqual(type1, type2,
-			KING, JACK) || isEqual(type1, type2, KING, TEN) || isEqual(type1,
-			type2, QUEEN, QUEEN) || isEqual(type1, type2, QUEEN, JACK)
-			|| isEqual(type1, type2, QUEEN, TEN) || isEqual(type1, type2, JACK,
-			JACK) || isEqual(type1, type2, TEN, TEN)))
+	else if (isSpecial(myhand)
+			&& (isEqual(type1, type2, KING, KING) || isEqual(type1, type2, KING, QUEEN)
+					|| isEqual(type1, type2, KING, JACK) || isEqual(type1, type2, KING, TEN)
+					|| isEqual(type1, type2, QUEEN, QUEEN) || isEqual(type1, type2, QUEEN, JACK)
+					|| isEqual(type1, type2, QUEEN, TEN) || isEqual(type1, type2, JACK, JACK)
+					|| isEqual(type1, type2, TEN, TEN)))
 		this->strategy_10_10(this->bankCard.getType(), myhand);
 
 	else if (isSpecial(myhand) && isEqual(type1, type2, NINE, NINE))
@@ -402,9 +410,9 @@ void AIGame::chooseAction(PlayerHand* myhand) // basee sur la "basic strategy"
 	else if (isSpecial(myhand) && isEqual(type1, type2, TWO, TWO))
 		this->strategy_2_2(this->bankCard.getType(), myhand);
 
-	else if (isSpecial(myhand) && (isEqual(type1, type2, AS, KING) || isEqual(
-			type1, type2, AS, QUEEN) || isEqual(type1, type2, AS, JACK)
-			|| isEqual(type1, type2, AS, TEN)))
+	else if (isSpecial(myhand)
+			&& (isEqual(type1, type2, AS, KING) || isEqual(type1, type2, AS, QUEEN) || isEqual(type1, type2, AS, JACK)
+					|| isEqual(type1, type2, AS, TEN)))
 		this->strategy_A_10(this->bankCard.getType(), myhand);
 
 	else if (isSpecial(myhand) && isEqual(type1, type2, AS, NINE))
@@ -449,51 +457,7 @@ void AIGame::strategy_21(EType type, PlayerHand* myhand)
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
-		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
-		break;
-
-	}
-}
-
-void AIGame::strategy_20(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
-
-	case NaN:
-		throw runtime_error("carte de la banque non recu ");
-		break;
-
-	default :
-		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
-		break;
-	}
-}
-
-void AIGame::strategy_19(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
-
-	case NaN:
-		throw runtime_error("carte de la banque non recu ");
-		break;
-
-	default :
-		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
-		break;
-	}
-}
-
-void AIGame::strategy_18(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
-
-	case NaN:
-		throw runtime_error("carte de la banque non recu ");
-		break;
-
-	default :
+	default:
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
@@ -501,14 +465,48 @@ void AIGame::strategy_18(EType type, PlayerHand* myhand) {
 	}
 }
 
-void AIGame::strategy_17(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_20(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
+	default:
+		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
+		break;
+	}
+}
+
+void AIGame::strategy_19(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
+
+	case NaN:
+		throw runtime_error("carte de la banque non recu ");
+		break;
+
+	default:
+		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
+		break;
+	}
+}
+
+void AIGame::strategy_18(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
+
+	case NaN:
+		throw runtime_error("carte de la banque non recu ");
+		break;
+
+	default:
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
@@ -516,8 +514,27 @@ void AIGame::strategy_17(EType type, PlayerHand* myhand) {
 	}
 }
 
-void AIGame::strategy_16(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_17(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
+
+	case NaN:
+		throw runtime_error("carte de la banque non recu ");
+		break;
+
+	default:
+		this->com.Stand(this->handValue(myhand));
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
+		break;
+
+	}
+}
+
+void AIGame::strategy_16(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -529,8 +546,7 @@ void AIGame::strategy_16(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	case SEVEN:
@@ -542,15 +558,16 @@ void AIGame::strategy_16(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_15(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_15(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -562,8 +579,7 @@ void AIGame::strategy_15(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	case SEVEN:
@@ -575,14 +591,15 @@ void AIGame::strategy_15(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 	}
 }
 
-void AIGame::strategy_14(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_14(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -594,8 +611,7 @@ void AIGame::strategy_14(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	case SEVEN:
@@ -607,14 +623,15 @@ void AIGame::strategy_14(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 	}
 }
 
-void AIGame::strategy_13(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_13(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -626,8 +643,7 @@ void AIGame::strategy_13(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	case SEVEN:
@@ -639,14 +655,15 @@ void AIGame::strategy_13(EType type, PlayerHand* myhand) {
 	case KING:
 	case AS:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 	}
 }
 
-void AIGame::strategy_12(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_12(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -656,8 +673,7 @@ void AIGame::strategy_12(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	case TWO:
@@ -671,14 +687,15 @@ void AIGame::strategy_12(EType type, PlayerHand* myhand) {
 	case KING:
 	case AS:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 	}
 }
 
-void AIGame::strategy_11(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_11(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -686,8 +703,7 @@ void AIGame::strategy_11(EType type, PlayerHand* myhand) {
 
 	case AS:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case TEN:
@@ -702,14 +718,15 @@ void AIGame::strategy_11(EType type, PlayerHand* myhand) {
 	case SEVEN:
 	case EIGHT:
 	case NINE:
-		if(!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL){
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
+		{
 			this->com.AskToHIt(handValue(myhand));
-			this->aiInterface.choice(this->handValue(myhand), true, false,
-					false, false, false, false);
+			this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		}
 
 		break;
@@ -717,8 +734,10 @@ void AIGame::strategy_11(EType type, PlayerHand* myhand) {
 	}
 }
 
-void AIGame::strategy_10(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_10(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -730,8 +749,7 @@ void AIGame::strategy_10(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case TWO:
@@ -742,22 +760,25 @@ void AIGame::strategy_10(EType type, PlayerHand* myhand) {
 	case SEVEN:
 	case EIGHT:
 	case NINE:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
+		{
 			this->com.AskToHIt(handValue(myhand));
-			this->aiInterface.choice(this->handValue(myhand), true, false,
-					false, false, false, false);
+			this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		}
 		break;
 
 	}
 }
 
-void AIGame::strategy_9(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_9(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -773,130 +794,140 @@ void AIGame::strategy_9(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case THREE:
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
+		{
 			this->com.AskToHIt(handValue(myhand));
-			this->aiInterface.choice(this->handValue(myhand), true, false,
-					false, false, false, false);
+			this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		}
 		break;
 
 	}
 }
 
-void AIGame::strategy_8(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_8(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
+	default:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_7(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_7(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
+	default:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_6(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_6(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
+	default:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_5(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_5(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
+	default:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_A_A(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_A(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
-		if (!hasSplit) {
+	default:
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
 		}
-		else this->strategy_10(type, myhand);
+		else
+			this->strategy_10(type, myhand);
 		break;
 
 	}
 }
 
-void AIGame::strategy_10_10(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_10_10(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
+	default:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_9_9(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_9_9(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -909,12 +940,14 @@ void AIGame::strategy_9_9(EType type, PlayerHand* myhand) {
 	case SIX:
 	case EIGHT:
 	case NINE:
-		if (!hasSplit) {
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
+		}
+		else
+		{
 			this->strategy_18(type, myhand);
 		}
 		break;
@@ -926,25 +959,28 @@ void AIGame::strategy_9_9(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 	}
 }
 
-void AIGame::strategy_8_8(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_8_8(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
 
-	default :
-		if (!hasSplit) {
+	default:
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
+		}
+		else
+		{
 			this->strategy_16(type, myhand);
 		}
 		break;
@@ -952,8 +988,10 @@ void AIGame::strategy_8_8(EType type, PlayerHand* myhand) {
 	}
 }
 
-void AIGame::strategy_7_7(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_7_7(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -965,12 +1003,14 @@ void AIGame::strategy_7_7(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 	case SEVEN:
-		if (!hasSplit) {
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
+		}
+		else
+		{
 			this->strategy_14(type, myhand);
 		}
 		break;
@@ -983,15 +1023,16 @@ void AIGame::strategy_7_7(EType type, PlayerHand* myhand) {
 	case EIGHT:
 	case NINE:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_6_6(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_6_6(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1003,12 +1044,14 @@ void AIGame::strategy_6_6(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 
-		if (!hasSplit) {
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
+		}
+		else
+		{
 			this->strategy_14(type, myhand);
 		}
 		break;
@@ -1022,15 +1065,16 @@ void AIGame::strategy_6_6(EType type, PlayerHand* myhand) {
 	case EIGHT:
 	case NINE:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_5_5(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_5_5(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1042,8 +1086,7 @@ void AIGame::strategy_5_5(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case TWO:
@@ -1054,19 +1097,22 @@ void AIGame::strategy_5_5(EType type, PlayerHand* myhand) {
 	case SEVEN:
 	case EIGHT:
 	case NINE:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
 			strategy_10(type, myhand);
 		break;
 
 	}
 }
 
-void AIGame::strategy_4_4(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_4_4(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1074,12 +1120,14 @@ void AIGame::strategy_4_4(EType type, PlayerHand* myhand) {
 
 	case FIVE:
 	case SIX:
-		if (!hasSplit) {
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
+		}
+		else
+		{
 			this->strategy_8(type, myhand);
 		}
 		break;
@@ -1096,15 +1144,16 @@ void AIGame::strategy_4_4(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_3_3(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_3_3(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1116,12 +1165,14 @@ void AIGame::strategy_3_3(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 	case SEVEN:
-		if (!hasSplit) {
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
+		}
+		else
+		{
 			this->strategy_9(type, myhand);
 		}
 		break;
@@ -1134,15 +1185,16 @@ void AIGame::strategy_3_3(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_2_2(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_2_2(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1154,15 +1206,16 @@ void AIGame::strategy_2_2(EType type, PlayerHand* myhand) {
 	case FIVE:
 	case SIX:
 	case SEVEN:
-		if (!hasSplit) {
+		if (!hasSplit)
+		{
 			this->com.Split(this->handValue(myhand));
 			hasSplit = true;
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					false, true, false, false);
-		} else {
+			this->aiInterface.choice(this->handValue(myhand), false, false, false, true, false, false);
+		}
+		else
+		{
 			this->com.AskToHIt(this->handValue(myhand));
-			this->aiInterface.choice(this->handValue(myhand), true, false,
-					false, false, false, false);
+			this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		}
 		break;
 
@@ -1174,15 +1227,16 @@ void AIGame::strategy_2_2(EType type, PlayerHand* myhand) {
 	case KING:
 	case AS:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_A_10(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_10(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1190,15 +1244,16 @@ void AIGame::strategy_A_10(EType type, PlayerHand* myhand) {
 
 	default:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_A_9(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_9(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1206,15 +1261,16 @@ void AIGame::strategy_A_9(EType type, PlayerHand* myhand) {
 
 	default:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_A_8(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_8(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1222,15 +1278,16 @@ void AIGame::strategy_A_8(EType type, PlayerHand* myhand) {
 
 	default:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_A_7(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_7(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1240,19 +1297,19 @@ void AIGame::strategy_A_7(EType type, PlayerHand* myhand) {
 	case SEVEN:
 	case EIGHT:
 		this->com.Stand(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), false, true, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
 
 	case THREE:
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
 			strategy_17(type, myhand);
 		break;
 
@@ -1263,15 +1320,16 @@ void AIGame::strategy_A_7(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	}
 }
 
-void AIGame::strategy_A_6(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_6(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1287,26 +1345,28 @@ void AIGame::strategy_A_6(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case THREE:
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
 			strategy_16(type, myhand);
 		break;
 	}
 }
 
-void AIGame::strategy_A_5(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_5(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1323,25 +1383,27 @@ void AIGame::strategy_A_5(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
 			strategy_15(type, myhand);
 		break;
 	}
 }
 
-void AIGame::strategy_A_4(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_4(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1358,25 +1420,27 @@ void AIGame::strategy_A_4(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case FOUR:
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
 			strategy_14(type, myhand);
 		break;
 	}
 }
 
-void AIGame::strategy_A_3(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_3(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
@@ -1394,24 +1458,26 @@ void AIGame::strategy_A_3(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
 			strategy_13(type, myhand);
 		break;
 	}
 }
 
-void AIGame::strategy_A_2(EType type, PlayerHand* myhand) {
-	switch (this->bankCard.getType()) {
+void AIGame::strategy_A_2(EType type, PlayerHand* myhand)
+{
+	switch (this->bankCard.getType())
+	{
 	case NaN:
 		throw runtime_error("carte de la banque non recu ");
 		break;
@@ -1428,70 +1494,70 @@ void AIGame::strategy_A_2(EType type, PlayerHand* myhand) {
 	case QUEEN:
 	case KING:
 		this->com.AskToHIt(this->handValue(myhand));
-		this->aiInterface.choice(this->handValue(myhand), true, false, false,
-				false, false, false);
+		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
 
 	case FIVE:
 	case SIX:
-		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2()==NULL) {
+		if (!hasSplit && myhand->numberOfCards() == 2 && this->ia.getHand2() == NULL)
+		{
 			this->com.Double();
-			this->aiInterface.choice(this->handValue(myhand), false, false,
-					true, false, false, false);
-		} else
+			this->aiInterface.choice(this->handValue(myhand), false, false, true, false, false, false);
+		}
+		else
 			strategy_12(type, myhand);
 
 		break;
 	}
 }
 
-int AIGame::handValue(PlayerHand* myhand) {
+int AIGame::handValue(PlayerHand* myhand)
+{
 	if (myhand == this->ia.getHand())
 		return 0;
 
 	return 1;
 }
 
-bool AIGame::isSpecial(PlayerHand* myhand) {
+bool AIGame::isSpecial(PlayerHand* myhand)
+{
 	EType type1;
 	EType type2;
 
 	type1 = myhand->getCard(0)->getType();
 	type2 = myhand->getCard(1)->getType();
 
-	if (myhand->numberOfCards() == 2 && (isEqual(type1, type2, KING, KING)
-			|| isEqual(type1, type2, KING, QUEEN) || isEqual(type1, type2,
-			KING, JACK) || isEqual(type1, type2, KING, TEN) || isEqual(type1,
-			type2, QUEEN, QUEEN) || isEqual(type1, type2, QUEEN, JACK)
-			|| isEqual(type1, type2, QUEEN, TEN) || isEqual(type1, type2, JACK,
-			JACK) || isEqual(type1, type2, TEN, TEN) || isEqual(type1, type2,
-			AS, AS) || isEqual(type1, type2, NINE, NINE) || isEqual(type1,
-			type2, EIGHT, EIGHT) || isEqual(type1, type2, SEVEN, SEVEN)
-			|| isEqual(type1, type2, SIX, SIX) || isEqual(type1, type2, FIVE,
-			FIVE) || isEqual(type1, type2, FOUR, FOUR) || isEqual(type1, type2,
-			THREE, THREE) || isEqual(type1, type2, TWO, TWO) || isEqual(type1,
-			type2, AS, NINE) || isEqual(type1, type2, AS, EIGHT) || isEqual(
-			type1, type2, AS, SEVEN) || isEqual(type1, type2, AS, SIX)
-			|| isEqual(type1, type2, AS, FIVE) || isEqual(type1, type2, AS,
-			FOUR) || isEqual(type1, type2, AS, THREE) || isEqual(type1, type2,
-			AS, TWO) || isEqual(type1, type2, AS, KING) || isEqual(type1,
-			type2, AS, QUEEN) || isEqual(type1, type2, AS, JACK) || isEqual(
-			type1, type2, AS, TEN)))
+	if (myhand->numberOfCards() == 2
+			&& (isEqual(type1, type2, KING, KING) || isEqual(type1, type2, KING, QUEEN)
+					|| isEqual(type1, type2, KING, JACK) || isEqual(type1, type2, KING, TEN)
+					|| isEqual(type1, type2, QUEEN, QUEEN) || isEqual(type1, type2, QUEEN, JACK)
+					|| isEqual(type1, type2, QUEEN, TEN) || isEqual(type1, type2, JACK, JACK)
+					|| isEqual(type1, type2, TEN, TEN) || isEqual(type1, type2, AS, AS)
+					|| isEqual(type1, type2, NINE, NINE) || isEqual(type1, type2, EIGHT, EIGHT)
+					|| isEqual(type1, type2, SEVEN, SEVEN) || isEqual(type1, type2, SIX, SIX)
+					|| isEqual(type1, type2, FIVE, FIVE) || isEqual(type1, type2, FOUR, FOUR)
+					|| isEqual(type1, type2, THREE, THREE) || isEqual(type1, type2, TWO, TWO)
+					|| isEqual(type1, type2, AS, NINE) || isEqual(type1, type2, AS, EIGHT)
+					|| isEqual(type1, type2, AS, SEVEN) || isEqual(type1, type2, AS, SIX)
+					|| isEqual(type1, type2, AS, FIVE) || isEqual(type1, type2, AS, FOUR)
+					|| isEqual(type1, type2, AS, THREE) || isEqual(type1, type2, AS, TWO)
+					|| isEqual(type1, type2, AS, KING) || isEqual(type1, type2, AS, QUEEN)
+					|| isEqual(type1, type2, AS, JACK) || isEqual(type1, type2, AS, TEN)))
 		return true;
 	return false;
 }
 
-bool AIGame::isEqual(EType type1a, EType type1b, EType type2a, EType type2b) {
-	if ((type1a == type2a && type1b == type2b) || (type1a == type2b && type1b
-			== type2a))
+bool AIGame::isEqual(EType type1a, EType type1b, EType type2a, EType type2b)
+{
+	if ((type1a == type2a && type1b == type2b) || (type1a == type2b && type1b == type2a))
 		return true;
 	return false;
 }
 
-int AIGame::getBet() {
+int AIGame::getBet()
+{
 
-	float bankAdvantage, iaAdvantage, standartDeviation, variance,
-			optimalUnitBet;
+	float bankAdvantage, iaAdvantage, standartDeviation, variance, optimalUnitBet;
 	int optimalBet;
 	int numHand, totalUnit;
 
@@ -1503,28 +1569,30 @@ int AIGame::getBet() {
 		numHand = 2;
 
 	bankAdvantage = -0.55 + 0.83 - 0.11;
-	iaAdvantage = ((0.5 * this->trueCountCard()) - bankAdvantage)/100;
+	iaAdvantage = ((0.5 * this->trueCountCard()) - bankAdvantage) / 100;
 
 	standartDeviation = 1.5 * sqrt(numHand);
 	variance = pow(standartDeviation, 2);
 
-	optimalUnitBet = (totalUnit * iaAdvantage)*75 / 100;
+	optimalUnitBet = (totalUnit * iaAdvantage) * 75 / 100;
 
 	optimalBet = (int) (optimalUnitBet * this->betMin);
 
 	if (optimalBet <= this->betMin)
 	{
 		return this->betMin;
-    }
+	}
 
 	return optimalBet;
 }
 
-int AIGame::pointCard(EType type) {
+int AIGame::pointCard(EType type)
+{
 
 	int resultat;
 
-	switch (type) {
+	switch (type)
+	{
 
 	case NaN:
 	case AS:
@@ -1551,16 +1619,18 @@ int AIGame::pointCard(EType type) {
 
 }
 
-float AIGame::trueCountCard() {
+float AIGame::trueCountCard()
+{
 	float actualCount = 0, trueCount = 0;
 	float numConsummeDeck = 0;
 	float numRemainDeck = 0;
 
-	for (unsigned int i(0); i < listOfCards.size(); i++) {
+	for (unsigned int i(0); i < listOfCards.size(); i++)
+	{
 		actualCount += this->pointCard(listOfCards[i].getType());
 	}
 
-	numConsummeDeck = ((float) listOfCards.size()*6) / 312;
+	numConsummeDeck = ((float) listOfCards.size() * 6) / 312;
 	numRemainDeck = 6 - numConsummeDeck;
 
 	trueCount = actualCount / numRemainDeck;

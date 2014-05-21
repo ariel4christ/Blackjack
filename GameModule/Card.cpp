@@ -5,9 +5,8 @@
 
 #include "Card.h"
 
-// Initialisation par défaut de la variable statique sID
+// Initialisation par dï¿½faut de la variable statique sID
 int Card::sId = 0;
-
 
 Card::Card(EType t)
 {
@@ -15,7 +14,6 @@ Card::Card(EType t)
 	this->id = this->sId;
 	this->type = t;
 }
-
 
 Card::~Card()
 {
@@ -78,46 +76,46 @@ const char* Card::getStringRepresentation()
 {
 	switch (this->type)
 	{
-		case NaN:
-			return "|?|";
-		case AS:
-			return "|A|";
-			break;
-		case TWO:
-			return "|2|";
-			break;
-		case THREE:
-			return "|3|";
-			break;
-		case FOUR:
-			return "|4|";
-			break;
-		case FIVE:
-			return "|5|";
-			break;
-		case SIX:
-			return "|6|";
-			break;
-		case SEVEN:
-			return "|7|";
-			break;
-		case EIGHT:
-			return "|8|";
-			break;
-		case NINE:
-			return "|9|";
-			break;
-		case TEN:
-			return "|10|";
-			break;
-		case JACK:
-			return "|J|";
-			break;
-		case QUEEN:
-			return "|Q|";
-			break;
-		case KING:
-			return "|K|";
-			break;
+	case NaN:
+		return "|?|";
+	case AS:
+		return "|A|";
+		break;
+	case TWO:
+		return "|2|";
+		break;
+	case THREE:
+		return "|3|";
+		break;
+	case FOUR:
+		return "|4|";
+		break;
+	case FIVE:
+		return "|5|";
+		break;
+	case SIX:
+		return "|6|";
+		break;
+	case SEVEN:
+		return "|7|";
+		break;
+	case EIGHT:
+		return "|8|";
+		break;
+	case NINE:
+		return "|9|";
+		break;
+	case TEN:
+		return "|10|";
+		break;
+	case JACK:
+		return "|J|";
+		break;
+	case QUEEN:
+		return "|Q|";
+		break;
+	case KING:
+		return "|K|";
+		break;
 	}
 }

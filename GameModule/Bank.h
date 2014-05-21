@@ -1,5 +1,5 @@
 /**
- * Classe Bank. Hérite de la classe Participant.
+ * Classe Bank. Hï¿½rite de la classe Participant.
  * @author Christophe HUBERT
  */
 
@@ -9,10 +9,10 @@
 #include "Hand.h"
 #include <stdexcept>
 
-class Bank : public Participant
+class Bank: public Participant
 {
 private:
-	Hand *hand;  /**< Pointeur vers Hand. Main de la banque. */
+	Hand *hand; /**< Pointeur vers Hand. Main de la banque. */
 	Card *hiddenCard;
 
 public:
@@ -32,24 +32,37 @@ public:
 	~Bank();
 
 	/**
-	 * Méthode créant une nouvelle main. Méthode virtuelle héritée de Participant.
+	 * Mï¿½thode crï¿½ant une nouvelle main. Mï¿½thode virtuelle hï¿½ritï¿½e de Participant.
 	 * @see Hand::Hand()
 	 */
 	virtual void newHand();
 
 	/**
-	 * Méthode supprimant la main de la banque.
+	 * Mï¿½thode supprimant la main de la banque.
 	 * @see Hand::deleteHand()
 	 */
 	void deleteHand();
 
 	bool isBankBlackjack();
 
-	inline Hand* getHand() { return hand; }
-	inline Card* getHiddenCard() { return this->hiddenCard; }
+	inline Hand* getHand()
+	{
+		return hand;
+	}
+	inline Card* getHiddenCard()
+	{
+		return this->hiddenCard;
+	}
 
-	inline void setHand(Hand *h) { this->deleteHand(); this->hand = h; }
-	inline void setHiddenCard(Card* c) { this->hiddenCard = c; }
+	inline void setHand(Hand *h)
+	{
+		this->deleteHand();
+		this->hand = h;
+	}
+	inline void setHiddenCard(Card* c)
+	{
+		this->hiddenCard = c;
+	}
 };
 
 #endif

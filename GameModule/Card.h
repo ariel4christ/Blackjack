@@ -9,20 +9,23 @@
 /**
  *  Enumeration des types de carte.
  */
-enum EType { NaN = 0, AS = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
+enum EType
+{
+	NaN = 0, AS = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
+};
 
 class Card
 {
 private:
-	int id;  /**< Entier. Identifiant de la carte. */
-	static int sId;  /**< Entier statique. Variable utilisée pour déterminer l'id d'une carte. */
-	EType type;  /**< EType. Type de la carte. */
+	int id; /**< Entier. Identifiant de la carte. */
+	static int sId; /**< Entier statique. Variable utilisï¿½e pour dï¿½terminer l'id d'une carte. */
+	EType type; /**< EType. Type de la carte. */
 
 public:
 
 	/**
 	 * Constructeur.
-	 * @param t type de la carte à créer.
+	 * @param t type de la carte ï¿½ crï¿½er.
 	 */
 	Card(EType t);
 
@@ -42,29 +45,35 @@ public:
 	Card& operator=(Card& c);
 
 	/**
-	* Getteur de hand.
-	* @return Entier.
-	*/
-	inline int getId() { return id; }
+	 * Getteur de hand.
+	 * @return Entier.
+	 */
+	inline int getId()
+	{
+		return id;
+	}
 
 	/**
-	 * Méthode retournant la valeur de la carte.
+	 * Mï¿½thode retournant la valeur de la carte.
 	 * @return Entier Valeur de la carte.
 	 */
 	int getValue();
 
 	/**
-	 * Méthode retournant le type la carte.
+	 * Mï¿½thode retournant le type la carte.
 	 * @return EType Type de la carte.
 	 */
 	EType getType();
 
 	/**
-	 * Retourne une représentation de la carte sur quelques caractères	 * @return la réprésentation
+	 * Retourne une reprï¿½sentation de la carte sur quelques caractï¿½res	 * @return la rï¿½prï¿½sentation
 	 */
 	const char* getStringRepresentation();
 
-	void setType(EType t) { this->type = t; }
+	void setType(EType t)
+	{
+		this->type = t;
+	}
 };
 
 #endif

@@ -1,5 +1,5 @@
 /**
- * Classe BankGame. Classe de gestion du jeu, exécutable banque.
+ * Classe BankGame. Classe de gestion du jeu, exï¿½cutable banque.
  * @author Christophe HUBERT
  */
 
@@ -17,70 +17,78 @@
 class BankGame
 {
 private:
-	static int betMin;  /**< Entier. Mise minimale.*/
-	static int betMax;  /**< Entier. Mise maximale.*/
-	static long balancePlayerInit;  /**< Entier. Solde initial des joueurs.*/
+	static int betMin; /**< Entier. Mise minimale.*/
+	static int betMax; /**< Entier. Mise maximale.*/
+	static long balancePlayerInit; /**< Entier. Solde initial des joueurs.*/
 
-	std::vector<Card*> deck;  /**< vector<Card*>. Liste des cartes, sabot.*/
-	Bank bank;  /**< Bank Banque du jeu.*/
-	std::vector<Player*> player;  /**< vector<Player*>. Liste des joueurs.*/
+	std::vector<Card*> deck; /**< vector<Card*>. Liste des cartes, sabot.*/
+	Bank bank; /**< Bank Banque du jeu.*/
+	std::vector<Player*> player; /**< vector<Player*>. Liste des joueurs.*/
 
-	BankCommunication com;  /**< BankCommunication. Objet permettant la communication entre l'exécutable Bank et les exécutables joueurs.*/
-	BankInterface interface;  /**< BankInterface. Objet réalisant les interaction entre le programme et l'utilisateur.*/
-
+	BankCommunication com; /**< BankCommunication. Objet permettant la communication entre l'exï¿½cutable Bank et les exï¿½cutables joueurs.*/
+	BankInterface interface; /**< BankInterface. Objet rï¿½alisant les interaction entre le programme et l'utilisateur.*/
 
 public:
 
-    /**
-     * Getteur de bank.
-     * @return  Référence de l'objet bank.
-     */
-	Bank& getBank() { return this->bank; }
-
-    /**
-     * Getteur de player.
-     * @return  Référence du vecteur des joueurs.
-     */
-	std::vector<Player*>& getPlayers() { return this->player; }
+	/**
+	 * Getteur de bank.
+	 * @return  Rï¿½fï¿½rence de l'objet bank.
+	 */
+	Bank& getBank()
+	{
+		return this->bank;
+	}
 
 	/**
-	 * Méthode statique retournant la mise minimale autorisée.
+	 * Getteur de player.
+	 * @return  Rï¿½fï¿½rence du vecteur des joueurs.
+	 */
+	std::vector<Player*>& getPlayers()
+	{
+		return this->player;
+	}
+
+	/**
+	 * Mï¿½thode statique retournant la mise minimale autorisï¿½e.
 	 * @return  Entier  Mise min.
 	 */
 	static int getBetMin();
 
 	/**
-	 * Méthode statique retournant la mise maximale autorisée.
+	 * Mï¿½thode statique retournant la mise maximale autorisï¿½e.
 	 * @return  Entier  Mise min.
 	 */
 	static int getBetMax();
 
 	/**
-	 * Méthode statique retournant le solde initial d'un joueur.
+	 * Mï¿½thode statique retournant le solde initial d'un joueur.
 	 * @return  Entier long     Solde initial d'un joueur.
 	 */
 	static long getBalancePlayerInit();
 
 	/**
-	 * Méthode retournant l'attribut com par référence.
-	 * @return  BankCommunication   Référence de com.
+	 * Mï¿½thode retournant l'attribut com par rï¿½fï¿½rence.
+	 * @return  BankCommunication   Rï¿½fï¿½rence de com.
 	 */
-	 BankCommunication& getCom() { return this->com; }
+	BankCommunication& getCom()
+	{
+		return this->com;
+	}
 
 	/**
-	 * Méthode statique déterminant la mise minimale autorisée.
-	 * @param   i   Nouvelle mise minimale autorisée.
+	 * Mï¿½thode statique dï¿½terminant la mise minimale autorisï¿½e.
+	 * @param   i   Nouvelle mise minimale autorisï¿½e.
 	 */
 	static void setBetMin(int i);
 
 	/**
-	 * Méthode statique déterminant la mise maximale autorisée.
-	 * @param   i   Nouvelle mise maximale autorisée.
+	 * Mï¿½thode statique dï¿½terminant la mise maximale autorisï¿½e.
+	 * @param   i   Nouvelle mise maximale autorisï¿½e.
 	 */
 	static void setBetMax(int i);
 
 	/**
-	 * Méthode statique déterminant le solde initial d'un joueur.
+	 * Mï¿½thode statique dï¿½terminant le solde initial d'un joueur.
 	 * @param   i   Nouveau solde initiale d'un joueur.
 	 */
 	static void setBalancePlayerInit(int i);
@@ -91,7 +99,7 @@ public:
 	 */
 	BankGame(long bankInit);
 
-    /**
+	/**
 	 * Constructeur.
 	 * @param   min         Mise minimale.
 	 * @param   max         Mise Maximale.
@@ -108,67 +116,66 @@ public:
 	~BankGame();
 
 	/**
-	 * Méthode qui gere les tours de jeu.
+	 * Mï¿½thode qui gere les tours de jeu.
 	 * @return 0 lorsqu'il n'y a plus de joueur dans le jeu.
 	 */
 	int runGame();
 
-
 private:
 
 	/**
-	 * Méthode supprimant les 5 premières cartes du deck.
+	 * Mï¿½thode supprimant les 5 premiï¿½res cartes du deck.
 	 * Lance une exception si il y a moins de 5 cartes dans le deck.
 	 */
 	void burnCards();
 
 	/**
-	 * Méthode désallouant toutes les cartes du deck. Deck est vidé.
+	 * Mï¿½thode dï¿½sallouant toutes les cartes du deck. Deck est vidï¿½.
 	 */
 	void clearDeck();
 
 	/**
-	 * Méthode distribuant les deux premières cartes à tous les joueurs et à la banque.
+	 * Mï¿½thode distribuant les deux premiï¿½res cartes ï¿½ tous les joueurs et ï¿½ la banque.
 	 */
 	void dealCards();
 
 	/**
-	 * Gestion de la fin d'un tour. Calcule si la main du joueur en paramètre a gagné ou perdu.
+	 * Gestion de la fin d'un tour. Calcule si la main du joueur en paramï¿½tre a gagnï¿½ ou perdu.
 	 * @see Participant::increaseBalance()
 	 * @see Participant::decreaseBalance()
 	 * @see BankCommunication::setBalance()
-	 * @param   p           Pointeur vers le joueur pour lequel on étudie la finalité de sa fin.
-	 * @param   secondHand  Entier à 0 si c'est la première main du joueur, 1 et c'est la deuxième main.
+	 * @param   p           Pointeur vers le joueur pour lequel on ï¿½tudie la finalitï¿½ de sa fin.
+	 * @param   secondHand  Entier ï¿½ 0 si c'est la premiï¿½re main du joueur, 1 et c'est la deuxiï¿½me main.
 	 */
 	void endRound(Player *p, int secondHand);
 
 	/**
 	 * Tire une carte du deck et renvoie son pointeur.
-	 * @return  Pointeur vers la carte tirée du deck.
+	 * @return  Pointeur vers la carte tirï¿½e du deck.
 	 */
 	Card* hitCard();
 
 	/**
-	 * Méthode qui initialise un tour : accueil des nouveaux joueurs, demande des mises et distribution des cartes.
+	 * Mï¿½thode qui initialise un tour : accueil des nouveaux joueurs, demande des mises et distribution des cartes.
 	 * @return  0 si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
 	int initRound();
 
 	/**
-	 * Méthode gérant la partie assurance
+	 * Mï¿½thode gï¿½rant la partie assurance
 	 * @return	0	Le tour est fini
-				1	Le tour n'est pas fini.
+	 1	Le tour n'est pas fini.
 	 */
 	int insurance();
 
 	/**
-	 * Méthode créant un nouveau deck (sabot) neuf. Il contient 312 cartes (24 de chaque EType) non mélangées.
+	 * Mï¿½thode crï¿½ant un nouveau deck (sabot) neuf. Il contient 312 cartes (24 de chaque EType) non mï¿½langï¿½es.
 	 * @see Card::Card()
 	 */
 	void newDeck();
 
 	/**
-	 * Méthode l'initialisation du jeu.
+	 * Mï¿½thode l'initialisation du jeu.
 	 * @see newDeck()
 	 * @see shuffleDeck()
 	 * @see burnCards()
@@ -177,7 +184,7 @@ private:
 	void newGame();
 
 	/**
-	 * Méthode incluant les nouveaux joueurs dans le jeu.
+	 * Mï¿½thode incluant les nouveaux joueurs dans le jeu.
 	 */
 	void newPlayer();
 
@@ -191,7 +198,7 @@ private:
 	int playerAction(Player *p, int secondHand);
 
 	/**
-	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en paramètre. Fini le jeu s'il n'y a plus de joueur.
+	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en paramï¿½tre. Fini le jeu s'il n'y a plus de joueur.
 	 * @see Player::~Player()
 	 * @see BankCommunication::HasQuit()
 	 * @param   p   Pointeur vers le joueur qui quitte le jeu.
@@ -201,12 +208,12 @@ private:
 
 	/**
 	 * Methode gerant le deroulement d'un tour.
-	 * @return  1   le tour s'est fini sans probleme, 0 si le jeu est terminé.
+	 * @return  1   le tour s'est fini sans probleme, 0 si le jeu est terminï¿½.
 	 */
 	int runRound();
 
 	/**
-	 * Méthode de battage (tri aléatoire) des cartes du deck.
+	 * Mï¿½thode de battage (tri alï¿½atoire) des cartes du deck.
 	 * @see std::random_suffle()
 	 */
 	void shuffleDeck();

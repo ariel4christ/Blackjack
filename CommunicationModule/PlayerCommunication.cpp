@@ -15,14 +15,14 @@ using namespace std;
  */
 void PlayerCommunication::AskToHIt(int secondHand)
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "8 %1d ", secondHand);
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "8 %1d ", secondHand);
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -31,14 +31,14 @@ void PlayerCommunication::AskToHIt(int secondHand)
  */
 void PlayerCommunication::Bet(int bet)
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "9 %d ", bet);
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "9 %d ", bet);
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -47,15 +47,15 @@ void PlayerCommunication::Bet(int bet)
  */
 int PlayerCommunication::CheckFiles()
 {
-    if (access("joueur0.in", R_OK) == -1)
-        return 0;
-    if (access("joueur1.in", R_OK) == -1)
-        return 1;
-    if (access("joueur2.in", R_OK) == -1)
-        return 2;
-    if (access("joueur3.in", R_OK) == -1)
-        return 3;
-    return -1;
+	if (access("joueur0.in", R_OK) == -1)
+		return 0;
+	if (access("joueur1.in", R_OK) == -1)
+		return 1;
+	if (access("joueur2.in", R_OK) == -1)
+		return 2;
+	if (access("joueur3.in", R_OK) == -1)
+		return 3;
+	return -1;
 }
 
 /**
@@ -64,59 +64,59 @@ int PlayerCommunication::CheckFiles()
  */
 void PlayerCommunication::CreateFiles(int id)
 {
-    switch (id)
-    {
-        case 0:
-            if ((mkfifo("joueur0.in",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier in");
-            if ((mkfifo("joueur0.out",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier out");
-            this->id = id;
-            sprintf(this->fifoNameIn, "joueur0.in");
-            sprintf(this->fifoNameOut, "joueur0.out");
-            break;
-        case 1:
-            if ((mkfifo("joueur1.in",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier in");
-            if ((mkfifo("joueur1.out",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier out");
-            this->id = id;
-            sprintf(this->fifoNameIn, "joueur1.in");
-            sprintf(this->fifoNameOut, "joueur1.out");
-            break;
-        case 2:
-            if ((mkfifo("joueur2.in",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier in");
-            if ((mkfifo("joueur2.out",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier out");
-            this->id = id;
-            sprintf(this->fifoNameIn, "joueur2.in");
-            sprintf(this->fifoNameOut, "joueur2.out");
-            break;
-        case 3:
-            if ((mkfifo("joueur3.in",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier in");
-            if ((mkfifo("joueur3.out",S_IRWXU)) != 0)
-                throw runtime_error("Erreur de création du fichier out");
-            this->id = id;
-            sprintf(this->fifoNameIn, "joueur3.in");
-            sprintf(this->fifoNameOut, "joueur3.out");
-            break;
-        default:
-            break;
-    }
+	switch (id)
+	{
+	case 0:
+		if ((mkfifo("joueur0.in", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier in");
+		if ((mkfifo("joueur0.out", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier out");
+		this->id = id;
+		sprintf(this->fifoNameIn, "joueur0.in");
+		sprintf(this->fifoNameOut, "joueur0.out");
+		break;
+	case 1:
+		if ((mkfifo("joueur1.in", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier in");
+		if ((mkfifo("joueur1.out", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier out");
+		this->id = id;
+		sprintf(this->fifoNameIn, "joueur1.in");
+		sprintf(this->fifoNameOut, "joueur1.out");
+		break;
+	case 2:
+		if ((mkfifo("joueur2.in", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier in");
+		if ((mkfifo("joueur2.out", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier out");
+		this->id = id;
+		sprintf(this->fifoNameIn, "joueur2.in");
+		sprintf(this->fifoNameOut, "joueur2.out");
+		break;
+	case 3:
+		if ((mkfifo("joueur3.in", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier in");
+		if ((mkfifo("joueur3.out", S_IRWXU)) != 0)
+			throw runtime_error("Erreur de création du fichier out");
+		this->id = id;
+		sprintf(this->fifoNameIn, "joueur3.in");
+		sprintf(this->fifoNameOut, "joueur3.out");
+		break;
+	default:
+		break;
+	}
 }
 
 void PlayerCommunication::RemoveFiles(int id)
 {
-    char fifoNameIn[11];
-    char fifoNameOut[12];
+	char fifoNameIn[11];
+	char fifoNameOut[12];
 
-    sprintf(fifoNameIn, "joueur%1d.in", id);
-    sprintf(fifoNameOut, "joueur%1d.out", id);
+	sprintf(fifoNameIn, "joueur%1d.in", id);
+	sprintf(fifoNameOut, "joueur%1d.out", id);
 
-    remove(fifoNameIn);
-    remove(fifoNameOut);
+	remove(fifoNameIn);
+	remove(fifoNameOut);
 }
 
 /**
@@ -124,14 +124,14 @@ void PlayerCommunication::RemoveFiles(int id)
  */
 void PlayerCommunication::Double()
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "7 ");
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "7 ");
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -139,14 +139,14 @@ void PlayerCommunication::Double()
  */
 void PlayerCommunication::EnterGame()
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "6 ");
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "6 ");
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -154,14 +154,14 @@ void PlayerCommunication::EnterGame()
  */
 void PlayerCommunication::QuitMessage()
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "4 ");
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "4 ");
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -170,15 +170,15 @@ void PlayerCommunication::QuitMessage()
  */
 string PlayerCommunication::ReadFile()
 {
-    FILE *file = fopen(fifoNameIn,"r");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier in");
+	FILE *file = fopen(fifoNameIn, "r");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier in");
 
-    char str[32];
-    usleep(1500);  // Attente pour une meilleur sychonisation entre les processus
-    fread(str,sizeof(char),32,file);
-    fclose(file);
-    return (string) str;
+	char str[32];
+	usleep(1500);  // Attente pour une meilleur sychonisation entre les processus
+	fread(str, sizeof(char), 32, file);
+	fclose(file);
+	return (string) str;
 
 }
 
@@ -188,14 +188,14 @@ string PlayerCommunication::ReadFile()
  */
 void PlayerCommunication::RespondInsurance(int val)
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "%d ", val);
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "%d ", val);
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -203,14 +203,14 @@ void PlayerCommunication::RespondInsurance(int val)
  */
 void PlayerCommunication::Split(int secondHand)
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "1 %d ", secondHand);
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "1 %d ", secondHand);
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -218,14 +218,14 @@ void PlayerCommunication::Split(int secondHand)
  */
 void PlayerCommunication::Stand(int secondHand)
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "2 %d ", secondHand);
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "2 %d ", secondHand);
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -233,14 +233,14 @@ void PlayerCommunication::Stand(int secondHand)
  */
 void PlayerCommunication::Surrender(int secondHand)
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "3 %d ", secondHand);
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "3 %d ", secondHand);
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 }
 
 /**
@@ -248,13 +248,13 @@ void PlayerCommunication::Surrender(int secondHand)
  */
 void PlayerCommunication::sendAck()
 {
-    FILE *file = fopen(fifoNameOut,"w");
-    if (file == (FILE *) NULL)
-        throw runtime_error("Erreur d'ouverture du fichier out");
+	FILE *file = fopen(fifoNameOut, "w");
+	if (file == (FILE *) NULL)
+		throw runtime_error("Erreur d'ouverture du fichier out");
 
-    char str[32];
-    sprintf(str, "10 ");
-    fwrite(str, sizeof(char), 32, file);
-    fclose(file);
+	char str[32];
+	sprintf(str, "10 ");
+	fwrite(str, sizeof(char), 32, file);
+	fclose(file);
 
 }

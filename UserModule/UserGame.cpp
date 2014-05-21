@@ -12,7 +12,8 @@ using namespace std;
 int UserGame::betMin = 5;
 int UserGame::betMax = 100;
 
-UserGame::UserGame() : player(0), com()
+UserGame::UserGame() :
+		player(0), com()
 {
 	int id = this->com.CheckFiles();
 
@@ -23,43 +24,46 @@ UserGame::UserGame() : player(0), com()
 	this->player.setId(id);
 }
 
-UserGame::~UserGame() {
-    this->ihm.PrintMessage("~ Vous avez quitté la partie !\n~ A bientot :)");
+UserGame::~UserGame()
+{
+	this->ihm.PrintMessage("~ Vous avez quitté la partie !\n~ A bientot :)");
 }
 
 void UserGame::runGame()
 {
-    this->com.EnterGame();
+	this->com.EnterGame();
 	int id = this->player.getId();
-    ihm.PrintEnterGame(id);
+	ihm.PrintEnterGame(id);
 
 	string str = com.ReadFile();
 	int id_message;
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 10)  // Message PlayerEntered
 	{
-        int id_player, bet_min, bet_max;
-        sscanf(str.c_str(), "%d %d %d %d", &id_message, &id_player, &bet_min, &bet_max);
-        if (id == id_player)
-        {
-            UserGame::betMin = bet_min;
-            UserGame::betMax = bet_max;
-        }
-        com.sendAck();
+		int id_player, bet_min, bet_max;
+		sscanf(str.c_str(), "%d %d %d %d", &id_message, &id_player, &bet_min, &bet_max);
+		if (id == id_player)
+		{
+			UserGame::betMin = bet_min;
+			UserGame::betMax = bet_max;
+		}
+		com.sendAck();
 	}
-	else throw runtime_error("Erreur reception message PlayerEntered");
+	else
+		throw runtime_error("Erreur reception message PlayerEntered");
 
 	str = com.ReadFile();
 	sscanf(str.c_str(), "%d", &id_message);
 	if (id_message == 5)
 	{
-        int id_player, balance;
-        sscanf(str.c_str(), "%d %d %d", &id_message, &id_player, &balance);
-        if (id == id_player)
-            player.setBalance(balance);
-        com.sendAck();
+		int id_player, balance;
+		sscanf(str.c_str(), "%d %d %d", &id_message, &id_player, &balance);
+		if (id == id_player)
+			player.setBalance(balance);
+		com.sendAck();
 	}
-	else throw runtime_error("Message d'initialisation du solde joueur non recu");
+	else
+		throw runtime_error("Message d'initialisation du solde joueur non recu");
 
 	this->runRound();
 	this->quitGame();
@@ -70,16 +74,16 @@ void UserGame::initRound()
 	this->player.setBlackjack(false);
 	this->player.setSurrender(false);
 	this->player.setInsurance(false);
-    if (player.getHand() != NULL)
-        this->player.setHand(NULL);
-    if (player.getHand2() != NULL)
-        this->player.setHand2(NULL);
+	if (player.getHand() != NULL)
+		this->player.setHand(NULL);
+	if (player.getHand2() != NULL)
+		this->player.setHand2(NULL);
 
 	int bet;
 
 	bet = this->ihm.getBet(this->player);
 	if (bet == -1)
-        this->com.QuitMessage();
+		this->com.QuitMessage();
 
 	this->com.Bet(bet);
 
@@ -87,8 +91,9 @@ void UserGame::initRound()
 
 void UserGame::quitGame()
 {
-    if (player.getBalance() < betMin);
-        this->ihm.PrintMessage("~ Votre solde est insuffisant pour continuer.\n~ Vous avez perdu :(");
+	if (player.getBalance() < betMin)
+		;
+	this->ihm.PrintMessage("~ Votre solde est insuffisant pour continuer.\n~ Vous avez perdu :(");
 	this->player.setHand(NULL);
 	this->player.setHand(NULL);
 }
@@ -99,17 +104,17 @@ void UserGame::runRound()
 	bool quit = false;
 	int id = this->player.getId();
 
-	while(!quit)
+	while (!quit)
 	{
-        string str;
-        int id_message;
+		string str;
+		int id_message;
 		str = this->com.ReadFile();
 		sscanf(str.c_str(), "%d", &id_message);
 
-		switch(id_message)
+		switch (id_message)
 		{
 
-		case 1:// AskInsurance receive
+		case 1:  // AskInsurance receive
 			if (this->ihm.insurrance(this->player))
 			{
 				this->com.RespondInsurance(1);
@@ -120,8 +125,8 @@ void UserGame::runRound()
 			break;
 
 		case 2: // EndRound receive
-            this->endRound();
-            com.sendAck();
+			this->endRound();
+			com.sendAck();
 			break;
 
 		case 3: // RoundStart receive
@@ -136,10 +141,10 @@ void UserGame::runRound()
 				if (!main)
 					this->player.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
 				else
-                    this->player.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
+					this->player.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
 
-                if (this->player.getHand()->isBlackjack() && this->player.getHand2() == NULL)
-                    ihm.PrintMessage("~ BRAVO, vous faites Blackjack !\n~ Attendez la fin du tour...");
+				if (this->player.getHand()->isBlackjack() && this->player.getHand2() == NULL)
+					ihm.PrintMessage("~ BRAVO, vous faites Blackjack !\n~ Attendez la fin du tour...");
 			}
 
 			this->com.sendAck();
@@ -160,9 +165,9 @@ void UserGame::runRound()
 			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur, &bet);
 			if (num_joueur == id)
 			{
-                if (player.getHand() == NULL)
-                    this->player.newHand(bet);
-                this->player.decreaseBalance(bet);
+				if (player.getHand() == NULL)
+					this->player.newHand(bet);
+				this->player.decreaseBalance(bet);
 			}
 			this->com.sendAck();
 			break;
@@ -175,7 +180,8 @@ void UserGame::runRound()
 					this->player.Stand(this->player.getHand());
 				else if (main == 1)
 					this->player.Stand(this->player.getHand2());
-                else throw runtime_error("erreur numero de main dans validStand");
+				else
+					throw runtime_error("erreur numero de main dans validStand");
 			}
 			this->com.sendAck();
 			break;
@@ -199,7 +205,7 @@ void UserGame::runRound()
 				quit = true;
 			}
 			else
-                cout << "~~~~~ Le joueur " << num_joueur << " a quitté le jeu. ~~~~~" << endl << endl;
+				cout << "~~~~~ Le joueur " << num_joueur << " a quitté le jeu. ~~~~~" << endl << endl;
 			com.sendAck();
 			break;
 
@@ -214,7 +220,7 @@ void UserGame::runRound()
 			break;
 
 		case 11: // CreditPlayer receive
-			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
+			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur, &argent);
 			if (num_joueur == id)
 			{
 				this->player.increaseBalance(argent);
@@ -222,8 +228,8 @@ void UserGame::runRound()
 			break;
 
 		case 12: // DebitPlayer receive
-			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur,&argent);
-			if(num_joueur == id)
+			sscanf(str.c_str(), "%d %d %d", &id_message, &num_joueur, &argent);
+			if (num_joueur == id)
 			{
 				this->player.decreaseBalance(argent);
 			}
@@ -254,7 +260,7 @@ void UserGame::runRound()
 			{
 				this->player.newHand();
 				this->player.getHand2()->setBet(this->player.getHand()->getBet());
-            	this->player.decreaseBalance(this->player.getHand2()->getBet());
+				this->player.decreaseBalance(this->player.getHand2()->getBet());
 			}
 			com.sendAck();
 			break;
@@ -270,9 +276,9 @@ void UserGame::runRound()
 			}
 			break;
 
-        default :
+		default:
 			throw runtime_error("Erreur id message runGame()");
-            break;
+			break;
 		}
 	}
 
@@ -287,14 +293,13 @@ void UserGame::chooseAction(PlayerHand *myhand, int secHand)
 	bool stand = true;
 	char reponse;
 
-
 	if (this->player.getHand()->isPair() && this->player.getHand2() == NULL
-        && this->player.getBalance() >= this->player.getHand()->getBet())
-            spliter = true;
+			&& this->player.getBalance() >= this->player.getHand()->getBet())
+		spliter = true;
 
 	if (this->player.getHand()->numberOfCards() == 2 && this->player.getHand2() == NULL
-        && this->player.getBalance() >= this->player.getHand()->getBet())
-            doubler = true;
+			&& this->player.getBalance() >= this->player.getHand()->getBet())
+		doubler = true;
 
 	if (myhand->getValue1() <= 21)
 		hit = true;
@@ -313,53 +318,48 @@ void UserGame::chooseAction(PlayerHand *myhand, int secHand)
 	else
 		value = 1;
 
-	switch(reponse)
+	switch (reponse)
 	{
 	case 'C': // Demander carte
 
 		this->com.AskToHIt(value);
-			break;
+		break;
 
 	case 'P': // Split
 
 		this->com.Split(value);
-			break;
+		break;
 
 	case 'D': // Doubler
 
 		this->com.Double();
-			break;
+		break;
 
 	case 'R': // Rester
 
 		this->com.Stand(value);
-			break;
+		break;
 
 	case 'A': // Abandonner la main
 
 		this->com.Surrender(value);
-			break;
+		break;
 
 	case 'Q': // Abandonner la main ET quitter le jeu
 
 		this->com.QuitMessage();
-			break;
+		break;
 	}
 
 }
 
-
 void UserGame::endRound()
 {
-    this->ihm.PrintEndRound(player);
+	this->ihm.PrintEndRound(player);
 
-    if (getPlayer().getHand() != NULL)
-        this->getPlayer().setHand(NULL);
-    if (getPlayer().getHand2() != NULL)
-        this->getPlayer().setHand2(NULL);
+	if (getPlayer().getHand() != NULL)
+		this->getPlayer().setHand(NULL);
+	if (getPlayer().getHand2() != NULL)
+		this->getPlayer().setHand2(NULL);
 }
-
-
-
-
 

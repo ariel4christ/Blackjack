@@ -12,18 +12,18 @@
 class Hand
 {
 protected:
-	std::vector<Card*> cards;  /**< Vecteur de pointeurs vers Card. Cartes constituant la main. */
+	std::vector<Card*> cards; /**< Vecteur de pointeurs vers Card. Cartes constituant la main. */
 
 public:
 
 	/**
-	 * Constructeur par défaut.
+	 * Constructeur par dï¿½faut.
 	 * La main est vide.
 	 */
 	Hand();
 
 	/**
-	 * Constructeur. La nouvelle main contient la carte donnée en paramètre.
+	 * Constructeur. La nouvelle main contient la carte donnï¿½e en paramï¿½tre.
 	 * @param c Pointeur vers la 1ere carte de la nouvelle main.
 	 */
 	Hand(Card& c);
@@ -41,19 +41,19 @@ public:
 	~Hand();
 
 	/**
-	 * Méthode retournant le nombre de cartes de la main.
+	 * Mï¿½thode retournant le nombre de cartes de la main.
 	 * @return Entier Nombre de cartes de l'attribut cards.
 	 */
 	int numberOfCards();
 
 	/**
-	 * Méthode retournant la valeur basse de la main. Les As vallent 1.
+	 * Mï¿½thode retournant la valeur basse de la main. Les As vallent 1.
 	 * @return Entier Valeur basse de la main.
 	 */
 	int getValue1();
 
 	/**
-	 * Méthode retournant la valeur haute de la main, si elle existe. Le 1er As vaut 11, les autres vallent 1.
+	 * Mï¿½thode retournant la valeur haute de la main, si elle existe. Le 1er As vaut 11, les autres vallent 1.
 	 * Si la main n'a qu'une seule valeur (elle n'a pas d'AS), retourne getValue1().
 	 * @see isMultiValued()
 	 * @see getValue1()
@@ -62,80 +62,79 @@ public:
 	int getValue2();
 
 	/**
-	 * Méthode qui retourne le vecteur de pointeurs de cartes de la main
+	 * Mï¿½thode qui retourne le vecteur de pointeurs de cartes de la main
 	 * @return vector<Card*>& Cartes de la main.
 	 */
 	std::vector<Card*>& getCards();
 
 	/**
-	 * Méthode qui retourne la ième carte de la main.
-	 * Lance une exception si i fait référence à une carte en dehors du vecteur de carte.
-	 * @return Card* Pointeur vers la ième carte de la main.
+	 * Mï¿½thode qui retourne la iï¿½me carte de la main.
+	 * Lance une exception si i fait rï¿½fï¿½rence ï¿½ une carte en dehors du vecteur de carte.
+	 * @return Card* Pointeur vers la iï¿½me carte de la main.
 	 */
 	Card* getCard(unsigned int i);
 
 	/**
-	 * Méthode qui ajoute la carte en paramètre à la liste des ca
-	 * Lance une exception si la main contient déjà 22 cartes.
+	 * Mï¿½thode qui ajoute la carte en paramï¿½tre ï¿½ la liste des ca
+	 * Lance une exception si la main contient dï¿½jï¿½ 22 cartes.
 	 * @see Hand::numberOfCards()
- 	 * @param c Pointeur vers la carte à ajouter à la main.
+	 * @param c Pointeur vers la carte ï¿½ ajouter ï¿½ la main.
 	 */
 	void addCard(Card *c);
 
 	/**
-	 * Méthode retournant VRAI si la main a deux valeurs <= 21, et FAUX sinon.
-   	 * (i.e. VRAI si la main a un As qui peut avoir pour valeur 11 sans que la valeur totale de la main ne dépasse 21).
+	 * Mï¿½thode retournant VRAI si la main a deux valeurs <= 21, et FAUX sinon.
+	 * (i.e. VRAI si la main a un As qui peut avoir pour valeur 11 sans que la valeur totale de la main ne dï¿½passe 21).
 	 * @see Card::getType()
 	 * @see getValue1()
- 	 * @return Booléen.
- 	 */
+	 * @return Boolï¿½en.
+	 */
 	bool isMultiValued();
 
 	/**
-	 * Méthode retournant VRAI s'il y a un As dans la main. FAUX sinon.
+	 * Mï¿½thode retournant VRAI s'il y a un As dans la main. FAUX sinon.
 	 * @see Card::getType()
-	 * @return Booléen.
+	 * @return Boolï¿½en.
 	 */
 	bool hasAs();
 
 	/**
-	 * Méthode retournant VRAI si la main a une configuration de blackjack. FAUX sinon.
-	 * @return Booléen.
+	 * Mï¿½thode retournant VRAI si la main a une configuration de blackjack. FAUX sinon.
+	 * @return Boolï¿½en.
 	 */
 	bool isBlackjack();
 
 	/**
-	 * Méthode retournant VRAI si les deux premières cartes de la main ont le même EType. Retourne FAUX sinon.
+	 * Mï¿½thode retournant VRAI si les deux premiï¿½res cartes de la main ont le mï¿½me EType. Retourne FAUX sinon.
 	 * @see Card::getType()
-	 * @return Booléen.
+	 * @return Boolï¿½en.
 	 */
 	bool isPair();
 
-
 	/**
-	 * Méthode qui les cartes qu'elle contient.
-	 * Il faut absolument appeler delete après l'appel de cette fonction!
+	 * Mï¿½thode qui les cartes qu'elle contient.
+	 * Il faut absolument appeler delete aprï¿½s l'appel de cette fonction!
 	 */
 	void deleteHand();
 
 	/**
-	 * Méthode qui désalloue les cartes de la main courante et copie les pointeurs de cartes de la main h vers la main courante.
-	 * La main h en paramètre n'est pas modifiée.
+	 * Mï¿½thode qui dï¿½salloue les cartes de la main courante et copie les pointeurs de cartes de la main h vers la main courante.
+	 * La main h en paramï¿½tre n'est pas modifiï¿½e.
 	 * @param h Hand.
 	 */
 	void setHand(const Hand& h);
 
-    /**
-	 * Méthode qui désalloue les cartes de la main courante et remplace les cartes par celles du pointeur en paramètre.
+	/**
+	 * Mï¿½thode qui dï¿½salloue les cartes de la main courante et remplace les cartes par celles du pointeur en paramï¿½tre.
 	 * @param h Pointeur vers la nouvelle main.
 	 */
 	void setHand(Hand* h);
 
 	/**
-	 * Méthode qui transfère le 2eme carte de la main courante vers la main en paramètre.
+	 * Mï¿½thode qui transfï¿½re le 2eme carte de la main courante vers la main en paramï¿½tre.
 	 * Ne fonctionne que s'il n'y a que 2 cartes dans la main. Lance une exception sinon.
 	 * @see addCard()
-	 * @param h Hand (main) où on ajoute le pointeur de la 2eme carte.
+	 * @param h Hand (main) oï¿½ on ajoute le pointeur de la 2eme carte.
 	 */
 	void trandferSecondCard(Hand *h);
 

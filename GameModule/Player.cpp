@@ -8,22 +8,14 @@
 using namespace std;
 
 Player::Player(int i, int pBalance) :
-Participant(pBalance),
-id(i),
-blackjack(false),
-insurance(false),
-surrender(false)
+		Participant(pBalance), id(i), blackjack(false), insurance(false), surrender(false)
 {
 	this->hand = NULL;
 	this->hand2 = NULL;
 }
 
-Player::Player(int pBalance):
-Participant(pBalance),
-id(0),
-blackjack(false),
-insurance(false),
-surrender(false)
+Player::Player(int pBalance) :
+		Participant(pBalance), id(0), blackjack(false), insurance(false), surrender(false)
 {
 	this->hand = NULL;
 	this->hand2 = NULL;
@@ -31,15 +23,15 @@ surrender(false)
 
 Player::~Player()
 {
-    if (this->hand != NULL)
-    {
-        this->hand->deleteHand();
-        delete hand;
-    }
-    if (this->hand2 != NULL)
-    {
-        this->hand2->deleteHand();
-        delete hand2;
+	if (this->hand != NULL)
+	{
+		this->hand->deleteHand();
+		delete hand;
+	}
+	if (this->hand2 != NULL)
+	{
+		this->hand2->deleteHand();
+		delete hand2;
 	}
 }
 
@@ -49,12 +41,12 @@ void Player::newHand()
 	{
 		this->hand = new PlayerHand();
 		this->hand->getCards().clear();
-    }
+	}
 	else
 	{
-        this->hand2 = new PlayerHand();
-        this->hand2->getCards().clear();
-    }
+		this->hand2 = new PlayerHand();
+		this->hand2->getCards().clear();
+	}
 }
 
 void Player::newHand(int i)
@@ -63,12 +55,12 @@ void Player::newHand(int i)
 	{
 		this->hand = new PlayerHand(i);
 		this->hand->getCards().clear();
-    }
+	}
 	else
 	{
-        hand2 = new PlayerHand(i);
-        this->hand2->getCards().clear();
-    }
+		hand2 = new PlayerHand(i);
+		this->hand2->getCards().clear();
+	}
 }
 
 void Player::deleteHand(Hand *h)
@@ -100,8 +92,8 @@ void Player::Surrender(PlayerHand *h)
 
 bool Player::getBlackjack()
 {
-    if (getHand() != NULL && getHand2() == NULL && getHand()->numberOfCards() == 2  && getHand()->getValue2() == 21)
-        setBlackjack(true);
+	if (getHand() != NULL && getHand2() == NULL && getHand()->numberOfCards() == 2 && getHand()->getValue2() == 21)
+		setBlackjack(true);
 
 	return this->blackjack;
 }
@@ -123,16 +115,16 @@ void Player::setSurrender(bool b)
 
 void Player::setHand(PlayerHand *h)
 {
-    if (this->hand != NULL)  // Pas de désallocation si le pointeur est à NULL
-        this->hand->deleteHand();
+	if (this->hand != NULL)  // Pas de désallocation si le pointeur est à NULL
+		this->hand->deleteHand();
 
 	this->hand = h;
 }
 
 void Player::setHand2(PlayerHand *h)
 {
-    if (this->hand2 != NULL)  // Pas de désallocation si le pointeur est à NULL
-        this->hand2->deleteHand();
+	if (this->hand2 != NULL)  // Pas de désallocation si le pointeur est à NULL
+		this->hand2->deleteHand();
 
 	this->hand2 = h;
 }
