@@ -10,6 +10,7 @@
 #include <algorithm>  // std::random_shuffle()
 #include <cstdlib>  // std::rand
 #include <ctime>  // std::time
+#include <unistd.h>
 
 using namespace std;
 
@@ -407,7 +408,7 @@ void BankGame::newGame()
 	cout << endl << "##################################################" << endl;
 	cout << "EN ATTENTE DE JOUEURS" << endl;
 	cout << endl << "##################################################" << endl;
-	while (this->com.CheckFiles() == 0);  // Boucle tant qu'il n'y a pas de joueur
+	while (this->com.CheckFiles() == 0) usleep(100);  // Boucle tant qu'il n'y a pas de joueur
 
 	newPlayer();
 }
