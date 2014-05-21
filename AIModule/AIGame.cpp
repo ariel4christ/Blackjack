@@ -1498,7 +1498,7 @@ int AIGame::getBet() {
 	else
 		numHand = 2;
 
-	bankAdvantage = -0.55 + 0.63 - 0.11;
+	bankAdvantage = -0.55 + 0.83 - 0.11;
 	iaAdvantage = ((0.5 * this->trueCountCard()) - bankAdvantage)/100;
 
 	standartDeviation = 1.5 * sqrt(numHand);
@@ -1510,7 +1510,6 @@ int AIGame::getBet() {
 
 	if (optimalBet <= this->betMin)
 	{
-        this->ia.getHand()->setBet(betMin);
 		return this->betMin;
     }
 
