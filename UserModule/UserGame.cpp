@@ -92,8 +92,7 @@ void UserGame::initRound()
 void UserGame::quitGame()
 {
 	if (player.getBalance() < betMin)
-		;
-	this->ihm.PrintMessage("~ Votre solde est insuffisant pour continuer.\n~ Vous avez perdu :(");
+		this->ihm.PrintMessage("~ Votre solde est insuffisant pour continuer.\n~ Vous avez perdu :(");
 	this->player.setHand(NULL);
 	this->player.setHand(NULL);
 }

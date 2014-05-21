@@ -91,8 +91,7 @@ int main(int argc, char *argv[])
 	}
 
 	cout << "\n\nLorsque tous les programmes joueurs sont lancés pour le 1er tour,\n> Appuyez sur Entrée..." << endl;
-	while (getchar() != '\n')
-		;
+	while (getchar() != '\n');
 	getchar();
 	cout << endl << "##################################################" << endl;
 

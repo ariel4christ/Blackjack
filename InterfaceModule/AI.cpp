@@ -102,7 +102,6 @@ void AI::choice(int hand, bool hit, bool stand, bool Double, bool split, bool qu
 			cout << "\n L'IA quitte le jeu" << endl;
 		else if (surrender)
 			cout << "\n L'IA choisit d'abandonner le tour pour plus de securité" << endl;
-
 	}
 	else
 	{

@@ -164,7 +164,6 @@ void BankGame::endRound(Player *p, int secondHand)
 	{
 		cout << "Joueur " << p->getId() << " a perdu." << endl;
 		bank.increaseBalance(h->getBet());
-
 	}
 	else if (bh->getValue2() > 21 || h->getValue2() > bh->getValue2()) // La main de la banque dépasse 21 OU la main du joueur est > à celle de la banque
 	{
@@ -351,7 +350,6 @@ int BankGame::insurance()
 				bank.increaseBalance(player[i]->getHand()->getBet());
 
 			player[i]->setHand(NULL);
-
 		}
 
 		com.EndRound(player);
@@ -409,8 +407,7 @@ void BankGame::newGame()
 	cout << endl << "##################################################" << endl;
 	cout << "EN ATTENTE DE JOUEURS" << endl;
 	cout << endl << "##################################################" << endl;
-	while (this->com.CheckFiles() == 0)
-		;  // Boucle tant qu'il n'y a pas de joueur
+	while (this->com.CheckFiles() == 0);  // Boucle tant qu'il n'y a pas de joueur
 
 	newPlayer();
 }

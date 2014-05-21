@@ -21,7 +21,6 @@ AIGame::AIGame() :
 
 	this->com.CreateFiles(id);
 	this->ia.setId(id);
-
 }
 
 AIGame::~AIGame()
@@ -50,7 +49,6 @@ void AIGame::runGame(bool wait)
 			AIGame::betMax = bet_max;
 			com.sendAck();
 		}
-
 	}
 	else
 		throw runtime_error("Erreur reception message PlayerEntered");
@@ -139,8 +137,7 @@ bool AIGame::runRound(bool wait)
 			if (wait)
 			{
 				this->aiInterface.nextRound();
-				while (getchar() != '\n')
-					;
+				while (getchar() != '\n');
 			}
 			break;
 
@@ -159,7 +156,6 @@ bool AIGame::runRound(bool wait)
 					this->ia.getHand()->addCard(new Card(static_cast<EType>(typeCard)));
 				else
 					this->ia.getHand2()->addCard(new Card(static_cast<EType>(typeCard)));
-
 			}
 			else
 			{
@@ -182,7 +178,6 @@ bool AIGame::runRound(bool wait)
 			{
 				this->ia.setBalance(balance);
 				this->aiInterface.stateBalanceBet(this->ia, this->ia.getHand()->getBet());
-
 			}
 			this->com.sendAck();
 			break;
@@ -461,7 +456,6 @@ void AIGame::strategy_21(EType type, PlayerHand* myhand)
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -510,7 +504,6 @@ void AIGame::strategy_18(EType type, PlayerHand* myhand)
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -527,7 +520,6 @@ void AIGame::strategy_17(EType type, PlayerHand* myhand)
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -560,7 +552,6 @@ void AIGame::strategy_16(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -730,7 +721,6 @@ void AIGame::strategy_11(EType type, PlayerHand* myhand)
 		}
 
 		break;
-
 	}
 }
 
@@ -771,7 +761,6 @@ void AIGame::strategy_10(EType type, PlayerHand* myhand)
 			this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		}
 		break;
-
 	}
 }
 
@@ -812,7 +801,6 @@ void AIGame::strategy_9(EType type, PlayerHand* myhand)
 			this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		}
 		break;
-
 	}
 }
 
@@ -829,7 +817,6 @@ void AIGame::strategy_8(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -846,7 +833,6 @@ void AIGame::strategy_7(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -863,7 +849,6 @@ void AIGame::strategy_6(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -880,7 +865,6 @@ void AIGame::strategy_5(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -903,7 +887,6 @@ void AIGame::strategy_A_A(EType type, PlayerHand* myhand)
 		else
 			this->strategy_10(type, myhand);
 		break;
-
 	}
 }
 
@@ -920,7 +903,6 @@ void AIGame::strategy_10_10(EType type, PlayerHand* myhand)
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -984,7 +966,6 @@ void AIGame::strategy_8_8(EType type, PlayerHand* myhand)
 			this->strategy_16(type, myhand);
 		}
 		break;
-
 	}
 }
 
@@ -1025,7 +1006,6 @@ void AIGame::strategy_7_7(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1067,7 +1047,6 @@ void AIGame::strategy_6_6(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1105,7 +1084,6 @@ void AIGame::strategy_5_5(EType type, PlayerHand* myhand)
 		else
 			strategy_10(type, myhand);
 		break;
-
 	}
 }
 
@@ -1146,7 +1124,6 @@ void AIGame::strategy_4_4(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1187,7 +1164,6 @@ void AIGame::strategy_3_3(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1229,7 +1205,6 @@ void AIGame::strategy_2_2(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1246,7 +1221,6 @@ void AIGame::strategy_A_10(EType type, PlayerHand* myhand)
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1263,7 +1237,6 @@ void AIGame::strategy_A_9(EType type, PlayerHand* myhand)
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1280,7 +1253,6 @@ void AIGame::strategy_A_8(EType type, PlayerHand* myhand)
 		this->com.Stand(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), false, true, false, false, false, false);
 		break;
-
 	}
 }
 
@@ -1322,7 +1294,6 @@ void AIGame::strategy_A_7(EType type, PlayerHand* myhand)
 		this->com.AskToHIt(this->handValue(myhand));
 		this->aiInterface.choice(this->handValue(myhand), true, false, false, false, false, false);
 		break;
-
 	}
 }
 
