@@ -109,8 +109,13 @@ bool AIGame::runRound( bool wait) {
 		{
 
 		case 1:// AskInsurance received
+            if(trueCountCard()>= 3){
+                this->com.RespondInsurance(1);
+                this->aiInterface.insurrance(1);
+            }else{
 			this->com.RespondInsurance(0);
 			this->aiInterface.insurrance(0);
+			}
 			break;
 
 		case 2: // EndRound received
@@ -1486,23 +1491,20 @@ int AIGame::getBet() {
 	int optimalBet;
 	int numHand, totalUnit;
 
-	if (this->bankCard.getType() == NaN)
-		return this->betMin;
-
-	totalUnit = this->betMax / this->betMin;
+	totalUnit = this->ia.getBalance() / this->betMin;
 
 	if (this->ia.getHand2() == NULL)
 		numHand = 1;
 	else
 		numHand = 2;
 
-	bankAdvantage = -0.0055 + 0.0063 - 0.0011;
-	iaAdvantage = 0.05 * this->trueCountCard() - bankAdvantage;
+	bankAdvantage = -0.55 + 0.63 - 0.11;
+	iaAdvantage = ((0.5 * this->trueCountCard()) - bankAdvantage)/100;
 
 	standartDeviation = 1.5 * sqrt(numHand);
 	variance = pow(standartDeviation, 2);
 
-	optimalUnitBet = (totalUnit * iaAdvantage) / variance;
+	optimalUnitBet = (totalUnit * iaAdvantage)*75 / 100;
 
 	optimalBet = (int) (optimalUnitBet * this->betMin);
 
@@ -1512,7 +1514,6 @@ int AIGame::getBet() {
 		return this->betMin;
     }
 
-    this->ia.getHand()->setBet(optimalBet);
 	return optimalBet;
 }
 
@@ -1556,7 +1557,7 @@ float AIGame::trueCountCard() {
 		actualCount += this->pointCard(listOfCards[i].getType());
 	}
 
-	numConsummeDeck = (float) listOfCards.size() / 6;
+	numConsummeDeck = ((float) listOfCards.size()*6) / 312;
 	numRemainDeck = 6 - numConsummeDeck;
 
 	trueCount = actualCount / numRemainDeck;
