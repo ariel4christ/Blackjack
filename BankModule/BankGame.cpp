@@ -687,7 +687,7 @@ int BankGame::runRound()
 			else  // La banque ne fait pas blackjack
 			{
 				bank.decreaseBalance((int) floor(player[i]->getHand()->getBet() * 1.5));
-				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet() * 2.5)); // Augmentation du solde : 1,5* mise de gains + 1*mise d�j� pr�lev�e
+				player[i]->increaseBalance((int) floor(player[i]->getHand()->getBet() * 2.5)); // Augmentation du solde : 1,5* mise de gains + 1*mise déjà prélevée
 				com.setBalance(player[i]->getId(), player[i]->getBalance());
 				com.ReceiveAck(player[i]->getId());
 				player[i]->setHand(NULL);

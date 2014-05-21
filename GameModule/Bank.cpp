@@ -27,7 +27,7 @@ void Bank::newHand()
 		this->hand->getCards().clear();
 	}
 	else
-		throw runtime_error("Main d�j� existante");
+		throw runtime_error("Main déjà existante");
 }
 
 void Bank::deleteHand()

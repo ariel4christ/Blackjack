@@ -1,5 +1,5 @@
 /**
- * Classe BankGame. Classe de gestion du jeu, ex�cutable banque.
+ * Classe BankGame. Classe de gestion du jeu, exécutable banque.
  * @author Christophe HUBERT
  */
 
@@ -25,14 +25,14 @@ private:
 	Bank bank; /**< Bank Banque du jeu.*/
 	std::vector<Player*> player; /**< vector<Player*>. Liste des joueurs.*/
 
-	BankCommunication com; /**< BankCommunication. Objet permettant la communication entre l'ex�cutable Bank et les ex�cutables joueurs.*/
-	BankInterface interface; /**< BankInterface. Objet r�alisant les interaction entre le programme et l'utilisateur.*/
+	BankCommunication com; /**< BankCommunication. Objet permettant la communication entre l'exécutable Bank et les exécutables joueurs.*/
+	BankInterface interface; /**< BankInterface. Objet réalisant les interaction entre le programme et l'utilisateur.*/
 
 public:
 
 	/**
 	 * Getteur de bank.
-	 * @return  R�f�rence de l'objet bank.
+	 * @return  Référence de l'objet bank.
 	 */
 	Bank& getBank()
 	{
@@ -41,7 +41,7 @@ public:
 
 	/**
 	 * Getteur de player.
-	 * @return  R�f�rence du vecteur des joueurs.
+	 * @return  Référence du vecteur des joueurs.
 	 */
 	std::vector<Player*>& getPlayers()
 	{
@@ -49,26 +49,26 @@ public:
 	}
 
 	/**
-	 * M�thode statique retournant la mise minimale autoris�e.
+	 * Méthode statique retournant la mise minimale autorisée.
 	 * @return  Entier  Mise min.
 	 */
 	static int getBetMin();
 
 	/**
-	 * M�thode statique retournant la mise maximale autoris�e.
+	 * Méthode statique retournant la mise maximale autorisée.
 	 * @return  Entier  Mise min.
 	 */
 	static int getBetMax();
 
 	/**
-	 * M�thode statique retournant le solde initial d'un joueur.
+	 * Méthode statique retournant le solde initial d'un joueur.
 	 * @return  Entier long     Solde initial d'un joueur.
 	 */
 	static long getBalancePlayerInit();
 
 	/**
-	 * M�thode retournant l'attribut com par r�f�rence.
-	 * @return  BankCommunication   R�f�rence de com.
+	 * Méthode retournant l'attribut com par référence.
+	 * @return  BankCommunication   Référence de com.
 	 */
 	BankCommunication& getCom()
 	{
@@ -76,19 +76,19 @@ public:
 	}
 
 	/**
-	 * M�thode statique d�terminant la mise minimale autoris�e.
-	 * @param   i   Nouvelle mise minimale autoris�e.
+	 * Méthode statique déterminant la mise minimale autorisée.
+	 * @param   i   Nouvelle mise minimale autorisée.
 	 */
 	static void setBetMin(int i);
 
 	/**
-	 * M�thode statique d�terminant la mise maximale autoris�e.
-	 * @param   i   Nouvelle mise maximale autoris�e.
+	 * Méthode statique déterminant la mise maximale autorisée.
+	 * @param   i   Nouvelle mise maximale autorisée.
 	 */
 	static void setBetMax(int i);
 
 	/**
-	 * M�thode statique d�terminant le solde initial d'un joueur.
+	 * Méthode statique déterminant le solde initial d'un joueur.
 	 * @param   i   Nouveau solde initiale d'un joueur.
 	 */
 	static void setBalancePlayerInit(int i);
@@ -116,7 +116,7 @@ public:
 	~BankGame();
 
 	/**
-	 * M�thode qui gere les tours de jeu.
+	 * Méthode qui gere les tours de jeu.
 	 * @return 0 lorsqu'il n'y a plus de joueur dans le jeu.
 	 */
 	int runGame();
@@ -124,58 +124,58 @@ public:
 private:
 
 	/**
-	 * M�thode supprimant les 5 premi�res cartes du deck.
+	 * Méthode supprimant les 5 premières cartes du deck.
 	 * Lance une exception si il y a moins de 5 cartes dans le deck.
 	 */
 	void burnCards();
 
 	/**
-	 * M�thode d�sallouant toutes les cartes du deck. Deck est vid�.
+	 * Méthode désallouant toutes les cartes du deck. Deck est vidé.
 	 */
 	void clearDeck();
 
 	/**
-	 * M�thode distribuant les deux premi�res cartes � tous les joueurs et � la banque.
+	 * Méthode distribuant les deux premières cartes à tous les joueurs et à la banque.
 	 */
 	void dealCards();
 
 	/**
-	 * Gestion de la fin d'un tour. Calcule si la main du joueur en param�tre a gagn� ou perdu.
+	 * Gestion de la fin d'un tour. Calcule si la main du joueur en paramètre a gagné ou perdu.
 	 * @see Participant::increaseBalance()
 	 * @see Participant::decreaseBalance()
 	 * @see BankCommunication::setBalance()
-	 * @param   p           Pointeur vers le joueur pour lequel on �tudie la finalit� de sa fin.
-	 * @param   secondHand  Entier � 0 si c'est la premi�re main du joueur, 1 et c'est la deuxi�me main.
+	 * @param   p           Pointeur vers le joueur pour lequel on étudie la finalité de sa fin.
+	 * @param   secondHand  Entier à 0 si c'est la première main du joueur, 1 et c'est la deuxième main.
 	 */
 	void endRound(Player *p, int secondHand);
 
 	/**
 	 * Tire une carte du deck et renvoie son pointeur.
-	 * @return  Pointeur vers la carte tir�e du deck.
+	 * @return  Pointeur vers la carte tirée du deck.
 	 */
 	Card* hitCard();
 
 	/**
-	 * M�thode qui initialise un tour : accueil des nouveaux joueurs, demande des mises et distribution des cartes.
+	 * Méthode qui initialise un tour : accueil des nouveaux joueurs, demande des mises et distribution des cartes.
 	 * @return  0 si le jeu est fini car il n'y a plus de joueur, 1 sinon.
 	 */
 	int initRound();
 
 	/**
-	 * M�thode g�rant la partie assurance
+	 * Méthode gérant la partie assurance
 	 * @return	0	Le tour est fini
 	 1	Le tour n'est pas fini.
 	 */
 	int insurance();
 
 	/**
-	 * M�thode cr�ant un nouveau deck (sabot) neuf. Il contient 312 cartes (24 de chaque EType) non m�lang�es.
+	 * Méthode créant un nouveau deck (sabot) neuf. Il contient 312 cartes (24 de chaque EType) non mélangées.
 	 * @see Card::Card()
 	 */
 	void newDeck();
 
 	/**
-	 * M�thode l'initialisation du jeu.
+	 * Méthode l'initialisation du jeu.
 	 * @see newDeck()
 	 * @see shuffleDeck()
 	 * @see burnCards()
@@ -184,7 +184,7 @@ private:
 	void newGame();
 
 	/**
-	 * M�thode incluant les nouveaux joueurs dans le jeu.
+	 * Méthode incluant les nouveaux joueurs dans le jeu.
 	 */
 	void newPlayer();
 
@@ -198,7 +198,7 @@ private:
 	int playerAction(Player *p, int secondHand);
 
 	/**
-	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en param�tre. Fini le jeu s'il n'y a plus de joueur.
+	 * Methode gerant la suppression d'un joueur du jeu. Desalloue le joueur en paramètre. Fini le jeu s'il n'y a plus de joueur.
 	 * @see Player::~Player()
 	 * @see BankCommunication::HasQuit()
 	 * @param   p   Pointeur vers le joueur qui quitte le jeu.
@@ -208,12 +208,12 @@ private:
 
 	/**
 	 * Methode gerant le deroulement d'un tour.
-	 * @return  1   le tour s'est fini sans probleme, 0 si le jeu est termin�.
+	 * @return  1   le tour s'est fini sans probleme, 0 si le jeu est terminé.
 	 */
 	int runRound();
 
 	/**
-	 * M�thode de battage (tri al�atoire) des cartes du deck.
+	 * Méthode de battage (tri aléatoire) des cartes du deck.
 	 * @see std::random_suffle()
 	 */
 	void shuffleDeck();

@@ -5,7 +5,7 @@
 
 #include "Card.h"
 
-// Initialisation par d�faut de la variable statique sID
+// Initialisation par défaut de la variable statique sID
 int Card::sId = 0;
 
 Card::Card(EType t)

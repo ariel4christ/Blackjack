@@ -18,14 +18,14 @@ class Card
 {
 private:
 	int id; /**< Entier. Identifiant de la carte. */
-	static int sId; /**< Entier statique. Variable utilis�e pour d�terminer l'id d'une carte. */
+	static int sId; /**< Entier statique. Variable utilisée pour déterminer l'id d'une carte. */
 	EType type; /**< EType. Type de la carte. */
 
 public:
 
 	/**
 	 * Constructeur.
-	 * @param t type de la carte � cr�er.
+	 * @param t type de la carte à créer.
 	 */
 	Card(EType t);
 
@@ -54,19 +54,19 @@ public:
 	}
 
 	/**
-	 * M�thode retournant la valeur de la carte.
+	 * Méthode retournant la valeur de la carte.
 	 * @return Entier Valeur de la carte.
 	 */
 	int getValue();
 
 	/**
-	 * M�thode retournant le type la carte.
+	 * Méthode retournant le type la carte.
 	 * @return EType Type de la carte.
 	 */
 	EType getType();
 
 	/**
-	 * Retourne une repr�sentation de la carte sur quelques caract�res	 * @return la r�pr�sentation
+	 * Retourne une représentation de la carte sur quelques caractères	 * @return la réprésentation
 	 */
 	const char* getStringRepresentation();
 

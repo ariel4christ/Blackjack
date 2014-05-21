@@ -20,8 +20,20 @@ class AIGame
 {
 public:
 
+	/**
+	 * Constructeur de AIGame
+	 */
 	AIGame();
+
+	/**
+	 * Destructeur de AIGame
+	 */
 	~AIGame();
+
+	/**
+	 * Méthode prenant en charge le déroulement complet du jeu
+	 * @param wait bool  Mettre ce paramètre à true pour que l'IA soit lancée en mode interactif
+	 */
 	void runGame(bool wait);
 
 private:

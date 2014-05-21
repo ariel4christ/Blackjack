@@ -14,8 +14,8 @@ protected:
 public:
 
 	/**
-	 * M�thode diminuant le solde de la valeur donn�e en param�tre.
-	 * @param i valeur � soustraire du solde.
+	 * Méthode diminuant le solde de la valeur donnée en paramètre.
+	 * @param i valeur à soustraire du solde.
 	 */
 	void decreaseBalance(int i);
 
@@ -29,13 +29,13 @@ public:
 	}
 
 	/**
-	 * M�thode augmentant le solde de la valeur donn�e en param�tre.
-	 * @param i valeur � ajouter du solde.
+	 * Méthode augmentant le solde de la valeur donnée en paramàtre.
+	 * @param i valeur à ajouter du solde.
 	 */
 	void increaseBalance(int i);
 
 	/**
-	 * M�thode virtuelle pure.
+	 * Méthode virtuelle pure.
 	 */
 	virtual void newHand()=0;
 

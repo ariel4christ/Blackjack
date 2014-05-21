@@ -1,5 +1,5 @@
 /**
- * Classe Bank. H�rite de la classe Participant.
+ * Classe Bank. Hérite de la classe Participant.
  * @author Christophe HUBERT
  */
 
@@ -32,13 +32,13 @@ public:
 	~Bank();
 
 	/**
-	 * M�thode cr�ant une nouvelle main. M�thode virtuelle h�rit�e de Participant.
+	 * Méthode créant une nouvelle main. Méthode virtuelle héritée de Participant.
 	 * @see Hand::Hand()
 	 */
 	virtual void newHand();
 
 	/**
-	 * M�thode supprimant la main de la banque.
+	 * Méthode supprimant la main de la banque.
 	 * @see Hand::deleteHand()
 	 */
 	void deleteHand();
