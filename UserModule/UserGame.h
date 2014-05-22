@@ -41,55 +41,37 @@ public:
 	 * Getter de la communication
 	 * @return Référence de l'objet com
 	 */
-	PlayerCommunication& getCom()
-	{
-		return this->com;
-	}
+	inline PlayerCommunication& getCom() { return this->com; }
 
 	/**
 	 * Getter de player
 	 * @return Référence de player
 	 */
-	Player& getPlayer()
-	{
-		return this->player;
-	}
+	inline Player& getPlayer() { return this->player; }
 
 	/**
 	 * Méthode statique retournant la mise minimale autorisée.
 	 * @return  Entier  Mise min.
 	 */
-	static int getBetMin()
-	{
-		return UserGame::betMin;
-	}
+	inline static int getBetMin() { return UserGame::betMin; }
 
 	/**
 	 * Méthode statique retournant la mise maximale autorisée.
 	 * @return  Entier  Mise min.
 	 */
-	static int getBetMax()
-	{
-		return UserGame::betMax;
-	}
+	inline static int getBetMax() { return UserGame::betMax; }
 
 	/**
 	 * Méthode statique déterminant la mise minimale autorisée.
 	 * @param   i   Nouvelle mise minimale autorisée.
 	 */
-	static void setBetMin(int i)
-	{
-		betMin = i;
-	}
+	inline static void setBetMin(int i) { betMin = i; }
 
 	/**
 	 * Méthode statique déterminant la mise maximale autorisée.
 	 * @param   i   Nouvelle mise maximale autorisée.
 	 */
-	static void setBetMax(int i)
-	{
-		betMax = i;
-	}
+	inline static void setBetMax(int i) { betMax = i; }
 
 private:
 	static int betMin; /**< Entier. Mise minimale.*/
