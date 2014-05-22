@@ -188,10 +188,21 @@ bool AIGame::runRound(bool wait)
 
 			if (num_joueur == idIA)
 			{
-				this->ia.getHand()->setBet(bet);
-				this->previousBets.push_back(bet);
-				this->ia.decreaseBalance(bet);
-				this->aiInterface.stateBalanceBet(this->ia, bet);
+				if (ia->getHand()->getBet() == 0)
+				{
+					this->ia.getHand()->setBet(bet);
+					this->previousBets.push_back(bet);
+					this->ia.decreaseBalance(bet);
+					this->aiInterface.stateBalanceBet(this->ia, bet);
+				}
+				else
+				{
+					this->ia.getHand()->setBet(bet);
+					this->previousBets.pop_back();
+					this->previousBets.push_back(bet);
+					this->ia.decreaseBalance(bet/2);
+					this->aiInterface.stateBalanceBet(this->ia, bet/2);
+				}
 			}
 			this->com.sendAck();
 			break;
