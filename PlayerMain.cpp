@@ -1,6 +1,7 @@
 /**
  * PlayerMain.cpp
  * Main de l'éxécutable Player.
+ * @author Christophe HUBERT
  */
 #include "UserModule/UserGame.h"
 
