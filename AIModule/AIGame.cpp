@@ -188,7 +188,7 @@ bool AIGame::runRound(bool wait)
 
 			if (num_joueur == idIA)
 			{
-				if (ia->getHand()->getBet() == 0)
+				if (ia.getHand()->getBet() == 0)
 				{
 					this->ia.getHand()->setBet(bet);
 					this->previousBets.push_back(bet);
