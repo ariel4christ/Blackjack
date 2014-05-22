@@ -451,7 +451,7 @@ void AIGame::quitGame()
 {
 	this->ia.setHand(NULL);
 	this->ia.setHand2(NULL);
-	exit(EXIT_SUCCESS);
+	com.RemoveFiles(ia.getId());
 }
 
 void AIGame::strategy_21(EType type, PlayerHand* myhand)
