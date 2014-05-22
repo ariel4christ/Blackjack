@@ -116,7 +116,10 @@ void Player::setSurrender(bool b)
 void Player::setHand(PlayerHand *h)
 {
 	if (this->hand != NULL)  // Pas de désallocation si le pointeur est à NULL
+	{
 		this->hand->deleteHand();
+		delete this->Hand;
+	}
 
 	this->hand = h;
 }
@@ -124,7 +127,10 @@ void Player::setHand(PlayerHand *h)
 void Player::setHand2(PlayerHand *h)
 {
 	if (this->hand2 != NULL)  // Pas de désallocation si le pointeur est à NULL
+	{
 		this->hand2->deleteHand();
+		delete this->Hand2;
+	}
 
 	this->hand2 = h;
 }
