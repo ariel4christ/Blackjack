@@ -34,20 +34,20 @@ public:
 	 * Getteur de bank.
 	 * @return  Référence de l'objet bank.
 	 */
-	Bank& getBank()
-	{
-		return this->bank;
-	}
+	inline Bank& getBank() { return this->bank; }
 
 	/**
 	 * Getteur de player.
 	 * @return  Référence du vecteur des joueurs.
 	 */
-	std::vector<Player*>& getPlayers()
-	{
-		return this->player;
-	}
+	inline std::vector<Player*>& getPlayers() { return this->player; }
 
+	/**
+	 * Méthode retournant l'attribut com par référence.
+	 * @return  BankCommunication   Référence de com.
+	 */
+	inline BankCommunication& getCom() { return this->com; }
+	
 	/**
 	 * Méthode statique retournant la mise minimale autorisée.
 	 * @return  Entier  Mise min.
@@ -65,15 +65,6 @@ public:
 	 * @return  Entier long     Solde initial d'un joueur.
 	 */
 	static long getBalancePlayerInit();
-
-	/**
-	 * Méthode retournant l'attribut com par référence.
-	 * @return  BankCommunication   Référence de com.
-	 */
-	BankCommunication& getCom()
-	{
-		return this->com;
-	}
 
 	/**
 	 * Méthode statique déterminant la mise minimale autorisée.
@@ -217,7 +208,6 @@ private:
 	 * @see std::random_suffle()
 	 */
 	void shuffleDeck();
-
 };
 
 #endif
