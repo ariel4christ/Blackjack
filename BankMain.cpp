@@ -17,9 +17,9 @@ int main(int argc, char *argv[])
 	{
 	case 1:
 		min = 5;
-		max = 100;
-		playerInit = 2000;
-		bankInit = 200000000;
+		max = 200;
+		playerInit = 1000;
+		bankInit = 1000000;
 		break;
 
 	case 5:
