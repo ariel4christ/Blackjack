@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.7"/>
+<title>Blackjack:  Fichier source de CommunicationModule/BankCommunication.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Blackjack
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.7 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Fonctions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_2a24d809425e4f7cba0b144d182249ad.html">CommunicationModule</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">BankCommunication.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef _BANKCOMMUNICATION_H</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define _BANKCOMMUNICATION_H</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../GameModule/Card.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../GameModule/Hand.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;../GameModule/Player.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classBankCommunication.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="classBankCommunication.html">BankCommunication</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a19349a390ed52f5c572991dd3bf9133a">AskInsurance</a>(<span class="keywordtype">int</span> player);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classBankCommunication.html#aaf723a91c2c539e70651ddecfa9abfa2">CheckFiles</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a8c02d672978a6e2dec51e48febd587c8">CleanFiles</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#ac87cef9ec87658c0d27e48cdd74a22c3">CreditPlayer</a>(<span class="keywordtype">int</span> player, <span class="keywordtype">int</span> money);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a8831d2c9ab6bfd7b86c5b184b8619434">DebitPlayer</a>(<span class="keywordtype">int</span> player, <span class="keywordtype">int</span> money);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a4b842774a18c8b4c1bb020a134bac281">EndRound</a>(std::vector&lt;Player*&gt; &amp;p);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#ac6a24d91fe4d8b4ef5a902ee03c2f19e">PlayerEntered</a>(<span class="keywordtype">int</span> id_player, std::vector&lt;Player*&gt; &amp;player);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a4e6eb8f55a187e46a0a84e855a4aa641">HasQuit</a>(<span class="keywordtype">int</span> player, std::vector&lt;Player*&gt; &amp;p);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    std::string <a class="code" href="classBankCommunication.html#a21a7dc75668426ed6e23324042a50f7a">ReadFile</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a5d18e5179860c3a306fb8149ed25f09c">RoundStart</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a89bdb16a4e5e42a76431ac41879fb622">SendCard</a>(<span class="keywordtype">int</span> player, EType t, <span class="keywordtype">int</span> secondHand, std::vector&lt;Player*&gt; &amp;p);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a5dd908362577e1dd68277b8c7a0d1ca6">setBalance</a>(<span class="keywordtype">int</span> player, <span class="keywordtype">int</span> balance);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a2e2f5f80bbd1b2d53f538d6ea5278d07">setBet</a>(<span class="keywordtype">int</span> player, <span class="keywordtype">int</span> bet);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a9bc6ddbb8c528327d8b49b7c77d4e66c">setHand</a>(<span class="keywordtype">int</span> player, <a class="code" href="classHand.html">Hand</a> &amp;h, <span class="keywordtype">int</span> secondHand, std::vector&lt;Player*&gt; &amp;p);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a4601b9305fac30332d539203d74020ed">validStand</a>(<span class="keywordtype">int</span> player, <span class="keywordtype">int</span> secondHand);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a20377fc6ff851ca9c2332fcb0a2272b5">validSurrender</a>(<span class="keywordtype">int</span> player);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a02829f086df54ffd41d4018039770947">validSplit</a>(<span class="keywordtype">int</span> player);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classBankCommunication.html#a279da500202f66a54d883d0e5eb6d455">AskAction</a>(<span class="keywordtype">int</span> player, <span class="keywordtype">int</span> secondHand);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> ReceiveAck(std::vector&lt;Player*&gt; &amp;p);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> ReceiveAck(<span class="keywordtype">int</span> i);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classBankCommunication_html_a4b842774a18c8b4c1bb020a134bac281"><div class="ttname"><a href="classBankCommunication.html#a4b842774a18c8b4c1bb020a134bac281">BankCommunication::EndRound</a></div><div class="ttdeci">void EndRound(std::vector&lt; Player * &gt; &amp;p)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:122</div></div>
+<div class="ttc" id="classBankCommunication_html"><div class="ttname"><a href="classBankCommunication.html">BankCommunication</a></div><div class="ttdef"><b>Definition:</b> BankCommunication.h:19</div></div>
+<div class="ttc" id="classBankCommunication_html_a19349a390ed52f5c572991dd3bf9133a"><div class="ttname"><a href="classBankCommunication.html#a19349a390ed52f5c572991dd3bf9133a">BankCommunication::AskInsurance</a></div><div class="ttdeci">void AskInsurance(int player)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:15</div></div>
+<div class="ttc" id="classBankCommunication_html_a21a7dc75668426ed6e23324042a50f7a"><div class="ttname"><a href="classBankCommunication.html#a21a7dc75668426ed6e23324042a50f7a">BankCommunication::ReadFile</a></div><div class="ttdeci">std::string ReadFile(int id)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:210</div></div>
+<div class="ttc" id="classBankCommunication_html_ac87cef9ec87658c0d27e48cdd74a22c3"><div class="ttname"><a href="classBankCommunication.html#ac87cef9ec87658c0d27e48cdd74a22c3">BankCommunication::CreditPlayer</a></div><div class="ttdeci">void CreditPlayer(int player, int money)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:72</div></div>
+<div class="ttc" id="classBankCommunication_html_a9bc6ddbb8c528327d8b49b7c77d4e66c"><div class="ttname"><a href="classBankCommunication.html#a9bc6ddbb8c528327d8b49b7c77d4e66c">BankCommunication::setHand</a></div><div class="ttdeci">void setHand(int player, Hand &amp;h, int secondHand, std::vector&lt; Player * &gt; &amp;p)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:358</div></div>
+<div class="ttc" id="classBankCommunication_html_a5d18e5179860c3a306fb8149ed25f09c"><div class="ttname"><a href="classBankCommunication.html#a5d18e5179860c3a306fb8149ed25f09c">BankCommunication::RoundStart</a></div><div class="ttdeci">void RoundStart(int id)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:247</div></div>
+<div class="ttc" id="classBankCommunication_html_a279da500202f66a54d883d0e5eb6d455"><div class="ttname"><a href="classBankCommunication.html#a279da500202f66a54d883d0e5eb6d455">BankCommunication::AskAction</a></div><div class="ttdeci">void AskAction(int player, int secondHand)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:470</div></div>
+<div class="ttc" id="classBankCommunication_html_a20377fc6ff851ca9c2332fcb0a2272b5"><div class="ttname"><a href="classBankCommunication.html#a20377fc6ff851ca9c2332fcb0a2272b5">BankCommunication::validSurrender</a></div><div class="ttdeci">void validSurrender(int player)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:420</div></div>
+<div class="ttc" id="classHand_html"><div class="ttname"><a href="classHand.html">Hand</a></div><div class="ttdef"><b>Definition:</b> Hand.h:12</div></div>
+<div class="ttc" id="classBankCommunication_html_a8c02d672978a6e2dec51e48febd587c8"><div class="ttname"><a href="classBankCommunication.html#a8c02d672978a6e2dec51e48febd587c8">BankCommunication::CleanFiles</a></div><div class="ttdeci">void CleanFiles()</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:55</div></div>
+<div class="ttc" id="classBankCommunication_html_ac6a24d91fe4d8b4ef5a902ee03c2f19e"><div class="ttname"><a href="classBankCommunication.html#ac6a24d91fe4d8b4ef5a902ee03c2f19e">BankCommunication::PlayerEntered</a></div><div class="ttdeci">void PlayerEntered(int id_player, std::vector&lt; Player * &gt; &amp;player)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:151</div></div>
+<div class="ttc" id="classBankCommunication_html_a8831d2c9ab6bfd7b86c5b184b8619434"><div class="ttname"><a href="classBankCommunication.html#a8831d2c9ab6bfd7b86c5b184b8619434">BankCommunication::DebitPlayer</a></div><div class="ttdeci">void DebitPlayer(int player, int money)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:98</div></div>
+<div class="ttc" id="classBankCommunication_html_a02829f086df54ffd41d4018039770947"><div class="ttname"><a href="classBankCommunication.html#a02829f086df54ffd41d4018039770947">BankCommunication::validSplit</a></div><div class="ttdeci">void validSplit(int player)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:445</div></div>
+<div class="ttc" id="classBankCommunication_html_a2e2f5f80bbd1b2d53f538d6ea5278d07"><div class="ttname"><a href="classBankCommunication.html#a2e2f5f80bbd1b2d53f538d6ea5278d07">BankCommunication::setBet</a></div><div class="ttdeci">void setBet(int player, int bet)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:332</div></div>
+<div class="ttc" id="classBankCommunication_html_aaf723a91c2c539e70651ddecfa9abfa2"><div class="ttname"><a href="classBankCommunication.html#aaf723a91c2c539e70651ddecfa9abfa2">BankCommunication::CheckFiles</a></div><div class="ttdeci">int CheckFiles()</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:36</div></div>
+<div class="ttc" id="classBankCommunication_html_a4e6eb8f55a187e46a0a84e855a4aa641"><div class="ttname"><a href="classBankCommunication.html#a4e6eb8f55a187e46a0a84e855a4aa641">BankCommunication::HasQuit</a></div><div class="ttdeci">void HasQuit(int player, std::vector&lt; Player * &gt; &amp;p)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:180</div></div>
+<div class="ttc" id="classBankCommunication_html_a5dd908362577e1dd68277b8c7a0d1ca6"><div class="ttname"><a href="classBankCommunication.html#a5dd908362577e1dd68277b8c7a0d1ca6">BankCommunication::setBalance</a></div><div class="ttdeci">void setBalance(int player, int balance)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:305</div></div>
+<div class="ttc" id="classBankCommunication_html_a89bdb16a4e5e42a76431ac41879fb622"><div class="ttname"><a href="classBankCommunication.html#a89bdb16a4e5e42a76431ac41879fb622">BankCommunication::SendCard</a></div><div class="ttdeci">void SendCard(int player, EType t, int secondHand, std::vector&lt; Player * &gt; &amp;p)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:275</div></div>
+<div class="ttc" id="classBankCommunication_html_a4601b9305fac30332d539203d74020ed"><div class="ttname"><a href="classBankCommunication.html#a4601b9305fac30332d539203d74020ed">BankCommunication::validStand</a></div><div class="ttdeci">void validStand(int player, int secondHand)</div><div class="ttdef"><b>Definition:</b> BankCommunication.cpp:395</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Jeudi 22 Mai 2014 16:03:12 pour Blackjack par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.7
+</small></address>
+</body>
+</html>

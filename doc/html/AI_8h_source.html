@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.7"/>
+<title>Blackjack:  Fichier source de InterfaceModule/AI.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Blackjack
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.7 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Fonctions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_0f7ff6d06305bd133e8f04fda947d18f.html">InterfaceModule</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">AI.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#ifndef AI_H_</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#define AI_H_</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;../GameModule/Player.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;../GameModule/Card.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classAI.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classAI.html">AI</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classAI.html">AI</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ~<a class="code" href="classAI.html">AI</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#a61a6ea10d1515c6c67616ab6e5ee5af3">stateBalanceBet</a>(<a class="code" href="classPlayer.html">Player</a>&amp; ia, <span class="keywordtype">int</span> bet);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#a46ba0c8cf5740806cd2665591201b0e3">insurrance</a>(<span class="keywordtype">int</span> val);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#aa8f1a2d639367b24d8b0f75fe59744c5">stateCards</a>(<a class="code" href="classPlayer.html">Player</a>&amp; ia);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#aa06a296458258f250f66bc61ac9b3660">choice</a>(<span class="keywordtype">int</span> hand, <span class="keywordtype">bool</span> hit, <span class="keywordtype">bool</span> stand, <span class="keywordtype">bool</span> Double, <span class="keywordtype">bool</span> split, <span class="keywordtype">bool</span> quit, <span class="keywordtype">bool</span> surrender);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#aa7b5542489a8352dbecb20c77e262be6">balanceState</a>(<a class="code" href="classPlayer.html">Player</a>&amp; ia);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#ab1cabebadce0b6b627a41446a7b66b66">endRound</a>(<a class="code" href="classPlayer.html">Player</a> &amp;ia);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#a0661a278ced3b481c90ec5ab78eb6d95">EnterGame</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#acb9f149eb2989d477d712495a4809699">startRound</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#a6ac5aff495eb41296d601e8a0ed85141">endGame</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAI.html#a845f7243e727465e115d0715276af3ad">nextRound</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classAI.html#a17b551aa708e52324d588dd0fbd7e474">center_output</a>(std::string str, <span class="keywordtype">int</span> num_cols);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* AI_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="classAI_html_a845f7243e727465e115d0715276af3ad"><div class="ttname"><a href="classAI.html#a845f7243e727465e115d0715276af3ad">AI::nextRound</a></div><div class="ttdeci">void nextRound()</div><div class="ttdef"><b>Definition:</b> AI.cpp:179</div></div>
+<div class="ttc" id="classAI_html_a46ba0c8cf5740806cd2665591201b0e3"><div class="ttname"><a href="classAI.html#a46ba0c8cf5740806cd2665591201b0e3">AI::insurrance</a></div><div class="ttdeci">void insurrance(int val)</div><div class="ttdef"><b>Definition:</b> AI.cpp:19</div></div>
+<div class="ttc" id="classAI_html_aa06a296458258f250f66bc61ac9b3660"><div class="ttname"><a href="classAI.html#aa06a296458258f250f66bc61ac9b3660">AI::choice</a></div><div class="ttdeci">void choice(int hand, bool hit, bool stand, bool Double, bool split, bool quit, bool surrender)</div><div class="ttdef"><b>Definition:</b> AI.cpp:86</div></div>
+<div class="ttc" id="classAI_html"><div class="ttname"><a href="classAI.html">AI</a></div><div class="ttdef"><b>Definition:</b> AI.h:16</div></div>
+<div class="ttc" id="classAI_html_a6ac5aff495eb41296d601e8a0ed85141"><div class="ttname"><a href="classAI.html#a6ac5aff495eb41296d601e8a0ed85141">AI::endGame</a></div><div class="ttdeci">void endGame()</div><div class="ttdef"><b>Definition:</b> AI.cpp:171</div></div>
+<div class="ttc" id="classAI_html_a17b551aa708e52324d588dd0fbd7e474"><div class="ttname"><a href="classAI.html#a17b551aa708e52324d588dd0fbd7e474">AI::center_output</a></div><div class="ttdeci">static void center_output(std::string str, int num_cols)</div><div class="ttdef"><b>Definition:</b> AI.cpp:132</div></div>
+<div class="ttc" id="classAI_html_acb9f149eb2989d477d712495a4809699"><div class="ttname"><a href="classAI.html#acb9f149eb2989d477d712495a4809699">AI::startRound</a></div><div class="ttdeci">void startRound()</div><div class="ttdef"><b>Definition:</b> AI.cpp:154</div></div>
+<div class="ttc" id="classAI_html_a0661a278ced3b481c90ec5ab78eb6d95"><div class="ttname"><a href="classAI.html#a0661a278ced3b481c90ec5ab78eb6d95">AI::EnterGame</a></div><div class="ttdeci">void EnterGame(int id)</div><div class="ttdef"><b>Definition:</b> AI.cpp:160</div></div>
+<div class="ttc" id="classAI_html_aa7b5542489a8352dbecb20c77e262be6"><div class="ttname"><a href="classAI.html#aa7b5542489a8352dbecb20c77e262be6">AI::balanceState</a></div><div class="ttdeci">void balanceState(Player &amp;ia)</div><div class="ttdef"><b>Definition:</b> AI.cpp:124</div></div>
+<div class="ttc" id="classAI_html_ab1cabebadce0b6b627a41446a7b66b66"><div class="ttname"><a href="classAI.html#ab1cabebadce0b6b627a41446a7b66b66">AI::endRound</a></div><div class="ttdeci">void endRound(Player &amp;ia)</div><div class="ttdef"><b>Definition:</b> AI.cpp:145</div></div>
+<div class="ttc" id="classAI_html_a61a6ea10d1515c6c67616ab6e5ee5af3"><div class="ttname"><a href="classAI.html#a61a6ea10d1515c6c67616ab6e5ee5af3">AI::stateBalanceBet</a></div><div class="ttdeci">void stateBalanceBet(Player &amp;ia, int bet)</div><div class="ttdef"><b>Definition:</b> AI.cpp:79</div></div>
+<div class="ttc" id="classPlayer_html"><div class="ttname"><a href="classPlayer.html">Player</a></div><div class="ttdef"><b>Definition:</b> Player.h:14</div></div>
+<div class="ttc" id="classAI_html_aa8f1a2d639367b24d8b0f75fe59744c5"><div class="ttname"><a href="classAI.html#aa8f1a2d639367b24d8b0f75fe59744c5">AI::stateCards</a></div><div class="ttdeci">void stateCards(Player &amp;ia)</div><div class="ttdef"><b>Definition:</b> AI.cpp:28</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Jeudi 22 Mai 2014 16:03:12 pour Blackjack par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.7
+</small></address>
+</body>
+</html>

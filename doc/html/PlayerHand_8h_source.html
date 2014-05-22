@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.7"/>
+<title>Blackjack:  Fichier source de GameModule/PlayerHand.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Blackjack
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.7 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Fonctions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_4e7d3243fc1c752910838ea521e6ca92.html">GameModule</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">PlayerHand.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef _PLAYERHAND_H</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define _PLAYERHAND_H</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Hand.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classPlayerHand.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classPlayerHand.html">PlayerHand</a>: <span class="keyword">public</span> <a class="code" href="classHand.html">Hand</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classPlayerHand.html#a8e8cfbf8771cbcc2262524665bf0bc93">   13</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classPlayerHand.html#a8e8cfbf8771cbcc2262524665bf0bc93">bet</a>; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classPlayerHand.html#a070529a8fd3ac6da30c5a98f63a63876">   14</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classPlayerHand.html#a070529a8fd3ac6da30c5a98f63a63876">stand</a>; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="classPlayerHand.html#a7fa83abcd228a24e73b97726df546547">PlayerHand</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classPlayerHand.html#a7fa83abcd228a24e73b97726df546547">PlayerHand</a>(<span class="keywordtype">int</span> i);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classPlayerHand.html#a7fa83abcd228a24e73b97726df546547">PlayerHand</a>(<a class="code" href="classCard.html">Card</a> &amp;c, <span class="keywordtype">int</span> i);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="classPlayerHand.html#a7fa83abcd228a24e73b97726df546547">PlayerHand</a>(<span class="keyword">const</span> <a class="code" href="classHand.html">Hand</a> &amp;h, <span class="keywordtype">int</span> i);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classPlayerHand.html#a4bc9652251d8508a9dda9da6a9ecaaae">~PlayerHand</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classPlayerHand.html#a04823c1c47bb40e090232db08e2fd2e9">getBet</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classPlayerHand.html#a615bac6bdf18cdfe6c7492508cc9a6f9">setBet</a>(<span class="keywordtype">int</span> <a class="code" href="classPlayerHand.html#a8e8cfbf8771cbcc2262524665bf0bc93">bet</a>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classPlayerHand.html#ab1038d5ffe2a2c5829ee75633ba36f29">doubleBet</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classPlayerHand.html#a74f0ebc3ac3586ff19c5b8bb04ad674a">getStand</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classPlayerHand.html#afbed3724099fc8e8e32920b1acb04127">setStand</a>(<span class="keywordtype">bool</span> b);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classPlayerHand_html_afbed3724099fc8e8e32920b1acb04127"><div class="ttname"><a href="classPlayerHand.html#afbed3724099fc8e8e32920b1acb04127">PlayerHand::setStand</a></div><div class="ttdeci">void setStand(bool b)</div><div class="ttdef"><b>Definition:</b> PlayerHand.cpp:52</div></div>
+<div class="ttc" id="classPlayerHand_html_a8e8cfbf8771cbcc2262524665bf0bc93"><div class="ttname"><a href="classPlayerHand.html#a8e8cfbf8771cbcc2262524665bf0bc93">PlayerHand::bet</a></div><div class="ttdeci">int bet</div><div class="ttdef"><b>Definition:</b> PlayerHand.h:13</div></div>
+<div class="ttc" id="classPlayerHand_html_ab1038d5ffe2a2c5829ee75633ba36f29"><div class="ttname"><a href="classPlayerHand.html#ab1038d5ffe2a2c5829ee75633ba36f29">PlayerHand::doubleBet</a></div><div class="ttdeci">void doubleBet()</div><div class="ttdef"><b>Definition:</b> PlayerHand.cpp:42</div></div>
+<div class="ttc" id="classPlayerHand_html"><div class="ttname"><a href="classPlayerHand.html">PlayerHand</a></div><div class="ttdef"><b>Definition:</b> PlayerHand.h:10</div></div>
+<div class="ttc" id="classPlayerHand_html_a04823c1c47bb40e090232db08e2fd2e9"><div class="ttname"><a href="classPlayerHand.html#a04823c1c47bb40e090232db08e2fd2e9">PlayerHand::getBet</a></div><div class="ttdeci">int getBet()</div><div class="ttdef"><b>Definition:</b> PlayerHand.cpp:32</div></div>
+<div class="ttc" id="classHand_html"><div class="ttname"><a href="classHand.html">Hand</a></div><div class="ttdef"><b>Definition:</b> Hand.h:12</div></div>
+<div class="ttc" id="classPlayerHand_html_a4bc9652251d8508a9dda9da6a9ecaaae"><div class="ttname"><a href="classPlayerHand.html#a4bc9652251d8508a9dda9da6a9ecaaae">PlayerHand::~PlayerHand</a></div><div class="ttdeci">~PlayerHand()</div><div class="ttdef"><b>Definition:</b> PlayerHand.cpp:28</div></div>
+<div class="ttc" id="classPlayerHand_html_a74f0ebc3ac3586ff19c5b8bb04ad674a"><div class="ttname"><a href="classPlayerHand.html#a74f0ebc3ac3586ff19c5b8bb04ad674a">PlayerHand::getStand</a></div><div class="ttdeci">bool getStand()</div><div class="ttdef"><b>Definition:</b> PlayerHand.cpp:47</div></div>
+<div class="ttc" id="classPlayerHand_html_a615bac6bdf18cdfe6c7492508cc9a6f9"><div class="ttname"><a href="classPlayerHand.html#a615bac6bdf18cdfe6c7492508cc9a6f9">PlayerHand::setBet</a></div><div class="ttdeci">void setBet(int bet)</div><div class="ttdef"><b>Definition:</b> PlayerHand.cpp:37</div></div>
+<div class="ttc" id="classCard_html"><div class="ttname"><a href="classCard.html">Card</a></div><div class="ttdef"><b>Definition:</b> Card.h:17</div></div>
+<div class="ttc" id="classPlayerHand_html_a7fa83abcd228a24e73b97726df546547"><div class="ttname"><a href="classPlayerHand.html#a7fa83abcd228a24e73b97726df546547">PlayerHand::PlayerHand</a></div><div class="ttdeci">PlayerHand()</div><div class="ttdef"><b>Definition:</b> PlayerHand.cpp:8</div></div>
+<div class="ttc" id="classPlayerHand_html_a070529a8fd3ac6da30c5a98f63a63876"><div class="ttname"><a href="classPlayerHand.html#a070529a8fd3ac6da30c5a98f63a63876">PlayerHand::stand</a></div><div class="ttdeci">bool stand</div><div class="ttdef"><b>Definition:</b> PlayerHand.h:14</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Jeudi 22 Mai 2014 16:03:12 pour Blackjack par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.7
+</small></address>
+</body>
+</html>

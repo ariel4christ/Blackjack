@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.7"/>
+<title>Blackjack:  Fichier source de UserModule/UserGame.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Blackjack
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.7 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Fonctions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_e4c9a751a7f76ec2eeeea206a7480b89.html">UserModule</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">UserGame.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef USERGAME_H_</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define USERGAME_H_</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;../GameModule/Player.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;../CommunicationModule/PlayerCommunication.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;../InterfaceModule/HMI.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classUserGame.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classUserGame.html">UserGame</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classUserGame.html#adee3f9c91d00f284e4bfac6123103c41">UserGame</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classUserGame.html#aa1a4a7ce21a0f9df04fa3dcc184e3e5a">~UserGame</a>();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classUserGame.html#a0c375eaf2b4d663e03e0862b32524018">quitGame</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classUserGame.html#ae680a6222715dc6c1437be45a63f4fb3">runGame</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classUserGame.html#aca91988a46f565e051a673321398c731">   44</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classPlayerCommunication.html">PlayerCommunication</a>&amp; <a class="code" href="classUserGame.html#aca91988a46f565e051a673321398c731">getCom</a>() { <span class="keywordflow">return</span> this-&gt;com; }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classUserGame.html#a2ec0b646790ded9e35e7eff946a997d4">   50</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classPlayer.html">Player</a>&amp; <a class="code" href="classUserGame.html#a2ec0b646790ded9e35e7eff946a997d4">getPlayer</a>() { <span class="keywordflow">return</span> this-&gt;player; }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classUserGame.html#a0edff95db9237301ca5f47a1c6984fc4">   56</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classUserGame.html#a0edff95db9237301ca5f47a1c6984fc4">getBetMin</a>() { <span class="keywordflow">return</span> UserGame::betMin; }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classUserGame.html#afa6357f4a870df9688c56e467a6cf009">   62</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classUserGame.html#afa6357f4a870df9688c56e467a6cf009">getBetMax</a>() { <span class="keywordflow">return</span> UserGame::betMax; }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classUserGame.html#aee63e44fb39f66ad74cd5a6c3b6f5a6c">   68</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classUserGame.html#aee63e44fb39f66ad74cd5a6c3b6f5a6c">setBetMin</a>(<span class="keywordtype">int</span> i) { betMin = i; }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classUserGame.html#a6a37401d738c893bf62cd0ea9bc553bc">   74</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classUserGame.html#a6a37401d738c893bf62cd0ea9bc553bc">setBetMax</a>(<span class="keywordtype">int</span> i) { betMax = i; }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> betMin; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> betMax; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="classPlayer.html">Player</a> player; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classPlayerCommunication.html">PlayerCommunication</a> com; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    std::string message; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="classHMI.html">HMI</a> ihm; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> initRound();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> runRound();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> chooseAction(<a class="code" href="classPlayerHand.html">PlayerHand</a>* myhand, <span class="keywordtype">int</span> secHand);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> endRound();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;};</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* USERGAME_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="classUserGame_html_a6a37401d738c893bf62cd0ea9bc553bc"><div class="ttname"><a href="classUserGame.html#a6a37401d738c893bf62cd0ea9bc553bc">UserGame::setBetMax</a></div><div class="ttdeci">static void setBetMax(int i)</div><div class="ttdef"><b>Definition:</b> UserGame.h:74</div></div>
+<div class="ttc" id="classUserGame_html_aee63e44fb39f66ad74cd5a6c3b6f5a6c"><div class="ttname"><a href="classUserGame.html#aee63e44fb39f66ad74cd5a6c3b6f5a6c">UserGame::setBetMin</a></div><div class="ttdeci">static void setBetMin(int i)</div><div class="ttdef"><b>Definition:</b> UserGame.h:68</div></div>
+<div class="ttc" id="classUserGame_html_aca91988a46f565e051a673321398c731"><div class="ttname"><a href="classUserGame.html#aca91988a46f565e051a673321398c731">UserGame::getCom</a></div><div class="ttdeci">PlayerCommunication &amp; getCom()</div><div class="ttdef"><b>Definition:</b> UserGame.h:44</div></div>
+<div class="ttc" id="classUserGame_html_aa1a4a7ce21a0f9df04fa3dcc184e3e5a"><div class="ttname"><a href="classUserGame.html#aa1a4a7ce21a0f9df04fa3dcc184e3e5a">UserGame::~UserGame</a></div><div class="ttdeci">virtual ~UserGame()</div><div class="ttdef"><b>Definition:</b> UserGame.cpp:27</div></div>
+<div class="ttc" id="classPlayerCommunication_html"><div class="ttname"><a href="classPlayerCommunication.html">PlayerCommunication</a></div><div class="ttdef"><b>Definition:</b> PlayerCommunication.h:16</div></div>
+<div class="ttc" id="classUserGame_html_afa6357f4a870df9688c56e467a6cf009"><div class="ttname"><a href="classUserGame.html#afa6357f4a870df9688c56e467a6cf009">UserGame::getBetMax</a></div><div class="ttdeci">static int getBetMax()</div><div class="ttdef"><b>Definition:</b> UserGame.h:62</div></div>
+<div class="ttc" id="classUserGame_html"><div class="ttname"><a href="classUserGame.html">UserGame</a></div><div class="ttdef"><b>Definition:</b> UserGame.h:16</div></div>
+<div class="ttc" id="classPlayerHand_html"><div class="ttname"><a href="classPlayerHand.html">PlayerHand</a></div><div class="ttdef"><b>Definition:</b> PlayerHand.h:10</div></div>
+<div class="ttc" id="classUserGame_html_adee3f9c91d00f284e4bfac6123103c41"><div class="ttname"><a href="classUserGame.html#adee3f9c91d00f284e4bfac6123103c41">UserGame::UserGame</a></div><div class="ttdeci">UserGame()</div><div class="ttdef"><b>Definition:</b> UserGame.cpp:15</div></div>
+<div class="ttc" id="classUserGame_html_a2ec0b646790ded9e35e7eff946a997d4"><div class="ttname"><a href="classUserGame.html#a2ec0b646790ded9e35e7eff946a997d4">UserGame::getPlayer</a></div><div class="ttdeci">Player &amp; getPlayer()</div><div class="ttdef"><b>Definition:</b> UserGame.h:50</div></div>
+<div class="ttc" id="classUserGame_html_ae680a6222715dc6c1437be45a63f4fb3"><div class="ttname"><a href="classUserGame.html#ae680a6222715dc6c1437be45a63f4fb3">UserGame::runGame</a></div><div class="ttdeci">void runGame()</div><div class="ttdef"><b>Definition:</b> UserGame.cpp:32</div></div>
+<div class="ttc" id="classHMI_html"><div class="ttname"><a href="classHMI.html">HMI</a></div><div class="ttdef"><b>Definition:</b> HMI.h:14</div></div>
+<div class="ttc" id="classUserGame_html_a0edff95db9237301ca5f47a1c6984fc4"><div class="ttname"><a href="classUserGame.html#a0edff95db9237301ca5f47a1c6984fc4">UserGame::getBetMin</a></div><div class="ttdeci">static int getBetMin()</div><div class="ttdef"><b>Definition:</b> UserGame.h:56</div></div>
+<div class="ttc" id="classUserGame_html_a0c375eaf2b4d663e03e0862b32524018"><div class="ttname"><a href="classUserGame.html#a0c375eaf2b4d663e03e0862b32524018">UserGame::quitGame</a></div><div class="ttdeci">void quitGame()</div><div class="ttdef"><b>Definition:</b> UserGame.cpp:92</div></div>
+<div class="ttc" id="classPlayer_html"><div class="ttname"><a href="classPlayer.html">Player</a></div><div class="ttdef"><b>Definition:</b> Player.h:14</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Jeudi 22 Mai 2014 16:03:12 pour Blackjack par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.7
+</small></address>
+</body>
+</html>
